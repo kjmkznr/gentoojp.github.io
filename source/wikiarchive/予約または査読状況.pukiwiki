@@ -1,0 +1,51 @@
+[[FrontPage]]
+
+*予約または査読状況 [#h0638dfd]
+
+GentooJP翻訳プロジェクトの予約または査読状況です。
+
+|予約日|翻訳者|対象|状態|査読者|
+|06/01/2011|liangtai.s4|Gentoo Bug Reporting Guide|査読中|shindo, naota, morota|
+|07/23/2011|blueberrycandle|Gentoo Linux Kernel Configuration Guide|コミット(11/18)|naota, morota|
+|08/16/2011|nogu.dev|Configuring the Kernel (PPC)|査読中|naota, morota|
+|          |     |Configuring the Bootloader (PPC)|査読中|naota|
+|08/29/2011|morota|Advanced Configuration|査読中||
+|          |      |Modular Networking|査読中||
+|          |      |Wireless Networking|翻訳中||
+|          |      |Adding Functionality|査読中||
+|09/04/2011|naota|Configuring the Kernel (x86/amd64)|コミット(11/07)|morota|
+|11/01/2011|naota|hb-install-config.xml |コミット(11/07)|morota|
+|11/01/2011|naota|hb-net-management.xml|コミット(11/07)|morota|
+|11/01/2011|naota|hb-working-features.xml|コミット(11/14)|morota|
+|11/03/2011|naota|hb-install-tools.xml|コミット(11/14)|morota|
+|11/07/2011|naota|hb-install-kernelparams.xml|コミット(11/15)|morota|
+|          |     |hb-install-x86+amd64-kernel.xml|コミット(11/14)|morota|
+|          |     |hb-install-ppc-disk.xml|コミット(11/14)|morota|
+|11/14/2011|naota|hb-install-filesystems.xml|査読中|morota|
+|11/23/2011|naota|hb-install-finalise.xml|コミット(11/26)||
+|11/28/2011|naota|hb-install-alpha-medium.xml|コミット(12/10)||
+|          |     |hb-install-hppa-medium.xml|コミット(12/10)||
+|          |     |hb-install-ia64-medium.xml|コミット(12/10)||
+|          |     |hb-install-ppc-medium.xml|コミット(12/10)||
+|          |     |hb-install-ppc64-medium.xml|コミット(12/10)||
+|          |     |hb-install-sparc-medium.xml|コミット(12/10)||
+|          |     |hb-install-x86+amd64-medium.xml|コミット(12/10)||
+|11/29/2011|naota|handbook/hb-working-portage.xml|コミット(3/8)|morota, hiyuh.root|
+|11/30/2011|naota|inserts.xml|コミット(12/10)||
+|12/06/2011|naota|hb-working-features.xml|コミット(12/10)||
+|12/15/2011|naota|hb-working-rcscripts.xml|査読中|morota|
+|12/27/2011|blueberrycandle|kernel-config.xml|コミット(1/28)|naota|
+|12/27/2011|naota|hb-install-next.xml|コミット(01/04)||
+|01/02/2012|naota|inserts.xml|コミット(01/11)||
+|01/11/2012|naota|handbook-amd64.xml|査読中||
+|          |     |gentoo-x86-quickinstall.xml|翻訳中||
+|01/12/2012|naota|openrc-migration.xml|翻訳中||
+|          |     |xorg-config.xml|翻訳中||
+|01/16/2012|naota|hb-portage-advanced.xml|コミット(2/21)|hiyuh.root|
+|          |     |handbook-x86.xml|査読中||
+|          |     |handbook-ppc.xml|査読中||
+|          |     |handbook-amd64.xml|査読中||
+|02/03/2012|naota|migration-to-2.6.xml|コミット(02/23)||
+|03/26/2012|altochiz|gcc-optimization.xml|翻訳中||
+
+~

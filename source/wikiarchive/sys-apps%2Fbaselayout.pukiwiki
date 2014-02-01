@@ -1,0 +1,169 @@
+#contents
+#title
+
+*Gentoo と baselayout [#l1d2621b]
+
+[[Gentoo]] は他ディストリビューションと構造が違う一面もあります。[[sys-apps/baselayout]] はその構造を示す [[ebuildパッケージ]]です。[[相撲コンピュータ:http://sumocomputer.com/html/Category-1-0.html]]などの組み込みの場合は(実際には採用されてませんが) [[sys-apps/baselayout-lite]] 構造、[[Linux Virtual Server (LVS):http://dev.gentoo.org/~hollow/vserver]] なら [[sys-apps/baselayout-vserver]] 構造になります。
+
+Linux の標準化を目指した [[Free Standards Group (FSG):http://www.osdl.jp/newsroom/press_releases/2004/2004_09_14_sanfrancisco.html]] の [[Linux Standards Base (LSB):http://www.linuxbase.org/]] との関係が今後も注目されるところです。
+
+BSD や MacOS や Solaris で [[Portage]] が動く様に、[[sys-apps/baselayout]] は [[Gentoo]] に必須でも、[[Portage]] に必須ではありません。
+
+**sysvinit 形式と initng 形式 [#r232aed7]
+
+現在コミュニティは [[sys-apps/baselayout]] により伝統的な [[sysvinit]] 形式を標準としていますが、次世代の [[initng]] 形式に変更する事も可能です。前者の [[sysvinit]] 形式 init スクリプトは sysvinit 形式標準のアルファベット順ではなく、依存関係順 (need-base) に実行されます。この変更はメジャー・ディストリビューションの中で[[ジェンツー]]だけのようです。後者の [[initng]] 形式は[[ジェンツー]]の [[Forums:http://forums.gentoo.org/]] で発表されました。しかし[[ジェンツー]]特有のプロジェクトではありません。高速にブートできます。
+
+また、コミュニティはデバイスファイルの管理についてもはや [[sys-fs/devfsd]] をサポートせず [[sys-fs/udev]] だけにしています。[[devfs ガイド:http://www.gentoo.org/doc/ja/devfs-guide.xml]]や [[udev ガイド:http://www.gentoo.org/doc/ja/udev-guide.xml]]に記事があります。GentooJP ドキュメントには [[Udev 手引書:http://www.gentoo.gr.jp/transdocs/decibelshelp/LinuxHelp_UDEVPrimer.html]]や [[Udev 設定ファイル手引書:http://www.gentoo.gr.jp/transdocs/udevrules/udevrules.html]]があり、サンプルとして [[Misc デバイス:http://www.gentoo.gr.jp/transdocs/decibelshelp/LinuxHelp_UDEVPrimerMisc.html]]が紹介されています。
+
+**ネットワーク・インターフェイス [#f444646f]
+
+[[ネットワーク・インターフェイス]]に関連記事があります。
+
+**ネットワーク・ファイルシステム [#w1c8787d]
+
+[[ネットワーク・ファイルシステム]]に関連記事があります。
+
+**ボリューム・マネージャ [#mb2c12e5]
+
+[[ボリューム・マネージャ]]に関連記事があります。
+
+**独特の init スクリプトはどうして産まれましたか？ [#h60789bf]
+
+そもそも本家には [[PR プロジェクト:http://www.gentoo.org/proj/en/pr/index.xml]]や [[Documentation プロジェクト:http://www.gentoo.org/proj/en/gdp/index.xml]]があります。[[GWN サブプロジェクト:http://www.gentoo.org/proj/en/pr/gwn.xml]]が発行している [[GWN]] や[[公式サイト:http://www.gentoo.org/]]のページを幾つか読んで貰うのが雰囲気を伝えるには早い気がします。
+
+技術的価値以外に、「わくわくする」とか「こころときめく」とかが少なくないようです。例えば NASA (米航空宇宙局)で採用された際のインタビュー記事でもそんなことが書かれてます。デベロッパの視点のもありますが、ユーザの視点のもあります。尖った個人というより、適材適所を実行するメリット云々に近いです。
+
+***開発者の Donny Davies (woodchip) 氏が仕事の都合上により辞任する際、御友人である開発者の Grant Goodyear 氏が投稿した開発者紹介の記事より... [#gf76cf8a]
+
+> 2001年9月2日に、彼はSVCサポートを外したリビジョンのSambaをコミットしていますから(当時のGentooでは、ほとんどのサーバープロセスはdaemontoolから起動されるようになっていました)、彼の在職期間は少なくともそこまでさかのぼれるわけです。
+
+> woodchipの初期の功績で私の印象に強く残っているのは、Gentoo Linux 1.0_rc6のPortageにおけるinitスクリプトの全面改訂です。 1.0_rc5までのGentooは、Stampede Linuxのをもとにした、ごく普通のrcスクリプトを使っていましたが、1.0_rc6において、Daniel Robbins(drobbins)とMartin Schlemmer(azarah)は、依存関係に基づく新しいinitスクリプトシステムを開発しました。今も使われているやつです。
+
+> とても短い期間でDonnyはPortageツリーにある個々のinitスクリプトを書き直して、マスクされたパッケージとしてコミットし、 1.0_rc6リリースを待ちました。新しいinitスクリプトにほとんど困難なしで移行できたことをwoodchipに(もちろん、drobbinsとazarahにも)感謝します。
+
+> 以来、woodchipはPortageにおけるいくつかの不可欠なパッケージをメンテナンス保守する任務を負いました。 Solarは最近ChangeLogにwoodchipの名前が含まれている全てのパッケージの リスト を投稿しました。その広範囲に渡ることは実に驚異的です。あまり目立たないけど、より重要なこととして、woodchipがGentooのPAM、Apache、そしてsambaの主要なメンテナであったことが挙げられます。 PAMがLinuxシステムにおけるユーザ識別を簡素化し、便利になるにつれて、PAMパッケージのメンテナンス作業は悪夢のようになってきました。というのも、PAMはその出自上、その最も使える機能はあからさまなRedHatパッチの寄せ集めとして成り立っていたからです。また、PAMは決して(あるいはほとんど)問題を起してはならないパッケージの一つです。 PAMの構成が壊れると、普通はそのマシンにログインできなくなります。...snip...
+
+過去の [[GWN]] より転載。
+
+**/etc/init.d と /etc/env.d と /etc/conf.d など [#zade97cf]
+
+[[ebuildパッケージ]]は [[*.ebuild]] だけではありません。[[Gentoo System ドキュメント:http://www.gentoo.org/doc/ja/index.xml?catid=gentoo]]に説明があります。
+
+***/etc/init.d の init スクリプトが実行される順番 [#nbe79904]
+
+sys-apps/baselayout-1.12.1 では以下の関係です。
+
+***bootmisc [#j02dbf74]
+- bootmisc: /sbin/sysctl, /sbin/env-update.sh, /sbin/pam_console_apply...
+-- use: clock, hostname
+-- need: localmount
+-- before: logger
+
+***checkfs [#u7842b2c]
+-checkfs: dm-crypt(), fsck...
+--need: checkroot, modules
+
+***checkroot [#bdb2e538]
+-checkroot: fsck...
+--before: *
+
+***clock [#efb030b0]
+-clock: /sbin/hwclock
+--need: localmount
+
+***consolefont [#i5e99955]
+-consolefont: /sbin/setfont...
+--need: localmount, keymaps
+--after: hotplug
+
+***hostname [#sec0a9d1]
+-hostname: /bin/hostname
+--need: checkroot
+
+***keymaps [#j7f6bed3]
+-keymaps: /usr/bin/kbd_mode, /bin/loadkeys, /usr/bin/dumpkeys...
+--need: localmount
+
+***local [#ycf48506]
+-local: /etc/conf.d/local.start, /etc/conf.d/local.stop
+--after: *
+
+***localmount [#t043e839]
+-localmount: /bin/mount, /sbin/swapon
+--need: checkfs
+
+***modules [#m2508d8f]
+-modules: /sbin/modprobe, /sbin/modules-update
+--need: checkroot
+--use: isapnp
+
+***net.lo [#e723f538]
+-net.lo: /sbin/ip...
+--need: localmount
+--after: bootmisc, hostname
+--use: isapnp, isdn, pcmcia, usb, wlan
+
+***netmount [#ob3494fe]
+-netmount: /bin/mount
+--need: net, portmap
+--use: nfs, nfsmount
+
+***numlock [#zcb5f0bb]
+-numlock: /usr/bin/setleds
+--need: localmount
+
+***rmnologin [#yfbbd7cc]
+-rmnologin: /etc/nologin
+--need: localmount
+
+***urandom [#u5602509]
+-urandom: /var/run/random-seed
+--need: localmount
+
+*sys-apps/baselayout-1.11.13 [#t3e2545a]
+
+以前と比べ、ネットワーク関係の [[sysvinit]] 形式の init スクリプトが大きく変更されています。[[initng]] 形式のスクリプトは含まれません。
+
+[[sys-apps/iproute2]] や [[net-wireless/wireless-tools]] 等も標準サポートです。それに伴ない[[ハンドブックのネットワーク関連記事:http://www.gentoo.org/doc/ja/handbook/handbook-x86.xml?part=4]]も大きく補強されています。編集を要求されるかもしれず、[[sys-apps/portage]] の [[etc-update]] コマンドまたは [[dispatch-conf]] コマンド(……将来的には [[app-admin/eselect]] ？)で変更点を確認しておくべきです。
+
+ /bin/rc-status
+ /sbin/MAKEDEV
+ /sbin/consoletype
+ /sbin/depscan.sh
+ /sbin/env-update.sh
+ /sbin/functions.sh
+ /sbin/modules-update
+ /sbin/rc
+ /sbin/rc-update
+ /sbin/runscript
+ /sbin/runscript.sh
+ /sbin/start-stop-daemon
+ /sbin/update-modules -> modules-update
+
+*sys-apps/baselayout-1.12.0 [#je41ee91]
+
+[[dev-lang/python]] の様に [[Slot]] ができない上、[[functions.sh]] 等が含まれる重要なパッケージです。平気で 30 個 40 個が [[etc-update]] コマンド結果になります。/etc/conf.d/rc や /etc/init.d の差が主な相違です。要求されなければ無理に最新版にする義理もありません。
+
+________
+
+[[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]) の詳細は[[プロジェクトリスト:http://www.gentoo.org/proj/en/metastructure/projects.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]), [[Gentoo FAQ:http://www.gentoo.org/doc/ja/?catid=faq]], [[GentooJP FAQ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A3%C6%A3%C1%A3%D1%5D%5D]]
+- [[インストール]], [[Stage]], [[GRP]], [[Portageツリー]]
+- [[インストールした後にできること]], [[日本語入力設定事例集]], [[日本語デスクトップ環境/パッケージ]]
+- [[Gentooが採用している技術]]
+- [[コミュニティとの連絡手段]], [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]
+- [[本家に関連しそうな言葉]], [[GLEP]], [[コピーライト]], [[ライセンス]]
+
+[[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]]) の詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]])
+- [[メタ・ディストリビューション]], [[USEフラグ]], [[profile]], [[catalyst]], [[GNAP]]
+- [[コンパイル]], [[バイナリパッケージ]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+
+________
+
+-[2005-09-19] (yoshino)
+-[2006-09-17] 自分が調べた際のメモをほぼそのまま貼りつけているだけだったのを省察しました。 (yoshino)

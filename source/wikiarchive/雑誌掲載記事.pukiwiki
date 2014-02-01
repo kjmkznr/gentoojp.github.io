@@ -1,0 +1,57 @@
+*掲載雑誌 [#r11d850e]
+
+Gentoo Linuxが紹介された雑誌記事一覧です。
+
+-[[Software Design:http://www.gihyo.co.jp/magazines/SD]]
+--[[2002年7月号 徹底検証！Gentoo Linux:http://www.gihyo.co.jp/magazines/SD/archive/200207]] 
+--[[2003年4月号 Gentoo Linux再び:http://www.gihyo.co.jp/magazines/SD/archive/200304]] 
+--[[2004年1月号 Gentoo Linuxパッケージ作成ガイド【前編】:http://www.gihyo.co.jp/magazines/SD/archive/200401]]
+--[[2004年2月号 Gentoo Linuxパッケージ作成ガイド【後編】:http://www.gihyo.co.jp/magazines/SD/archive/200402]]
+--[[2004年12月号 Gentoo Linuxパッケージ操作研究【前編】:http://www.gihyo.co.jp/magazines/SD/archive/200412]]
+--[[2005年1月号 Gentoo Linuxパッケージ操作研究【後編】:http://www.gihyo.co.jp/magazines/SD/archive/200501]]
+--[[2005年3月号 Mac OS XでPortageを使おう！〜Gentoo for Mac OS X、インストールから使用法まで:http://www.gihyo.co.jp/magazines/SD/archive/200503]]
+--[[2005年6月号 Gentoo Linux 初期起動サービス徹底攻略:http://www.gihyo.co.jp/magazines/SD/archive/200506]]
+
+-[[UNIX USER:http://www.unixuser.jp/magazine/]]
+--[[2002/10 楽しそうなGentoo Linux♪:http://www.unixuser.jp/magazine/2002/200210.html]] 
+--[[2003/09 Gentoo LiveCDでMac OS X/分散コンパイル:http://www.unixuser.jp/magazine/2003/200309.html]]
+--[[2004/05 Gentoo Linuxを選ぶ理由:http://www.unixuser.jp/magazine/2004/200405.html]]
+
+-[[Linux magazine:http://linux.ascii24.com/linux/linuxmag/]]
+--[[2002年6月 Gentoo Linux 自分で何でも行いたいユーザーなら、これ:http://linux.ascii24.com/linux/linuxmag/backnumber/index0206.html]]
+--[[2003年7月 Gentoo Linux道:http://linux.ascii24.com/linux/linuxmag/backnumber/index0307.html]]
+--[[2003年8月 Gentoo Linux道:http://linux.ascii24.com/linux/linuxmag/backnumber/index0308.html]]
+--[[2003年9月 Gentoo Linux道:http://linux.ascii24.com/linux/linuxmag/backnumber/index0309.html]]
+--[[2003年10月 Gentoo Linux道:http://linux.ascii24.com/linux/linuxmag/backnumber/index0310.html]]
+--[[2003年11月 Gentoo Linux道:http://linux.ascii24.com/linux/linuxmag/backnumber/index0311.html]]
+
+-[[LinuxWorld:http://www.idg.co.jp/lw/]]
+--連載 光ファイバで自宅にWebサイトを！プロジェクト
+---[[2004/01 第31回 カッコいいぜ！ Gentoo!!:http://direct.idg.co.jp/detail_1.msp?id=970&class=10006&n=2]]
+---[[2004/02 第32回 未開の地"Unstable"の世界へ:http://direct.idg.co.jp/detail_1.msp?id=986&class=10006&n=2]]
+---[[2004/03 第33回 え！？ もうバージョンアップ？ 急いでGentooサーバを整える:http://direct.idg.co.jp/detail_1.msp?id=997&class=10006&n=2]]
+---[[2004/04 第34回 Gentooのカーネルをバージョンアップ:http://direct.idg.co.jp/detail_1.msp?id=1008&class=10006&n=2]]
+---[[2004/05 第35回 Gentooのアップデート方法:http://direct.idg.co.jp/detail_1.msp?id=1028&class=10006&n=2]]
+---[[2004/06 第36回 Gentooの定期実行スクリプト:http://direct.idg.co.jp/detail_.msp?id=1054&class=10001&n=1]]
+
+-[[LinuxPower:http://www.enterbrain.co.jp/techwin/data/book/linux/index.html]] Gentooは素敵さ〜！　ジェンツーぐらし〜オレとGentooの日々〜 [[PDF:http://www.gentoo.gr.jp/articles/linuxpower90_97.pdf]]
+
+-[[php programmers magazine:http://www.phppro.jp/]]
+--[[2004年1月号 より良いインストールに向けて:http://www.phppro.jp/backnumber/issue/200401/]]
+
+
+*雑誌付録メディア収録 [#t0970cb7]
+
+以下はGentoo Linuxが付録メディアに収録された雑誌です。
+-[[UNIX USER 2002/10:http://www.unixuser.jp/magazine/2002/200210.html]] Gentoo Linux 1.2
+-[[Linux magazine 2003年8月号:http://linux.ascii24.com/linux/linuxmag/backnumber/index0308.html]] Gentoo Linux 1.4_rc4
+-[[UNIX USER 2003/09:http://www.unixuser.jp/magazine/2003/200309.html]] Gentoo Linux LiveCD (ppc版,i386版)
+-[[Linux magazine 2003年11月号:http://linux.ascii24.com/linux/linuxmag/backnumber/index0311.html]] Gentoo Linux 1.4
+-[[日経Linux 2003年11月号:http://bpstore.nikkeibp.co.jp/mokuji/lin050.html]] Gentoo Linux 1.4(x86版)
+-[[LinuxWorld 2003年12月号:http://direct.idg.co.jp/detail_1.msp?id=961&class=10006&n=2]] Gentoo Linux 1.4(x86版) 2枚組
+-[[UNIX USER 2004/05:http://www.unixuser.jp/magazine/2004/200405.html]] Gentoo Linux 2004.0
+-[[UNIX USER 2004/09:http://www.unixuser.jp/magazine/2004/200409.html]] Gentoo MacOS
+-[[UNIX USER 2004/11:http://www.unixuser.jp/magazine/2004/200411.html]] Gentoo Linux 2004.2-r1 x86 Minimal LiveCD
+-[[UNIX USER 2005/06:http://www.unixuser.jp/magazine/2005/200506.html]] Gentoo Linux 2005.0
+-[[日経Linux 2006年2月号:http://bpstore.nikkeibp.co.jp/mokuji/lin077.html]] Gentoo Linux 2005.1-r1
+-[[オープンソースマガジン 2006/11:http://www.unixuser.jp/magazine/2006/200611.html]] Gentoo Linux 2006.1

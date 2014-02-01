@@ -1,0 +1,299 @@
+#contents
+#title
+
+*/etc/make.conf.example にテンプレートがあります [#i140a05b]
+
+標準ではほとんど利用されません。標準で必要なものは[[ハンドブック]]や [[Gentoo System ドキュメント:http://www.gentoo.org/doc/ja/index.xml?catid=gentoo]]に説明されています。
+
+*sys-apps/portage [#ae4f4fc3]
+
+[[Portage]]内部処理で使われている環境変数のだいたいの目安です。
+
+***PORTDIR [#g516e1da]
+
+:PORTDIR|デフォルトは /usr/portage になります。[[Portageツリー]] に関連記事があります。
+
+***DISTDIR [#wecdbca0]
+
+:DISTDIR|デフォルトは $PORTDIR/distfiles になります。[[distfiles]] に関連記事があります。
+
+***PKGDIR [#t635a508]
+
+:PKGDIR|デフォルトは $PORTDIR/packages になります。[[packages]] に関連記事があります。
+
+***RPMDIR [#a35358b8]
+
+:RPMDIR|デフォルトは $PORTDIR/rpm になります。
+
+***PORTAGE_TMPDIR [#l4f59d8b]
+
+:PORTAGE_TMPDIR|デフォルトは /var/tmp になります。
+
+***BUILD_PREFIX [#s673bf52]
+
+:BUILD_PREFIX|デフォルトは $PORTAGE_TMPDIR/portage になります。
+
+***PORTAGE_TMPFS [#d42f2ae0]
+
+:PORTAGE_TMPFS|デフォルトは /dev/shm になります。
+
+***PORTAGE_OVERLAY [#fc746ec8]
+
+:PORTAGE_OVERLAY|デフォルトはありません。ディレクトリを列挙します。区切り文字 " " (スペース)で複数指定できます。$PORTDIR 以外にもサードパーティ製の [[Portageツリー]]があることを伝え、追加検索するよう [[Portage]] へ指示するものです。[[Portageオーバーレイ]]、[[app-portage/layman]] に関連記事があります。
+
+***SYNC [#b148b294]
+
+:SYNC|[[Portageツリー]]の同期先を指定します。rsync://rsync.jp.gentoo.org/gentoo-portage などが妥当です。ディレクトリではなく、[[net-misc/rsync ]] のディレクティブ登録名を指定するので最後に "/" は不要です。[[ミラーリング]]に関連記事があります。
+
+***GENTOO_MIRRORS [#yf6bc278]
+
+:GENTOO_MIRRORS|ソースファイルやパッチファイルのダウンロード先、つまり[[ミラーリング]]を指定します。http://mirrir.gentoo.gr.jp などです。区切り文字 " " (スペース)で複数指定できます。[[ミラーリング]]に関連記事があります。
+
+***PORTAGE_BINHOST [#c2a91f62]
+
+:PORTAGE_BINHOST|デフォルトはありません。バイナリファイルのダウンロード先、つまり LAN 内のサーバを指定します。ftp://username:password@hostname:port/usr/portage/packages/All などです。[[ミラーリング]]に関連記事があります。
+
+***http_proxy [#r8eb9b01]
+
+:http_proxy|デフォルトはありません。プロクシサーバ先を指定します。http://username:password@hostname:port/ などです。[[ミラーリング]]に関連記事があります。
+
+***ftp_proxy [#j6263010]
+
+:ftp_proxy|デフォルトはありません。プロクシサーバ先を指定します。[[ミラーリング]]に関連記事があります。
+
+***RSYNC_PROXY [#b663b1be]
+
+:RSYNC_PROXY|デフォルトはありません。プロクシサーバ先を指定します。[[ミラーリング]]に関連記事があります。
+
+***RSYNC_EXCLUDEFROM [#xc77e5fa]
+
+:RSYNC_EXCLUDEFROM|デフォルトはありません。`emerge --sync` の対象にしないディレクトリが列挙して記述してあるテキストファイルを指定します。/etc/portage/rsync_excludes などです。
+
+***RSYNC_RETRIES [#kf7388a1]
+
+:RSYNC_RETRIES|3回です。
+
+***RSYNC_TIMEOUT [#p46fef03]
+
+:RSYNC_TIMEOUT|180秒です。
+
+***FETCHCOMMAND [#fdd93a44]
+
+:FETCHCOMMAND|/usr/bin/wget -t 5 --passive-ftp --proxy-user=username --proxy-password=password -P $DISTDIR $URI です。
+
+***RESUMECOMMAND [#y6033689]
+
+:RESUMECOMMAND|/usr/bin/wget -t 5 --passive-ftp -c --proxy-user=username --proxy-password=password -P DISTDIR $URI です。
+
+***ACCEPT_KEYWORDS [#rf058bee]
+
+:ACCEPT_KEYWORDS|上書きではなく累積します。明示して取り消す必要があります。区切り文字 " " (スペース)で複数指定できます。例えば "amd64" は [[stable]] を許可します。"~amd64" は [[testing]] を許可します。例えば "-amd64" は [[stable]] を取り消します。"-~amd64" は [[testing]] を取り消します。パッケージ毎に指定したい場合は、/etc/portage/package.keywords を使いこちらは使わないで下さい。[[profile]] に関連記事があります。
+
+***CLEAN_DELAY [#pbd91311]
+
+:CLEAN_DELAY|5秒です。
+
+***EBEEP_IGNORE [#rdae4200]
+
+:EBEEP_IGNORE|デフォルトはありません。
+
+***EPAUSE_IGNORE [#waadd3f1]
+
+:EPAUSE_IGNORE|デフォルトはありません。
+
+***NOCOLOR [#o561673a]
+
+:NOCOLOR|"false" です。
+
+***PORTAGE_NICENESS [#t915623d]
+
+:PORTAGE_NICENESS|優先度低下幅は "5" です。
+
+***ROOT [#a00698ea]
+
+:ROOT|"/" です。[[マージ]]のルートディレクトリを指定します。ルートファイルシステムである必要はありません。マウント先を指定できます。マウント先の環境に[[コンパイラ]]が必要なくなります。
+
+***CONFIG_PROTECT [#d9e1db31]
+
+:CONFIG_PROTECT|上書きではなく累積します。明示して取り消す必要があります。区切り文字 " " (スペース)で複数指定できます。自動で上書きしないディレクトリを指示します。
+
+***CONFIG_PROTECT_MASK [#l52aecae]
+
+:CONFIG_PROTECT_MASK|上書きではなく累積します。明示して取り消す必要があります。区切り文字 " " (スペース)で複数指定できます。$CONFIG_PROTECT 下階層で、自動で上書きするディレクトリを指示します。
+
+***USE_ORDER [#va4830c4]
+
+:USE_ORDER|[[USEフラグ]]の読み込み順です。
+
+***USE [#ta04d7a8]
+
+:USE|上書きではなく累積します。明示して取り消す必要があります。区切り文字 " " (スペース)で複数指定できます。[[USEフラグ]]です。パッケージ毎に指定したい場合は、/etc/portage/package.use を使いこの環境変数は使わないで下さい。[[USEフラグ]]に関連記事があります。
+
+***PORTAGE_GPG_KEY [#y519e8e5]
+
+:PORTAGE_GPG_KEY|[[gentoo.gpg]] に関連記事があります。
+
+***PORTAGE_GPG_DIR [#j48f2f73]
+
+:PORTAGE_GPG_DIR|[[GPG署名]]に関連記事があります。
+
+***AUTOCLEAN [#lff34281]
+
+:AUTOCLEAN|"yes" です。
+
+***PORTAGE_CACHE_METHOD [#b0634dfe]
+
+:PORTAGE_CACHE_METHOD|"backport" です。
+
+***CBUILD [#facb0c31]
+
+:CBUILD|デフォルトはありません。
+
+***CHOST [#b9bbda32]
+
+:CHOST|x86 ファミリでは "i686-pc-linux-gnu" です。
+
+***CTARGET [#e8a33e71]
+
+:CTARGET|デフォルトはありません。
+
+***CFLAGS [#f07760fc]
+
+:CFLAGS|x86 ファミリでは "-mtune=pentium4 -O2" です。
+
+***CXXFLAGS [#ze8335b8]
+
+:CXXFLAGS|$CFLAGS です。
+
+***MAKEOPTS [#f778661d]
+
+:MAKEOPTS|"-j2" です。
+
+***ASFLAGS [#p2087bc6]
+
+:ASFLAGS|デフォルトはありません。
+
+***LDFLAGS [#p6d5f5b1]
+
+:LDFLAGS|デフォルトはありません。
+
+***CCACHE_SIZE [#fda588d4]
+
+:CCACHE_SIZE|"2G" です。
+
+***DISTCC_HOSTS [#i21aae6b]
+
+:DISTCC_HOSTS|デフォルトはありません。区切り文字 " " (スペース)で複数指定できます。
+
+***DISTCC_DIR [#zff8bd80]
+
+:DISTCC_DIR|$PORTAGE_TMPDIR/.distcc です。
+
+***LANG [#v5d51c4f]
+
+:LANG|デフォルトはありません。
+
+***LC_ALL [#g39468f3]
+
+:LC_ALL|デフォルトはありません。
+
+***LINGUAS [#nc987177]
+
+:LINGUAS|インストールしたい言語を指定します。デフォルトはありません。日本語ならば ja です。区切り文字 " " (スペース)で複数指定できます。
+
+***FEATURES [#u130c0f1]
+
+:FEATURES|[[FEATURES]] に関連記事があります。
+
+***PORTAGE_LOGDIR [#ra9a844f]
+
+:PORTAGE_LOGDIR|デフォルトはありません。/var/log/portgae とでもすると各パッケージの[[ビルド]]の経過が保存されます。[[バグ報告]]に便利です。
+
+***PORTAGE_ELOG_CLASSES [#v6692bc0]
+
+:PORTAGE_ELOG_CLASSES|ロギングの内容を指定します。区切り文字 " " (スペース)で複数指定できます。
+
+***PORTAGE_ELOG_SYSTEM [#vae9bfff]
+
+:PORTAGE_ELOG_SYSTEM|ロギングの機能を指定します。区切り文字 " " (スペース)で複数指定できます。
+
+***PORTAGE_ELOG_COMMAND [#p4ab44a3]
+
+:PORTAGE_ELOG_COMMAND|ロギングのコマンドをカスタマイズするときに使います。
+
+***PORTAGE_ELOG_MAILURI [#s48c3024]
+
+:PORTAGE_ELOG_MAILURI|ロギングのメールサーバと報告の宛先を指定します。
+
+***USE_EXPAND [#u1b1b692]
+
+:USE_EXPAND|上書きではなく累積します。明示して取り消す必要があります。区切り文字 " " (スペース)で複数指定できます。
+
+***USE_EXPAND_HIDDEN [#c9c157d5]
+
+:USE_EXPAND_HIDDEN|上書きではなく累積します。明示して取り消す必要があります。区切り文字 " " (スペース)で複数指定できます。
+
+***PRELINK_PATH [#e2da5993]
+
+:PRELINK_PATH|上書きではなく累積します。明示して取り消す必要があります。区切り文字 " " (スペース)で複数指定できます。
+
+***PRELINK_PATH_MASK [#vb0a0375]
+
+:PRELINK_PATH_MASK|上書きではなく累積します。明示して取り消す必要があります。区切り文字 " " (スペース)で複数指定できます。
+
+*より強いメタ・ディストリビューションの実現へ [#af01857a]
+
+新しい[[Portage変数]]です。実験的なものもあります。動かなくなって困るものには試さないで下さい。
+
+***ARCH [#aec01b24]
+
+:ARCH|x86 | amd64 | ppc | etc...
+
+***USERLAND [#k0a8cd24]
+
+:USERLAND|GNU | BSD | cygwin | etc...
+
+***PORTAGE_LIBC [#a0b3997f]
+
+:PORTAGE_LIBC|glibc | uclibc | BSD libc | etc...
+
+***PROFILE_ARCH [#sb677931]
+
+:PROFILE_ARCH|x86 | amd64 | ppc | etc...
+
+***STAGE1_USE [#a5a36577]
+:STAGE1_USE|[[USEフラグ]]
+
+***GRP_STAGE23_USE [#t4c0dc1f]
+
+:GRP_STAGE23_USE|[[USEフラグ]]
+
+***ACCEPT_LICENSE [#z4fe82eb]
+
+:ACCEPT_LICENSE|上書きではなく累積します。明示して取り消す必要があります。区切り文字 " " (スペース)で複数指定できます。
+
+________
+
+[[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]) の詳細は[[プロジェクトリスト:http://www.gentoo.org/proj/en/metastructure/projects.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]), [[Gentoo FAQ:http://www.gentoo.org/doc/ja/?catid=faq]], [[GentooJP FAQ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A3%C6%A3%C1%A3%D1%5D%5D]]
+- [[インストール]], [[Stage]], [[GRP]], [[Portageツリー]]
+- [[インストールした後にできること]], [[日本語入力設定事例集]], [[日本語デスクトップ環境/パッケージ]]
+- [[Gentooが採用している技術]]
+- [[コミュニティとの連絡手段]], [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]
+- [[本家に関連しそうな言葉]], [[GLEP]], [[コピーライト]], [[ライセンス]]
+
+[[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]]) の詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]])
+- [[メタ・ディストリビューション]], [[USEフラグ]], [[profile]], [[catalyst]], [[GNAP]]
+- [[コンパイル]], [[バイナリパッケージ]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+
+________
+
+-[2005-12-30]
+-[2006-03-19] 上記より更に追加されてます。修正お願いします。 (yoshino)
+-[2006-03-30] LINGUAS に追記。(mft)
+-[2006-09-17] 「ポーテージ変数」から「Portage変数」へ URI 移動 (yoshino)

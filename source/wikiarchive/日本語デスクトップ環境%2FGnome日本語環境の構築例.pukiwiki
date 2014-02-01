@@ -1,0 +1,97 @@
+#navi([[日本語デスクトップ環境]])
+
+*ja-gnomeに必要そうな設定 [#m30af787]
+
+この文書は作成途中です。 -- [[Yasumichi:http://win2linux.sourceforge.jp/]]
+
+*言語設定(共通) [#j37b904e]
+
+~/.bash_profileに以下を追加。
+
+ LANG=ja_JP.eucJP
+
+*フォント周り [#jf0a97cb]
+
+日本語フォントをインストールした場合、/etc/X11/XF86ConfigにFontPath
+を修正するだけでは不十分。/etc/fonts/local.confを修正する必要がある。
+たとえば
+
+ <?xml version="1.0"?>
+ <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+ <!-- /etc/fonts/local.conf file to configure system font access -->
+ <fontconfig>
+ 
+ <!-- Font directory list configured on  -->
+ 
+         <dir>/usr/X11R6/lib/X11/fonts/truetype</dir>
+         <dir>/usr/share/fonts/ttf/ja</dir>
+ 
+ </fontconfig>
+
+のように書きます。
+
+この設定を行わないと「ー」などが麻雀牌の様になってしまいます。
+
+※この設定は、Xftフォントサブシステムを利用している場合の設定。デフォルトでは、これを利用するようになっている。(?)Xft未対応のアプリを使わない場合、/etc/X11/XF86Configは特に編集する必要はないらしい。
+
+※/etc/fonts/local.confへの変更を再起動なしで適用するには、fc-cacheを実行する必要がある。
+
+*日本語入力関係 [#b94f519d]
+
+**canna + kinput2の場合 [#ya7fcdff]
+
+kinput2 を emerge する際に USE フラグに canna を足す必要がある。
+
+***startx で X を利用する場合 [#fe9be139]
+
+~/.xinitrcを準備。
+
+ #!/bin/sh
+ export XMODIFIERS="@im=kinput2"
+ kinput2 -canna &
+ gnome-session
+
+***gdm から 起動する場合 [#l67a8059]
+
+~/.gnomerc を作成
+
+ #!/bin/sh
+ export XMODIFIERS=@im=kinput2
+ kinput2 &
+ gnome-session
+
+なお、実行権限を与える必要あり。
+
+この場合だけではないが、ユーザのホームディレクトリで対処しようとすると面倒かもしれない。/etc/X11/gdm/Sessions/Gnomeあたりでlocaleなどを確認して起動するように修正しても良いのでは。後、Vineのsetimeの様な機構があるかとkinput2+Cannaに縛られなくて良くなりそう。
+
+**anthy + uimの場合 [#fedc7007]
+
+http://anthy.dyndns.info/index.php?%5B%5Buim%A4%AB%A4%E9%BB%C8%A4%A6%5D%5D を参考に。
+
+***gdm から 起動する場合 [#s1fc814a]
+
+~/.gnomerc
+
+ #!/bin/sh
+ GTK_IM_MODULE=uim-anthy
+ export GTK_IM_MODULE
+ export GTK_IM_MODULE_FILE=~/gtk.immodules
+ /usr/X11R6/bin/numlockx
+ gnome-session
+
+~/gtk.immodulesの準備
+
+ $ cp /etc/gtk-2.0/gtk.immodules ~/
+
+下記のラインの位置を変更
+
+ "uim-anthy" "uim-anthy (ja)" "gtk+" "" "ja"
+
+"ja"の一番最後に持ってくる。
+
+*参考文献等 [#v5fce9ef]
+
+-技術評論社 SoftwareDesign 2003年4月号『Gentoo Linux再び』
+-[[Gentoo Linux メモ:http://www.deer-n-horse.jp/linux/gentoo/]]
+
+#navi([[日本語デスクトップ環境]])

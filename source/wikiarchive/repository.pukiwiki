@@ -1,0 +1,153 @@
+#title
+#contents
+
+* Repository [#pcec980b]
+
+ebuild file [ebuild_files]_ の集合体に限らず、ファイルの集合体を表わす単位です。ディレクトリ・パスではなく識別子で区別します。集合体がどの様な構造、つまりどんなディレクトリがありどんなファイルを含むのか、をレイアウトと呼びます。本家 foo の repository、自家製 bar の repository、友人 baz の repository、企業 qux の repository、2 年前のスナップショット quux の repository, et al. の混在が許されています。
+
+* Tree Layout [#bd650b33]
+
+ローカルな ebuild repository (slave repository) [slave_repository]_ を作成してみたい人へ簡単に紹介してみます。
+
+*** primary/parent/master repository and secondary/child/slave repository [#je8f1f2d]
+
+master は基本レイアウトとなるレポジトリ。/usr/portage など。slave は重ねるレポジトリ。/usr/local/portage など。master と slave で優先/親子/主従関係を示します。profile の読み込み順と継承に意味があります。どちらでも必要なファイルは同じです。
+
+Portage は /usr/portage だけが master repository であり、 slave repository は 0 個です。
+
+Paludis は最初から 4 つの master repository と 0 個の slave repository があります。
+
+*** tree [#b6449f7b]
+
+tree は repository の一種です。親子関係後の木構造を示します。portage tree ならば gentoo repository、つまり本家が提供する repository と言う点を強調します。
+
+*** overlays [#s9877e62]
+
+overlays は repository の一種です。本家以外が提供する repository と言う点を強調します。
+
+** ebuild repository [#yf0f5492]
+
+ebuild file 群を指す場合は ebuild repository と強調する場合があります。結論からすると逆計算して作るのなら ebuild file 一枚あれば成立します。普通は ebuild file 一枚に数枚の補助ファイルがあった方がいろいろ応用が可能です。:
+
+ + ebuild_repository
+   + <category> [A-za-z0-9_-]+
+     - metadata.xml              /* optional */
+     + <package> [A-za-z0-9+_.-]+
+       - <$PF>.ebuild
+       - metadata.xml            /* optional */
+       - ChangeLog               /* optional */
+       - Manifest                /* 検査しないなら不要 */
+       + files                   /* optional */
+         - else (any)            /* optional */
+       - else (any)              /* optional */
+   + profile
+     - /* see below */
+   + licenses                    /* ebuild file で新しく追加してなければ不要 */
+     - <license>                 /* ebuild file で新しく追加してなければ不要 */
+   + eclass                      /* ebuild file で新しく追加してなければ不要 */
+     - <eclass>.eclass           /* ebuild file で新しく追加してなければ不要 */
+   + metadata                    /* optional */
+     + cache                     /* optional */
+       + <category>              /* optional */
+         - <$PF>                 /* optional */
+     + glsa                      /* optional */
+       - glsa-YYYYMM-DD.xml      /* optional */
+     + dtd                       /* optional */
+       - <xml>.dtd               /* optional */
+     - timestamp                 /* optional */
+     - else (any)                /* optional */
+   + else (any)                  /* optional */
+
+
+
+** profile -- profiles and profile directory [#m788efff]
+
+どちらを指すのかは文脈で判断します。
+
+*** profiles (dynamic profile) [#icfd7bb8]
+
+make.profile のシンボリックリンク先のディレクトリで、デフォルト設定とします。:
+
+ + make.profile        /* 無くても動くけど、公開するなら用意すべき */
+   - parent
+   - deprecated
+   - virtuals
+   - use.defaults
+   - use.force
+   - use.mask
+   - package.use.force
+   - package.use.mask
+   - packages
+   - packages.build
+   - package.mask
+   - package.provided
+   - make.defaults
+
+*** profile directory (static profile) [#b8956244]
+
+repository に含まれるファイル群に関する情報です。:
+
+ + profiles              /* 無くても動くけど、公開するなら用意すべき */
+  - repo_name
+  - arch.list
+  - categories
+  - info_pkgs
+  - info_vars
+  - package.mask
+  - profiles.desc
+  - use.desc
+  - use.local.desc
+  + desc
+    - $USE_EXPAND.desc
+  + updates
+    - [1-4]Q-[0-9]{4}
+  - thirdpartymirrors
+  + <dynamic-profile>    /* ココである必要は無い */
+    - /* see above */
+
+_____
+
+.. [GPM] http://wiki.gentoo.gr.jp/index.php?Gentoo_Package_Manager に関連記事があります。
+
+.. [GPMS] http://dev.gentoo.org/~spb/pms.pdf が PDF です。
+
+.. [repository] http://wiki.gentoo.gr.jp/index.php?repository に関連記事があります。
+
+.. [USE_flag] http://wiki.gentoo.gr.jp/index.php?USE_flag に関連記事があります。
+
+.. [profile] http://wiki.gentoo.gr.jp/index.php?profile に関連記事があります。
+
+.. [ebuild_metadata(ebuild-defined_variables)] http://wiki.gentoo.gr.jp/index.php?ebuild_metadata(ebuild-defined_variables) に関連記事があります。
+
+.. [the_ebuild_environment(defined_variables)] http://wiki.gentoo.gr.jp/index.php?the_ebuild_environment(defined_variables) に関連記事があります。
+
+.. [ebuild_phase(ebuild-defined_functions)] http://wiki.gentoo.gr.jp/index.php?ebuild_phase(ebuild-defined_functions) に関連記事があります。
+
+.. [the_ebuild_environment(defined_commands)] http://wiki.gentoo.gr.jp/index.php?the_ebuild_environment(defined_commands) に関連記事があります。
+
+.. [ebuild_files] http://wiki.gentoo.gr.jp/index.php?ebuild_files に関連記事があります。
+
+.. [ebuild_package] http://wiki.gentoo.gr.jp/index.php?ebuildパッケージ に関連記事があります。
+
+.. [Portage] http://www.gentoo.org/proj/en/portage/index.xml が公式サイトです。
+
+.. [Paludis] http://paludis.pioto.org/ が公式サイトです。
+
+.. [master_repository] 基本レイアウトとなるレポジトリ。/usr/portage など。master と slave で優先/親子/主従関係を示します。profile の読み込み順と継承に意味があります。どちらでも必要なファイルは同じです。
+
+.. [slave_repository] 重ねるレポジトリ。/usr/local/portage など。master と slave で優先/親子/主従関係を示します。profile の読み込み順と継承に意味があります。どちらでも必要なファイルは同じです。
+
+________________
+
+
+- [[Gentoo_Package_Manager]], [[Portage]], [[Paludis]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+- [[memorandum_about_Paludis(1)]], [[memorandum_about_Paludis(2)]], [[memorandum_about_Paludis(3)]], [[memorandum_about_Paludis(4)]], [[memorandum_about_Paludis(5)]], [[memorandum_about_Paludis(6)]], [[memorandum_about_Paludis(7)]], [[memorandum_about_Paludis(8)]], [[memorandum_about_Paludis(9)]], [[memorandum_about_Paludis(10)]], [[memorandum_about_Paludis(11)]], [[memorandum_about_Paludis(12)]], [[memorandum_about_Paludis(13)]], [[memorandum_about_Paludis(14)]], [[memorandum_about_Paludis(15)]], [[memorandum_about_Paludis(16)]]
+- [[repository]], [[USE_flag]], [[profile]]
+- [[ebuild_files]], [[ebuild_metadata(ebuild-defined_variables)]], [[ebuild_phase(ebuild-defined_functions)]], [[the_ebuild_environment(defined_variables)]], [[the_ebuild_environment(defined_commands)]], [[bash_for_ebuild]]
+
+
+________________
+
+- [2007-05-04] 気に入ったら書き足して下さい。 (yoshino)

@@ -1,0 +1,72 @@
+#contents
+#title
+
+*Portage と Portageオーバーレイ (overlays) [#ge487ac9]
+
+「Portage」と「オーバーレイ」ではなく「Portageオーバーレイ」で 1 つのジェンツー用語です。プログラミングの概念上の言葉で分割なんとか……とか難しく考えなくて平気です。悩むぐらいなら「サードパーティの [[Portageツリー]]を追加検索する機能」または「追加検索対象となるサードパーティの [[Portageツリー]]」ぐらいで通じます。ローカルに複数の独自 [[tree]] を用意しなくとも、複数のサードパーティ [[tree]] を拝借できます。
+
+多くのサードパーティは、本家の [[Portageツリー]]が更新に対し慎重になっていることへの解決策になっています。但し此れ等は [[stable]] ではなく、[[testing]] どころか [[mask]] を補佐するものです。研究や商業、一次配布元への直接バグ報告目的などが例です。
+
+
+[[overlays]] は公式の [[tree]] ではありませんが、[[overlays]] を集中管理する公式サイトがあります。[[app-portage/layman]] で利用できます。[[ebuildjp:http://ebuild.gentoo.gr.jp/]] も登録されています。
+
+- http://overlays.gentoo.org/
+- http://ebuild.gentoo.gr.jp/
+
+***「オーバーレイ」(辞書検索例) [#o849018e]
+
+[[wikipedia:http://ja.wikipedia.org/wiki/%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%9A%E3%83%BC%E3%82%B8]] の「[[オーバーレイ:http://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%83%90%E3%83%BC%E3%83%AC%E3%82%A4]]」参考。
+
+*** repository [#z141b480]
+
+[[overlays]] は [[repository]] の一種です。本家以外が提供する [[repository]] と言う点を強調します。
+
+**emerge --sync [#f9289c09]
+
+`emerge --sync` は [[Portageツリー]]を本家の CVSツリー(厳密にはミラーリングしている国内サーバ)と同期する事を意味します。つまり内部のファイルを落書しようが改名しまくろうが、同期してしまえば元に戻ります。[[Portageオーバーレイ]]は `emerge --sync` に左右されません。
+
+***Portageツリー [#i56a2d07]
+
+[[Portageツリー]] に関連記事があります。
+
+**配置場所 [#c58ce051]
+
+配置場所はルートファイルシステムでなくても構いません。例えば共有ファイルシステムや tmpfs の様なメモリ上です。/usr/portage だけでなく、/var/db/pkg や /var/cache/edb も忘れないで下さい。記事が[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]にあります。[[ネットワーク・インターフェイス]]、[[ネットワーク・ファイルシステム]]、[[ボリューム・マネージャ]]に関連記事があります。
+
+**マージ済のパッケージ群で、現在の tree にはもうその *.ebuild のリヴィジョンがないもの [#t89b88be]
+
+[[マージ]]済のパッケージ群で、現在の [[tree]] にはもうその [[*.ebuild]] のリヴィジョンがないものを調査するのであれば [[dev-python/ipython]] (シェル並に対話機能を強化した [[Python]]) 上で `import portage ; [x for x in portage.db["/"]["vartree"].getallcpv() if len(portage.portdb.xmatch("match-all","="+x))==0]` とでも入力すれば答えがでます。[[dev-python/ipython]] を使っているのでもなければ "list comprehension" 記述にする必要はないのでスクリプトファイルにでもして下さい。
+
+ないからといって必ずしもアップデートする必要はありません。しかしながら [[GLSA]] の保護対象ではないので、[[GLSA]] の脆弱性注意報告が該当するか否かは各自で判断する必要があります。
+
+*Snapshot と Stage1, Stage2 [#vd78211b]
+
+[[Stage]] の stage1, stage2 などは配布時の [[Portageツリー]]で行うのが無難です。
+
+*app-portage/layman [#r332796d]
+
+[[app-portage/layman]] に関連記事があります。
+
+________
+
+[[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]) の詳細は[[プロジェクトリスト:http://www.gentoo.org/proj/en/metastructure/projects.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]), [[Gentoo FAQ:http://www.gentoo.org/doc/ja/?catid=faq]], [[GentooJP FAQ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A3%C6%A3%C1%A3%D1%5D%5D]]
+- [[インストール]], [[Stage]], [[GRP]], [[Portageツリー]]
+- [[インストールした後にできること]], [[日本語入力設定事例集]], [[日本語デスクトップ環境/パッケージ]]
+- [[Gentooが採用している技術]]
+- [[コミュニティとの連絡手段]], [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]
+- [[本家に関連しそうな言葉]], [[GLEP]], [[コピーライト]], [[ライセンス]]
+
+[[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]]) の詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]])
+- [[メタ・ディストリビューション]], [[USEフラグ]], [[profile]], [[catalyst]], [[GNAP]]
+- [[コンパイル]], [[バイナリパッケージ]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+
+________
+
+-[2006-09-17] (yoshino)
+-[2006-11-05] ハンドブックに sys-apps/Portage-2.1 に関する説明が加えられるようです。今後はハンドブックが確実です。 (yoshino)

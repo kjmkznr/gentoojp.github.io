@@ -1,0 +1,71 @@
+#navi([[日本語入力設定事例集]])
+
+* SKK [#q92c90c8]
+
+
+** SKKサーバのインストール [#ybd3e7d5]
+本家portageツリーに含まれているSKKサーバは下記の4種類。
+***skkserv [#b3d6c4c1]
+ # emerge skkserv
+ # rc-update add skkserv default
+
+***multiskkserv [#da8c9810]
+ # emerge multiskkserv
+ # rc-update add multiskkserv default
+
+***rskkserv [#p06046ed]
+ # emerge rskkserv
+ # rc-update add rskkserv default
+
+***dbskkd-cdb [#gd9aa055]
+ # emerge dbskkd-cdb
+ (/etc/xinetd.d/dbskkd-cdbを編集) 
+  辞書を新しくする場合は、skktocdbm.shを使用してcdb 辞書も更新する必要がある
+
+** SKKクライアントのインストール [#v770ce69]
+
+***skkinput [#n796c37f]
+ # emerge skkinput
+
+***ddskk (emacs用) [#pb40f138]
+ # emerge ddskk
+
+***uim(XIM, GTK immodule, Qt immodule) [#q3acd426]
+ # emerge skk-jisyo uim
+
+***scim-skk(XIM, GTK immodule, Qt immodule) [#o24ba962]
+ # emerge scim-skk
+
+**設定方法 [#zdc043e5]
+
+~/.xinitrc または ~/.xsession または ~/.gnomerc に以下を追加。
+
+ export XMODIFIERS="@im=skkinput"
+ skkinput &
+
+なお、~/.gnomercを利用する場合、gnome-session の前までに挿入。
+
+uim の場合は
+
+ export XMODIFIERS="@im=uim"
+ export QT_IM_MODULE="uim"
+ export GTK_IM_MODULE="uim"
+ uim-xim &
+
+で scim の場合は
+
+ export XMODIFIERS="@im=SCIM"
+ export QT_IM_MODULE="scim"
+ export GTK_IM_MODULE="scim"
+ scim -d
+
+* 関連リンク [#mbad6e8f]
+-http://openlab.ring.gr.jp/skk/index-j.html
+-http://www1.interq.or.jp/~deton/ckskkserv/
+
+*Comments [#v9acb825]
+
+-ありがとうございます。できれば、編集者のハンドル等を教えてください。 -- [[Yasumichi]] SIZE(10){2004-02-29 (日) 10:24:24}
+
+
+#navi([[日本語入力設定事例集]])

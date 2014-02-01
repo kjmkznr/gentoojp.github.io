@@ -1,0 +1,38 @@
+* GentooにおけるTOMOYO Linuxの導入 [#f104b063]
+
+Gentoo Linuxに[[TOMOYO Linux:http://tomoyo.sourceforge.jp/]]を導入する際のGentoo特有の注意点等についてまとめる予定です。
+
+* TOMOYO Linuxとは [#m8718bbc]
+
+[[本家:http://tomoyo.sourceforge.jp/]]参照。
+
+* TOMOYO Linuxのインストール [#h31c17ff]
+
+ebuildをebuildJPに用意しました。
+
+- [[sys-kernel/ccs-sources:http://ebuild.gentoo.gr.jp/view.php?cat=sys-kernel&app=ccs-sources]]
+- [[sys-apps/ccs-tools:http://ebuild.gentoo.gr.jp/view.php?cat=sys-apps&app=ccs-tools]]
+
+（それぞれのsf.jp上でのパッケージ名がccs-patches,ccs-toolsだったので、そのまま名前にしました。tomoyo-sources,tomoyo-toolsの方が良い？）
+
+* Gentooにおける利用の注意点 [#gc236d13]
+
+- ユーティリティ(ccs-tools)の保存場所を/root/ccstoolsではなく/sbin/に設定しています。[[TOMOYO Linux導入説明書:http://tomoyo.sourceforge.jp/]]の説明は適宜読みかえてください。
+- ポリシーファイルの保存場所は/root/securityのままです。
+- SYAORANを利用する場合、udev(devfsd)とバッティングするのでudev(devfsd)を使わないように設定します。
+
+ # nano -w /etc/conf.d/rc
+ ...
+ RC_DEVICES="static"
+
+- その他、調査中です。
+
+* 関連リンク [#pd0fd15a]
+
+- [[TOMOYO Linux導入説明書:http://tomoyo.sourceforge.jp/]]
+
+*コメント [#b7239287]
+
+-ebuild作成しました。 -- [[matsuu]] SIZE(10){2005-11-16 (水) 07:28:45}
+-お疲れさまです。emerge searchでもかかるようにすること考えるとやはりパッケージ名はTOMOYO のままの方がいいのではないのでしょうか。 -- [[parathion]] SIZE(10){2005-11-23 (水) 14:48:50}
+// #comment

@@ -1,0 +1,22 @@
+*FreeType library for Perl [#z4c84661]
+
+-ページ: BugTrack
+-投稿者: [[Atzm]]
+-優先順位: 低
+-状態: 移動
+-カテゴリー: ebuild
+-投稿日: 2003-06-23 (月) 01:06:52
+-バージョン: 1.2
+
+CENTER:''この ebuild は [[ebuild-uploader:http://gentoojp.sourceforge.jp/ebuild-uploader/]] に移動されました。(dev-perl/perlftlib)''
+
+**メッセージ [#n6ff26e9]
+FreeType1系列のライブラリをPerlから使うためのライブラリです．[[jcode.pl]]にRDEPENDします．
+
+http://www.io.com/~kazushi/xtt/
+
+----
+
+-早速にありがとうございました -- [[Yamakawa]] SIZE(10){2003-06-24 (火) 03:06:09}
+-アーカイブ配布元サイト喪失。及びコンパイルエラーでインストール出来ません。 -- [[higon]] SIZE(10){2008-01-12 (土) 16:05:25}
+// #comment

@@ -1,0 +1,112 @@
+#contents
+#title
+
+*ミラーリングに参加する [#o3ee7d1e]
+
+[[installcd]]/[[livecd]] と [[GRP]] ([[packages]]) の配布問題は[[ミラーサイトリスト:http://www.gentoo.org/main/en/mirrors.xml]]や [[BitTorrent:http://torrents.gentoo.org/]] でやがて解決できるかもしれませんが、[[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]] に必要な RSyncサーバと Sourcesサーバはそうはいかないようです。
+
+[[バグ報告]]、[[ドキュメント作成]]、[[パッケージ作成]]、[[ミラーリング]]、[[サーバー関連]]に関連記事があります。
+
+**RSyncサーバ [#s4125d12]
+
+メインローテーション・ミラーの事です。
+
+`emerge --sync` を実行する時にお世話になります。具体的には [[Portage]] の [[Portageツリー]]を同期します。1 日 1 回未満が推奨されます。
+
+貢献できるかもしれません。[[RSync サーバのミラーリングガイド:http://www.gentoo.org/doc/ja/rsync.xml]]参考です。具体的には[[サンプルスペック:http://www.gentoo.org/proj/ja/infrastructure/server-specs.xml]]、[[必要パッケージ:http://www.gentoo.org/proj/ja/infrastructure/server-standards.xml]]、[[監視と報告 (Tenshi ガイド):http://www.gentoo.org/proj/ja/infrastructure/tenshi/]]、[[NTP 設定:http://www.gentoo.org/proj/ja/infrastructure/config-ntp.xml]]、[[SSH 設定:http://www.gentoo.org/proj/ja/infrastructure/config-ssh.xml]]、[[ログ設定:http://www.gentoo.org/proj/ja/infrastructure/config-syslog.xml]]、[[基幹サーバ FAQ:http://www.gentoo.org/proj/ja/infrastructure/faq.xml]]、[[RSync サーバ申請手順:http://www.gentoo.org/proj/ja/infrastructure/mirrors-rsync.xml]]に記事があります。
+
+- rsync://rsync.jp.gentoo.org/gentoo-portage
+- rsync://rsync.asia.gentoo.org/gentoo-portage
+
+**Sourcesサーバ [#o50e6fcb]
+
+コミュニティ・ミラーの事です。
+
+`emerge foobar` を実行する時にお世話になります。具体的には [[distfiles]]、つまり[[ビルド]]に必要なファイル群をフェッチします。
+
+貢献できるかもしれません。[[RSync サーバのミラーリングガイド:http://www.gentoo.org/doc/ja/rsync.xml]]参考です。具体的には[[サンプルスペック:http://www.gentoo.org/proj/ja/infrastructure/server-specs.xml]]、[[必要パッケージ:http://www.gentoo.org/proj/ja/infrastructure/server-standards.xml]]、[[監視と報告 (Tenshi ガイド):http://www.gentoo.org/proj/ja/infrastructure/tenshi/]]、[[NTP 設定:http://www.gentoo.org/proj/ja/infrastructure/config-ntp.xml]]、[[SSH 設定:http://www.gentoo.org/proj/ja/infrastructure/config-ssh.xml]]、[[ログ設定:http://www.gentoo.org/proj/ja/infrastructure/config-syslog.xml]]、[[基幹サーバ FAQ:http://www.gentoo.org/proj/ja/infrastructure/faq.xml]]、[[RSync サーバ申請手順:http://www.gentoo.org/proj/ja/infrastructure/mirrors-rsync.xml]]に記事があります。
+
+- http://mirror.gentoo.gr.jp/
+- http://gentoo.gg3.net/
+- ftp://gg3.net/pub/linux/gentoo/
+- ftp://ftp.ecc.u-tokyo.ac.jp/GENTOO/
+- http://gentoo.channelx.biz/
+
+**app-admin/tenshi [#n70b9d32]
+
+[[app-admin/tenshi]] に関連記事があります。
+
+*ユーザ範囲で協力する [#wf16030d]
+
+[[installcd]]/[[livecd]] と [[GRP]] ([[packages]]) の配布問題は[[ミラーサイトリスト:http://www.gentoo.org/main/en/mirrors.xml]]や [[BitTorrent:http://torrents.gentoo.org/]] でやがて解決できるかもしれませんが、[[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]] に必要な RSyncサーバと Sourcesサーバはそうはいかないようです。
+
+[[バグ報告]]、[[ドキュメント作成]]、[[パッケージ作成]]、[[ミラーリング]]、[[サーバー関連]]に関連記事があります。
+
+**RSyncサーバ [#n1b1a8c5]
+
+`emerge --sync` を実行する時にお世話になります。具体的には [[Portage]] の [[Portageツリー]]を同期します。1 日 1 回未満が推奨されます。
+
+自動的に分散させる設定らしいので、クライアント側の設定は /etc/make.conf あたりにでもこうすればよいかと思います。
+
+ SYNC="rsync://rsync.jp.gentoo.org/gentoo-portage"
+
+***ローカル専用サーバ [#cb825efe]
+
+何台も問いあわせるのは負担をかけます。ローカルに用意してみてはどうでしょうか。[[RSync サーバのミラーリングガイド:http://www.gentoo.org/doc/ja/rsync.xml]]参考です。
+
+**Sourcesサーバ [#c1537601]
+
+`emerge foobar` を実行する時にお世話になります。具体的には [[distfiles]]、つまり[[ビルド]]に必要なファイル群をダウンロードします。
+
+クライアント側の設定にはサーバを特定する必要があり、 /etc/make.conf あたりにでもこうすればよいかと思います。
+
+ GENTOO_MIRRORS="http://gentoo.gg3.net/"
+
+***ローカル専用サーバ [#a2231dc1]
+
+何台も問いあわせるのは負担をかけます。ローカルに用意してみてはどうでしょうか。[[RSync サーバのミラーリングガイド:http://www.gentoo.org/doc/ja/rsync.xml]]参考です。
+
+**Packagesサーバ [#m0454da0]
+
+`emerge --getbinpkg hoge` を実行する時にお世話になります。具体的には [[packages]]、つまり[[バイナリパッケージ]]をダウンロードします。[[GRP]] 以外は公式配布されていません。各自で用意する必要があります。必要なパッケージはありません。[[ポーテージ]]基本機能に含まれてます。
+
+クライアント側の設定にはサーバを特定する必要があり、 それは $PORTAGE_BINHOST です。
+
+***ローカル専用サーバ [#n5a4ac24]
+
+[[GRP]] 以外は公式配布されていません。各自で用意する必要があります。必要なパッケージはありません。[[ポーテージ]]基本機能に含まれてます。[[コンパイル]]、[[バイナリパッケージ]]に関連記事があります。
+
+クライアント側の設定にはサーバを特定する必要があり、 それは $PORTAGE_BINHOST です。
+
+**app-portage/mirrorselect [#w055e1cf]
+
+[[app-portage/mirrorselect]] に関連記事があります。
+
+**net-p2p/bittorrent [#s2625a87]
+
+[[net-p2p/bittorrent]] に関連記事があります。
+
+________
+
+[[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]) の詳細は[[プロジェクトリスト:http://www.gentoo.org/proj/en/metastructure/projects.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]), [[Gentoo FAQ:http://www.gentoo.org/doc/ja/?catid=faq]], [[GentooJP FAQ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A3%C6%A3%C1%A3%D1%5D%5D]]
+- [[インストール]], [[Stage]], [[GRP]], [[Portageツリー]]
+- [[インストールした後にできること]], [[日本語入力設定事例集]], [[日本語デスクトップ環境/パッケージ]]
+- [[Gentooが採用している技術]]
+- [[コミュニティとの連絡手段]], [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]
+- [[本家に関連しそうな言葉]], [[GLEP]], [[コピーライト]], [[ライセンス]]
+
+[[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]]) の詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]])
+- [[メタ・ディストリビューション]], [[USEフラグ]], [[profile]], [[catalyst]], [[GNAP]]
+- [[コンパイル]], [[バイナリパッケージ]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+
+________
+
+-[2005-09-19]
+-[2005-09-19] 載せてもよかったら、サーバ追加お願いします。(yoshino)
+-[2005-12-03] rsync://rsync.asia.gentoo.org/gentoo-portage 追加。 (yoshino)

@@ -1,0 +1,106 @@
+#contents
+#title
+
+*Gentoo と Stage [#md425064]
+
+[[Stage]] は [[profile]] に沿って提供されます。本家で配布される [[Stage]] は [[dev-util/catalyst]] で作成されたものです。
+
+[[Linux From Scratch の手順:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A5%A4%A5%F3%A5%B9%A5%C8%A1%BC%A5%EB%5D%5D]]で言えば [[sys-apps/coreutils]] の chroot コマンド実行後の明日から利用する環境、つまり[[コンパイラ]]やシェルをそのまま圧縮したものです。[[sys-apps/baselayout]] から云々悩まなくても [[Portage]] が早く利用できるよう、そこまでの道程を大幅に抽象化しています。あまりにも抽象的過ぎるため、むしろ初心者でも経験者でも差がでません。最初に用意されているものを破棄し、全てを自分で[[ビルド]]しても構いません。
+
+*Stage-seed, Stage-1, Stage-2, Stage-3, Stage-4 [#fe50d723]
+
+明日から利用する環境、つまり[[コンパイラ]]やシェルをそのまま圧縮したものです。完成度により Stage1, Stage2, Stage3 が用意されています。Stage1 は教科書的(アカデミック)にゼロから、Stage2 は実質意味のある最適化から、Stage3 は最適化をせずに手順短縮を意味します。
+
+[[Stage]] の終了時点で [[Portage]] が利用できる最小状態まで完成します。Stage3 はココから始める、つまり用意されたものをそのまま使います。あとで全体を再コンパイルするよう指示すれば Stage3 からでも Stage2, Stage1 と同じにできます。
+
+[[Stage]] 終了後はもう [[Portage]] は利用できるため、その後は [[USEフラグ]]のオンオフ、そして[[メタ・ディストリビューション]]です。
+
+***Stage-seed [#hc042e85]
+:Stage-seed| [[catalyst]] で使われる相対環境です。
+
+***Stage-1 [#wfea6164]
+:Stage-1| 2006.0 (x86) では 18MB です。ほぼゼロから開始する事になっていますが、かなり抽象化されているので慣れている人も慣れていない人でもその放置時間以外でゼロから開始している事を実感する事はありません。[[Gentoo]] の面白いところかもしれません。CHOST, CFLAGS, CXXFLAGS が反映されます。長時間の[[コンパイル]]が発生するため、放置できる場所が必要です。[[インストールドキュメント:http://www.gentoo.org/doc/ja/?catid=install]]から削除され、経験者用になりました。
+
+***Stage-2 [#jb44554f]
+:Stage-2| 2006.0 (x86) では 42MB です。多くの人にとって実際に設定が反映される意味のある所から開始する手筈になっていますが、どうせ一晩放置するのであれば、気分的にいっそ Stage1 からとしたくなるかもしれません。CFLAGS, CXXFLAGS が反映されます。長時間の[[コンパイル]]が発生するため、放置できる場所が必要です。[[インストールドキュメント:http://www.gentoo.org/doc/ja/?catid=install]]から削除され、経験者用になりました。
+
+***Stage-3 [#k3594cce]
+:Stage-3| 2006.0 (x86) では 99MB です。残りが[[カーネル]]の[[コンパイル]]と[[ブートローダ]]の[[コンパイル]]のみの所から開始します。といってもカーネルコンパイルをせずに [[livecd]]/[[installcd]] の[[カーネルを複製で済ませる短縮手段:http://www.gentoo.org/doc/ja/gentoo-x86-tipsntricks.xml]]もあります。[[ブートローダ]]も似たことができます。解凍する時間と複製する時間だけです。(最低限の状態までですが) 15 分かからない人もいるでしょう。[[最適化]]は [[Portage]] の目立つ側面ですが、[[メタ・ディストリビューション]]の一つでしかない事を思い出してしまうと、[[インストール]]の時点で拘わる必要があるかどうか自問するのも面白いかもしれません。後でシステム全体を再コンパイルすれば Stage2 と同じです。知識が揃えば Stage1 からと同じにもできます。
+
+***Stage-4 [#z2ab9922]
+:Stage-4| [[Portage]] が起動するのに最低限な状態を提供するのが Stage3、それ以上加えられているものが Stage4 です。
+
+**/usr/portage/profiles/default-linux/packages.build [#qa329143]
+
+2005 年 09 月の状況です。
+
+ This file describes the packages needed 
+ to build a stage 1 based on this
+ profile.  Packages in this file are built in order.
+ 
+ app-arch/bzip2
+ app-arch/tar
+ app-shells/bash
+ dev-lang/python
+ net-misc/rsync
+ net-misc/wget
+ sys-apps/baselayout
+ sys-apps/coreutils
+ sys-apps/debianutils
+ sys-apps/diffutils
+ sys-apps/file
+ sys-apps/findutils
+ sys-apps/gawk
+ sys-apps/grep
+ sys-apps/less
+ sys-apps/net-tools
+ sys-apps/portage
+ sys-apps/sed
+ sys-apps/texinfo
+ sys-devel/binutils
+ sys-devel/bison
+ sys-devel/flex
+ sys-devel/gcc
+ sys-devel/gettext
+ sys-devel/gnuconfig
+ sys-devel/make
+ sys-devel/patch
+ dev-lang/perl
+ virtual/editor
+ virtual/gzip
+ virtual/libc
+ virtual/os-headers
+
+*配布元 [#i1eba88e]
+
+[[インストール]]に関連記事があります。
+
+**Snapshot と Stage1, Stage2 [#r6267630]
+
+[[Stage]] の stage1, stage2 などは配布時の [[Portageツリー]]で行うのが無難です。
+
+________
+
+[[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]) の詳細は[[プロジェクトリスト:http://www.gentoo.org/proj/en/metastructure/projects.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]), [[Gentoo FAQ:http://www.gentoo.org/doc/ja/?catid=faq]], [[GentooJP FAQ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A3%C6%A3%C1%A3%D1%5D%5D]]
+- [[インストール]], [[Stage]], [[GRP]], [[Portageツリー]]
+- [[インストールした後にできること]], [[日本語入力設定事例集]], [[日本語デスクトップ環境/パッケージ]]
+- [[Gentooが採用している技術]]
+- [[コミュニティとの連絡手段]], [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]
+- [[本家に関連しそうな言葉]], [[GLEP]], [[コピーライト]], [[ライセンス]]
+
+[[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]]) の詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]])
+- [[メタ・ディストリビューション]], [[USEフラグ]], [[profile]], [[catalyst]], [[GNAP]]
+- [[コンパイル]], [[バイナリパッケージ]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+
+________
+
+-[2005-09-19] 
+-[2005-11-16] インストールは Stage3 が標準にされました。 (yoshino)
+-[2006-09-17] 自分が調べた際のメモをほぼそのまま貼りつけているだけだったのを省察しました。 (yoshino)
+-[2006-11-05] ハンドブックに sys-apps/Portage-2.1 に関する説明が加えられるようです。今後はハンドブックが確実です。 (yoshino)

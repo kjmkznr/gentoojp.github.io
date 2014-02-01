@@ -1,0 +1,26 @@
+*nvi-m17n [#j677d203]
+
+-ページ: BugTrack
+-投稿者: [[Ryoske]]
+-優先順位: 低
+-状態: 移動
+-カテゴリー: ebuild
+-投稿日: 2003-09-30 (火) 00:15:21
+-バージョン: 
+
+問題無さそうならクリックしてください。(目安として使うだけです)
+#vote(問題なく動作しました。)
+**メッセージ [#cfc0b5f1]
+nvi-m17nのebuildをつくってみました。
+nvi-1.79がベースになっています。 USEにcjkとcannaがある場合は、
+パッチをあててCannaによる日本語入力ができるようにしました。
+
+----
+
+-お。実はけっこうほしかったのでありがたいです。本家 nvi の 1.81.5 が Portage には入っていて、どうやらこれは最初から m17n 対応しているらしいのですが、どうも ncurses 側も対応しないといけないようなので、どうしようかと思っていました(ncurses を UTF-8 対応にしてくれという bug は出ているんですが……)。 -- [[usata]] SIZE(10){2003-09-30 (火) 04:02:48}
+-ebuild を見ると、けっこうよく書けていると思います。ただ KEYWORDS のところが明らかに間違っているのでこれは直してください(KEYWORDS に書けるのはアーキテクチャ名で、/usr/portage/profiles/keywords.desc に挙げられているものだけです)。あと DEPEND も必要です。virtual/glibc あたりに DEPEND することになるかと思いますが、USE="canna" で emerge すると Canna 対応がコンパイルされるので、app-i18n/canna にもそのときは DEPEND することになります。 -- [[usata]] SIZE(10){2003-09-30 (火) 04:06:04}
+-あとよく cd ${WORKDIR}/nvi-1.79/build としていますが、これは MY_P=nvi-${PV} とでもしておいて、S=${WORKDIR}/${MY_P}/build と書いておけば不要になります。SRC_URI でも ${MY_P}.tar.gz と書けるようになるし、src_unpack() も unpack ${MY_P}.tar.gz, cd ${WORKDIR}/${MY_P} と書けるので、ちょっと楽になります(一般的にはバージョン上がったときの対策が簡単になります)。 -- [[usata]] SIZE(10){2003-09-30 (火) 04:09:17}
+-src_compile() については個人の趣味が発揮されるところですが、if - elif - else のところで最後の else のところ、econf が抜けているのでコンパイルできません。普通は econf を if 文の中に入れるのではなく、local myconf などと書いて if [ `use canna` -a `use cjk` ] ; then myconf="${myconf} --enable-multibyte=euc-jp --enable-canna" ; elif ... などとやり、econf --program-prefix=n ${myconf} || die と最後に1回だけ econf を書くのが主流です。(${myconf} の中身を if 文と USE フラグを使っていじります)。最後の src_install() も einstall || die と ``|| die'' をつけたほうがいいです。つけなくても実際の実行時足されるのですが、emake なんかとの一貫性を持たせてつけることが推奨されています(econf と einstall は || die がつくのですが emake は自動ではつかないので必ず手動で書かなければならない)。emake 自体問題が多いので廃止されそうな雰囲気にはなっていますが……。 -- [[usata]] SIZE(10){2003-09-30 (火) 04:16:17}
+-早速のコメントありがとうございます。色々と修正して、だいぶスマートになりました。名前もnvi-1.79.ebuildに変えてみました。この方が$Pも$PVも使えてとっても楽チンです。でも、こうするとm17nであることとCannaが使えることが外からみてわからないんですよね・・・。あと、文字コードをeuc-jpと決め打ちしてしまっていますが、問題ないですよねぇ。 -- [[Ryoske]] SIZE(10){2003-09-30 (火) 23:44:23}
+
+// #comment

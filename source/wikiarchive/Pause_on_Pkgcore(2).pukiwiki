@@ -1,0 +1,126 @@
+#title
+#contents
+
+* 設定ファイル [#v848e4b9]
+
+公式サイトのマニュアル [pkgcore]_ で確認して下さい。
+
+** Pkgcore を使うには Portage を削除しないと駄目ですか？ [#s3624e15]
+
+むしろ削除は不味いです。必要コマンドである etc-update が Pkgcore にないからです。2007 年 08 月では共存可能、つまり Block (依存関係集合で要素の衝突を意味する)されないようです。Paludis 同様に何も移行手続きをせずとも Portage 側設定ファイルを読み込み動く設計です。しかしながらこれも Paludis 同様に Pkgcore 向けの機能を使うのであれば専用の設定ファイルを記述しなくてはいけません。
+
+システムの設定ファイルは /etc/pkgcore.conf です。
+
+ユーザの設定ファイルは ~/.pkgcore.conf です。つまり、ユーザに開放される事を考えられています。
+
+
+*** livefs domain [#v903c7b4]
+
+設定ファイルで変更可能な項目は class directive で指定しますが、lvefs, fetcher, repository, cache, eclass_cache, sync, vdb, profile, 別名, 解析手段, set, etc. と沢山あります。例えば pconf --dump から以下の様な情報が得られると思います。
+
+ [livefs domain]
+ class=pkgcore.ebuild.domain.domain
+ default=True
+ name='livefs domain'
+ fetcher=fetcher                         [fetcher] に続く
+ package.use='/etc/portage/package.use'
+ profile=profile                         [profile] に続く
+ repositories=repo-stack                 [repo-stack] に続く
+ root=/
+ vdb=vdb                                 [vdb] に続く
+ ACCEPT_KEYWORDS=...
+ CFLAGS=...
+ CXXFLAGS=...
+ ...
+ 
+ [fetcher]
+ class=pkgcore.fetch.custom.fetcher
+ command=...
+ resume_command=...
+ distdir=/usr/portage/distfiles
+ ACCEPT_KEYWORDS=...
+ CFLAGS=...
+ CXXFLAGS=...
+ ...
+ 
+ [profile]
+ class=pkgcore.ebuild.profiles.OnDiskProfile
+ basepath='/usr/portage/profiles'
+ profile='default-linux/amd64/2007.0'
+ 
+ [repo-stack]
+ class=pkgcore.config.basic.alias
+ target=/usr/portage                    [/usr/portage] に続く
+ 
+ [/usr/porage]
+ class=pkgcore.ebuild.repository.UnconfiguredTree
+ cache='portdir cache'                  [portdir cache] に続く
+ eclass_cache='eclass cache'            [eclass cachhe] に続く
+ default_mirrors=...
+ location='/usr/portage'
+ sync='portage sync'                    [portage sync] に続く
+ 
+ [vdb]
+ class=pkgcore.vdb.ondisk.tree
+ ...snip...
+
+
+
+
+________________
+
+
+
+.. [gpms] http://dev.gentoo.org/~spb/pms.pdf が PDF です。
+
+.. [gpm] http://wiki.gentoo.gr.jp/index.php?Gentoo_Package_Manager に関連記事があります。
+
+.. [meta-distribution] http://wiki.gentoo.gr.jp/index.php?%5B%5B%A5%E1%A5%BF%A1%A6%A5%C7%A5%A3%A5%B9%A5%C8%A5%EA%A5%D3%A5%E5%A1%BC%A5%B7%A5%E7%A5%F3%5D%5D に関連記事があります。 
+
+.. [sandbox] root:root でさえも登録ディレクトリ以外へのアクセスを禁止させる LD_PRELOAD のハック。
+
+.. [glsa] 脆弱性注意報告。
+
+.. [qa] 品質保証。
+
+.. [repository] http://wiki.gentoo.gr.jp/index.php?repository に repository, tree, overlays の関連記事があります。
+
+.. [portage] http://www.gentoo.org/proj/en/portage/index.xml は公式サイトです。
+
+.. [paludis] http://paludis.pioto.org/ は公式サイトです。
+
+.. [pkgcore] http://www.pkgcore.org/ は公式サイトです。
+
+.. [vdb] システムに何がどんな状態でマージ済みかを保存しているデータベース。
+
+.. [features] ユーザが機能をオンオフ調整する portage 変数。pkgcore は採用、paludis は不採用。
+
+.. [restrict] デベロッパが機能をオンオフ調整する ebuild 変数。
+
+.. [digest/manifest] 誰が作成したものかを保証する機能。
+
+.. [ebuild] http://wiki.gentoo.gr.jp/index.php?ebuild_files に関連記事があります。
+
+.. [prefix] http://wiki.gentoo.gr.jp/index.php?prefix に関連記事があります。
+
+.. [overlays] http://wiki.gentoo.gr.jp/index.php?overlays に関連記事があります。
+
+.. [use_flag] http://wiki.gentoo.gr.jp/index.php?USE_flag に関連記事があります。
+
+.. [profile] http://wiki.gentoo.gr.jp/index.php?profile に関連記事があります。
+
+
+________________
+
+
+
+- [[Gentoo_Package_Manager]], [[Portage]], [[Paludis]], [[Pkgcore]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+- [[Pause_on_Pkgcore(1)]], [[Pause_on_Pkgcore(2)]], [[Pause_on_Pkgcore(3)]], [[Pause_on_Pkgcore(4)]], [[Pause_on_Pkgcore(5)]], [[Pause_on_Pkgcore(6)]], [[Pause_on_Pkgcore(7)]], [[Pause_on_Pkgcore(8)]], [[Pause_on_Pkgcore(9)]], [[Pause_on_Pkgcore(10)]], [[Pause_on_Pkgcore(11)]], [[Pause_on_Pkgcore(12)]], [[Pause_on_Pkgcore(13)]], [[Pause_on_Pkgcore(14)]], [[Pause_on_Pkgcore(15)]], [[Pause_on_Pkgcore(16)]]
+- [[repository]], [[USE_flag]], [[profile]], [[prefix]], [[overlays]]
+- [[ebuild_files]], [[ebuild_metadata(ebuild-defined_variables)]], [[ebuild_phase(ebuild-defined_functions)]], [[the_ebuild_environment(defined_variables)]], [[the_ebuild_environment(defined_commands)]], [[bash_for_ebuild]]
+
+________________
+
+- [2007-08-05] 気に入ったら書き足して下さい。 (yoshino)

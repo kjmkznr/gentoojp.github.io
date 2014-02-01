@@ -1,0 +1,35 @@
+#contents
+#title
+
+*Portage と GPG署名 [#v3c72404]
+
+インターネットを経由するホスト間の通信は「安全であるはずがない」とする前提を立てます。ダウンロードしたものは全て信用してはいけなくなります。詳しい解説は長くなるので専門書に求めて欲しいのですが、その解決には SSL の他に GPG を使う方法があります。高度な暗号を扱うため、 [[app-crypt/gnupg]] が必要です。機能を利用するのにあたり、開発者でなければ自分の公開鍵と秘密鍵を作成する必要はありませんが、日頃から公開鍵に慣れておくのも良いと思われます。 [[GnuPG Gentoo ユーザガイド:http://www.gentoo.org/doc/ja/gnupg-user.xml]]があります。
+
+[[Portage]] での [[GPG署名]]とは [[*.ebuild]] を誰が作成したかを確認するものです。[[FEATURES]] にて [[GPG署名]]に関する項目をオンにすると登録済み開発者以外が上書きした [[Manifest]] を拒否します。ちなみにこれを使うと [[overlays]] などは全滅するでしょう。
+
+[[Manifest]]、つまり /usr/portage/Category_name/Package_name/Manifest のテキストファイルには開発者の [[GPG署名]]があります。[[digest]]、つまり /usr/portage/Category_name/Package_name/digest のテキストファイルも開発者が検査したものです。
+
+:sign|開発者用です。CVS commit 時に [[Manifest]] へ [[GPG署名]]を加えます。
+
+:gpg|$PORTAGE_GPG_DIR (==/usr/ib/portage/bin/portage_gpg_update.sh を経由するなら /usr/portage/metadata) を検査します。その内部の鍵 ([[gentoo.gpg]]) が [[GPG署名]]に使われます。[[GPG署名]]が正しくない [[Manifest]] は全て拒否します。つまり怪しいファイルは[[マージ]]できません。[[GPG署名]]、[[sandbox]]、[[実マージ前の属性検査]]はオンにすべきです。
+
+:severe|信用する GPG 公開鍵にだけ [[Manifest]] を許可します。
+
+:strict|[[Manifest]] 検査で怪しいものは続行せずに中断します。
+
+**開発者達のGPG公開鍵を収集する手段 [#ef145ec3]
+
+/usr/ib/portage/bin/portage_gpg_update.sh を使うと便利です。[[gentoo.gpg]] に関連記事があります。
+
+**Manifest [#z59194a5]
+
+[[Manifest]] に関連記事があります。
+
+**digest [#s394555b]
+
+[[digest]] に関連記事があります。
+
+========
+
+-[2005-12-30]
+-[2005-12-30] (yoshino)

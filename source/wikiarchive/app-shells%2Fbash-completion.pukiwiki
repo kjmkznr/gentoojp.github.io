@@ -1,0 +1,126 @@
+#contents
+#title
+
+*app-shells/bash-completion [#r8c2eb53]
+
+コマンドラインベースの上、オプションの多彩さで、[[Portage]] の管理に抵抗を覚えるかもしれませんが、[[Bash]] シェルには補完機能があります。タブを入力する事で次の入力候補が出てくる便利なあれです。ですが、シェルのデフォルトではそれほど凝った設定はされていません。[[Bash]] 内蔵コマンド complete で設定する必要があります。その補完設定を自分でしなくてもいいようにしてくれるのが [[app-shells/bash-completion]] です。[[Portage]] 用の設定テキストファイルが [[app-shells/gentoo-bashcomp]] です。ちなみに [[dev-lang/python]] は [[dev-python/ipython]] で補完機能が強化されます。
+
+現在は限られたパッケージだけが対応しています。メンテナに「bash-completion に対応して欲しい」とパッチファイル付属の[[バグ報告]]をすると喜ばれると思います。
+
+**Config 管理をカラー化 [#z63ea54c]
+
+[[Config管理をカラー化:http://wiki.gentoo.gr.jp/index.php?%5B%5Btips%BD%B8%2FConfig%B4%C9%CD%FD%A4%F2%A5%AB%A5%E9%A1%BC%B2%BD%5D%5D]]もできます。
+
+管理そのものは [[Portage]] に含まれる [[etc-update]] コマンドまたは [[dispatch-conf]] コマンドを使います。やがては [[app-admin/eselect]] になるのかもしれません。
+
+**/etc/bash_completion と /etc/profile.d/bash-completion [#nd762e23]
+
+正体はシェルスクリプトファイル群( complete 設定ファイル群)です。しかしインストールしただけでは効果はでません。[[app-admin/eselect]] でオンオフできます。[[Portage]] 用の設定テキストファイルが [[app-shells/gentoo-bashcomp]] です。
+
+常にオンなら単純に /etc/bash_completion を現シェルレベルに読みこませても反映されます。 /etc/profile または ~/.bash_profile 辺りにでも以下を記述します。/etc/bash_completion よりも /etc/profile.d/bash-completion を対象にします。
+
+ if [ "${PS1}" -a -e /etc/profile.d/bash-completion ] ; then 
+     source /etc/profile.d/bash-completion
+ fi
+
+**/etc/bash_completion.d/ と /usr/share/bash-completion/ [#qbf51c69]
+
+8300 行以上の設定内容で基本的なコマンドのおおよそがカバーされます。追加 complete 設定ファイルについても [[app-admin/eselect]] でオンオフできます。[[Portage]] 用の設定テキストファイルが [[app-shells/gentoo-bashcomp]] です。
+
+常にオンなら単純に /usr/share/bash-completion/ 以下にあるファイルへのシンボリックファイルを /etc/bash_completion.d/ 以下に作成すれば /etc/profile.d/bash-completion が自動的に読みこみます。`ln -s /usr/share/bash-completion/* /etc/bash_completion.d/` 辺りで問題ありません。
+
+ /usr/share/bash-completion/bitkeeper
+ /usr/share/bash-completion/bittorrent
+ /usr/share/bash-completion/cksfv
+ /usr/share/bash-completion/clisp
+ /usr/share/bash-completion/dsniff
+ /usr/share/bash-completion/freeciv
+ /usr/share/bash-completion/gcl
+ /usr/share/bash-completion/gkrellm
+ /usr/share/bash-completion/gnatmake
+ /usr/share/bash-completion/harbour
+ /usr/share/bash-completion/isql
+ /usr/share/bash-completion/larch
+ /usr/share/bash-completion/lilypond
+ /usr/share/bash-completion/lisp
+ /usr/share/bash-completion/mailman
+ /usr/share/bash-completion/mcrypt
+ /usr/share/bash-completion/modules
+ /usr/share/bash-completion/mtx
+ /usr/share/bash-completion/p4
+ /usr/share/bash-completion/povray
+ /usr/share/bash-completion/ri
+ /usr/share/bash-completion/sbcl
+ /usr/share/bash-completion/sitecopy
+ /usr/share/bash-completion/snownews
+ /usr/share/bash-completion/unace
+ /usr/share/bash-completion/unrar
+
+*app-shells/gentoo-bashcomp [#ve12841f]
+
+また、[[Portage]] 用の設定テキストファイルが [[app-shells/gentoo-bashcomp]] です。
+
+ /usr/share/bash-completion/gentoo
+
+[[app-portage/gentoolkit]] も補完されます。
+
+ $ equery 
+ belongs   changes   check     depends   depgraph  files
+ glsa      hasuse    list      size      stats     uses
+ which
+ $ equery 
+
+**USEフラグオンで補完強化 [#f99553d8]
+
+他にも [[USEフラグ]] (+bash-completion) でファイルが追加されるパッケージもあります。 [[dev-utils/subversion]] や [[app-portage/eix]] や [[app-portage/herdstat]] などがそれです。
+
+ /usr/share/bash-completion/subversion
+ /usr/share/bash-completion/eix
+ /usr/share/bash-completion/herdstat
+
+ちなみに理論的には `quse bash-completion` で bash-completion に反応するパッケージの検索、つまり $IUSE の検索ができるのですが、$IUSE に登録しているパッケージは以下だけです。そんな時こそ[[バグ報告]]です。
+
+ app-admin/eselect/eselect-0.9.6.ebuild doc bash-completion 
+ app-admin/eselect/eselect-1.0_rc1.ebuild doc bash-completion 
+
+*app-shells/bash-completion-20050721 [#off54c0e]
+
+補完機能を強化するとは、例えば `emerge --` で tab を入力すると以下の反応が得られます。[[app-shells/bash-completion]] に `ls` や `tar` 等の記述はありますが、[[Portage]] 用の記述はなく、後述する [[app-shells/gentoo-bashcomp]] の追加 complete 設定ファイルが必要です。
+
+ $ emerge --
+ --ask            --autoclean      --buildpkg       --buildpkgonly   
+ --changelog      --clean          --columns        --debug
+ --deep           --depclean       --emptytree      --fetch-all-uri  
+ --fetchonly      --getbinpkg      --getbinpkgonly  --help
+ --info           --newuse         --noconfmem      --nodeps         
+ --noreplace      --nospinner      --oneshot        --onlydeps
+ --pretend        --quiet          --resume         --search         
+ --searchdesc     --sync           --tree           --update
+ --upgradeonly    --usepkg         --usepkgonly     --verbose        
+ --version
+ $ emerge --
+
+________
+
+[[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]) の詳細は[[プロジェクトリスト:http://www.gentoo.org/proj/en/metastructure/projects.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]), [[Gentoo FAQ:http://www.gentoo.org/doc/ja/?catid=faq]], [[GentooJP FAQ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A3%C6%A3%C1%A3%D1%5D%5D]]
+- [[インストール]], [[Stage]], [[GRP]], [[Portageツリー]]
+- [[インストールした後にできること]], [[日本語入力設定事例集]], [[日本語デスクトップ環境/パッケージ]]
+- [[Gentooが採用している技術]]
+- [[コミュニティとの連絡手段]], [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]
+- [[本家に関連しそうな言葉]], [[GLEP]], [[コピーライト]], [[ライセンス]]
+
+[[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]]) の詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]])
+- [[メタ・ディストリビューション]], [[USEフラグ]], [[profile]], [[catalyst]], [[GNAP]]
+- [[コンパイル]], [[バイナリパッケージ]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+
+________
+
+-[2005-10-20] (yoshino)
+-[2005-11-06] GentooJP-wikiの[[Config管理をカラー化:http://wiki.gentoo.gr.jp/index.php?%5B%5Btips%BD%B8%2FConfig%B4%C9%CD%FD%A4%F2%A5%AB%A5%E9%A1%BC%B2%BD%5D%5D]]へのリンク。 (yoshino)
+-[2006-09-17] 自分が調べた際のメモをほぼそのまま貼りつけているだけだったのを省察しました。 (yoshino)

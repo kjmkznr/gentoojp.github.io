@@ -1,0 +1,36 @@
+#contents
+#title
+
+*ログイン画面にジェンツーロゴを表示する [#d72cdc5e]
+
+X86 のデフォルトのログイン画面には [[sys-apps/util-linux]] の agetty が使われています。[[net-dialup/mgetty]], [[sys-apps/tinylogin]], [[sys-apps/qingy]] でも構いません。[[x11-base/xorg-x11]] でグラフィカルなログイン画面を表示しても構いません。
+
+[[ブートローダの画像を真似したい]]、[[ログインの画像を真似したい]]、[[フレームバッファの画像を真似したい]]に関連記事があります。
+
+**agetty [#xc40c421]
+
+Gentoo の標準である白黒ログイン画面のあれです。対応していれば着色されます。[[sys-apps/util-linux]] の agetty 用の画像は /etc/issue.logo (アスキーアートの「gentoo」マーク)です。 [[sys-apps/baselayout]] に付属しています。確認したのは 2005 年 11 月です。
+
+以下を行い、init プロセスに SIGHUP シグナル(`telinit q`でも同じ)でもすれば反映されます。
+
+ cp /etc/issue.logo /etc/issue
+
+**qingy [#a06bccc1]
+
+[[sys-apps/qingy]] はフレームバッファの派手なログイン画面です。カーネルはフレームバッファのサポートをオンでコンパイルします。[[dev-libs/DirectFB]] ([[USEフラグ]]に +fbcon が必要)と [[sys-apps/qingy]] と [[media-gfx/qingy-themes]] が必要です。確認したのは 2005 年 11 月です。
+
+tty1 を監視している agetty コマンドを qingy コマンドへ変更しなくてはいけません。/etc/inittab 以下のように編集します。tty1 以外がいじりたくともは無事成功するのを確認してからにして下さい。
+
+ #c1:2345:respawn:/sbin/agetty 38400 tty1 linux
+ c1:2345:respawn:/sbin/qingy tty1 --verbose
+
+/etc/qingy/setting に希望するテーマを記述します。/usr/share/qingy/themes にあります。 "mm" や "adc" や "cr" など、いろいろとありますが "lila" が[[ジェンツー]]の画像です。自分で用意した画像も可能です。必要であれば [[media-gfx/imagemagick]] の convert コマンドで保存形式を変換します。
+
+**xorg-x11 [#o40b3b24]
+
+詳しい方がいましたらお願いします。
+
+========
+
+-[2006-03-19] sys-apps/qingy を使っている方と会話したことで思い出しました。面白いのがあったら足して下さい。 (yoshino)
+-[2006-09-17] ログインから移動。 (yoshino)

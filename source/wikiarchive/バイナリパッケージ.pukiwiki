@@ -1,0 +1,198 @@
+#contents
+#title
+
+*ジェンツーにとってコンパイルとバイナリパッケージとは... [#m35e47f0]
+
+>しかしGENTOO LINUXの精神は"全てはソースから"ではありません。"全てはソースから"は重要なGENTOOの特徴の一つで、そして継続して必要とされるものではあります。しかしそれはたった一つの最も根本的な事ではありません。最も根本的な事は"科学技術は自分や他の利用者がしたいと思う事を束縛無しにできる事を許す設計であること"です。
+
+>もし私達のツールがバイナリパッケージをサポートしないなら、私達は自分達のツールが利用者に彼や彼女がしたいと思うかもしれない事を全て可能にしていると主張する事ができません。もし私達が故意にバイナリパッケージをサポートを除外するとすれば、私達自分自身の希望やどのように問題にアプローチするべきかについての見解を押しつけ、代わりにどのように利用者が特定の問題にアプローチするかを選択するかという事に(パッケージを提供するのとは別の方法で)干渉する事を試みています。
+
+以上、[[Philosophy:http://www.gentoo.org/main/en/philosophy.xml]] ([[日本語:http://wiki.gentoo.gr.jp/index.php?%5B%5B%BC%C1%CC%E4%5D%5D]])より引用。(誤字訂正)
+
+**愛好者はこれを何に使っているのか [#w854c8c7]
+
+そもそも本家には [[PR プロジェクト:http://www.gentoo.org/proj/en/pr/index.xml]]や [[Documentation プロジェクト:http://www.gentoo.org/proj/en/gdp/index.xml]]があります。[[GWN サブプロジェクト:http://www.gentoo.org/proj/en/pr/gwn.xml]]が発行している [[GWN]] や[[公式サイト:http://www.gentoo.org/]]のページを幾つか読んで貰うのが雰囲気を伝えるには早い気がします。
+
+技術的価値以外に、「わくわくする」とか「こころときめく」とかが少なくないようです。例えば NASA (米航空宇宙局)で採用された際のインタビュー記事でもそんなことが書かれてます。デベロッパの視点のもありますが、ユーザの視点のもあります。尖った個人というより、適材適所を実行するメリット云々に近いです。
+
+***CBS(米国三大放送局の一つ)に属する WAGM の科学技術系のニュースで Gentoo Linux のイメージ管理方法が取り挙げられたそうです... [#q1080bb1]
+
+> CBS系列の地方局であるWAGMは、「Sci Tech Flash」というニュース番組を放送しています。この番組にはSamantha Henselが出演しており、木曜日の18時から放送しています。先週、WAGM-TVは、Michael Surranのインタビューを放送しました。彼はコンピュータサイエンスの教師であり、USのカナダの国境近くにある、私立の12年生学校を持つ、Greater Houlton Christian Academyのネットワーク管理者でもあります。2分41秒の放送は、全体的にGentooを利用したコンピュータ研究室の運営の原則を紹介しています。全てのワークステーションに渡って、配布可能なコンパイル済みのバイナリがあり、早く配備でき、簡単管理できます。
+
+過去の [[GWN]] より転載。
+
+*メタ・ディストリビューションとバイナリパッケージ [#z70891a7]
+
+ソースファイルからコンパイルする場合にはライブラリの依存地獄とは無縁ですが、[[バイナリパッケージ]]ではライブラリの依存地獄に注意すべきです。
+
+**メタ・ディストリビューションに夢中にならない [#ge41628f]
+
+10 回も 20 回もするものではありません。ユーザが指示するカスタマイゼーション機能は強化されても自動学習するパーソナライゼーション機能はむしろ外されています。[[ハンドブック]]でも分りますが、システム側が原因の間違いを起こさないが優先されてます。候補の提案ぐらいは復活しても良いと思いますが。明らかな間違いでもなければ暫く使ってみてから再調整してみて下さい。
+
+**コンパイルとバイナリパッケージ [#obaf66a1]
+
+[[emerge]] はソース・マージ形式だけでなく、バイナリ・マージ形式もサポートしています。バイナリファイルしか配布されていないパッケージの他、巨大なパッケージに対しても有効です。[[Gentoo Linux ドキュメントリスト:http://www.gentoo.org/doc/ja/index.xml?catid=gentoo]]にあります。
+
+[[Gentoo]]が 1 台の場合は「本家配布の [[GRP]] を利用する」または「△△-binパッケージを利用する」ことになります。
+
+[[Gentoo]]が 2 台以上の場合は分散(クロス・)コンパイル環境や共有ファイルシステム下に [[Portageツリー]] 配置をした上で、「[[Portage変数]] の $FEATURES="buildpkg"」や「[[sys-apps/portage]] の quickpkg コマンドで作成する」や「[[dev-utils/catalyst]] の catalyst コマンドで [[GRP]] を作成する」ことになります。[[ディスクレス]]も選択肢です。基本的に、[[コンパイラ]]を必要とする [[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]] は 1 つ(分散させる場合は複数)で十分です。他の [[Gentoo]] は[[コンパイラ]]がなくとも大丈夫です。成果物を共有します。
+
+*バイナリパッケージ (GRP/packages) をマージする [#d7600d8a]
+
+まず[[バイナリパッケージ]]を用意します。これには 3 つの方法があります。既に[[マージ]]済みであれば [[sys-apps/portage]] の quickpkg コマンドで作成できます。未だ[[マージ]]していなければ [[Portage変数]] の $FEATURES="buildpkg" で[[マージ]]の際に一緒に[[バイナリパッケージ]]を作成できます。どこからか[[バイナリパッケージ]]を拝借すれば自分で作成する必要はありません。
+
+次に [[Portage]] が知覚できる位置に置きます。$PKGDIR にファイルを複製するか、$PKGDIR に [[packages]] をマウントするか、$PORTAGE_BINHOST で展開済みのリモート・ホスト及びそのディレクトリを指定するか、の何れかをします。
+
+最後に[[マージ]]します。その際、`emerge --getbinpkg` を使い、ソース・マージ形式よりバイナリ・マージ形式を優先させることを指示します。そうしないと[[コンパイル]]が優先されてしまいます。
+
+**Portage変数 [#r8e95fe9]
+
+[[Portage変数]]に関連記事があります。
+
+:PKGDIR|デフォルトは $PORTDIR/packages になります。[[packages]] に関連記事があります。
+
+:PORTAGE_BINHOST|デフォルトはありません。バイナリコードのダウンロード先、つまり LAN 内のサーバを指定します。ftp://username:password@hostname:port/usr/portage/packages/ALL などです。[[ミラーリング]]に関連記事があります。
+
+**FEATURES [#he5a63d9]
+
+[[FEATURES]] に関連記事があります。
+
+:buildpkg|[[マージ]]する度にその [[*.tbz]] ([[バイナリパッケージ]])を $PKGDIR ([[packages]]) に作成します。
+
+:getbinpkg|$PORTAGE_BINHOST を常に使います。つまり、[[バイナリパッケージ]]を優先します。
+
+**バイナリパッケージを操作するコマンド [#vbdfb615]
+
+[[sys-apps/portage]] と [[app-portage/portage-utils]] に関連記事があります。
+
+**何台もの Gentoo box を運用する場合は... [#sbf682bd]
+
+何台もの Gentoo box を運用する場合は [[catalyst]] を使います。
+
+*自分でバイナリパッケージを作成しないで拝借する [#pa6e415a]
+
+「使用条件にあわせてコンパイルフラグを調整した自作パッケージを用意する必要がほとんどなくなります。」が「使用条件にあわせてコンパイルフラグを調整した自作バイナリパッケージを用意する必要がほとんどなくなります。」になるかどうかはちょっとわからないです。思想の解釈次第だと思いますが、10 年後でもソースファイル基準なままだと思います。
+
+**GRP/packages [#t746c8ee]
+
+本家は [[*.ebuild]]、つまり [[Portageツリー]]を毎日更新していますが、[[GRP]] ([[packages]]) は[[インストールCD]] ([[installcd]]/[[livecd]]) の時だけ、つまり半年に一度しか更新しません。[[USEフラグ]]も初期のままです。[[installcd]] または [[livecd]] に関連記事があります。
+
+**○○-bin [#eb838161]
+
+[[GRP]] や [[packages]] でなくても[[バイナリパッケージ]]は利用できます。巨大なパッケージ、例えば [[app-office/openoffice]] には [[app-office/openoffice-bin]] が用意されています。`eix '-bin$'` の結果です。2005 年 09 月現在です。
+
+ app-emulation/crossover-office-bin 
+ app-emulation/crossover-office-pro-bin 
+ app-emulation/vmips-cross-bin 
+ app-office/mozilla-sunbird-bin 
+ app-office/openoffice-bin 
+ app-office/openoffice-ximian-bin 
+ app-pda/qtopia-desktop-bin 
+ dev-ada/gps-bin 
+ dev-dotnet/ikvm-bin 
+ dev-java/apple-java-extensions-bin 
+ dev-java/avalon-logkit-bin 
+ dev-java/blackdown-java3d-bin 
+ dev-java/bluej-bin 
+ dev-java/cryptix-asn1-bin 
+ dev-java/cryptix-jce-bin 
+ dev-java/datavision-bin 
+ dev-java/dbconnectionbroker-bin 
+ dev-java/ibm-jdk-bin 
+ dev-java/ibm-jre-bin 
+ dev-java/infobus-bin 
+ dev-java/jad-bin 
+ dev-java/javahelp-bin 
+ dev-java/javamake-bin 
+ dev-java/jcs-bin 
+ dev-java/jess-bin 
+ dev-java/jgoodies-looks-bin 
+ dev-java/jmf-bin 
+ dev-java/jnlp-bin 
+ dev-java/jrockit-jdk-bin 
+ dev-java/kunststoff-bin 
+ dev-java/maven-bin 
+ dev-java/openjms-bin 
+ dev-java/oscore-bin 
+ dev-java/saxon-bin 
+ dev-java/scala-bin 
+ dev-java/sun-connector-bin 
+ dev-java/sun-dsml-bin 
+ dev-java/sun-j2ee-deployment-bin 
+ dev-java/sun-jaf-bin 
+ dev-java/sun-jai-bin 
+ dev-java/sun-java3d-bin 
+ dev-java/sun-javamail-bin 
+ dev-java/sun-jre-bin 
+ dev-java/xmojo-bin 
+ dev-lang/cm3-bin 
+ dev-lang/fpc-bin 
+ dev-lang/ghc-bin 
+ dev-lang/gwydion-dylan-bin 
+ dev-lang/mlton-bin 
+ dev-util/eclipse-cdt-bin 
+ dev-util/eclipse-emf-bin 
+ dev-util/eclipse-gef-bin 
+ dev-util/eclipse-pydev-bin 
+ dev-util/eclipse-subclipse-bin 
+ dev-util/eclipse-ve-bin 
+ games-arcade/barbarian-bin 
+ games-arcade/emergence-bin 
+ games-arcade/mtp-target-bin 
+ games-emulation/mastergear-bin 
+ games-fps/fuhquake-bin 
+ games-fps/glxquake-bin 
+ games-fps/quake3-bin 
+ games-fps/quake4-bin 
+ games-fps/transfusion-bin 
+ games-fps/vendetta-online-bin 
+ games-puzzle/drod-bin 
+ games-puzzle/hoh-bin 
+ games-simulation/stoned-bin 
+ games-sports/racer-bin 
+ games-strategy/dominions2-demo-bin 
+ mail-client/mozilla-thunderbird-bin 
+ media-sound/shoutcast-server-bin 
+ media-sound/shoutcast-trans-bin 
+ media-sound/teamspeak2-client-bin 
+ media-sound/teamspeak2-server-bin 
+ media-sound/ventrilo-server-bin 
+ media-video/mplayer-bin 
+ net-im/mercury-bin 
+ net-im/simpserver-bin 
+ net-p2p/azureus-bin 
+ net-p2p/sancho-bin 
+ sci-misc/netlogo-bin 
+ sys-boot/cromwell-bin 
+ sys-fs/jdiskreport-bin 
+ www-client/mozilla-bin 
+ www-client/mozilla-firefox-bin 
+
+*エラーで困った場合には... [#lc05c9ad]
+
+[[emerge]] に関連記事があります。
+
+________
+
+[[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]) の詳細は[[プロジェクトリスト:http://www.gentoo.org/proj/en/metastructure/projects.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]), [[Gentoo FAQ:http://www.gentoo.org/doc/ja/?catid=faq]], [[GentooJP FAQ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A3%C6%A3%C1%A3%D1%5D%5D]]
+- [[インストール]], [[Stage]], [[GRP]], [[Portageツリー]]
+- [[インストールした後にできること]], [[日本語入力設定事例集]], [[日本語デスクトップ環境/パッケージ]]
+- [[Gentooが採用している技術]]
+- [[コミュニティとの連絡手段]], [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]
+- [[本家に関連しそうな言葉]], [[GLEP]], [[コピーライト]], [[ライセンス]]
+
+[[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]]) の詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]])
+- [[メタ・ディストリビューション]], [[USEフラグ]], [[profile]], [[catalyst]], [[GNAP]]
+- [[コンパイル]], [[バイナリパッケージ]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+
+________
+
+-[2005-09-19] (yoshino)
+-[2006-09-17] 自分が調べた際のメモをほぼそのまま貼りつけているだけだったのを省察しました。 (yoshino)
+-[2006-11-05] ハンドブックに sys-apps/Portage-2.1 に関する説明が加えられるようです。今後はハンドブックが確実です。 (yoshino)

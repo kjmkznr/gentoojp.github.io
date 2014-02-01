@@ -1,0 +1,207 @@
+#title
+#contents
+
+* static configuration files [#m5bd6c33]
+
+公式サイトのマニュアル [paludis_manual]_ で確認して下さい。
+
+** 一つとて用意せずとも動きます [#afcebac0]
+
+必要コマンドである etc-update が Paludis にありません。2007 年 05 月では共存可能、つまり Block (依存関係集合で要素の衝突を意味する)されないようです。警告が出現しますが、何も移行手続きをせずとも Portage 側設定ファイルを読み込み動きます。移行のためのガイド [migrating_to_paludis]_ が用意されてます。移行を促進する自動変換スクリプトがあります。
+
+** specpath、システム設定ファイル、ユーザ設定ファイル [#r667028e]
+
+一番最初に読み込むのは /etc/paludis/specpath です。
+
+システムの設定ディレクトリは /etc/paludis です。$ROOT と <--environment> で位置は変化するかもしれません。
+
+ユーザ毎の設定ディレクトリは ~/.paludis です。つまり Portage と異なり、一般ユーザが使う事を考えられています。
+
+Paludis を root:root で実行させないで下さい。項目があるのは /etc/paludis/environment.conf です。
+
+*** USE_flag [#n297a2b7]
+
+存在せずとも動きます。
+
+ # portage                         | # paludis
+                                   |
+ /etc/make.conf                    | /etc/paludis/use.conf
+ /etc/portage/package.use          | /etc/paludis/use.conf
+ # or                              |
+ /etc/portage/package.use/foo      | /etc/paludis/use.conf.d/foo.conf
+
+
+ # SYNTAX
+ 
+ */*    LINGUAS: ja
+ */*    (<use_flag>)*
+ <spec> (<use_flag>)*
+ 
+ app-admin/sudo pam ldap skey -offensive
+
+*** KEYWORDS [#ef7a6325]
+
+存在せずとも動きます。
+
+ # portage                         | # paludis
+                                   |
+ /etc/make.conf                    | /etc/paludis/keywords.conf
+ /etc/portage/package.keywords     | /etc/paludis/keywords.conf
+ # or                              |
+ /etc/portage/package.keywords/foo | /etc/paludis/keywords.conf.d/foo.conf
+
+ # SYNTAX
+ 
+ */*    (<architecture>)* ~(<architecture>)*
+ <spec> (<architecture>)* ~(<architecture>)*
+ 
+ */* amd64 -~amd64
+
+*** Mask [#sb459401]
+
+存在せずとも動きます。
+
+ # portage                         | # paludis
+                                   |
+ /etc/portage/package.mask         | /etc/paludis/package_mask.conf
+ # or                              |
+ /etc/portage/package.mask/foo     | /etc/paludis/package_mask.conf.d/foo.conf
+
+ # SYNTAX
+ 
+ <spec>
+ 
+ x11-base/xorg-server
+
+*** Unmask [#l6ff183d]
+
+存在せずとも動きます。
+
+ # portage                         | # paludis
+                                   |
+ /etc/portage/package.unmask       | /etc/paludis/package_unmask.conf
+ # or                              |
+ /etc/portage/package.unmask/foo   | /etc/paludis/package_unmask.conf.d/foo.conf
+
+ # SYNTAX
+ 
+ <spec>
+ 
+ app-editors/emacs
+
+*** Mirror [#e8bfa9c5]
+
+存在せずとも動きます。
+
+ # portage                         | # paludis
+                                   |
+ /etc/make.conf                    | /etc/paludis/mirrors.conf
+
+ # SYNTAX
+ # <name> for mirror://
+ 
+ *      (http://foo/distfiles)*
+ <name> (http://foo/distfiles)*
+
+*** License [#ed155b35]
+
+存在せずとも動きます。
+
+ # portage                         | # paludis
+                                   |
+ /etc/make.conf                    | /etc/paludis/licenses.conf
+
+ # SYNTAX
+ 
+ */*    *
+ <spec> (<liscense>)*
+
+*** world [#ccb90c48]
+
+存在せずとも動きます。
+
+ # portage                         | # paludis
+                                   |
+ /var/lib/portage/world            | /var/db/pkg/world (Symbolic Link -> /var/lib/portage/world)
+
+
+ # SYNTAX
+ 
+ # 自動作成
+
+*** Repository [#d3effe4c]
+
+存在せずとも動きます。
+
+ # portage                         | # paludis
+                                   |
+                                   | /etc/paludis/repositories/<repository>.conf
+                                   | /etc/paludis/repositories/repository_defaults.conf
+
+ # SYNTAX
+ 
+ <key>=<value>
+
+
+*** Set [#b2929740]
+
+存在せずとも動きます。
+
+ # portage                         | # paludis
+                                   |
+                                   | /etc/paludis/sets/<set>.conf
+
+ # SYNTAX
+ 
+ <key>=<value>
+
+
+*** specpath [#q64b98a1]
+
+存在せずとも動きます。
+
+ # portage                         | # paludis
+                                   |
+                                   | /etc/paludis/specpath
+
+ # SYNTAX
+ 
+ <key>=<value>
+
+
+*** environment [#od281648]
+
+存在せずとも動きます。
+
+ # portage                         | # paludis
+                                   |
+                                   | /etc/paludis/environment.conf
+
+ # SYNTAX
+ 
+ <key>=<value>
+
+
+
+
+
+_____
+
+.. [paludis_manual] http://paludis.pioto.org/
+
+
+________________
+
+
+
+- [[Gentoo_Package_Manager]], [[Portage]], [[Paludis]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+- [[memorandum_about_Paludis(1)]], [[memorandum_about_Paludis(2)]], [[memorandum_about_Paludis(3)]], [[memorandum_about_Paludis(4)]], [[memorandum_about_Paludis(5)]], [[memorandum_about_Paludis(6)]], [[memorandum_about_Paludis(7)]], [[memorandum_about_Paludis(8)]], [[memorandum_about_Paludis(9)]], [[memorandum_about_Paludis(10)]], [[memorandum_about_Paludis(11)]], [[memorandum_about_Paludis(12)]], [[memorandum_about_Paludis(13)]], [[memorandum_about_Paludis(14)]], [[memorandum_about_Paludis(15)]], [[memorandum_about_Paludis(16)]]
+- [[repository]], [[USE_flag]], [[profile]]
+- [[ebuild_files]], [[ebuild_metadata(ebuild-defined_variables)]], [[ebuild_phase(ebuild-defined_functions)]], [[the_ebuild_environment(defined_variables)]], [[the_ebuild_environment(defined_commands)]], [[bash_for_ebuild]]
+
+
+________________
+
+- [2007-05-04] 気に入ったら書き足して下さい。 (yoshino)

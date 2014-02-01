@@ -1,0 +1,13 @@
+[[courier-imap:http://www.inter7.com/courierframe.html]]([[日本語訳:http://mjm4u.net/oss/courier-imap/]])
+#contents
+*INSTALL [#od0370d3]
+ emerge courier-imap
+*POP3 over SSL [#l9c14b24]
+ /usr/sbin/mkpop3dcert
+ /etc/init.d/courier-pop3d-ssl start
+*IMAP over SSL [#jb256e44]
+ /usr/sbin/mkimapdcert
+ /etc/init.d/courier-imapd-ssl start
+IMAPは未確認です。
+
+See Also: http://www.gentoo.org/doc/ja/desktop.xml

@@ -1,0 +1,262 @@
+#title
+#contents
+
+* 宣伝的な事柄 [#v4780747]
+
+未体験者へのアピールです。
+
+** 胸奥は……Gentoo 向けパッケージ・マネージャに拘らない？ [#g4fc5394]
+
+Paludis [paludis]_ と同じく Portage [portage]_ に力不足を感じた Portage の開発者だった方が始めたプロジェクトです。スピンアウトではなくスピンオフです。Pkgcore [pkgcore]_ は Portage と意図的に似せています。レポジトリに対し Paludis に匹敵する先進的な概念を持ちます。バイナリパッケージをどうしたいのかは注目かもしれません。GPM/Ports System は他にもあります。
+
+やはり ebuild file [ebuild]_ を作成する人以外には抽象的過ぎる概念があり、2007 年 08 月現在では Paludis より実験段階です。
+
+*** Portage と Paludis と Pkgcore (2007 年 08 月現在) [#t0c4dd05]
+
+もう少し詳しく紹介してみます。実際に ebuild repository [repository]_ で GPM/Ports System [gpm]_ に何が可能なのかは個々の実装に依存します。目玉の use_flag [use_flag]_ によるメタ・ディストリビューション [meta-distribution]_ は何処も実装していますが、隔離機能や署名機能やロギング機能になるとばらつきがあります。
+
+- Portage は Gentoo Linux 1.0 (2002 年)の誕生前からあり、2007.0 でも標準採用され続けています。メタ・ディストリビューションを試行錯誤した歴史(書籍によれば 1999 年に概念は生まれていたそうです)と共にあり、必要と判断された機能が後から少し強引に足された形になっています。また内部機能に出来ず外部に任せてしまった機能もありますが、特化した外部ツールはとても優秀です。
+
+- Paludis が優れているのは ebuild file を本家とは別に管理しているグループに向けての機能です。自作パッケージを作成する必要が無いのが GPM/Ports System の特徴ですが、どうしても書かなければならない人(パッチファイル付きバグ報告をする人、自社ソフトウェアを ebuild file で管理する人、コミュニティがサポートしない使い方をする人、et al.) を支援する仕組みが豊富です。
+
+- Pkgcore は純粋な意味でのメタ・ディストリビューションに拘ってます。domain (平行した構築領域)の概念、これは repository, root, use_flag, etc. の組合せより決定されるものですが、例えば数十数百の環境全てを Pkgcore が作成して管理して更新する事を可能にするようです。また、Paludis は自身をアプリケーションではなくフレームワークであるとしていますが、Pkgcore も同じくフレームワークであるとしています。
+
+:ebuild file を作成しない人向けのドキュメント| 黎明期に開発が始まり標準採用され続けている Portage が最も多いです。と言うか他は未だ未だ ebuild file を作成する人に説明している段階です。Portage は書籍になるそうです。
+
+:インターフェイス| どれもコマンドラインです。拡張 atom 表現を利用したりシェル補完利用したりと対話型操作を向上させる方法もありますが、スクリプトを記述して cron 運用させるのが普通のようです。他の GPM/Ports System の中にはグラフィカルなものもあります。
+
+:カスタマイゼーションやパーソナライゼーション| カスタマイゼーションやパーソナライゼーションについても差はありません。セキュリティのエキスパート指向とは別問題ですが、Gentoo はシステムが原因となる間違いを嫌う傾向があります。禁止されている訳ではありませんから競争が盛り上がればやがて登場するかもしれません。
+
+:プライマリ・パッケージ・マネージャとセカンダリ・パッケージ・マネージャ| どれもプライマリです。app-arch/rpm, app-arch/dpkg, app-arch/ipkg-utils, etc. は用意されてます。セカンダリについては prefix プロジェクトが実験を行っています。セカンダリとは Gentoo 以外のディストリビューション、すなわち別のパッケージ・マネージャ(プライマリ)が livefs (rootfs) を管理している世界でジェンツー・パッケージ・マネージャ(セカンダリ)を利用する意味です。
+
+:設定ファイル| Paludis だけが動的な設定ファイルを利用可能です。しかしながら 10 台 20 台の中でコンパイラが動くマシンは 1 台だけ、はどれでも可能です。Pkgcore は Paludis 同様に何も移行手続きをせずとも Portage 側設定ファイルを読み込み動きます。しかしながらこれも Paludis 同様に Pkgcore 向けの機能(具体的にはレポジトリ及びドメインの概念)を使うのであれば専用の設定ファイルを記述しなくてはいけません。
+
+:レポジトリ及びドメインの概念| レポジトリの原則は ebuild file 群です。Paludis は複数のユーザ、複数のサブシステム、複数のレポジトリがデフォルトです。またレポジトリが ebuild file 群である必要がありません。そのためレポジトリの同期手段が RSync 以外にも選べます (CVS, SVN, DARCS, GIT, RSYNC, TAR, SSH, et al.)。Pkgcore は完成度で劣りますが、前者も後者も用意するそうです。Portage は root (portage)、livefs (rootfs)、portage tree (ebuild repository) を念頭にしています。
+
+:VDB| Portage, Paludis, Pkgcore は共存可能でどれも同じデータベースを指定しても構いませんし、別々にしても構いません。VDB とはシステムに何がどんな状態でマージ済みかを保存しているデータベースです。VDB を repository の延長として管理出来るのは Paludis と Pkgcore だけです。Portage は外部ツールがないと速度が問題になるかもしれませんが、Paludis と Pkgcore は内部機能だけでも高速です。
+
+:依存関係計算方法| 同じパッケージをマージするのでも Portage と Paludis では依存関係計算が異なります。Paludis はアルゴリズムを選べますから Portage に近い計算も可能ですが、逆は出来ません。基本的に Pkgcore は Portage と同じです。速度は主に VDB が関係します。
+
+:ソースファイルによるメタ・ディストリビューション| どれも実装しています。Phase はどれも基本 Phase の他に独自 Phase を追加していますが GPMS (厳密に言えばこれは ebuild file を定義したものではなく Gentoo Package Manager を定義したもの)に従った ebuild_file ならば問題無く動きます。
+
+:バイナリファイル| Portage は RPM を作成可能ですが、Paludis は作成出来ません。Gentoo 独特のバイナリパッケージ形式の支援も Portage が一歩先です。ですがむしろ特化した dev-util/catalyst や dev-embedded/gnap を使って下さい。app-arch/rpm, app-arch/dpkg, app-arch/ipkg-utils, etc. は用意されてます。Pkgcore は EBUILD だけでなく DPKG の提案もあり、バイナリパッケージに意欲的です。ただ、RPM や DPKG に関しては完成したとしてもプライマリではなく、セカンダリと思います。
+
+:クロス、分散、キャッシュ等のコンパイラ支援| クロス・コンパイルを始め、sys-devel/distcc や dev-util/ccache 等外部ツールによるコンパイラ支援はどれでも利用可能です。Pkgcore に daemonizing の概念があります。
+
+:Sandbox, GLSA, QA の足された主要機能| 足された主要機能である Sandbox や GLSA や QA が Paludis 及び Pkgcore では最初から揃っています。Sandbox は root:root でさえも登録ディレクトリ以外へのアクセスを禁止させる LD_PRELOAD のハック、GLSA は脆弱性注意報告、QA は品質保証です。
+
+:主要機能と判断されていない選択機能| Portage は必要かもしれないと思われた数々のアイデアがそのまま足され残っています。Pkgcore はおおよそを継承するようですが、追いつかないようです。Paludis は意図的に外しています(しかしながら ebuild file を知らないと何に使うのか分らないものは沢山足されている)。検索機能や分析機能などは特化した app-portage/eix や app-portsge/portage-utils がどれよりも優れています。
+
+:拡張方式| Portage の拡張は FEATURES 方式、つまり内部機能オンオフ指示です。Paludis の拡張は Hook 方式、つまり欲しい機能は Bash スクリプトで追加します。Pkgcore は FEATURES 方式です。
+
+:プログラミング言語| Portage は Python と Bash です。Paludis は C++ と Bash ですが、Python と Ruby のインターフェイスも提供されてます。Pkgcore は C と Python と Bash ですが、Perl のインターフェイスも提供されています。どれも ebuild file の処理に Bash を使っています。自前の解析器ではありません。なので、中心部分は Bash の知識があればどれも理解出来ます。その他の部分について Portage と Pkgcore は Python 向けの dev-python/epydoc、Paludis は C++ 等数多くをサポートする app-doc/doxygen に対応しています。
+
+
+***「コンピュータにはアーキテクチャ、カーネル、ライブラリ、ユーザランド、ライセンス、etc. があるけど、パッケージ・マネージャも肯綮なんじゃない？」ぐらいに考えると其処に興趣があるかもしれません [#mc04cbf4]
+
+関連記事 [prefix]_ [overlays]_ [use_flag]_ があります。
+
+** パッケージの種類は 11000 以上、枚数は 24000 以上、加えてサードパーティによる追加あり [#v389d603]
+
+同じ tree [repository]_ を使えば Portage [portage]_ と同じです。
+
+** profile が用意されているアーキテクチャは 20 種以上 [#q6705e82]
+
+同じ tree [repository]_ を使えば Portage [portage]_ と同じです。
+
+** 許可されているライセンス・ファイルは 500 枚以上 [#k33bef8b]
+
+同じ tree [repository]_ を使えば Portage [portage]_ と同じです。
+
+** メタ・ディストリビューションの解説書(独語)が完成したそうです……8 年目(書籍内容より)にして概念がそれっぽい形になった？ [#e3dbecbb]
+
+そもそも本家には [[PR プロジェクト:http://www.gentoo.org/proj/en/pr/index.xml]]や [[Documentation プロジェクト:http://www.gentoo.org/proj/en/gdp/index.xml]]があります。[[GWN サブプロジェクト:http://www.gentoo.org/proj/en/pr/gwn.xml]]が発行している [[GWN]] や[[公式サイト:http://www.gentoo.org/]]のページを幾つか読んで貰うのが雰囲気を伝えるには早い気がします。
+
+技術的価値以外に、「わくわくする」とか「こころときめく」とかが少なくないようです。例えば NASA (米航空宇宙局)で採用された際のインタビュー記事でもそんなことが書かれてます。デベロッパの視点のもありますが、ユーザの視点のもあります。尖った個人というより、適材適所を実行するメリット云々に近いです。
+
+*** 「ドイチュラント在住(エースタライヒ？シュヴァイツ？リヒテンシュタイン？)のテヒニカー(テヒノクラート？)はヤーパンに詳しそうだけど期待し過ぎなのでは……」かもしれませんけど、この書籍から使うに留まらずもっと凄いもの作る人が現れれたら大成功ですね [#o0924fcf]
+
+http://www.mitp.de/vmi/mitp/detail/pWert/1769 の PDF
+
+* 具体的な事柄 [#e240a45b]
+
+「本家への案内」を意識した記事になってます。
+
+** C と Python と Bash [#g4c6805b]
+
+C と Python と Bash で記述されています。Perl のインターフェイスもあります。
+
+** rpm と dpkg と ebuild [#u48046e4]
+
+2007 年 08 月現在の所、rpm 以外に dpkg についても RST 形式文章だけはあります。ebuild に関しては pmaint コマンドで形になり始めています。
+
+** Pkgcore を使うには Portage を削除しないと駄目ですか？ [#xd948a16]
+
+むしろ削除は不味いです。必要コマンドである etc-update が Pkgcore にないからです。2007 年 08 月では共存可能、つまり Block (依存関係集合で要素の衝突を意味する)されないようです。Paludis 同様に何も移行手続きをせずとも Portage 側設定ファイルを読み込み動く設計です。しかしながらこれも Paludis 同様に Pkgcore 向けの機能を使うのであれば専用の設定ファイルを記述しなくてはいけません。
+
+** 連鎖の仕組み、すなわち ebuild.sh を知る必要はありますか？ [#h5be61d2]
+
+domain (平行した構築領域)を使うにしても知らなくて平気です。
+
+** 2007 年 08 月の公式マニュアルだけでは足りない人への説明 [#e2260e77]
+
+公式サイトのマニュアル [pkgcore]_ で確認して下さい。
+
+*** 用語 [#s033c3fe]
+
+関連記事 [Pause_on_Pkgcore(1)]_ があります。
+
+*** 設定ファイル [#db2ae777]
+
+関連記事 [Pause_on_Pkgcore(2)]_ があります。
+
+*** 基本操作 [#h070ef84]
+
+関連記事 [Pause_on_Pkgcore(3)]_ があります。
+
+*** FEATURES [#w8273470]
+
+関連記事 [Pause_on_Pkgcore(4)]_ があります。
+
+*** RESTRICT [#s3cdb2ad]
+
+関連記事 [Pause_on_Pkgcore(5)]_ があります。
+
+*** EBD, EBuild Daemon [#l29b08ba]
+
+関連記事 [Pause_on_Pkgcore(6)]_ があります。
+
+*** 仕組み [#z0198688]
+
+関連記事 [Pause_on_Pkgcore(7)]_ があります。
+
+*** ebuild 管理だけでなく Backup (CVS, SVN, DARCS, GIT, RSYNC, TAR, SSH, et al.) 管理にも使う [#eea83ee1]
+
+関連記事 [Pause_on_Pkgcore(8)]_ があります。
+
+*** QA (品質保証) [#c45cdaa2]
+
+関連記事 [Pause_on_Pkgcore(9)]_ があります。
+
+*** GLSA (脆弱性注意報告) [#ffb899cc]
+
+関連記事 [Pause_on_Pkgcore(10)]_ があります。
+
+*** 分散コンパイル [#hd2e111b]
+
+関連記事 [Pause_on_Pkgcore(11)]_ があります。
+
+*** コンパイルのキャッシュ [#v39c6ea9]
+
+関連記事 [Pause_on_Pkgcore(12)]_ があります。
+
+*** クロスコンパイル [#g5310f9b]
+
+関連記事 [Pause_on_Pkgcore(13)]_ があります。
+
+*** VDB (データベース) [#fec2f9f0]
+
+関連記事 [Pause_on_Pkgcore(14)]_ があります。
+
+*** Delta Compression for binary (差分バイナリファイル) [#w2a5e980]
+
+関連記事 [Pause_on_Pkgcore(15)]_ があります。
+
+*** バイナリパッケージ [#gf319e9e]
+
+関連記事 [Pause_on_Pkgcore(16)]_ があります。
+
+* 思想的な事柄 [#j3411576]
+
+純粋な意味でのメタ・ディストリビューション [meta-distribution]_ に拘り、なるべく多くの repository/config/format (ebuild に限らない)をサポートしたいようです。スピンアウトでなくスピンオフですから大きな恩恵もありますが、それが故の制限もあるようですね。
+
+
+________________
+
+
+.. [gpms] http://dev.gentoo.org/~spb/pms.pdf が PDF です。
+
+.. [gpm] http://wiki.gentoo.gr.jp/index.php?Gentoo_Package_Manager に関連記事があります。
+
+.. [meta-distribution] http://wiki.gentoo.gr.jp/index.php?%5B%5B%A5%E1%A5%BF%A1%A6%A5%C7%A5%A3%A5%B9%A5%C8%A5%EA%A5%D3%A5%E5%A1%BC%A5%B7%A5%E7%A5%F3%5D%5D に関連記事があります。 
+
+.. [sandbox] root:root でさえも登録ディレクトリ以外へのアクセスを禁止させる LD_PRELOAD のハック。
+
+.. [glsa] 脆弱性注意報告。
+
+.. [qa] 品質保証。
+
+.. [repository] http://wiki.gentoo.gr.jp/index.php?repository に repository, tree, overlays の関連記事があります。
+
+.. [portage] http://www.gentoo.org/proj/en/portage/index.xml は公式サイトです。
+
+.. [paludis] http://paludis.pioto.org/ は公式サイトです。
+
+.. [pkgcore] http://www.pkgcore.org/ は公式サイトです。
+
+.. [vdb] システムに何がどんな状態でマージ済みかを保存しているデータベース。
+
+.. [features] ユーザが機能をオンオフ調整する portage 変数。pkgcore は採用、paludis は不採用。
+
+.. [restrict] デベロッパが機能をオンオフ調整する ebuild 変数。
+
+.. [digest/manifest] 誰が作成したものかを保証する機能。
+
+.. [ebuild] http://wiki.gentoo.gr.jp/index.php?ebuild_files に関連記事があります。
+
+.. [prefix] http://wiki.gentoo.gr.jp/index.php?prefix に関連記事があります。
+
+.. [overlays] http://wiki.gentoo.gr.jp/index.php?overlays に関連記事があります。
+
+.. [use_flag] http://wiki.gentoo.gr.jp/index.php?USE_flag に関連記事があります。
+
+.. [profile] http://wiki.gentoo.gr.jp/index.php?profile に関連記事があります。
+
+.. [Pause_on_Pkgcore(1)] http://wiki.gentoo.gr.jp/index.php?Pause_on_Pkgcore(1) に関連記事があります。
+
+.. [Pause_on_Pkgcore(2)] http://wiki.gentoo.gr.jp/index.php?Pause_on_Pkgcore(2) に関連記事があります。
+
+.. [Pause_on_Pkgcore(3)] http://wiki.gentoo.gr.jp/index.php?Pause_on_Pkgcore(3) に関連記事があります。
+
+.. [Pause_on_Pkgcore(4)] http://wiki.gentoo.gr.jp/index.php?Pause_on_Pkgcore(4) に関連記事があります。
+
+.. [Pause_on_Pkgcore(5)] http://wiki.gentoo.gr.jp/index.php?Pause_on_Pkgcore(5) に関連記事があります。
+
+.. [Pause_on_Pkgcore(6)] http://wiki.gentoo.gr.jp/index.php?Pause_on_Pkgcore(6) に関連記事があります。
+
+.. [Pause_on_Pkgcore(7)] http://wiki.gentoo.gr.jp/index.php?Pause_on_Pkgcore(7) に関連記事があります。
+
+.. [Pause_on_Pkgcore(8)] http://wiki.gentoo.gr.jp/index.php?Pause_on_Pkgcore(8) に関連記事があります。
+
+.. [Pause_on_Pkgcore(9)] http://wiki.gentoo.gr.jp/index.php?Pause_on_Pkgcore(9) に関連記事があります。
+
+.. [Pause_on_Pkgcore(10)] http://wiki.gentoo.gr.jp/index.php?Pause_on_Pkgcore(10) に関連記事があります。
+
+.. [Pause_on_Pkgcore(11)] http://wiki.gentoo.gr.jp/index.php?Pause_on_Pkgcore(11) に関連記事があります。
+
+.. [Pause_on_Pkgcore(12)] http://wiki.gentoo.gr.jp/index.php?Pause_on_Pkgcore(12) に関連記事があります。
+
+.. [Pause_on_Pkgcore(13)] http://wiki.gentoo.gr.jp/index.php?Pause_on_Pkgcore(13) に関連記事があります。
+
+.. [Pause_on_Pkgcore(14)] http://wiki.gentoo.gr.jp/index.php?Pause_on_Pkgcore(14) に関連記事があります。
+
+.. [Pause_on_Pkgcore(15)] http://wiki.gentoo.gr.jp/index.php?Pause_on_Pkgcore(15) に関連記事があります。
+
+.. [Pause_on_Pkgcore(16)] http://wiki.gentoo.gr.jp/index.php?Pause_on_Pkgcore(16) に関連記事があります。
+
+
+________________
+
+
+- [[Gentoo_Package_Manager]], [[Portage]], [[Paludis]], [[Pkgcore]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+- [[Pause_on_Pkgcore(1)]], [[Pause_on_Pkgcore(2)]], [[Pause_on_Pkgcore(3)]], [[Pause_on_Pkgcore(4)]], [[Pause_on_Pkgcore(5)]], [[Pause_on_Pkgcore(6)]], [[Pause_on_Pkgcore(7)]], [[Pause_on_Pkgcore(8)]], [[Pause_on_Pkgcore(9)]], [[Pause_on_Pkgcore(10)]], [[Pause_on_Pkgcore(11)]], [[Pause_on_Pkgcore(12)]], [[Pause_on_Pkgcore(13)]], [[Pause_on_Pkgcore(14)]], [[Pause_on_Pkgcore(15)]], [[Pause_on_Pkgcore(16)]]
+- [[repository]], [[USE_flag]], [[profile]], [[prefix]], [[overlays]]
+- [[ebuild_files]], [[ebuild_metadata(ebuild-defined_variables)]], [[ebuild_phase(ebuild-defined_functions)]], [[the_ebuild_environment(defined_variables)]], [[the_ebuild_environment(defined_commands)]], [[bash_for_ebuild]]
+
+________________
+
+
+- [2007-08-04] みんながみんなジンクスを猛烈に気にするのならば、もしかして次の名前は Poincare (ポアンカレ)や Potpourri (ポプリ)などで、それを搭載した新しい完成品は  domino (ドミノ)や cowbell (カウベル)などで……gentoo (ジェンツー)と sabayon (サバイヨン)以外のヒントとしては sumo (スモウ)は強引ながら成立済み、samurai (サムライ)は外れる、ninja (ニンジャ)は候補になる……はい、そうです。どーでもいーネタです。すみません。本文を気に入った人がいたら書き足して下さい。 (yoshino)
+- [2007-08-05] Paludis を追加しました。公式文章には無い個人的仮説ですが、rpm, dpkg, ebuild 全てをサポートし、各々を別の domain (平行した構築領域)で扱い、只今 Prefix プロジェクト [prefix]_ で実験中の Secondary Package Manager として提供するなんてのも不可能ではないので……Portage でメタ・ディストリビューションを試行錯誤したのだし Pkgcore でパッケージ・マネージャを試行錯誤しないのかな、なんて空想をついつい楽しんでしまいます。(yoshino)

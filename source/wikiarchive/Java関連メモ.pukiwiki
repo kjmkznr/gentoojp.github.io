@@ -1,0 +1,62 @@
+*Java関連メモ [#y91dd8ed]
+
+Yasumichi
+
+**ToDo [#t22df33d]
+
+-フォント設定
+
+**フォント設定 [#ga0a55d0]
+
+blackdown-jdkでswingアプリを実行する場合、インストール時のデフォルトの設定では、フォントが見付からず、文字化けしてしまう。fontの設定ファイルは、
+
+ /opt/blackdown-jdk-1.4.1/jre/lib/font.properties.ja
+
+である。中身を見るとGentooでは用意されていない(?)watanabeやwadalaboのフォントが指定されている。これを直せば、いけそうなんだけど…。
+
+Debianの例であるが、下のようなページがある。
+
+[[でびあんでじゃば:http://yamaguch.sytes.net/~tora/debian/java.html]]
+
+上記にあるKochi用のパッチを参考に修正してみるも
+
+ Warning: Cannot convert string "--kochi-mincho-medium-r-normal--*-140-*-*-c-*-jisx0208.1983-0" to type FontStruct
+
+と出てうまく行かなかった。うまく日本語表示できている方がいましたら、情報ください。
+
+**GentooとEclipse [#j8fc8b0e]
+
+2/18現在の所、
+
+-dev-util/eclipse-cdt-bin
+-dev-util/eclipse-ftp-webdav-bin
+-dev-util/eclipse-jdt-bin
+-dev-util/eclipse-platform-bin
+
+の4つのebuildが安定版として用意されているが、当方の環境ではうまくBlackdown Java Runtime Environment 1.4.1(dev-java/blackdown-jre)を認識できなかったのでEclipseのサイトからリンクをたどって
+
++eclipse-SDK-2.1.2-linux-gtk.zip(本体)
++eclipse2.1.2.1-SDK-linux-gtk-LanguagePackFeature.zip(言語パック)
+
+をダウンロード。ホームディレクトリで順番にunzipしました。
+
+ $ unzip eclipse-SDK-2.1.2-linux-gtk.zip
+ $ unzip eclipse2.1.2.1-SDK-linux-gtk-LanguagePackFeature.zip
+
+そして実際に起動してみた所、無事、jreを認識してくれました。
+
+ $ ~/eclipse/eclipse &
+
+----
+
+手元のeclipseblackdown-jre-1.4.1だと問題なくeclipse-sdkが動きますよ. kaffe-1.1.3だと動きませんが. a5hr
+
+動くには動いたんですが、設定の『インストール済みのJRE』に何故か、表示されなかったのです。つまり、JDTでのビルドができないという状況でした。なお、CDTは問題なかったです。--Yasumichi
+
+日本語表示の件ですが, blackdownの場合は/opt/blackdown-jdk-1.4.1/jre/lib/font.properties.jaを以下のように変更してみて下さい.
+- "-watanabe-mincho"を"-misc-kochi mincho"に置換
+- "-wadalab-gothic"を"-misc-kochi gothic"に置換
+
+これで一応swingで日本語が表示されています.
+
+eclipseの方は今見てみた所、確かにblackdownだと認識してくれませんね. sun-jdkだと大丈夫なのですが.　--a5hr

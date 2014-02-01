@@ -1,0 +1,97 @@
+#contents
+#title
+
+無線LAN設定の記事も[[ハンドブック]]に含まれました。
+
+*net-wireless/ndiswrapper-1.1 [#n998d001]
+
+[[ndiswrapper]]はWindows用のドライバをLinuxで利用するものです。
+
+**ダウンロード [#r8383fc6]
+
+wdrv_622.exeに含まれるcbg54内のnetcbg54.infとbcmwl5.sysを使うので、wdrv_622.exeを販売元から入手します。(wdrv_581.exeでも動きます。)
+
+[[ndiswrapper]]パッケージを入手します。
+
+ # # emerge hardened-sources
+ # emerge gentoo-sources
+ # ...snip
+ # # カーネルコンパイル
+ # emerge ndiswrapper
+ # emerge wireless-tools
+
+hardened-sources-2.6.11 、ndiswrapper-1.1 での動作は確認しています。ndiswrapper.koはカーネルのヴァージョンに依存しますので、カーネルを交換する事があれば[[ndiswrapper]]も再[[マージ]]します。[[genkernel]]や[[module-rebuild]]パッケージが便利です。
+
+**登録 [#i099d8d2]
+
+ # lha -x wdrv-581.exe
+ # ndiswrapper -i ./snip/netcbg54.inf
+ # ndiswrapper -l
+ # ndiswrapper -m
+ # modprobe ndiswrapper
+ # modinfo ndiswrapper
+ # dmesg | tail -n 10
+ 
+なお、modprobeが上手くいかなければ手動で行います。
+
+ # lspci | grep 802.11
+ # lspci -n
+ # # vendorID:deviceIDをメモする。
+ # # この例の場合14e4:4320。
+ # insmod ndiswrapper
+ # loadndiswrapper vendorID deviceID ./snip/bcmwl5.sys ./snip/netcbg54.inf
+
+**動作確認 [#v924f972]
+
+ # iwlist wlan0 scanning
+ # iwconfig wlan0 essid foobar key s:foobar
+ # dhcpcd wlan0
+ # # ifconfig wlan0 up
+ # # ifconfig wlan0 x.x.x.x netmask x.x.x.x
+
+**自動処理化 [#c5c74553]
+
+ # vi /etc/modules.conf
+ alias wlan0 ndiswrapper
+ # vi /etc/modules.autoload/kernel-2.6
+ ndiswrapper
+ # vi /etc/conf.d/net
+ iface_wlan0="dhcp"
+ dhcpcd_wlan0="-H -D -N"
+ wireless_channel_wlan0="11"
+ wireless_mode_wlan0="auto"
+ wireless_rate_wlan0="auto"
+ wireless_essid_wlan0="foobar"
+ # vi /etc/init.d/net.wlan0
+ # # start()内
+ /usr/sbin/iwconfig wlan0 essid foobar key s:foobar
+ # rc-update add default net.wlan0
+
+**WPA, WPA2 [#d9f07555]
+
+[[wpa_supplicant]]を入手します。(現在だと[[emerge]]で入手できるみたいですが、以下はソースからの流れ。)
+
+ # vi wpa_supplicant/.config
+ CONFIG_DRIVER_NDISWRAPPER=y
+ CONFIG_CTRL_IFACE=y
+ # make
+ # cp -a wpa_supplicant wpa_passphase_wpa_cli /usr/sbin
+ # vi /etc/wpa_supplicant.conf
+ ctrl_interface=/var/run/wpa_supplicant
+ network={
+ ssid="foobar"
+ psk="foobar"
+ key_mgmt=WPA-PSK
+ proto=WPA
+ }
+ # ifconfig wlan0 up
+ # wpa_supplicant -Dndiswrapper -iwlan0 -c/etc/wpa_supplicant.conf -dd
+ # # wpa_supplicant -Dndiswrapper -iwlan0 -c/etc/wpa_supplicant.conf -Bw
+ # dhcpcd wlan0
+
+
+========
+
+-[2005-09-19] 迷ったのですが、(公式サイトの一部で目立つ位置にある)gentoojp-wikiにこの手の(キャッチーな)記事が少ないので追加してみました。1年ほど前のメモと半年ほど前の個人メモからまとめたものです。最新情報は確認してません。興味を持たれた方がいれば他のカードの紹介や記事修正をして下さるといいなと思ってたりしてます。
+-[2005-09-19] (yoshino)
+-[2005-10-03] 無線LAN設定の記事もハンドブックに含まれました。(yoshino)

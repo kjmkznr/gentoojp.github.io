@@ -1,0 +1,26 @@
+原文：http://gentoo-wiki.com/TIP_Colorized_Config_Management
+
+*Config管理をカラー化 [#j679bb98]
+#contents
+**はじめに [#fbe83655]
+etc-updateやdispatch-confの出力は、設定ファイルのオリジナル部分と新規部分の違いを見分けるのが困難です。出力をカラー化することによって、より簡単に違いを視覚化することができます。
+
+**設定 [#p6c44eaf]
+まずcolordiffをemergeします。
+
+ emerge -av colordiff
+
+***etc-update [#a02836f1]
+ではetc-updateがcolordiffを使うように設定しましょう。/etc/etc-update.confを開いて、diff_commandの行を以下のように変更します。
+
+File: /etc/etc-update.conf  
+ diff_command="colordiff -u %file1 %file2"
+
+***dispatch-conf [#lee2882c]
+
+ではdispatch-confがcolordiffを使うように設定しましょう。/etc/dispatch-conf.confを開いて、diffの行を以下のように変更します。
+
+File: /etc/dispatch-conf.conf  
+ diff="colordiff -u %s %s | less"
+
+オプションを変更したくないのなら、単にdiffコマンドをcolordiffに変更します。

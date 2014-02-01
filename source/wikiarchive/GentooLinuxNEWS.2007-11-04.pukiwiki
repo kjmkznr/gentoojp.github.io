@@ -1,0 +1,85 @@
+
+- [2007-11-04]
+
+Inveneo や Sabayon が出現する中、LWN.net に投稿された [[Linux Kernel-2.6.22 の参加者分析:http://gtvxi.com]]に触発された本家活動員が [[Gentoo Linux の参加者分析:http://gtvxi.com]]を投稿しています。ここ 1-2 年にデベロッパ側でとある傾向が現れているそうです。途中導入した SVN と overlays が抜けている時点で量は無視します。
+
+長い割に (1 つを [[A:http://gtvxi.com]], [[B:http://wiki.gentoo.gr.jp/index.php?GentooLinuxNEWS.2007-11-04]], [[C:http://gtvxi.com]] に分割) 凄いオチでも無く[[直球:http://dev.gentoo.org/~antarus/debuggin_nscd.jpg]]に三振です。
+
+以下は [[GWN]] の Bugzilla 資料の補足です。余談ですが、コミュニティ窓口のためバグ報告で無いものも混ざり、一般のバグ報告の意味では未解決の総数が参考になります。報告数の累積は 2007 年中に 200,000 件を越えます:
+
+ 2005-09 報告数 解決数 再発数 未解決の累積数(最優先:広域障害:単体障害:-:-)
+ =======
+ 1       753     393    36      97   197   536   -   -
+ 2       794     386    29      97   198   543   -   -
+ 3       769     380    65      101  186   547   -   -
+ 4       798     366    39      98   189   554   -   -
+
+ 2007-09 報告数 解決数 再発数 未解決の累積数(最優先:広域障害:単体障害:-:-)
+ =======
+ 1       449     283    15      10   101   338   -   -
+ 2       428     287    12      10   104   341   -   -
+ 3       526     269    15      11   109   336   -   -
+ 4       480     303    20      11   101   338   -   -
+
+
+以下は CVS 資料の補足です。脱退数の変化を示します (全体を示しません)。定期継続確認に返事し続ける方々は 2007 年 09 月で 300-400 名です。2006 年は平均して 250 名が毎月コミットしてます。大半が空き時間貢献者です:
+
+        合計 - 脱退 = 在籍
+ ======
+ 1999組 -                     # Gentoo の前身にて概念の誕生
+ 2000組 -
+ 2001組 7       5      2
+ 2002組 40      30     10     # Gentoo-1.0 配布
+ 2003組 60      39     21
+ 2004組 78      43     35     # 創始者の離脱と現行制度の始まり
+ 2005組 101     33     68
+ 2006組 70      8      62     # Jan 1 - Dec 31
+ 2007組 40      2      38     # Jan 1 - Sep 22
+
+
+以下は SVN 資料の補足です。26 名と委員会の関係です:
+
+ 順) 名前                       国  委員 担当
+ ===
+ 01) Ral Porcel              [西] ---- (Portage-tree 掃除部門)
+ 02) Diego Petten            [伊] 当選 (Gentoo/Alt 部門)
+ 03) Mike Frysinger            [米] 当選 (ゲーム部門責任者)
+ 04) Michael Sterrett          [米] ---- (ゲーム部門)
+ 05) Piotr Jaroszynski         [波] ---- (品質保証部門)
+ 06) Christian Faulhammer      [独] ---- (emacs 部門)
+ 07) Gustavo Zacarias          [葡] ---- (秘密)
+ 08) Michael Cummings          [??] ---- (秘密)
+ 09) Markus Rothe              [独] ---- (Gentoo/PPC 部門)
+ 10) Jeroen Roovers            [蘭] ---- (Gentoo/SPARC 部門)
+ 11) Samuli Suominen           [フィンランド] ---- (サウンド部門)
+ 12) Markus Ullmann            [独] 出馬 (Portage-overlays 部門責任者)
+ 13) Tobias Scherbaum          [独] 出馬 (「メタ・ディストリビューション」著者)
+ 14) Petteri Rty             [フィンランド] 当選 (リクルート部門責任者)
+ 15) Chris Gianelloni          [米] ---- (Release Engineering 部門責任者)
+ 16) Steve Dibb                [米] ---- (Gentoo Planet 部門責任者)
+ 17) Andrej Kacian             [スロバキア] ---- (Gentoo/X86 部門)
+ 18) Christian Heim            [独] ---- (Virtual Private Server 部門)
+ 19) Marius Mauch              [独] ---- (Portage 部門責任者)
+ 20) Christoph Mende           [独] ---- (Gentoo/AMD64 部門)
+ 21) Bryan stergaard         [??] ---- (秘密)
+ 22) Donnie Berkholz           [米] 当選 (デスクトップ部門責任者)
+ 23) Gysbert Wassenaar         [??] ---- (Gentoo/PPC 部門)
+ 24) Roy Marples               [英] 当選 (Gentoo/kFreeBSD 部門責任者)
+ 25) Stefan Schweizer          [独] ---- (Gentoo/Prefix 部門)
+ 26) Joseph Jezak              [米] ---- (Gentoo/PPC 部門)
+ ??) Lucas Barbato             [伊] 当選 (ビデオ部門責任者)
+ ??) Wernfried Haas            [オーストリア] 当選 (Gentoo Forum 部門責任者)
+ ??) Christel Dahlskjr       [英] 出馬 (ユーザ部門責任者)
+ ??) Sune Kloppenborg Jeppesen [デンマーク] 出馬 (脆弱性注意報告部門)
+ ??) Peter Weller              [英] 出馬 (Gentoo Bugday 部門)
+
+
+______
+
+- 2007-11-03 yoshino
+
+興味が有れば図書館に……あのーそのー、自身で考えて勝手に伸びる学生さんでも本筋と違うネタになると[[そうでもないらしい:http://rlazo.supersized.org/archives/57-A-sad-surprise-while-browsing-the-discussion-group.html]]ので少し面白くなる様に主観を続けたいと思います。偏りを明言して置くと、何かのチーフになった場合は「良い管理者」より「良い上司」になって欲しい派です。
+
+2005 年まで愛好期間 (在籍期間から幽霊期間を除いた初めてのコミットから最後のコミットまでの貢献継続期間) の平均は 1 年以下だった云々から始まります。仕事柄と関係有る方々が、ただ転がして勝手にハックして貰えるのなら其れが一番幸せと考える方々が、何でもいいから本家を世界一にしてから物を言うべきとする方々が、○○したとは述べられてません。もし用意出来るのなら強いジェンツーの仕組み (Not 強いコミュニティ) は悪くないかも知れませんね。
+
+此れを読んだからこそ「貴様等[[ラリー:http://www.gentoo.org/images/backgrounds/gentoo-abducted-800x600.png]]を奪う気だろ、僕のものなのに、僕から」と考える様になった、と言う方も居るかも知れませんが。

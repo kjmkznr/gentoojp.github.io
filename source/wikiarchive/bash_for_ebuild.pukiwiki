@@ -1,0 +1,333 @@
+#title
+#contents
+
+* bash for ebuild [#b93809b4]
+
+創始者の思想により ebuild file [ebuild_files]_ のスクリプトに選ばれています。Bash は Linux の標準シェルです。しかしながら Linux 入門書には "Bourne shell" の範囲を説明して終えるものが多いです。残念ながら入門書の範囲を超えます。これは "Bourne shell" との比較のつもり、厳密には Ash (sys-apps/busybox: sys-apps/coreutils, sys-apps/util-linux, sys-apps/sed, sys-apps/gawk, app-shells/ash 等の基本コマンド群の代用品を含むソフトウェア)との比較ですが、自分のメモが基準ですので偏っています。
+
+sys-apps/busybox に拘る必要はありません。実際にメタ・ディストリビューションを行うマシンを考えると、Bash であろうと C++ であろうと Python であろうと揃っているからです。メモリが 32 MB のマシンのメタ・ディストリビューション向けに GNAP [GNAP]_ がありますが、イメージを動かすのは 32 MB のマシンでも、GNAP を動かすのは 32 MB のマシンではありません。むしろ Bash に拘らず、GPMS にも定義されている sys-apps/sed や sys-devel/patch を使って下さい。
+
+** ebuild 変数 [#wc8e74ea]
+
+- 手動で定義する変数
+- 自動で定義される変数
+
+便宜上、上を ebuild_metadata(ebuild-defined_variables) とし、下を the_ebuild_environment(defined_variables) とします。
+
+** ebuild 関数 [#l59a8eb7]
+
+- 手動で定義する関数
+- 自動で定義される命令
+
+便宜上、上を phase, ebuild_phase(ebuild-defined_functions) とし、下を helper, the_ebuild_environment(defined_commands) とします。
+
+* eval による分岐表現 [#j057cf35]
+
+case 文の他にも以下の分岐表現が可能です。sys-apps/busybox の ash シェルでも同じです。
+
+ portage(){
+     echo "Hello, I like Portage."
+ }
+ 
+ paludis(){
+     echo "Hello, I like Paludis."
+ }
+ 
+ foo="portage"
+ bar="portage"
+ baz="foo"
+ 
+ # Bash run this code.
+ # Ash run this code.
+ eval "${foo}"
+ 
+ # Bash run this code.
+ # Ash run this code.
+ foo="paludis"
+ eval "${foo}"
+ 
+ # Bash run this code.
+ # Ash stop this code.
+ eval "${!baz}"
+ 
+ # Bash run this code.
+ # Ash stop this code.
+ baz=bar
+ eval "${!baz}"
+
+の結果は以下になります。
+
+ Hello, I like Portage.
+ Hello, I like Paludis.
+ Hello, I like Paludis.
+ Hello, I like Portage.
+
+* ［［? ［? test? expr? let? [#bdc1e523]
+
+C [C]_ (及びそれを意識して作られたプログラミング言語)に近い形で記述できるのは「［［」です。同様に「``」に対して「$( )」や「let」に対して「$（（ ））」があります。sys-apps/busybox に「［［」は含まれていますが、含まれないコマンドもあります。
+
+繰返しについても「for （（ n=0 ; n<100 ; n+=1 ））」の様な C [C]_ (及びそれを意識して作られたプログラミング言語)に近い記述ができます。内部処理の都合上により「for （（ $n=0 ; $n<100 ; $n+=1 ））」では駄目です。
+
+ if test "" -a " " ; then
+     echo "True"
+ else
+     echo "False"
+ fi
+ 
+ if ［［ "" && " " ］］ ; then
+     echo "True"
+ else
+     echo "False"
+ fi
+
+の結果は以下になります。
+
+ False
+ False
+
+* 配列 [#s834855f]
+
+単純な配列は可能です。連想配列はできません。内部処理の都合上により [$n] では駄目です。sys-apps/busybox の ash シェルにはない機能です。
+
+ declare -i n=0
+ declare -a a=( )
+ 
+ a[n++]="foo"
+ a[n++]="bar"
+ a[n++]="baz"
+ 
+ echo "${a[@]}" 
+ 
+ echo "-"
+ 
+ for s in ${a[@]} ; do
+     echo $s
+ done
+
+の結果は以下になります。
+
+ foo bar baz
+ -
+ foo
+ bar
+ baz
+
+* shopt -s foo と set -o bar [#u31970e8]
+
+Bash の拡張機能のオンオフです。例えば glob 文字 (expansion:pathname) についてあの環境では含む、この環境では含まないがあります。様々な expansion (展開)については明示的にオンオフを指示した方が良いかもしれません。sys-apps/busybox の ash シェルにはない機能です。
+
+* ${変数名/検索文字列/置換文字列} [#n325537a]
+
+記号をアスキーコードの 16 進法、つまり「＼xnnn」は指定できません。sys-apps/busybox の ash シェルにはない機能です。
+
+無理矢理に Bash で完結させず、sys-apps/sed が GPMS [GPMS]_ に要求されてますので、sys-apps/sed の正規表現を使うのが混乱が少ないかもしれません。
+
+ foo='A	!"#$%&()~=~|-^\@[`{;:]+*},./\<>?_ a0'
+ echo -e "${foo}"
+ bar="$(echo "${foo}" | sed -e 's/[!-:]/_/g' )"
+ echo -e "${bar}"
+
+の結果は以下になります。
+
+ A	!"#$%&()~=~|-^\@[`{;:]+*},./\<>?_ a0
+ A	________~=~|_^\@[`{;_]__}___\<>?_ a_
+
+* 正規表現 [#k5de6f3c]
+
+条件文の一致判定において正規表現が可能です。sys-apps/busybox の ash シェルにはない機能です。
+
+無理矢理に Bash で完結させず、sys-apps/sed が GPMS [GPMS]_ に要求されてますので、sys-apps/sed の正規表現を使うのが混乱が少ないかもしれません。
+
+* 「$」がない識別子は文字列扱い [#w26a973e]
+
+エラーになりません。「$」がなければ文字列です。C [C]_ や Python [Python]_ 等とは違います。「"」で囲む方が分り易いかもしれません。sys-apps/busybox の ash でも同じです。
+
+ declare doc="1"
+ declare info="2"
+ declare man="3"
+ 
+ for x in $doc $info $man ; do
+     echo $x
+ done
+ 
+ echo "-"
+ 
+ for x in doc info man ; do
+     echo $x
+ done
+
+の結果は以下になります。
+
+ 1
+ 2
+ 3
+ -
+ doc
+ info
+ man
+
+* 「if ... else ... fi | pipeline」文 [#aa2c1e67]
+
+分岐ブロック単位でパイプラインに渡せます。ちなみに if 文でなくとも利用できます。複数回の出力があってもまとめられて1つの出力として扱われます。sys-apps/busybox の ash シェルでも同じです。
+
+ for (( n=0 ; n<=1 ; n+=1)) ; do
+     echo "!!! n=$n !!!"
+     if [[ $n == 0 ]];then
+         ls /
+         stat /
+     else
+         ls /sys
+         stat /sys
+     fi | sed -e 's/\(s\|[0-9]\)/_/g'
+ done
+
+の結果は以下になります。
+
+
+ !!! n=0 !!!
+ bin
+ boot
+ dev
+ etc
+ home
+ incremental.txt
+ lib
+ lo_t+found
+ mnt
+ no
+ opt
+ proc
+ root
+ _bin
+ _y_
+ tftpboot
+ tmp
+ u_r
+ var
+   File: `/'
+   Size: ____      	Block_: _          IO Block: ____   ディレクトリ
+ Device: ___h/___d	Inode: _           Link_: __
+ Acce__: (____/drwxr-xr-x)  Uid: (    _/    root)   Gid: (    _/    root)
+ Acce__: ____-__-__ __:__:__._________ +____
+ Modify: ____-__-__ __:__:__._________ +____
+ Change: ____-__-__ __:__:__._________ +____
+ !!! n=1 !!!
+ block
+ bu_
+ cla__
+ device_
+ firmware
+ kernel
+ module
+ power
+   File: `/_y_'
+   Size: _         	Block_: _          IO Block: ____   ディレクトリ
+ Device: _h/_d	Inode: _           Link_: __
+ Acce__: (____/drwxr-xr-x)  Uid: (    _/    root)   Gid: (    _/    root)
+ Acce__: ____-__-__ __:__:__._________ +____
+ Modify: ____-__-__ __:__:__._________ +____
+ Change: ____-__-__ __:__:__._________ +____
+
+* 「pipeline | while read」文 [#w05508f8]
+
+sys-apps/findutils 内の xargs コマンドの様に出力一行毎にブロックを実行できます。その各行は変数(指定しなければ $REPLY )に収納され、ブロック内で利用できます。sys-apps/busybox の ash シェルでも同じです。
+
+ df | while read lineString ; do
+     echo ${lineString} | sed -e 's/[0-9]/-/g'
+ done
+
+の結果は以下になります。
+
+ Filesystem -K-ブロック 使用 使用可 使用% マウント位置
+ /dev/hda- ------ ------ ------ --% /
+ udev ------ --- ------ -% /dev
+ /dev/sda- ------- ------- ------ --% /usr
+ /dev/mapper/lvm--src ------- ------- ------ --% /usr/src
+ /dev/mapper/lvm--var -------- ------- ------- --% /var
+ /dev/mapper/lvm--home ------- ------- ------ --% /home
+ shm ------ - ------ -% /dev/shm
+ tmpfs ------ --- ------ -% /var/tmp
+ ---.---.-.--:/usr/portage ------- ------- ------ --% /usr/portage
+ ---.---.-.--:/var/local -------- ------- -------- --% /var/local
+
+* 関数の return は exit_code、関数内の stdout は... [#v9de6303]
+
+関数の return は exit_code を示します。文字列などを戻してはいけません。0 が成功を示し、1 以上がエラーコードを示します。文字列は関数内の出力を使います。文字列を条件式に利用するには「［［」と「$( )」を使います。sys-apps/busybox の ash シェルでも同じです。
+
+ foo() {
+     echo "foo returns False"
+     return 1
+ }
+ 
+ echo "= first ="
+ if foo ; then
+     echo "foo is True in first."
+ else
+     echo "foo is False in first."
+ fi
+ 
+ echo "= second ="
+ if [[ "$(foo)" == "foo returns False" ]] ; then
+     echo "foo is True in second."
+ else
+     echo "foo is False in second."
+ fi
+
+の結果は以下になります。
+
+ = first =
+ foo returns False
+ foo is False in first.
+ = second =
+ foo is True in second.
+
+_____
+
+.. [GNAP] http://wiki.gentoo.gr.jp/index.php?GNAP に関連記事があります。
+
+.. [GPM] http://wiki.gentoo.gr.jp/index.php?Gentoo_Package_Manager に関連記事があります。
+
+.. [GPMS] http://dev.gentoo.org/~spb/pms.pdf が PDF です。
+
+.. [repository] http://wiki.gentoo.gr.jp/index.php?repository に関連記事があります。
+
+.. [USE_flag] http://wiki.gentoo.gr.jp/index.php?USE_flag に関連記事があります。
+
+.. [profile] http://wiki.gentoo.gr.jp/index.php?profile に関連記事があります。
+
+.. [ebuild_metadata(ebuild-defined_variables)] http://wiki.gentoo.gr.jp/index.php?ebuild_metadata(ebuild-defined_variables) に関連記事があります。
+
+.. [the_ebuild_environment(defined_variables)] http://wiki.gentoo.gr.jp/index.php?the_ebuild_environment(defined_variables) に関連記事があります。
+
+.. [ebuild_phase(ebuild-defined_functions)] http://wiki.gentoo.gr.jp/index.php?ebuild_phase(ebuild-defined_functions) に関連記事があります。
+
+.. [the_ebuild_environment(defined_commands)] http://wiki.gentoo.gr.jp/index.php?the_ebuild_environment(defined_commands) に関連記事があります。
+
+.. [ebuild_files] http://wiki.gentoo.gr.jp/index.php?ebuild_files に関連記事があります。
+
+.. [ebuild_package] http://wiki.gentoo.gr.jp/index.php?ebuildパッケージ に関連記事があります。
+
+.. [Portage] http://www.gentoo.org/proj/en/portage/index.xml が公式サイトです。
+
+.. [Paludis] http://paludis.pioto.org/ が公式サイトです。
+
+.. [master_repository] 基本レイアウトとなるレポジトリ。/usr/portage など。master と slave で優先/親子/主従関係を示します。profile の読み込み順と継承に意味があります。どちらでも必要なファイルは同じです。
+
+.. [slave_repository] 重ねるレポジトリ。/usr/local/portage など。master と slave で優先/親子/主従関係を示します。profile の読み込み順と継承に意味があります。どちらでも必要なファイルは同じです。
+
+________________
+
+
+- [[Gentoo_Package_Manager]], [[Portage]], [[Paludis]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+- [[memorandum_about_Paludis(1)]], [[memorandum_about_Paludis(2)]], [[memorandum_about_Paludis(3)]], [[memorandum_about_Paludis(4)]], [[memorandum_about_Paludis(5)]], [[memorandum_about_Paludis(6)]], [[memorandum_about_Paludis(7)]], [[memorandum_about_Paludis(8)]], [[memorandum_about_Paludis(9)]], [[memorandum_about_Paludis(10)]], [[memorandum_about_Paludis(11)]], [[memorandum_about_Paludis(12)]], [[memorandum_about_Paludis(13)]], [[memorandum_about_Paludis(14)]], [[memorandum_about_Paludis(15)]], [[memorandum_about_Paludis(16)]]
+- [[repository]], [[USE_flag]], [[profile]]
+- [[ebuild_files]], [[ebuild_metadata(ebuild-defined_variables)]], [[ebuild_phase(ebuild-defined_functions)]], [[the_ebuild_environment(defined_variables)]], [[the_ebuild_environment(defined_commands)]], [[bash_for_ebuild]]
+
+
+________
+
+-[2005-09-19] UNIX 系はシェルを覚えるのが原則だと思うので、シェルスクリプトも "Bourne shell" までは入門書に記述してあると思います。Gentoo で使われているシェルスクリプトは入門書の範囲を越えていますが、2000 年当時は busybox (sys-apps/coreutils, sys-apps/util-linux, sys-apps/sed, sys-apps/gawk, app-shells/ash 等の基本コマンド群の代用品を含むソフトウェア) は存在していなかったと思います。 (yoshino)
+-[2006-09-17] 自分が調べた際のメモをほぼそのまま貼りつけているだけだったのを省察しました。 (yoshino)
+-[2007-05-04] 「ebuildとbash」より移動。 (yoshino)

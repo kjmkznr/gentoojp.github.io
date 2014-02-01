@@ -1,0 +1,15 @@
+#contents
+#title
+
+*Gentoo と metadoc.xml [#zb75177e]
+
+[[Documentation プロジェクト:http://www.gentoo.org/proj/en/gdp/index.xml]]及び[[翻訳チーム:http://www.gentoo.org/doc/ja/index.xml]]が利用する管理情報です。
+
+これを基本に [[index.xml:http://www.gentoo.org/doc/en/index.xml]] ([[日本語:http://www.gentoo.org/doc/ja/index.xml]]) や [[list.xml:http://www.gentoo.org/doc/en/list.xml]] ([[日本語:http://www.gentoo.org/doc/ja/list.xml]]) や [[overview.xml:http://www.gentoo.org/doc/en/overview.xml]] ([[日本語:http://www.gentoo.org/doc/ja/overview.xml]]) が作成されます。[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]に反映されます。[[Metadoc.xml ガイド:http://www.gentoo.org/proj/en/gdp/doc/metadoc-guide.xml]]や [[XML ガイド:http://www.gentoo.org/doc/en/xml-guide.xml]]を参考にして下さい。
+
+開発用ドキュメントやプロジェクト特有のドキュメントは、本家が英語を理解する人を求めているため翻訳されません。コミュニティには特殊なファイルが幾つかあります。[[XML]] に関連記事があります。
+
+========
+
+-[2005-10-20] 
+-[2005-10-20] (yoshino)

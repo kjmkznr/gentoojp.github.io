@@ -1,0 +1,35 @@
+*opensshのdaemontools用の設定 [#f4c74a76]
+
+-ページ: BugTrack
+-投稿者: [[howking]]
+-優先順位: 低
+-状態: CVS待ち
+-カテゴリー: ebuild
+-投稿日: 2003-07-28 (月) 15:49:15
+-バージョン: 
+
+CENTER:''本家 Bugs に提出されました。''
+
+-''daemontools の USE フラグについて→ http://bugs.gentoo.org/show_bug.cgi?id=28294 ''
+-''openssh を daemontools USE フラグで書いてみたもの→ http://bugs.gentoo.org/show_bug.cgi?id=28567 ''
+
+問題無さそうならクリックしてください。(目安として使うだけです)
+#vote(問題なく動作しました。)
+#attach
+**メッセージ [#q3092c31]
+修正しました。
+----
+
+-sys-apps/dtconfig-opensshです。 -- [[howking]] SIZE(10){2003-07-28 (月) 15:51:30}
+-いくつか使っているものをまとめました。 apache,dcron,metalog,net-snmp,openssh,postgresql,tomcat -- [[howking]] SIZE(10){2003-07-28 (月) 23:15:39}
+-固めて出してはいけないことを学習。すみません。 -- [[howking]] SIZE(10){2003-07-28 (月) 23:53:59}
+-まだ opnessh のしか見てませんが、これ改行が DOS モードになってますよ。あと src_unpack() は不要です。eutils もなんか使ってないみたいなので、inherit の行の不要だと思います。また何回かdtconfig-openssh-${PV} と書いていますが、これは ${P} と同値なので ${P} とお書きください。詳しくは man 5 ebuild したら各変数の意味が書いてあります。あとは、einfo() のところは pkg_postinst() のほうがいいでしょうか(こっちに書けばバイナリインストールのときも表示されるはずです)。あとは新しいユーザを作るのは、これこそ eutils の enewuser のほうがいいかもしれません。eutils の説明は /usr/portage/eclass/eutils.eclass にあります。そんな感じでいかがでしょう？ -- [[usata]] SIZE(10){2003-07-29 (火) 01:37:44}
+-daemontools-config のほうを開いてみました。こんだけ同じのがあると、eclass を作って共通部分はまとめたい感じですね。それはさておき、dtconfig-tomcat と dtconfig-net-snmp では group postgres で useradd していますが、これはなぜでしょう？ dtconfig-postgres では最後に patch を当てていますが、patch は src_unpack() (か src_compile() )の中で当てるようにしてください。また、それぞれ SRC_URI からファイルを取得していますが、こんな小さいファイル2つであれば、それぞれの files に置いておくだけでよいと思います。あとは openssh のに書いたことと同じです。 -- [[usata]] SIZE(10){2003-07-29 (火) 02:07:39}
+-チェックありがとうございます。大変参考になります！！ ちょっと自分の環境でしか動作しなかった部分の修正と、enewuser等を利用したものをアップします。 -- [[howking]] SIZE(10){2003-07-29 (火) 02:13:50}
+-filesに置こうと思っていたのですが、SRC_URIを省略する方法がよくわかりません。。。 -- [[howking]] SIZE(10){2003-07-29 (火) 02:15:12}
+-そうですね、enewuser は最初にやっておかないと diropts が成功しないですね。それで、SRC_URI は必須に近いものですが、省略してもエラーは出ないと思います。files に置いたファイルは、newins ${FILESDIR}/daemon-run run みたく、頭に ${FILESDIR} をつけて使います。あとはいずれも DEPEND と RDEPEND が等しいので RDEPEND が不要です。また、.keep を touch している場所がありますが、同じことをする関数として keepdir というのがあります(/usr/lib/portage/bin/ebuild.sh で keepdir を探してみてください)。keepdir /var/log/multilog/apache というふうに使います。冒頭の dodir ですが、dodir する際は途中のディレクトリは勝手に作ってくれるはずなので、3つ目のだけでだいじょうぶだと思います。あと、HOMEPAGE にアクセスしようとしたら permission denied になったのですが、これはとりあえず書いてみただけでしょうか？ 一応そのページが見られることは想定しないといけないので、アクセス不可能なものは書かないほうがよいのですが……(HOMEPAGE 変数も SRC_URI と同じ扱いです -- 詳しくは Gentoo ポリシーの 2.4 をご覧ください)。 -- [[usata]] SIZE(10){2003-07-29 (火) 03:29:13}
+-上記の修正、全て行いました。ホームページはとりあえずgentoojpを拝借させていただいてます(ダメ？)。いろいろ細かく見ていただいて、ありがとうございます。おかげさまで当初のものから比べるとずいぶんすっきりした形になりました。他のebuildやlintoolを使ってみようみまねでやってきましたが、いろいろ関数があるんですね。参考になりました。 -- [[howking]] SIZE(10){2003-07-29 (火) 06:04:38}
+-いっぱいファイルが入っているので直ってたり直ってなかったりしますが、一応うまく書けているものはこのまま本家に持っていってもいいくらいになりましたね。どうもお疲れさまです。あとは本家に入るかどうかは交渉力と運の問題です (^^; 他の ebuild なんかも作ってみて、慣れてきたら eclass の作成にも挑戦しましょう(これだけ同じような内容のファイルがあると、まとめたほうが「どこかの ebuild は直したけどこれは直し忘れた」なんてことがなくなります)。howto を見るより実際に /usr/portage/eclass にあるファイルを見たほうが分かりやすいと思いますが、一応訳された howto は http://www.gentoo.org/doc/ja/eclass-howto.xml にありますので、参考にしてください。 -- [[usata]] SIZE(10){2003-07-29 (火) 23:12:24}
+-結局 USE フラグ(daemontools)で実装しそうな雰囲気になってます。bugs に投稿してみてはいかがでしょうか。 -- [[usata]] SIZE(10){2003-09-10 (水) 12:04:34}
+-すみません、しばらく見てなかったら動きがあったみたいですね。またいくつか増えているのでまた整理をして、参考になるかわかりませんが、そのまま投げてみようと思います。ありがとうございます。 -- [[howking]] SIZE(10){2003-11-15 (土) 13:48:05}
+// #comment

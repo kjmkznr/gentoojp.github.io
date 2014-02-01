@@ -1,0 +1,237 @@
+原文：http://gentoo-wiki.com/TIP_speed_up_portage_with_cdb
+
+注意: この方法は ~x86 unstable にある portage-2.1 だと利用できなくなっています。
+
+*cdbでPortageを高速化 [#wf891b47]
+#contents
+
+**はじめに [#xf2e0263]
+このtipでは、syncの後や依存関係の計算のPortageの速度を劇的に増加させる方法を教えます。この手法は、ただのファイルの束をmetadataに保存する代わりに、データベースを使用します。これにはcdbモジュールが必要です。原文(原文の原文)は[[フォーラム:http://forums.gentoo.org/viewtopic-t-261580-postdays-0-postorder-asc-start-0.html]]で見ることができます。
+
+また、bugzillaにはebuildがあります。
+
+**警告 [#y46fdf00]
+The method this tip uses to plugin a new module to portage is fine- portage devs added it to portage explicitly for purposes like this. That said, using a third party plugin with portage means you have to deal with the bugs- for example, if you unmerge python-cdb, you need to remember to remove the custom /etc/portage/modules setting. 
+
+Beyond that, an upcoming cache backport to 2.0.x from the >=2.1 line of portage will break this module. This should occur sometime around >=2.0.54. However, instructions are below which will repair the problem. 
+
+**必要なもの [#o37b2297]
+多くは必要ありません。テキストエディタと、cdbモジュールだけです。ではemergeしましょう。
+
+ emerge dev-python/python-cdb
+
+**Portageの設定 [#ac4e5b99]
+これを動作させるには、2つのファイルを作成/編集する必要があります。
+
+***新規モジュールの作成 [#a737db4c]
+We first need to create a new file, telling portage how to work with cdb. So create the new file /usr/lib/portage/pym/portage_db_cdb.py and put the following in it: 
+
+File: /usr/lib/portage/pym/portage_db_cdb.py  
+ # Copyright 2004, 2005 Tobias Bell <tobias.bell@web.de>
+ #
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation; either version 2 of the License, or
+ # (at your option) any later version.
+ #
+ # This program is distributed in the hope that it will be useful,
+ # but WITHOUT ANY WARRANTY; without even the implied warranty of
+ # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ # GNU General Public License for more details.
+ #
+ # You should have received a copy of the GNU General Public License
+ # along with this program; if not, write to the Free Software
+ # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
+ 
+ import portage_db_template
+ import os
+ import os.path
+ import cPickle
+ import cdb
+ 
+ 
+ class _data(object):
+ 
+     def __init__(self, path, category, uid, gid):
+         self.path = path
+         self.category = category
+         self.uid = uid
+         self.gid = gid
+         self.addList = {}
+         self.delList = []
+         self.modified = False
+         self.cdbName = os.path.normpath(os.path.join(
+             self.path, self.category) + ".cdb")
+         self.cdbObject = None
+ 
+     def __del__(self):
+         if self.modified:
+             self.realSync()
+ 
+         self.closeCDB()
+ 
+     def realSync(self):
+         if self.modified:
+             self.modified = False
+             newDB = cdb.cdbmake(self.cdbName, self.cdbName + ".tmp")
+            
+             for key, value in iter(self.cdbObject.each, None):
+                 if key in self.delList:
+                     if key in self.addList:
+                         newDB.add(key, cPickle.dumps(self.addList[key], cPickle.HIGHEST_PROTOCOL))
+                         del self.addList[key]
+                 elif key in self.addList:                   
+                     newDB.add(key, cPickle.dumps(self.addList[key], cPickle.HIGHEST_PROTOCOL))
+                     del self.addList[key]
+                 else:
+                     newDB.add(key, value)
+ 
+ 
+             self.closeCDB()
+ 
+             for key, value in self.addList.iteritems():
+                 newDB.add(key, cPickle.dumps(value, cPickle.HIGHEST_PROTOCOL))
+ 
+             newDB.finish()
+             del newDB
+ 
+             self.addList = {}
+             self.delList = []
+ 
+             self.openCDB()
+ 
+     def openCDB(self):
+         prevmask = os.umask(0)
+ 
+         if not os.path.exists(self.path):
+             os.makedirs(self.path, 02775)
+             os.chown(self.path, self.uid, self.gid)
+ 
+         if not os.path.isfile(self.cdbName):
+             maker = cdb.cdbmake(self.cdbName, self.cdbName + ".tmp")
+             maker.finish()
+             del maker
+             os.chown(self.cdbName, self.uid, self.gid)
+             os.chmod(self.cdbName, 0664)
+ 
+         os.umask(prevmask)
+ 
+         self.cdbObject = cdb.init(self.cdbName)
+ 
+     def closeCDB(self):
+         if self.cdbObject:
+             self.cdbObject = None
+ 
+ 
+ class _dummyData:
+     cdbName = ""
+ 
+     def realSync():
+         pass
+     realSync = staticmethod(realSync)
+ 
+ 
+ _cacheSize = 4
+ _cache = [_dummyData()] * _cacheSize
+ 
+ 
+ class database(portage_db_template.database):   
+ 
+     def module_init(self):
+         self.data = _data(self.path, self.category, self.uid, self.gid)
+ 
+         for other in _cache:
+             if other.cdbName == self.data.cdbName:
+                 self.data = other
+                 break
+         else:
+             self.data.openCDB()
+             _cache.insert(0, self.data)           
+             _cache.pop().realSync()
+            
+     def has_key(self, key):
+         self.check_key(key)
+         retVal = 0
+ 
+         if self.data.cdbObject.get(key) is not None:
+             retVal = 1
+ 
+         if self.data.modified:
+             if key in self.data.delList:
+                 retVal = 0
+             if key in self.data.addList:
+                 retVal = 1
+            
+         return retVal
+ 
+     def keys(self):
+         myKeys = self.data.cdbObject.keys()
+ 
+         if self.data.modified:
+             for k in self.data.delList:
+                 myKeys.remove(k)
+             for k in self.data.addList.iterkeys():
+                 if k not in myKeys:
+                     myKeys.append(k)
+                    
+         return myKeys
+ 
+     def get_values(self, key):
+         values = None
+        
+         if self.has_key(key):
+             if key in self.data.addList:
+                 values = self.data.addList[key]
+             else:
+                 values = cPickle.loads(self.data.cdbObject.get(key))
+ 
+         return values
+    
+     def set_values(self, key, val):
+         self.check_key(key)
+         self.data.modified = True
+         self.data.addList[key] = val
+ 
+     def del_key(self, key):
+         retVal = 0
+        
+         if self.has_key(key):
+             self.data.modified = True
+             retVal = 1
+             if key in self.data.addList:
+                 del self.data.addList[key]
+             else:
+                 self.data.delList.append(key)
+ 
+         return retVal
+                    
+     def sync(self):
+         pass
+    
+     def close(self):
+         pass
+ 
+ 
+ if __name__ == "__main__":
+     import portage
+     uid = os.getuid()
+     gid = os.getgid()
+     portage_db_template.test_database(database,"/tmp", "sys-apps", portage.auxdbkeys, uid, gid) 
+
+***Portageがこれを使うようにする [#j54d7eb4]
+After setting that up, we need to tell portage to use our new database. So create the file /etc/portage/modules (if its not already there) and put the following in it: 
+
+File: /etc/portage/modules  
+ portdbapi.auxdbmodule = portage_db_cdb.database
+ eclass_cache.dbmodule = portage_db_cdb.database 
+
+***最終段階 [#wae6f9df]
+必要なことはPortageのキャッシュを再構築することだけです。
+
+ emerge metadata
+
+**最後に [#s12610e9]
+-New updates to portage will be much faster, and if you use emerge --searchdesc then you'll definitely notice a speedup as well. 
+-If you want to turn this off, just comment out the two lines we added in /etc/portage/modules. 
+-Will this work with a /usr/portage that is shared across multiple servers? If so, does the module and cdb need to be installed on every one or...? 
+-According to DirtyEpic on the Gentoo Forums, upgrading to python-2.4 will break portage. Comment out your /etc/portage/modules file, and remerge portage and python-cdb to fix it. [you can also just leave it and run python-updater, which you should be doing after each python upgrade]

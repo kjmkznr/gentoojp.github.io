@@ -1,0 +1,98 @@
+#contents
+#title
+
+*インストールCD (インストーラなし) と LiveCD (インストーラあり) [#z0e9ea0f]
+
+[[インストーラ]]が含まれるのは [[livecd]] です。[[インストーラ]]はパソコン向けに用意されたのが始めで、昔は全てが「インストーラなし」でした。そのため「インストーラあり」を [[XLiveCD]] とも呼びます。2006.0 より「インストーラあり」を [[livecd]]、「インストーラなし」を [[installcd]] と呼ぶようです。
+
+**インストールCD と Stage [#gcb44982]
+
+[[Stage]] が本体です。[[インストーラ]]は広報的なものです。昔は 1 年間に 4 回もリリースしてましたがアンケート結果より 2 回になりました。[[インストーラ]]もアンケートです。
+
+基本的に [[sys-devel/gcc]] や [[sys-libs/glibc]] さえもアップデートできる [[Portage]] にとって 2006.0 や 2006.1 は宣伝上の区切りでしかありません。つまり、最新版が 2006.1 だとしても、2005.0 で[[インストール]]した後に[[メタ・ディストリビューション]]すれば 2006.1 と変わりません。もっと言えば、最新版の 2006.1 を[[インストール]]したとしても [[sys-kernel/linux-headers]] 等コア部分の新しいものが出現すれば 2007.0 の出現を待つまでもなく 2006.1 は最新版ではなくなります。とはいえ実際の所、追いかける人以外はコア部分を再[[ビルド]]しようとはしません。必要な場合は本家からアナウンスがあります。
+
+[[releng プロジェクト:http://www.gentoo.org/proj/en/releng/index.xml]] ([[catalyst]] 班や [[installer]] 班が所属するチーム) が[[インストールCD]] を担当しています。
+
+[[Base プロジェクト:http://www.gentoo.org/proj/en/base/index.xml]]が [[Stage]] を担当しています。
+
+**インストールCD と Knoppix(jp), Ubuntu(jp) [#b5711752]
+
+「[[installcd]] もしくは代用品」「[[Stage]]」「[[Portageツリー]]の [[Snapshot]]」「[[GRP]] ([[packages]])」を適切な位置に展開することを指します。[[Gentoo]] は [[LiveCD]] で [[Stage]] を操作する行為を[[インストール]]と呼んでいるに過ぎないため、ウェブブラウザでドキュメントを見ながら作業ができます。「[[installcd]] もしくは代用品」には [[Knoppix(jp):http://unit.aist.go.jp/itri/knoppix/index.html]] や [[Ubuntu(jp):http://www.ubuntulinux.jp/download/]] が使えます。ネットワーク経由やフロッピーディスク経由や USB メモリ経由……それで構いません。インストール完了後でも最適化はできますので、インストールの際は短時間で終えられるバイナリパッケージを利用してみて下さい。
+
+ほとんど純正品で問題ありませんが、完成度を比較されると劣ります。例えば未知の機器が接続されている場合の対応、印刷への対応、エディッタの種類などが違います。カーネルの複製などをする場合でも Knoppix(jp), Ubuntu(jp) のもので構いません。
+
+***Knoppix(jp)-3.x [#f315d247]
+
+[[LiveCD]] では珍しく [[app-editors/emacs]] が利用できます。日本語入力は [[app-i18n/prime]] です。
+
+***Ubuntu(jp)-5.x [#lea29a24]
+
+マニュアルを印刷したいなら Knoppix(jp) よりいいかもしれません。日本語入力は [[app-i18n/anthy]] です。
+
+**minimal, XLiveCD, LiveDVD, universal, packages [#i89f07d9]
+
+[[インストールCD]]には幾つかのタイプがあります。厳密に以下のようになっているかどうかは確認していません。[[インストールドキュメント:http://www.gentoo.org/doc/ja/?catid=install]]に使い方が載っています。Stage1 と Stage2 は[[インストールドキュメント:http://www.gentoo.org/doc/ja/?catid=install]]から削除され、経験者用になります。
+
+:XLiveCD| [[livecd]] ([[インストーラ]]あり)です。[[GRP]] は一部のみ含みます。2006.1 (amd64) では 696MB です。
+
+:LiveDVD| [[livecd]] に沢山の [[GRP]] を追加するそうです。どうやら [[net-p2p/bittorrent]] でのみ配布されているようです。[[Gentoo Store:http://www.cafepress.com/officialgentoo/]] で販売が予定されています。
+
+:minimal| [[installcd]] ([[インストーラ]]なし)です。2006.1 (ppc64) では 109MB です。
+
+:universal| [[installcd]] ([[インストーラ]]なし)です。2006.1 (ppc64) では 480MB です。minimal で十分です。
+
+:stage3| [[Stage]] です。2006.1 (ppc064-64ul) 106MB です。
+
+:snapshot| [[Portageツリー]] の [[Snapshot]] です。全アーキテクチャ共通です。2006.1 の時点のは 28MB です。
+
+:packages| [[GRP]] です。2006.1 (ppc64-64ul) では 522MB です。x86 や amd64 は [[livecd]] にネットワークレス・モードがあります。
+
+***「インストーラ」(辞書検索例) [#s008fc4e]
+
+[[e-words:http://e-words.jp/]] の「[[インストーラ:http://e-words.jp/w/E382A4E383B3E382B9E38388E383BCE383A9.html]]」参考。
+
+***「ブータブルCD」(辞書検索例) [#x9bd13a5]
+
+[[e-words:http://e-words.jp/]] の「[[ブータブルCD:http://e-words.jp/w/E38396E383BCE382BFE38396E383ABCD.html]]」参考。
+
+***「LiveCD」(辞書検索例) [#x379b2c9]
+
+[[wikipedia:http://ja.wikipedia.org/wiki/%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%9A%E3%83%BC%E3%82%B8]] の「[[LiveCD:http://ja.wikipedia.org/wiki/LiveCD]]」参考。
+
+*配布場所について [#h5bf4948]
+
+[[インストール]]に関連記事があります。
+
+*インストール作業について [#w635eaf4]
+
+[[インストール]]に関連記事があります。
+
+*ブートローダの画像、ログインの画像、フレームバッファの画像を真似したい [#kaf93591]
+
+[[ブートローダの画像を真似したい]]、[[ログインの画像を真似したい]]、[[フレームバッファの画像を真似したい]]に関連記事があります。
+
+________
+
+[[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]) の詳細は[[プロジェクトリスト:http://www.gentoo.org/proj/en/metastructure/projects.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]), [[Gentoo FAQ:http://www.gentoo.org/doc/ja/?catid=faq]], [[GentooJP FAQ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A3%C6%A3%C1%A3%D1%5D%5D]]
+- [[インストール]], [[Stage]], [[GRP]], [[Portageツリー]]
+- [[インストールした後にできること]], [[日本語入力設定事例集]], [[日本語デスクトップ環境/パッケージ]]
+- [[Gentooが採用している技術]]
+- [[コミュニティとの連絡手段]], [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]
+- [[本家に関連しそうな言葉]], [[GLEP]], [[コピーライト]], [[ライセンス]]
+
+[[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]]) の詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]])
+- [[メタ・ディストリビューション]], [[USEフラグ]], [[profile]], [[catalyst]], [[GNAP]]
+- [[コンパイル]], [[バイナリパッケージ]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+
+________
+
+-[2005-10-20] 2005.1 (yoshino)
+-[2005-11-14] これとは直接関係ありませんが、[[PacSec:http://pacsec.jp/index.html?LANG=JAPANESE]] に来賓参加されるような専門家を迎えてのジェンツー飲み会(夜部)からだと、セキュリティに詳しい方々は皆、標準として "何も考えずにできる自動進行機能" を加えるのに抵抗を感じるそうです。結論は各プロジェクトの判断に任せられます。 (yoshino)
+-[2006-03-12] 2006.0 (yoshino)
+-[2006-10-01] 2006.1 (yoshino)

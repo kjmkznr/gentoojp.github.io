@@ -1,0 +1,21 @@
+*stone [#r57680da]
+
+-ページ: BugTrack
+-投稿者: [[なかの]]
+-優先順位: 低
+-状態: 完了
+-カテゴリー: ebuild
+-投稿日: 2002-08-15 (木) 16:52:38
+-バージョン: 2.2
+
+
+CENTER:''この ebuild は本家に取り込まれました。(net-misc/stone)''
+
+**メッセージ [#d5e112d1]
+a simple TCP/IP packet repeater
+
+simpleといっても経路の暗号化もできますし、proxyサーバーにもなりますし、なかなか使い勝手がいいです。
+
+----
+
+#comment

@@ -1,0 +1,193 @@
+#contents
+#title
+
+*Portage と FEATURES [#l269fcc2]
+
+[[Portage]] の機能です。各ユーザの /etc/make.conf で $FEATURES のオンオフを指示します。残念ながらかなりの部分がマニュアル化されていないので隠し機能に近い感覚がありますが、禁止されている訳ではありません。
+
+**GPG署名で保証されたソースコード [#h1a84f73]
+
+[[GPG署名]]に関連記事があります。
+
+**sandbox [#jbe2b83b]
+
+[[sandbox]] に関連記事があります。
+
+**実マージ前の属性検査 [#t7ac3689]
+
+[[実マージ前の属性検査]]に関連記事があります。
+
+
+*sys-apps/portage-2.1 [#w657c5fa]
+
+[[RESTRICT]] とは意味が逆になります。/etc/make.conf.example に幾つか説明があります。
+
+***autoaddcvs [#a37ccd3f]
+
+:autoaddcvs|開発者用です。CVS commit 時に [[files]] ディレクトリ ([[Portageツリー]]内部に置ける[[マージ]]に必要なファイル群) を自動追加します。
+
+***buildpkg [#m4cc77fa]
+
+:buildpkg|[[マージ]]する度にその [[*.tbz]] を $PKGDIR に作成します。[[packages]] に関連記事があります。
+
+***ccache [#aac6ce3d]
+
+:ccache| [[dev-util/ccache]] を利用します。/root/.ccache を作成します。userpriv がオンなら $PORTAGE_TMPDIR/.ccache に変更されます。
+
+***collision-protect [#of7f18c2]
+
+:collision-protect|他パッケージで既に提供されているファイルを上書きしません。
+
+***cvs [#z63dfffa]
+
+:cvs|[[マージ]]に必要なファイルのハッシュ値を残す [[Manifest]] テキストファイルの作成時、全ての $SRC_URI のファイルをも対象にします。
+
+***digest [#hcd33ed3]
+
+:digest|[[マージ]]に必要なファイルのハッシュ値を残す [[Manifest]] の作成が足りなければ自動作成します。
+
+***distcc [#l755d91b]
+
+:distcc|[[sys-devel/distcc]] を利用します。$DISTCC_DIR を作成します。
+
+***distlocks [#h0990b02]
+
+:distlocks|/usr/lib/portage/bin/clean_locks を実行します。
+
+***fixpackages [#u81de057]
+
+:fixpackages|パッケージがカテゴリ移動する度に依存関係の再計算をします。
+
+***getbinpkg [#u79507ec]
+
+:getbinpkg|$PORTAGE_BINHOST を常に使います。つまり、ソースファイルから[[コンパイル]]するよりも、[[バイナリパッケージ]]を優先します。
+
+***gpg [#fd9bbff5]
+
+:gpg|$PORTAGE_GPG_DIR (==/usr/ib/portage/bin/portage_gpg_update.sh を経由するなら /usr/portage/metadata) を検査します。その内部の鍵 ([[gentoo.gpg]]) が [[GPG署名]]に使われます。[[GPG署名]]が正しくない [[Manifest]] は全て拒否します。つまり怪しいファイルは[[マージ]]できません。[[GPG署名]]、[[sandbox]]、[[実マージ前の属性検査]]はオンにすべきです。
+
+***keeptemp [#c5d1debb]
+
+:keeptemp|[[*.ebuild]] 内の $T (/var/tmp/portage/$PF/temp) を[[マージ]]終了後も残します。
+
+***keepwork [#d455cec3]
+
+:keepwork|[[*.ebuild]] 内の $WORKDIR (/var/tmp/portage/$PF/work) を[[マージ]]終了後も残します。
+
+***mirror [#c0e27eb8]
+
+:mirror|[[distfiles]] に保存されているファイル群を無視し、$FETCHCOMMAND を実行します。
+
+***noauto [#a918bf8c]
+
+:noauto|[[ebuild.sh]] における 1 step のみ実行します。[[ebuild]] コマンドに関連記事があります。
+
+***noclean [#ka449624]
+
+:noclean|[[*.ebuild]] 内の /var/tmp/portage/$PF を[[マージ]]終了後も残します。
+
+***nodoc [#b8c2f58e]
+
+:nodoc|/usr/share/doc へのドキュメントを廃棄します。/usr/share/doc でも /usr/share/info でも /usr/share/man でもないドキュメントもあります。それ等は [[USEフラグ]]で廃棄できるはずです。
+
+***noinfo [#r8b0eeeb]
+
+:noinfo|/usr/share/info へのドキュメントを廃棄します。/usr/share/doc でも /usr/share/info でも /usr/share/man でもないドキュメントもあります。それ等は [[USEフラグ]]で廃棄できるはずです。
+
+***noman [#mfe09a06]
+
+:noman|/usr/share/man へのドキュメントを廃棄します。/usr/share/doc でも /usr/share/info でも /usr/share/man でもないドキュメントもあります。それ等は [[USEフラグ]]で廃棄できるはずです。
+
+***nostrip [#q53c71a5]
+
+:nostrip|実行可能プログラムを strip (debug に必要なデータを削って軽量化)しません。
+
+***notitles [#d541aa58]
+
+:notitles|[[x11-terms/xterm]] のタイトルバーに進行状況を表示しません。
+
+***sandbox [#v393ad04]
+
+:sandbox|[[ビルド]]中、登録ディレクトリ以外の (w) (r) 禁止をする [[sys-apps/sandbox]] を利用します。[[stable]] はそれなりに検査されているはずですが、[[testing]] や [[mask]] は [[sandbox]] を使うべきです。[[GPG署名]]、[[sandbox]]、[[実マージ前の属性検査]]はオンにすべきです。
+
+***severe [#lada74c5]
+
+:severe|信用する GPG 公開鍵にだけ [[Manifest]] を許可します。
+
+***sfperms [#y3ff1be3]
+
+:sfperms|ファイルシステムへの[[マージ]]前に「suid 属性ファイルはg-r, o-r」、「sgid 属性ファイルは o-r」を行い安全なものにします。
+
+***sign [#w93fc94a]
+
+:sign|開発者用です。CVS commit 時に [[Manifest]] へ [[GPG署名]]を自動的に加えます。
+
+***strict [#xc3c0d8a]
+
+:strict|[[Manifest]] 検査で怪しいものは続行せずに中断します。
+
+***suidctl [#uf798b48]
+
+:suidctl|/etc/portage/suidctl.conf に未登録の「suid 属性ファイルは a-s」を行い安全なものにします。[[GPG署名]]、[[sandbox]]、[[実マージ前の属性検査]]はオンにすべきです。
+
+***test [#f7174ab7]
+
+:test|make check を[[ビルド]]前に加えます。
+
+***userpriv [#v98c7904]
+
+:userpriv|portage:portage 権限で実行します。
+
+***usersandbox [#g1e36dae]
+
+:usersandbox|portage:portage 権限でも [[sandbox]] を使用します。
+
+***candy [#r6a26b3f]
+
+:candy|spinner 遊びです。くるくる回るアレをソレにします。
+
+***lmirror [#z5accdd3]
+
+:lmirror|[[*.ebuild]] 内のミラー制限を無視します。
+
+***skiprocheck [#ycb4dd52]
+
+:skiprocheck|[[distfiles]] 内のファイルの属性検査をしません。配布するのに不適切なファイルは怪しいファイルと扱うと言う意味です。
+
+***userfetch [#r3272276]
+
+:userfetch|チームメンバーに確認するまでお待ち下さい。
+
+***multilib-strict [#a3e16d92]
+
+:multilib-strict|チームメンバーに確認するまでお待ち下さい。
+
+***paralell-fetch [#kdb5d198]
+
+:paralell-fetch|チームメンバーに確認するまでお待ち下さい。
+
+***buildsyspkg [#ac8bb5d6]
+
+:buildsyspkg|チームメンバーに確認するまでお待ち下さい。
+
+***livecvsportage [#cda03ec0]
+
+:livecvsportage|チームメンバーに確認するまでお待ち下さい。
+
+***stricter [#md083011]
+
+:stricter|RUNPATH 検査をします。
+
+***selinux [#yd267141]
+
+:selinux|selinuxconfig, setfiles, /selinux/context の検査をします。
+
+***autoconf [#vbd19e2c]
+
+:autoconf|[[pre_pkg_config()]], [[pkg_config()]], [[post_pkg_config()]]
+
+========
+
+-[2005-12-30]
+-[2005-12-30] portage チームメンバが2名も参加した忘年会に参加できず確認できていません。 (yoshino)
+-[2006-03-19] 飲み会の飯屋にて portage 本家チームメンバ本人に直接確認しようとしたのですが、御本人に外せない用事があるため早退されていました。時間的な制約もあり、自分は IRC に参加していないのです。間違いに気付いた方は修正して下さい。 (yoshino)

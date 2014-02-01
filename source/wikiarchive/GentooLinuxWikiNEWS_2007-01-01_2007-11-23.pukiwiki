@@ -1,0 +1,383 @@
+- [2007-11-23]
+
+[[Gentoo]] の [[sys-apps/baselayout]] (多様性を支える骨格部分) に BSD ライセンスの姉妹が増えます ([[1:http://roy.marples.name/node/337]], [[2:http://roy.marples.name/node/338]], [[3:http://roy.marples.name/node/339]], ...)。openrc は二つから構成され、init, upstart, einit, init-ng を交換し易くするそうです。
+
+- [2007-11-05]
+
+Inveneo は米国カルフォルニア州の非営利団体です。Information and Communications Technology (ICT) を提供しています。注目されたのは Inveneo Certified ICT Partner (ICIP) 教育計画です。カリスマを紹介する [[CNN's Principal Voices for Technology and Innovation for 2007:http://www.principalvoices.com/2007/technology.innovation/white.papers/kristin.peterson.html]] でインタビューが読めます。携帯電話とは違うと語っています。[[2004 年設立当時のインタビュー:http://www.openfree.org/forums/showthread.php?t=15751]]も有ります。OLPC とは違うと語っています。[[Gentoo 集団:http://www.inveneo.org/?q=team]]でしたが、最近 Windows/Xubuntu に変えました。[[ICIP White Paper 2007 (Gentoo):http://www.inveneo.org/download/ICIPWhitePaper2007.pdf]] や [[ICIP White Paper 2007 (Windows/Xubuntu):http://www.inveneo.org/download/ICIPWhitePaper1007.pdf]] より諦めた理由がアフリカ大陸に合せたモデルにしたからだと分ります。
+
+長い割に (1 つを [[A:http://wiki.gentoo.gr.jp/index.php?GentooLinuxNEWS.2007-11-03]], [[B:http://wiki.gentoo.gr.jp/index.php?GentooLinuxNEWS.2007-11-04]], [[C:http://wiki.gentoo.gr.jp/index.php?GentooLinuxNEWS.2007-11-05]] に分割) 凄いオチでも無く[[直球:http://dev.gentoo.org/~antarus/debuggin_nscd.jpg]]に三振です。
+
+- [2007-11-04]
+
+Inveneo や Sabayon が出現する中、LWN.net に投稿された [[Linux Kernel-2.6.22 の参加者分析:http://lwn.net/Articles/237768/]]に触発された本家活動員が [[Gentoo Linux の参加者分析:http://lwn.net/Articles/253875/]]を投稿しています。ここ 1-2 年にデベロッパ側でとある傾向が現れているそうです。途中導入した SVN と overlays が抜けている時点で量は無視します。
+
+長い割に (1 つを [[A:http://wiki.gentoo.gr.jp/index.php?GentooLinuxNEWS.2007-11-03]], [[B:http://wiki.gentoo.gr.jp/index.php?GentooLinuxNEWS.2007-11-04]], [[C:http://wiki.gentoo.gr.jp/index.php?GentooLinuxNEWS.2007-11-05]] に分割) 凄いオチでも無く[[直球:http://dev.gentoo.org/~antarus/debuggin_nscd.jpg]]に三振です。
+
+- [2007-11-03]
+
+母国語を英語としない方々が増え、[[委員会の構成:http://dev.gentoo.org/~fox2mike/elections/council/2007/council2007-results]]にも現れてます。"構成員/立候補含む(更に上位26名含む)" で表せば、イタリア在住 2/2(2) 人、アメリカ在住 2/2(6) 人、イギリス在住 1/3(3) 人、フィンランド在住 1/1(2) 人、オーストリア在住 1/1(1) 人、ドイツ在住 0/2(8) 人、デンマーク在住 0/1(1) 人と続きます。全体を見れば南アフリカ、イスラエル、ロシア、印度、中国、日本、オーストラリア、ブラジルからも開発参加している方々が居ます。
+
+長い割に (1 つを [[A:http://wiki.gentoo.gr.jp/index.php?GentooLinuxNEWS.2007-11-03]], [[B:http://wiki.gentoo.gr.jp/index.php?GentooLinuxNEWS.2007-11-04]], [[C:http://wiki.gentoo.gr.jp/index.php?GentooLinuxNEWS.2007-11-05]] に分割) 凄いオチでも無く[[直球:http://dev.gentoo.org/~antarus/debuggin_nscd.jpg]]に三振です。
+
+- [2007-10-08]
+
+昨年の SC06 (ハイパフォーマンス分野に関する国際会議)での「but months, not years and it definitely will run Gentoo on the compute nodes.」から一年経過せぬ内に、計算ノードで Gentoo Linux が動く製品が http://www.linuxdevices.com/news/NS6099969220.html で記事になっています。Gentoo Linux を選んだ理由を語っています。5,832 MIPS64 cores、5.8 Teraflops、8TB of DDR-2 RAM、PCIe (PCI Express) for I/O、18 kilowatts of power のマシンの上に 972 個のジェンツー・インスタンスが走るそうです。御値段は $2,700,000 とあります。648 MIPS64 cores、0.65 Teraflops、2 kilowatts of power (108 個のジェンツー・インスタンスが走る) 版は $170,000 です。
+
+- [2007-10-07]
+
+華やかな投票が行われた Gentoo Linux 中心地から遠い南極大陸に Gentoo Penguins はいます。35 の科学基地の一つ独国 [[(GARS) O'Higgins:http://ivs.bkg.bund.de/vlbi/ohiggins/]] より[[今シーズン初画像:http://bp1.blogger.com/_weokMisd98c/RwihVx-Uh-I/AAAAAAAAA20/KAukIQ2MBcg/s1600-h/04.jpg]]が届いています。年末までには[[可愛い画像:http://bp2.blogger.com/_weokMisd98c/RYAZcNDQBcI/AAAAAAAAABU/KFzv-pjhS8M/s1600-h/01.jpg]]や[[面白い画像:http://bp0.blogger.com/_weokMisd98c/RXnKXOSZe_I/AAAAAAAAAAw/Xpvkq1uNKcc/s1600-h/02.jpg]]も増えるかもしれません。世界初の南極アニマルカメラについては[[三年前の GWN:http://www.gentoo.org/news/en/gwn/20041011-newsletter.xml]] で紹介されてます。[[Antarctica Penguins WebCam:http://www.martingrund.de/pinguine/]] で確認出来ます。愛好家への感謝と宗家へのリンクに加え日本語でもサイトの説明があります。因みに Linux Kernel のマスコット Tux は具体的なモデル無しですが、Adelie Penguins に似ているそうです。
+
+- [2007-09-23]
+
+[[Package Manager Specification:http://www.gentoo.org/proj/en/qa/pms.xml]] に続き、新しい [[Gentoo Graphical User Interfaces Project:http://www.gentoo.org/proj/en/guis/]] が発足されました。グラフィカルなフロント・エンド計画は今回が始めてでは無く、2002 年辺り (Gentoo-1.0 配布の年)から始まり何度も行われています。
+
+Gentoo と Desktop については最近の記事で例えるなら[[「Cherrier says. "Personally, I prefer Gentoo -- I think it's the best server operating system ever created."  Does he use Gentoo on the desktop as well? "Not a chance," he shakes his head. ［SNIP］」:http://www.linux.com/feature/118878]] (Linux.com) 辺りが定番なのかもしれませんが、此れは少し違う可能性を考えている様です。
+
+ウェブ・インタフェイスの [[SCIRE:http://www.gentoo.org/proj/en/scire/index.xml]] ([[概念図:http://www.gentoo.org/proj/en/scire/scire.png]])と意味は異なります。GUI の Gentoo System を標準採用した分家 [[Vidalinux:http://vidalinux.com/]] もあります。フレームワーク指向になって以来、C, C++, Python 以外にも Haskell, Ruby, PHP, et al. が登場して少し競争が盛り上がって来ましたね。
+
+-- [[sys-apps/portage:http://www.gentoo.org/proj/en/portage/index.xml]]; CUI (Python, Bash)
+-- [[sys-apps/paludis:http://paludis.pioto.org/]]; CUI (C++, Bash)
+-- [[sys-apps/pkgcore:http://www.pkgcore.org]]; CUI (C, Python, Bash)
+-- 他にもあります。
+
+-- [[app-portage/gportage:http://www.stacken.kth.se/%7Efoo/gentoo/]]; GTK+
+-- [[app-portage/gnoportage:http://gnoportage.sourceforge.net/]]; GTK+
+-- [[app-portage/portageGUI:http://www.clarkson.edu/projects/cosi/fa2004/hernejj/PortageGUI.pdf]]; GTK+ (C)
+-- [[app-portage/portato:http://sourceforge.net/projects/portato]]; GTK+, Qt (Python)
+-- [[app-portage/porthole:http://porthole.sourceforge.net/]]; GTK+ (Python)
+-- [[app-portage/himerge:http://www.haskell.org/himerge/]]; GTK+ (Haskell !! )
+-- [[app-portage/kmerge:http://kemerge.sourceforge.net/]]; Qt
+-- [[app-portage/kportage:http://www.nongnu.org/kportage/]]; Qt
+-- [[app-portage/kentoo:http://www.ralfhoelzer.com/kentoo.html]]; Qt
+-- [[app-portage/guitoo:http://guitoo.sourceforge.net/]]; Qt
+-- [[app-portage/kuroo:http://kuroo.org/]]; Qt (C++)
+-- [[app-portage/maintainer-helper:http://dev.gentoo.org/~jokey/maintainer-helper]]; Qt (Python)
+-- [[app-portage/portagemaster:http://portagemaster.sourceforge.net/]]; Java
+-- 他にもあります。
+
+- [2007-09-22]
+
+GentooJP の方々が 10 月 06 日(土)の[[オープンソース・カンファレンス 2007 Tokyo/Fall:http://www.ospn.jp/osc2007-fall/]] に参加すると掲示しています。春と[[会場が異なる:http://www.pio.or.jp/plaza/access/index.htm]]ようです。毎月第一土曜日の Bugday に因む出張バグ潰しを行うそうで、詳しくはメーリングリストにあります。Gentoo とは違う事をやりたい学生さんでも構わないはずですし、名刺交換もしないし、裏メニューの御食事会に参加したからと言って役割を強制したりもしないはずです。ジェンツーハッカーで何冊もカーネル本を O'REILLY から出している方は来日しないと思いますが、母国語が日本語で無い Portage や Sabayon の関係者は居るかも知れませんね。
+
+- [2007-09-16]
+
+SCIRE (Systems Configuration, Installation, and Replication Enviroment) に変化があります。これはネットワーク内のインストールから運用までをウェブ・インタフェイスで行うものです。[[SCIRE プロジェクト:http://www.gentoo.org/proj/en/scire/index.xml]]の [[PHP]] 版、2006 版、今回の 2007 版の関係は確認してませんが、[[apt-get port to windows:http://windows-get.sourceforge.net/index.php]] に近い機能は紹介されてません。提出されていた[[概念図:http://www.gentoo.org/proj/en/scire/scire.png]]から学生さんが独りで[[実装した:http://planet.gentoo.org/soc/]]そうです。検証期間や投入時期は未定です。
+
+- [2007-09-15]
+
+最近の GWN には [[NVIDIA Drivers Update:http://www.gentoo.org/news/en/gwn/20070730-newsletter.xml]] と [[Improvements in ATI TV-Out:http://www.gentoo.org/news/en/gwn/20070827-newsletter.xml]] の記事がありますが、[[Desktop TLP:http://www.gentoo.org/proj/en/desktop/index.xml]] の [[Artwork Project:http://www.gentoo.org/proj/en/desktop/artwork/index.xml]] より[[スクリーンショット・コンクール 2007 の報告:http://www.gentoo.org/news/en/gwn/20070910-newsletter.xml]]があります。前回はアイコンから全てを Gentoo で揃えた力作が風刺になってましたが、今回はほとんどカスタマイズしないが並び(キーボード操作の Fluxbox 画面にアイコンが無いのは特殊でも何でも無い)風刺となってます。[[楽し気な雰囲気:http://www.gentoo.org/main/en/shots.xml]]を真似るなら[[此れ:http://www.planetlarry.org/images/patrick.png]]はとにかく勝てるものが好きな御年頃で The Only Gentooling 賞です。
+
+- [2007-09-02]
+
+Intel Software Network Blog に [[Threading Building Blocks, AMD Athlon 64 X2, and Gentoo Linux:http://softwareblogs.intel.com/2007/08/02/threading-building-blocks-amd-athlon-64-x2-and-gentoo-linux/]] が掲載されてます。この方も [[GWN]] で何処にときめいたのかと担当への助言を残しています。
+
+- [2007-09-01]
+
+GWN の [[2007 年 07 月 30 日号:http://www.gentoo.org/news/en/gwn/20070730-newsletter.xml]]が集団についてジョーク混じりに伝えています。詳しくは [[grant goodyear のブログ:http://www.grantgoodyear.org/g2blog/gentoo/20070717-sflc.html]]、[[drobbins のブログ:http://blog.funtoo.org/2007_07_01_archive.html]]、[[commandline.org.uk の記事:http://commandline.org.uk/2007/emerge-administration/]]などにあります。この手の試み(例えば [[Adopt a Developer プロジェクト:http://www.gentoo.org/proj/en/userrel/adopt-a-dev/]] など)は過去に何度か登場します。
+
+- [2007-08-06]
+
+LWN.net がディストリビューションのアピール記事を載せています。http://lwn.net/Articles/240081/ です。記事には [[Portage]] と [[Paludis]] に加えて [[Pkgcore]] の紹介があります。Pkgcore は [[C]] と [[Python]] と [[Bash]] です。GPM/Ports System は他にもあります。分家 Sabayon は [[Paludis に興じている:http://ciaranm.org/show_post/151]]ようです。
+
+- [2007-08-05]
+
+[[Gentoo-Alt TLP:http://www.gentoo.org/proj/en/gentoo-alt/index.xml]] に [[Prefix プロジェクト:http://www.gentoo.org/proj/en/gentoo-alt/prefix/index.xml]]があります。関連記事が [[prefix]] にあります。意外にも GLSA (脆弱性注意報告)担当者が Gentoo を好きになった理由を Portage と[[インタビュー:http://commandline.org.uk/2007/interview-with-matt-drew-gentoo-linux-security-team/]]で述べてますし、「メタ・ディストリビューションの次」を本家がこのまま考究するにしても分家が講究するにしても増えると面白いですね。
+
+- [2007-08-04]
+
+[[GPMS]] の提出が春にありましたが、今度は[[メタ・ディストリビューション]]を解説した書籍が[[登場する:http://www.mitp.de/vmi/mitp/detail/pWert/1769]]そうです。関連記事が [[Gentoo_Package_Manager]] にあります。
+
+- [2007-07-22]
+
+若さと勢いで知られる分家 [[Sabayon:http://www.sabayonlinux.org/]] に野心的なビジネス版が登場しています。Beryl (3D デスクトップ)のために作られたオフィシャル・ディストリビューションです。サバイヨンと読みます。[[例の広告画面:http://www.beryl-project.org/images/cube_full.jpg]]が上手く真似出来無い場合は他でも試せます。[[Knoppix:http://www.knoppix.net/]] がデフォルト・ディストリビューション、[[Gentoo:http://gentoo.org/]] と [[Fedora Core:http://fedora.redhat.com/]] がアベイラブル・ディストリビューション、[[Ubuntu:http://www.ubuntu.com/]] と [[OpenSUSE:http://www.opensuse.org/]] がサードパーティ・ディストリビューションだそうです。
+
+分類に拘るのでなく整理するために違いを強調するのであれば、Sabayon は Gentoo 愛好者向けではなく 3D デスクトップ愛好者向けに作られています。例えばバイナリファイル配布しています。[[overlays]] 管理と言う上級者好みのワザを使っていますが、明確な方向性を示し始めた今日では混同した批評をしてしまうと Sabayon (完成品の一例)のアピールにもならないし Gentoo (組み立てキット)のアピールにもならないのかもしれません。
+
+自分が流行の技術を提供されるのに興味があるのか、流行の技術を提供するのに興味があるのか、何を付加価値にしたいのかで評価は変わると思います。組み立てキットでの Beryl・Emerald への手順は http://wiki.gentoo-xeffects.org/Main_Page にあります。
+
+-- 3D デスクトップや音声入力には対応したハードウェアが必要 (2007 年 06 月の発表、但し 07 月下旬に新しいものが配布される模様)
+--- Updated NVIDIA drivers to 100.14.11
+--- Updated ATI drivers to 8.37.8
+--- Updated madwifi-ng driver to SVN snapshot to support MacBooks
+--- Strengthen VMWare 6.0 support
+--- Re-added linuxwlan-ng drivers
+--- Added pommed utility to support MacBooks LCD backlight tuning
+--- Added support for Agere et131x ethernet controller -> http://sourceforge.net/projects/et131x
+--- if NVIDIA detected: add NVIDIA Control Center icon to desktop
+--- if ATI detected: add AMD Control Center icon to desktop
+--- Updated HAL to 0.5.9 (plus upstream accepted patches for 0.5.9.1) - complete MacBook support
+--- Updated kernel with the latest stable patches
+
+*** インストーラあり [#g259180d]
+
+: インストーラあり | 独自のパッケージ・カテゴリ・セレクタが付属します。宗家のインストーラとは目的が違うそうです。方法は [[Sabayon Linux Wiki:http://www.sabayonlinux.org/wiki/index.php?title=Main_Page]] にあります。バイナリファイル配布しています。
+
+-- livecd (0.7GB, [[net-p2p/bittorrent]] でのみ配布しているものがあります)
+--- [[x86:ftp://dotdot.mine.nu/sabayon/]]
+--- [[x86_64:ftp://dotdot.mine.nu/sabayon/]]
+
+-- livedvd (3.7GB, [[net-p2p/bittorrent]] でのみ配布しているものがあります)
+--- [[x86:http://mirror.cs.vt.edu/pub/SabayonLinux/]]
+--- [[x86_64:http://mirror.cs.vt.edu/pub/SabayonLinux/]]
+
+-- ビジネス版 (2.0GB, [[net-p2p/bittorrent]] でのみ配布しているものがあります)
+--- [[x86:http://www.sabayonlinux.org/sabayon/torrents/Sabayon-x86-1.0-BusinessEdition.iso.torrent]]
+--- [[x86_64:http://www.sabayonlinux.org/sabayon/torrents/Sabayon-x86_64-1.0-BusinessEdition.iso.torrent]]
+
+: 公開されたバイナリパッケージ置場を拝借する ($PKGDIR) | 定期的にローカルサーバに全部フェッチさせます。フェッチだけでマージする必要はありません。パッケージ・マネージャにソースファイルよりもローカルサーバのバイナリファイルのフェッチを優先させる指示を出せばビルドせずにマージします。完成品なので USE_flag を変更するのは注意して下さい。コンパイルも仮インストールもハードディスクで行わず /var/tmp/portage を tmpfs にして試してみて下さい。[[バイナリパッケージ]]や[[コンパイル]]に関連記事があります。
+
+--- [[x86:http://mirror.cs.vt.edu/pub/SabayonLinux/entropy/packages/x86/]]
+--- [[x86_64:http://mirror.cs.vt.edu/pub/SabayonLinux/entropy/packages/amd64/]]
+
+: メモリ上のファイルシステム | tmpfs をサポートするカーネルでブート (Gentoo の骨格を提供する sys-apps/baselayout は tmpfs を必要とするので、過去にオフと明示していない限り、動いているカーネルはオンのはず)し、/etc/fstab へ以下の様に記述すればビルドとマージにおいてハードディスク上のファイルシステムを使いません。同時に処理するのが一つまでであれば 1GB で大丈夫と思います。
+
+ shm   /dev/shm         tmpfs nodev,nosuid,noexec                  0 0
+ tmpfs /var/tmp/portage tmpfs uid=250,gid=250,mode=1770,size=4096m 0 0
+
+- [2007-07-21]
+
+メーリングリストにありますが Sakurai 氏 (GentooJP の OpenBSD 派な日本人)が 20 日(金)と 21 日(土)にセミナーを開いています。Gentoo、CentOS、OpenSUSE、FreeBSD、OpenBSD から選べたようです。リンク先を読む限り app-admin/puppet は、独自の言語で様々なファイルの関係を定義すると、オペレーティングシステム(スーパーバイザー)、ディストリビューション、パッケージシステム等の違いを吸収した上で同期してくれるので、混合環境を易しくするみたいですね。
+
+- [2007-07-20]
+
+"bringing back the fun in gentoo" を考える方々がおり、[[Funtoo:http://blog.funtoo.org/2007/07/so-can-i-have-gentoo-back.html]] で創始者の考えと賛否コメントが読めます。参加しろ!と言う内容ではないので、やりたい事が Gentoo とは違う所にある人でも読めます。言語ゲームやら頽落やらベヒモスやらイリヤやらプラグマティズムやら……のカッコイイ言葉は必要無いと思いますが、例えば「自分自身を選ぶのか、好きなもの達を選ぶのか」と言った類いを不思議に思う学生さんには色々な本を読んで欲しいですよね。
+
+- [2007-06-17] app-portage/portage-manpages から app-portage/eclass-manpages が独立しています。eclass は [[repository]]/[[tree]]/[[overlays]] で追加される helper、すなわち [[ebuild_files]] 記述を簡単にするためにユーザ(ここでは [[Portage]]/[[Paludis]]/et al. チーム以外のデベロッパを指す)が用意した共通関数です。[[C++]] でも [[Python]] でもなく [[Bash]] です。使わなくとも [[ebuild_files]] としては成立します。app-emacs/ebuild-mode, app-vim/gentoo-syntax, /usr/share/nano/gentoo/nanorc が [[ebuild_files]] 記述支援機能です。
+
+- [2007-06-16] Epiacenter.com の記事は Zonbu 社から $250 or $100+13/month リモートファイルシステムのサービス付小さな端末が発表されたと伝えています。Zonbox は Gentoo より作られているとあります。Sumo (Kurobox に Gentoo を入れるサービス？)と少し違います。ハードディスクは付属せず、データはリモートファイルシステムへ保存する( +13/month のバックアップサービス)ようです。詳しくは http://www.epiacenter.com/modules.php?name=News&file=article&sid=1091 にあります。
+
+- [2007-06-04] 22.1 の少し前に [[Gentoo]] の [[Lisp プロジェクト:http://www.gentoo.org/proj/en/lisp/index.xml]]の [[Emacs サブプロジェクト:http://www.gentoo.org/proj/en/lisp/emacs/index.xml]]が[[新しい企画:http://www.gentoo.org/proj/en/lisp/emacs/emacs.xml]]を Planet でアピールしています。今年の IBM 社の Developer Works に [[Emacs 連載記事:http://www.ibm.com/developerworks/views/aix/libraryview.jsp?search_by=emacs+editing+environment]]があります。「everything but the kitchen sink」や「Esc Meta Alt Ctrl Shift」は有名なジョークですが、主体の選択自由という価値やインターフェイス等に興味がある方は社会心理学の本棚も回ってみて下さい。Portage が議題とした事もあったカスタマイゼーションやパーソナライゼーション(結局 Paludis も Portage タイプを採用)は隣の社会学にもっとキャッチーなネタで置いてあると思います。
+
+- [2007-06-03] [[GWN]] の [[2007 年 05 月 07 日号:http://www.gentoo.org/news/en/gwn/20070507-newsletter.xml]]は HSM 社が「a new and unique product concept」を満たすシステムを作れる人材を探していると伝えています。「strong Gentoo knowledge」とあるので、Gentoo (組み立てキット)を使った完成品が一つ増えると面白いですね。
+
+-[2007-05-07] 5 歳の誕生日は過ぎてしまいましたが、2007.0 の[[インストーラ]]と [[Stage]] ファイルの配布が始まりました。
+
+2007 年 05 月の状況です。(qcache --stats)
+
+ +----------------------------------------------------------+
+ | architecture |  stable |   ~arch |   total | total/#pkgs |
+ |              |         |    only |         |             |
+ +----------------------------------------------------------+
+ |        alpha |    3372 |     341 |    3713 |      32.15% |
+ |        amd64 |    5952 |    3485 |    9437 |      81.71% |
+ |          arm |    1457 |     121 |    1578 |      13.66% |
+ |         hppa |    2056 |     439 |    2495 |      21.60% |
+ |         ia64 |    2988 |     469 |    3457 |      29.93% |
+ |         m68k |     464 |      16 |     480 |       4.16% |
+ |         mips |    1245 |     481 |    1726 |      14.95% |
+ |          ppc |    5774 |    3023 |    8797 |      76.17% |
+ |        ppc64 |    3013 |     577 |    3590 |      31.08% |
+ |    ppc-macos |     104 |     267 |     371 |       3.21% |
+ |         s390 |    1103 |      94 |    1197 |      10.36% |
+ |           sh |    1275 |      50 |    1325 |      11.47% |
+ |        sparc |    4491 |    1256 |    5747 |      49.76% |
+ |   sparc-fbsd |       0 |     186 |     186 |       1.61% |
+ |          x86 |    8687 |    2819 |   11506 |      99.63% |
+ |     x86-fbsd |       0 |    1974 |    1974 |      17.09% |
+ +----------------------------------------------------------+
+
+2006 年 07 月の状況です。(qcache --stats)
+
+ +--------------+---------+---------+---------+-------------+
+ | architecture |  stable |   ~arch |   total | total/#pkgs |
+ |              |         |    only |         |             |
+ +--------------+---------+---------+---------+-------------+
+ |        alpha |    3249 |     303 |    3552 |      31.76% |
+ |        amd64 |    4989 |    3298 |    8287 |      74.09% |
+ |          arm |    1104 |     207 |    1311 |      11.72% |
+ |         hppa |    1635 |     622 |    2257 |      20.18% |
+ |         ia64 |    2375 |     696 |    3071 |      27.46% |
+ |         m68k |     222 |      20 |     242 |       2.16% |
+ |         mips |     941 |     567 |    1508 |      13.48% |
+ |          ppc |    5453 |    3215 |    8668 |      77.50% |
+ |        ppc64 |    2727 |     353 |    3080 |      27.54% |
+ |    ppc-macos |    3024 |    5264 |    8288 |      74.10% |
+ |         s390 |     681 |     270 |     951 |       8.50% |
+ |           sh |     765 |      78 |     843 |       7.54% |
+ |        sparc |    5355 |    1375 |    6730 |      60.17% |
+ |          x86 |    8198 |    2788 |   10986 |      98.22% |
+ |     x86-fbsd |     310 |     643 |     953 |       8.52% |
+ +--------------+---------+---------+---------+-------------+
+
+***インストーラあり [#c65449b4]
+
+:インストーラあり|初学者向けに「インストーラあり」が用意されています。「[[livecd]]」もしくは「[[livedvd]]」を指します。これ 1 枚で全て揃ってます。ネットワークがなくとも単純な構成なら間に合います。[[net-p2p/bittorrent]] に関しては [[*.torrent 入手先:http://torrents.gentoo.org/]]と [[*.torrent の使い方:http://wiki.gentoo.gr.jp/index.php?%5B%5Bnet-p2p%2Fbittorrent%5D%5D]]を参考にして下さい。
+
+-- livecd@0.7GB ([[net-p2p/bittorrent]] でのみ配布しているものがあります)
+--- [[amd64:http://gentoo.channelx.biz/releases/amd64/current/livecd/]]
+--- [[ia64:http://torrents.gentoo.org/]]
+--- [[ppc32:http://torrents.gentoo.org/]]
+--- [[x86:http://gentoo.channelx.biz/releases/x86/current/livecd/]]
+
+-- livedvd@3.7GB ([[net-p2p/bittorrent]] でのみ配布しているものがあります)
+--- [[amd64:http://torrents.gentoo.org/]]
+--- [[x86:http://torrents.gentoo.org/]]
+
+***インストーラなし [#kffa0e63]
+
+:インストーラなし|「[[installcd]] もしくは代用品」「[[Stage]]」「[[Portageツリー]]の [[Snapshot]]」「[[GRP]] ([[packages]])」を適切な位置に展開することを指します。Gentoo は LiveCD で Stage を操作する行為を "インストール" と呼んでいるに過ぎないため、ウェブブラウザでドキュメントを見ながら作業ができます。「installcd もしくは代用品」には [[Knoppix(jp):http://unit.aist.go.jp/itri/knoppix/index.html]] や [[Ubuntu(jp):http://www.ubuntulinux.jp/download/]] が使えます。ネットワーク経由やフロッピーディスク経由や USB メモリ経由……それで構いません。[[インストール]]完了後でも最適化はできますので、[[インストール]]の際は短時間で終えられる[[バイナリパッケージ]]を利用してみて下さい。
+
+:方法|[[ハンドブック:http://www.gentoo.org/doc/ja/handbook/index.xml]]、[[インストールガイド:http://www.gentoo.org/doc/ja/?catid=install]]、「[[Knoppix を利用したインストールガイド:http://www.gentoo.org/doc/ja/altinstall.xml]]」「[[Windows の中で Gentoo Linux を動かす (coLinux):http://www.gentoo.org/doc/ja/colinux-howto.xml]]」「[[Linux の中で Gentoo Linux を動かす (User Mode Linux):http://www.gentoo.org/doc/ja/uml.xml]]」
+
+-- installcd
+--- [[alpha:http://gentoo.channelx.biz/releases/alpha/current/installcd/]]
+--- [[amd64:http://gentoo.channelx.biz/releases/amd64/current/installcd/]]
+--- [[hppa:http://gentoo.channelx.biz/releases/hppa/current/installcd/]]
+--- [[ia64:http://gentoo.channelx.biz/releases/ia64/current/installcd/]]
+--- [[ppc32:http://gentoo.channelx.biz/releases/ppc/current/ppc32/installcd/]]
+--- [[ppc64:http://gentoo.channelx.biz/releases/ppc/current/ppc64/installcd/]]
+--- [[sparc:http://gentoo.channelx.biz/releases/sparc/current/sparc64/installcd/]]
+--- [[x86:http://gentoo.channelx.biz/releases/x86/current/installcd/]]
+
+-- stage3
+--- [[alpha:http://gentoo.channelx.biz/releases/alpha/current/stages/]]
+--- [[amd64:http://gentoo.channelx.biz/releases/amd64/current/stages/]] | [[amd64@hardened (SELinux+RSBAC+Grsecurity+PaX):http://gentoo.channelx.biz/releases/amd64/current/stages/hardened/]]
+--- [[hppa@1.1:http://gentoo.channelx.biz/releases/hppa/current/stages/hppa1.1/]] | [[hppa@2.0:http://gentoo.channelx.biz/releases/hppa/current/stages/hppa2.0/]]
+--- [[ia64:http://gentoo.channelx.biz/releases/ia64/current/stages/]]
+--- [[mips:http://gentoo.channelx.biz/releases/mips/current/stages/]]
+--- [[ppc32:http://gentoo.channelx.biz/releases/ppc/current/ppc32/stages/]]
+--- [[ppc64:http://gentoo.channelx.biz/releases/ppc/current/ppc64/stages/]]
+--- [[sparc64:http://gentoo.channelx.biz/releases/sparc/current/sparc64/stages/]]
+--- [[x86:http://gentoo.channelx.biz/releases/x86/current/stages/]] | [[x86@hardened (SELinux+RSBAC+Grsecurity+PaX):http://gentoo.channelx.biz/releases/x86/current/stages/hardened/]]
+
+
+-- packagecd (もしくは livecd/livedvd のネットワークレスモード)
+--- [[ppc32:http://gentoo.channelx.biz/releases/ppc/current/ppc32/packagecd/]]
+--- [[sparc64:http://gentoo.channelx.biz/releases/sparc/current/sparc64/packagecd/]]
+
+-- snapshot (全アーキテクチャ共通)
+--- [[配布当時のスナップショット:http://gentoo.channelx.biz/releases/snapshots/]] | [[昨日のスナップショット:http://gentoo.channelx.biz/snapshots/]]
+
+***実験中 [#lfed75bc]
+
+:Experimental|実験中です。協力者を募集しています。何に使うものなのかは[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]や[[プロジェクトリスト:http://www.gentoo.org/proj/en/index.xml?showlevel=1]]で説明があります。
+
+-- livecd@experimental (一時的に置かれたものだったり放置されたものもあります)
+--- [[alpha:http://gentoo.channelx.biz/experimental/alpha/livecd/]]
+--- [[amd64:http://gentoo.channelx.biz/experimental/amd64/livecd/]] | [[amd64@hardened (SELinux+RSBAC+Grsecurity+PaX):http://gentoo.channelx.biz/experimental/amd64/hardened/livecd/]]
+--- [[ia64:http://gentoo.channelx.biz/experimental/ia64/livecd/]]
+--- [[ppc32:http://gentoo.channelx.biz/experimental/ppc/livecd/]]
+--- [[ppc64:http://gentoo.channelx.biz/experimental/ppc64/livecd/]]
+--- [[x86:http://gentoo.channelx.biz/experimental/x86/livecd/]] | [[x86@gamecd:http://gentoo.channelx.biz/experimental/x86/gamecd/]]
+
+
+-- installcd@experimental (一時的に置かれたものだったり放置されたものもあります)
+--- [[arm:http://gentoo.channelx.biz/experimental/arm/livecd/]]
+--- [[hppa:http://gentoo.channelx.biz/experimental/hppa/livecd/]]
+--- [[mips@rc5:http://gentoo.channelx.biz/experimental/mips/livecd/rc5/]] | [[mips@rc6:http://gentoo.channelx.biz/experimental/mips/livecd/x-rc6/]]
+--- [[ppc32:http://gentoo.channelx.biz/experimental/ppc/livecd/]]
+--- [[ppc64:http://gentoo.channelx.biz/experimental/ppc64/livecd/]]
+--- [[sparc32:http://gentoo.channelx.biz/experimental/sparc/installcd/sparc32/]]
+--- [[sparc64:http://gentoo.channelx.biz/experimental/sparc/livecd/sparc64/]]
+--- [[x86@hasrdened (SELinux+RSBAC+Grsecurity+PaX):http://gentoo.channelx.biz/experimental/x86/hardened/livecd/]] | [[x86@xbox:http://gentoo.channelx.biz/experimental/x86/xbox/livecd/]]
+
+-- stage3@experimental (一時的に置かれたものだったり放置されたものもあります)
+--- [[alpha:http://gentoo.channelx.biz/experimental/alpha/stages/]]
+--- [[amd64:http://gentoo.channelx.biz/experimental/amd64/stages/]] | [[amd64@hardened (SELinux+RSBAC+Grsecurity+PaX):http://gentoo.channelx.biz/experimental/amd64/hardened/stages/]] | [[amd64@vserver (LVS/OpenVZ):http://gentoo.channelx.biz/experimental/amd64/vserver/]]
+--- [[arm:http://gentoo.channelx.biz/experimental/arm/stages/arm/]] | [[arm@v4l:http://gentoo.channelx.biz/experimental/arm/stages/armv4l/]] | [[arm@embedded:http://gentoo.channelx.biz/experimental/arm/embedded/stages/]]
+--- [[hppa:http://gentoo.channelx.biz/experimental/hppa/stages/]]
+--- [[ia64:http://gentoo.channelx.biz/experimental/ia64/stages/]]
+--- [[mips@cobalt:http://gentoo.channelx.biz/experimental/mips/stages/cobalt/]] | [[mips@embedded:http://gentoo.channelx.biz/experimental/mips/embedded/stages/]] | [[mips@mips3:http://gentoo.channelx.biz/experimental/mips/stages/mips3/]] | [[mips@mips4:http://gentoo.channelx.biz/experimental/mips/stages/mips4/]] | [[mips@mips4/n32:http://gentoo.channelx.biz/experimental/mips/stages/n32/]]
+--- [[ppc32:http://gentoo.channelx.biz/experimental/ppc/stages/]] | [[ppc32@embedded:http://gentoo.channelx.biz/experimental/ppc/embedded/stages/]] | [[ppc32@macosx:http://gentoo.channelx.biz/experimental/ppc/macosx/]]
+--- [[ppc64@PS3:http://gentoo.channelx.biz/experimental/ppc64/stages/]]
+--- [[s390 (System/360):http://gentoo.channelx.biz/experimental/s390/stages/]]
+--- [[sh@sh4 (superH):http://gentoo.channelx.biz/experimental/sh/stages/]]
+--- [[sparc32:http://gentoo.channelx.biz/experimental/sparc/stages/sparc/]]
+--- [[sparc64:http://gentoo.channelx.biz/experimental/sparc/stages/sparc64/]] | [[sparc64@kFreeBSD:http://gentoo.channelx.biz/experimental/sparc/freebsd/]]
+--- [[x86:http://gentoo.channelx.biz/experimental/x86/stages/]] | [[x86@embedded:http://gentoo.channelx.biz/experimental/x86/embedded/stages/]] | [[x86@kFreeBSD:http://gentoo.channelx.biz/experimental/x86/freebsd/stages/]] | [[x86@Hardened (SELinux+RSBAC+Grsecurity+PaX):http://gentoo.channelx.biz/experimental/x86/hardened/stages/]] | [[x86@vserver (LVS/OpenVZ):http://gentoo.channelx.biz/experimental/x86/vserver/]] | [[x86@xbox:http://gentoo.channelx.biz/experimental/x86/xbox/stages/]]
+
+-- netboot@experimental (一時的に置かれたものだったり放置されたものもあります)
+--- [[arm:http://gentoo.channelx.biz/experimental/arm/netboot/]]
+--- [[hppa:http://gentoo.channelx.biz/experimental/hppa/netboot/netboot-hppa-20050111/]]
+--- [[mips:http://gentoo.channelx.biz/experimental/mips/netboot/]]
+--- [[sparc32@tftpboot:http://gentoo.channelx.biz/experimental/sparc/tftpboot/sparc/]]
+--- [[sparc64@tftpboot:http://gentoo.channelx.biz/experimental/sparc/tftpboot/sparc64/]]
+
+-- packagecd@experimental (一時的に置かれたものだったり放置されたものもあります)
+--- [[arm:http://gentoo.channelx.biz/experimental/arm/packages/]]
+--- [[hppa@1.1:http://gentoo.channelx.biz/experimental/hppa/packagecd/hppa1.1/]] | [[hppa@2.0:http://gentoo.channelx.biz/experimental/hppa/packagecd/hppa2.0/]]
+--- [[sparc32:http://gentoo.channelx.biz/experimental/sparc/packagecd/sparc32/]]
+
+-- snapshot@experimental
+--- [[Alt Overlays:http://gentoo.channelx.biz/experimental/snapshots/]] | [[Alt Prefix:http://gentoo.channelx.biz/experimental/snapshots/]]
+
+*** Gentoo を抽象的と感じ、もっと具体的に解説したものが欲しいのなら…… [#t99dcfa0]
+
+:ゼロから手作業で一つ一つソースコードをコンパイルしてネットワークに参加可能なコンピュータにしたりグラフィカルなコンピュータにする教材| 最早 Gentoo ですら抽象的過ぎるので、こちらの方が理解し易い方もいるかもしれません。Linux From Scratch と Gentoo の違いはパッケージ・マネージャによる[[メタ・ディストリビューション]]を考究するか否かです。
+
+-- [[Linux From Scratch:http://www.linuxfromscratch.org/]]
+-- [[Cross-compiled Linux From Scratch:http://cross-lfs.org/view/1.0.0/]]
+-- [[Hardened Linux From Scratch:http://www.linuxfromscratch.org/hlfs/]]
+
+
+: 公開されたバイナリパッケージ置場を拝借する ($PKGDIR) | 定期的にローカルサーバに全部フェッチさせます。フェッチだけでマージする必要はありません。パッケージ・マネージャにソースファイルよりもローカルサーバのバイナリファイルのフェッチを優先させる指示を出せばビルドせずにマージします。完成品なので USE_flag を変更するのは注意して下さい。コンパイルも仮インストールもハードディスクで行わず /var/tmp/portage を tmpfs にして試してみて下さい。[[バイナリパッケージ]]や[[コンパイル]]に関連記事があります。
+
+: メモリ上のファイルシステム | tmpfs をサポートするカーネルでブート(Gentoo の骨格を提供する baselayout は tmpfs を必要とするので、過去にオフと明示していない限り、動いているカーネルはオンのはず)し、/etc/fstab へ以下の様に記述すればビルドとマージにおいてハードディスク上のファイルシステムを使いません。同時に処理するのが一つまでであれば 1GB で大丈夫と思います。
+
+ shm   /dev/shm         tmpfs nodev,nosuid,noexec                  0 0
+ tmpfs /var/tmp/portage tmpfs uid=250,gid=250,mode=1770,size=4096m 0 0
+
+*** 公式サイトに登録されている非公式な拡張 [#jbbb0cb1]
+
+: Portageオーバーレイ (overlays) | 集中管理している公式サイトは http://overlays.gentoo.org/ です。[[app-portage/layman]] で操作できます。[[Portage]] でも [[Paludis]] でも利用可能です。[[overlays]] (サードパーティ製の [[tree]] を追加検索対象にできる機能)は [[stable]] でも [[testing]] でもなく、[[mask]] 扱いです。制約が無いため提供側に人気があり、表に出て来ない overlays 現象も起きてます。登録は[[バグ報告]]で可能ですが、登録されていないのも沢山あります。
+
+: ガイド | [[User Guide:http://www.gentoo.org/proj/en/overlays/userguide.xml]]、[[Developper Guide:http://www.gentoo.org/proj/en/overlays/devguide.xml]]
+
+-[2007-05-04] [[GWN]] の [[2007 年 04 月 16 日号:http://www.gentoo.org/news/en/gwn/20070416-newsletter.xml]] では Gentoo 愛好者が Apple TV を Linux で動かしました，と伝えています．Intel Mac もそうだったんですよ，ともあります．同じに見えるかもしれませんが mkLinux は違う話です．因みにトップ記事の本家 GWN は人手不足なので人材募集します，は定期的に流れているものですが，やはり人気が偏ってしまうようですね．
+
+-[2007-05-03] Summer of Code (オープンソースプロジェクトで活動する学生を Google が支援するプログラム)が今年も開かれ，本家が出張指導しています．例えば Apparatus は [[*.ebuild]] 開発環境です．注目すべきなのは [[sys-apps/portage]] ではなく [[sys-apps/paludis]] を採用している点です．sys-apps/paludis の Python Bindings も別の生徒が作成していますので Python から C++ が注目点ではありません．遂に GPMS が提出され Gentoo System 自身が[[メタ・ディストリビューション]]の対象になるのが注目点です．利用者の一人ですが Portage より綺麗であり複雑でもあります．古い情報ですが [[portageとその周辺ツール]]に関連記事があります．他にも [[GNAP]] (組み込み向けの dev-util/catalyst，32 MB の[[メタ・ディストリビューション]]の実現) を強化させるプロジェクトがあります．詳しくは http://code.google.com/soc/gentoo/about.html にあります．
+
+-[2007-05-02] Linux Devices の記事は，AMD 社がアフリカのコンピュータ関係の非営利団体に支援したと伝えています．http://www.linuxdevices.com/news/NS6428796596.html にあります．6 国 20 拠点に設置したそうです．下の写真では 1 拠点に 20 台が見えます．2015 年までにインターネット普及率 50% を目指す活動だそうです．Linux によるネットワーク，Linux と Asterisk による VoIP，Gentoo を基本にした Inveneo Linux によるシン・クライアントを PC で構築したとあり，Openoffice，Firefox，Sylpheed，Asterisk，Microsoft RDP 等が使えるとあります．
+
+-[2007-04-01] 一連のゴタゴタから抜け出して [[o.g.o:http://overlays.gentoo.org/]] ([[Portageオーバーレイ]]の集中管理サイト)が再開しています。ここには Cell (Playstation 3 を含む) や Efika (2006 年のクリスマスプレゼント)等が置かれてます。ガイド([[ヘビーユーザ向け:http://www.gentoo.org/proj/en/overlays/userguide.xml]]、[[デベロッパ向け:http://www.gentoo.org/proj/en/overlays/devguide.xml]])があります。こういった仕組み自体に興味がある方は [[FreeBSD:http://www.freebsd.org/ja/]] の [[Ports:http://www.jp.freebsd.org/www.FreeBSD.org/ja/ports/index.html]]、[[Source Mage:http://www.sourcemage.org/node/]] の [[Sorcery:http://www.sourcemage.org/codex]]、[[Slackware:http://www.slackware.com/index.php]] で利用可能な [[Portpkg:http://portpkg.berlios.de/]] ……と比較するのも面白いかもしれません。[[GLEP-0049 (パッケージ・マネージメント・システム案):http://www.gentoo.org/proj/en/glep/glep-0049.html]]もあります。
+
+-[2007-03-31] GentooJP の方々が仲間募集、及び今後の活動展開の希望を説明してます。詳しくはメーリングリストにあります。
+
+-[2007-03-18] usata 氏 (GentooJP の C++ ハッカーである日本人)がシアトルにある Microsoft 社の研究所へ就職するため渡米します。おめでとうございます。C# で好きだった研究を製品にするそうです。17 日の新宿のコーヒー屋で内緒でもなんでもないからいいよと言ってくれました。これからは [[MSN:http://search.live.com/results.aspx?q=gentoo]] にしますので、[[Gentoo]] も使い続けて下さいね。
+
+-[2007-03-15] GentooJP が参加表明をした『[[OSC2007 Tokyo/Spring:http://www.ospn.jp/osc2007-spring]]』が始まります。16 日はセミナー「オープンソースによるシステム管理の自動化」、17 日は展示「布教活動!」が予定されてます。前者は予約者で満員だそうですので当日キャンセル待ちです。これ凄いですね。後者は缶バッチや livecd や livedvd の販売をしてくれるかもしれません。「椅子座って少し質問してもいいですか？」とか「一緒に飯喰っていいですか？」でじっくり会話できると思います。実は母国語が日本語でない方々も参加されてます。
+
+-[2007-03-14] [[ジェンツー委員会]]より [[Code of Conduct (ルールなんか制定したくないのだけど、アレとかソレとかコレの行き過ぎた態度やジョークは PR 活動でもなんでもないからほどほどにね):http://dev.gentoo.org/~christel/coc.xml]]がガイドライン草案として提案されてます。
+
+-[2007-03-05] VIA Technologies Inc. が VIA EPIA EN15000 を使用した Ainkaboot の Beowulf 概念のクラスタサーバを記事にしました。KlustOS は Gentoo から作られたそうです。http://www.itnewsonline.com/showstory.php?storyid=8796&scatid=3&contid=4 で読めます。
+
+-[2007-03-04] 宗家の [[livedvd]] は 1GB ですが、分家の [[Sabayon Linux:http://www.sabayonlinux.org/]] は 4GB です。[[バイナリパッケージ]]による[[インストール]]です。[[*.ebuild]] は同じ品ですので更新すれば差はなくなります。x86 と x86_64 が用意されています。必要な空容量は 8GB です。[[インストールコマンドなどの情報:http://www.sabayonlinux.org/wiki/index.php?title=Main_Page]]がまとまっています。イタリアンデザートの名前とペンギンの足跡みたいですね。
+
+-[2007-03-03] [[hello to you!:http://www.funtoo.org/drobbins/blog/]] の 2006 年 08 月に「Gentoo に戻るかも」と残していた創始者である Daniel Robbins 氏が 2007 年 02 月に再びデベロッパとして登録しています。AMD64 チームに所属しています。Psygnosis (SONY Electronic Publishing) 社でも Microsoft 社でも ABC Coding Solutions 社でもなく、FSMLabs 社です。Gentoo Linux のウェブサイト誕生が 2000 年 07 月以前、Version 1.0 の配布が 2002 年 03 月 31 日、チーフを降りたのが 2004 年 08 月です。ちなみに 2007.0 の時期が近づいてますが、情報は 2006.1 の方がまだまだ多いです。2006.1 情報をニュースサイトで言えば itpro.nikkeibp.co.jp で 2 回([[インストール完全ガイド:http://itpro.nikkeibp.co.jp/article/COLUMN/20070110/258330/]]、[[2006.1:http://itpro.nikkeibp.co.jp/article/COLUMN/20061003/249691/]])、opentechpress.jp で 2 回([[新米ユーザに贈るアドバイス:http://opentechpress.jp/article.pl?sid=06/11/27/0147237]]、[[インストール体験記:http://opentechpress.jp/article.pl?sid=06/09/22/0230252]])、japan.internet.com で 1 回([[最新版で、『ドリームキャスト』が夢のマシンに？:http://japan.internet.com/webtech/20060904/11.html]])……が出てきます。
+
+-[2007-02-25] www, mail, rsync, mirror.gentoo.gr.jp をサービスしている galapagos.gentoo.gr.jp に障害が発生したため、現在各種サービスが停止しています。現在、復旧へ向けて調整中です。この影響はメーリングリストへも及んでいますので、この場でアナウンスしています。(nabeken)
+
+代替ミラーの案内
+
+distfiles については
+
+ http://ftp.nara.wide.ad.jp/pub/Linux/gentoo
+
+が使用できます。GENTOO_MIRRORS に追加しておくことをお勧めいたします。
+
+gentoo-portage については
+
+ rsync://rsync.jp.gentoo.org/gentoo-portage
+
+を使用してください。接続できない場合は国内の他のサーバへ接続を試みます。以上、ご不便をおかけしますがよろしくお願いします。
+
+-[2007-01-28] GentooJP の方々が 2007 年 03 月 16-17 日(金-土)『[[OSC2007 Tokyo/Spring:http://www.ospn.jp/osc2007-spring]]』の企画者を募集しています。ユーザならば誰でも挙手が出来、「セミナー( 45 分枠)」「ミニセミナー( 10 分枠)」「展示」の何れかを任せて貰えるようです。メーリングリストに詳しくあります。内容が難しい必要はないです。昨年は「ebuild 講習会」、一昨年は「インストール大会」でした。MIT (マサチューセッツ工科大学)で毎年開かれている「[[ジェンツー教室:http://stuff.mit.edu/iap/gentoo/]]」も簡単な内容です。昔から「学生さん大歓迎」と言ってました。
+
+-[2007-01-27] nakano 氏( [[Portage]] チームの日本人)が英国から帰国されるのにあわせ、GentooJP で 28 日に食事会を開くそうです。27 日が予約申込期限ですが、ユーザならば誰でも参加できます。メーリングリストに詳しくあります。実は母国語が日本語でない方々も参加されてます。
+
+-[2007-01-13] 昨年から Bug Tracking System (Bugzilla) が強化されています。Global Netoptex, Inc. (GNi) は道具としての採用から今回長期継続的なスポンサになる選択をしたみたいです。具体的にはコミュニティ窓口に位置する Bugzilla を支援するという形です。[[GWN の 2007 年 01 月 08 日号:http://www.gentoo.org/news/en/gwn/20070108-newsletter.xml]]で語っています。
+
+-[2007-01-11] カーネルに Linux ではなく FreeBSD を利用したプロジェクト「Gentoo GNU/kFreeBSD」があります。Open Tech Press に[[ライセンスに関する記事(どちらかというと注意点の呼びかけ):http://opentechpress.jp/opensource/article.pl?sid=07/01/11/0047226&from=rss]]が掲載されてます。http://www.gentoo.org/doc/en/gentoo-freebsd.xml に「Gentoo GNU/kFreeBSD」が何を目指すものなのかの詳しい解説があります。
+
+-過去のニュース::[[GentooLinuxWikiNEWS_2006-01-01_2006-12-31]]
+
+-[2005-12-03] Front Page に紹介文を追加しました。
+
+-2004/3/21 Wiki新デザインへ ~
+
+いい機会なので過去のニュースを[[ニュース過去ログ]]へ移動しました。
+
+今後ここにはこのWikiならではのニュースを自由に追加していってください。
+
+-2002/08/02 正式公開

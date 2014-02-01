@@ -1,0 +1,29 @@
+*フォント系ebuildのためのeclass [#pe04edb9]
+
+-ページ: BugTrack
+-投稿者: [[matsuu]]
+-優先順位: 低
+-状態: CVS待ち
+-カテゴリー: その他
+-投稿日: 2002-12-13 (金) 15:34:52
+-バージョン: 
+
+#vote(問題なく動作しました。[12])
+#attach
+**メッセージ [#aeffe459]
+fonts.scale, fonts.dirを自動生成するeclassです。~
+font.eclassを継承し、インストール先を変数FONTDIRに設定すればOKです。
+
+ inherit font
+ FONTDIR="/usr/share/fonts/truetype"
+ ...
+
+添付のmikachan-font-8.7.ebuildはfont.eclassを利用した[[みかちゃんフォント]]です。
+----
+
+***更新しました(20021224) [#m16135ab]
+XFSの起動スクリプトにfonts.dir生成処理が記述されていたので、ほぼそのまま引用してみました。以前よりもよくなってます。
+
+本来xfs起動のタイミングではなく、フォントインストールのタイミングでfonts.dirが生成されるのが正しいと思われるので、eclass実装がベストかと。
+----
+// #comment

@@ -1,0 +1,27 @@
+*WebDAVを日本語対応にするapacheモジュール [#zff0af02]
+
+-ページ: BugTrack
+-投稿者: [[yamakura]]
+-優先順位: 低
+-状態: 完了
+-カテゴリー: ebuild
+-投稿日: 2002-08-28 (水) 01:48:09
+-バージョン: 20020611
+
+CENTER:''このebuildは本家のツリーに取り込まれました。(net-www/mod_encoding)''
+
+
+**メッセージ [#oe965333]
+[[WebDAV:http://webdav.todo.gr.jp/]]は、そのままでは名前に漢字を含むファイルを
+取り扱うことができませんが、このapacheモジュールがそんな悩みを解決してくれます。mod_davと組み合わせて使ってみてください。
+
+余談: mod_davは /etc/apache/conf/addon-modules/mod_dav.conf の DAVLockDB を書き換えないとハマります。というかハマりました…。
+----
+
+-DAVLockDB のはまりはどこなの？ -- [[kihei]] SIZE(10){2003-01-08 (水) 19:19:29}
+-更新しました。同梱の iconv_hook を組み込むようにしたつもりですが、うまく動いているのかどうか、どうやったら確認できるかわかりません…。確認できる人がいたら結果を教えてください。 -- [[yamakura]] SIZE(10){2003-02-04 (火) 23:14:09}
+-「ハマりました」の件ですが、どうやらだいぶ前に修正が入っていたようです。今は問題ないようです。http://cvs.gentoo.org/cgi-bin/viewcvs.cgi/gentoo-x86/net-www/mod_dav/files/mod_dav.conf.diff?r1=1.2&r2=1.3 -- [[yamakura]] SIZE(10){2003-02-07 (金) 14:34:25}
+-Apache2にも対応しているのでしょうか？ -- [[kimata]] SIZE(10){2003-06-15 (日) 05:54:33}
+-[[本家:http://webdav.todo.gr.jp/]]には、Apache2用のmod_encodingがあるので対応していないと思われます。 -- [[matsuu]] SIZE(10){2003-06-15 (日) 12:22:17}
+-MLにも流したのですがあれからいろいろと調べてApache2向けの解説をhttp://acapulco.dyndns.org/pukiwiki/pukiwiki.php?cmd=read&page=mod_davに書いておきました。 -- [[kimata]] SIZE(10){2003-06-29 (日) 05:08:50}
+// #comment

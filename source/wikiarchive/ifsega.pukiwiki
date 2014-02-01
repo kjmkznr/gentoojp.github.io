@@ -1,0 +1,26 @@
+*IF-SEGA用Linuxドライバモジュール [#d0bdf9e5]
+
+-ページ: BugTrack
+-投稿者: [[matsuu]]
+-優先順位: 低
+-状態: 着手
+-カテゴリー: ebuild
+-投稿日: 2002-10-29 (火) 23:55:59
+-バージョン: 0.17
+
+問題無さそうならクリックしてください。(目安として使うだけです)
+#vote(問題なく動作しました。[1])
+#attach
+**メッセージ [#kd5f1191]
+作ってみました。[[IF-SEGA/ISA:http://www.iodata.jp/products/game/ifsegisa.htm]]や[[IF-SEGA2/PCI:http://www.iodata.jp/products/game/ifsg2pci.htm]]が使えます。
+
+カーネルのjoystick関連モジュールが必要です。
+
+ # modprobe ifsega
+ # modprobe ifsega-isa
+ # modprobe ifsega-inp
+ # modprobe joydev
+
+で/dev/js0が使えます。
+----
+// #comment

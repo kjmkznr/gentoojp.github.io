@@ -1,0 +1,65 @@
+#contents
+#title
+
+*Portage と GLSA [#y9e5a9df]
+
+[[GLSA]] こと "[[Gentoo Linux Security Announcements:http://wiki.gentoo.gr.jp/index.php?GentooLinuxSecurityAnnouncements]]" (または "[[Gentoo Linux Security Advisories:http://wiki.gentoo.gr.jp/index.php?GentooLinuxSecurityAdvisories]]") は [[Security プロジェクト:http://www.gentoo.org/proj/en/security/index.xml]]による脆弱性注意報告です。
+
+[[GWN]] を読むと 2002 年 12 月よりも前から続けられています。脆弱性が発見されたパッケージの処置方法を知らせてくれます。今は報告に従い警告パッケージを処置をする手順ですが、[[GLEP]] の 014 より、最終的には [[Portage]] の標準機能の 1 つにするのかもしれません。現在のところ[[app-portage/gentoolkit]] の [[glsa-check]] コマンドを使います。
+
+[[報告一覧:http://www.gentoo.org/security/en/glsa/index.xml]]もあります。/usr/portage/metadata/glsa/ 以下に [[XML]] があります。
+
+**情報源 [#xfdfebee]
+
+[[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]、Full-Disclosure、開発元、他ディストリビューション、一般公開されたメーリングリスト、vendor-sec (一般公開されていないメーリングリスト)、内部監査チームの [[Security Audit サブプロジェクト:http://www.gentoo.org/proj/en/security/audit.xml]]と [[Security Kernel サブプロジェクト:http://www.gentoo.org/proj/en/security/kernel.xml]]、匿名メールが情報源だそうです。
+
+**サポート対象 [#x211c914]
+
+アーキテクチャは、x86, ppc, sparc, amd64, alpha, ppc64, hppaです。
+
+[[stable]] だけが対象で、[[testing]], [[mask]] 等は [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]] に報告されるべきですが [[GLSA]] にされません。
+
+方針に関する最新情報は[[脆弱性治療の方針:http://www.gentoo.org/security/en/vulnerability-policy.xml]]や[[GLSA調整ガイド:http://www.gentoo.org/security/en/coordinator_guide.xml]]を参考にして下さい。
+
+**glsa-check の使用例 [#vf71082d]
+
+例えば `glsa-check --list` で[[マージ]]済みのパッケージで該当するものがあるかどうかチェックしてくれます。
+
+ [A] means this GLSA was already applied,
+ [U] means the system is not affected and
+ [N] indicates that the system might be affected.
+ 
+ 200410-14 [U] phpMyAdmin: Vulnerability in MIME-based transformation system
+               ( dev-db/phpmyadmin )
+ 200406-03 [U] sitecopy: Multiple vulnerabilities in included libneon
+               ( net-misc/sitecopy )
+ 200410-15 [U] Squid: Remote DoS vulnerability
+               ( net-proxy/squid )
+ 200406-04 [U] Mailman: Member password disclosure vulnerability
+               ( net-mail/mailman )
+ 200410-16 [U] PostgreSQL: Insecure temporary file use in make_oidjoins_check
+               ( dev-db/postgresql )
+ 200406-05 [U] Apache: Buffer overflow in mod_ssl
+               ( net-www/apache net-www/mod_ssl )
+ 200410-17 [U] OpenOffice.org: Temporary files disclosure
+               ( app-office/openoffice 
+                 app-office/openoffice-bin 
+                 app-office/openoffice-ximian )
+ 200406-06 [U] CVS: additional DoS and arbitrary code execution vulnerabilities
+               ( dev-util/cvs )
+ 200410-18 [U] Ghostscript: Insecure temporary file use in multiple scripts 
+               ( app-text/ghostscript )
+ 200406-07 [U] Subversion: Remote heap overflow 
+               ( dev-util/subversion )
+ 200410-19 [U] glibc: Insecure tempfile handling in catchsegv script 
+               ( sys-libs/glibc )
+ 200406-08 [U] Squirrelmail: Another XSS vulnerability 
+               ( mail-client/squirrelmail )
+ 200406-09 [U] Horde-Chora: Remote code execution 
+               ( net-www/horde-chora )
+ ...snip...
+
+========
+
+-[2005-10-20] 
+-[2005-10-20] (yoshino)

@@ -1,0 +1,22 @@
+*PostgreSQL用の双方向レプリケーション・システム [#j1328ad1]
+
+-ページ: BugTrack
+-投稿者: [[matsuu]]
+-優先順位: 低
+-状態: 着手
+-カテゴリー: ebuild
+-投稿日: 2003-09-10 (水) 06:44:26
+-バージョン: 
+
+**メッセージ [#p28fcd61]
+[[PGCluster:http://www.csra.co.jp/~mitani/jpug/pgcluster/]]です。
+
+USEフラグでレプリケーションサーバ(pgrp)、ロードバランサ(pglb)を選択できます。
+
+PostgreSQLの拡張なのでdev-db/postgresqlとかち合います。
+将来的にはvirtualで被せる方向で。
+
+----
+
+-ebuild-uploaderへ移動しました -- [[matsuu]] SIZE(10){2004-03-17 (水) 23:54:30}
+// #comment

@@ -1,0 +1,33 @@
+#contents
+#title
+
+*Portage と mask [#p0247cf9]
+
+[[profile]] で左右されます。
+
+コミュニティとしては「推奨できない」と言っているわけですので、パッチファイル無しの[[バグ報告]]しても無視されるかもしれません。[[stable]] より不安定になります。一次配布元のソースファイルをそのまま[[ビルド]]するのと同程度の安定度です。
+
+[[mask]] → [[testing]] → [[stable]] です。どれぐらい待てば [[testing]] になるのかは開発者に任されています。サポートするには古いものも [[mask]] されます。これを [[dead]] と言います。/etc/portage/package.mask でユーザ定義の調節ができます。/etc/portage/package.unmask でシステム定義のも解除できるはずです。また、[[GLEP]] の 041 より [[QA]] (品質保証)と関係してパッケージテスト専用のスタッフも迎えようとしています。/usr/portage/profiles/○○/packages や [[app-portage/herdstat]] 等で状況が分ります。また、[[GLSA]] の対象になりません。[[GLSA]] こと "[[Gentoo Linux Security Announcements:http://wiki.gentoo.gr.jp/index.php?GentooLinuxSecurityAnnouncements]]" (または "[[Gentoo Linux Security Advisories:http://wiki.gentoo.gr.jp/index.php?GentooLinuxSecurityAdvisories]]") は [[Securityプロジェクト:http://www.gentoo.org/proj/en/security/index.xml]]による脆弱性注意報告です。
+
+**mask のガードを外すには... [#bfe48a89]
+
+[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]に説明があります。
+
+[[*.ebuild]] を理解する予定でもなければ、避けるのが無難です。
+
+**tree [#bb802809]
+
+[[tree]] に関連記事があります。
+
+**overlays [#tb538992]
+
+[[overlays]] に関連記事があります。
+
+**KEYWORDS とは... [#pacb2007]
+
+[[USEフラグ]]ではありません。[[KEYWORDS]] に関連記事があります。
+
+________
+
+-[2005-09-19] 
+-[2006-09-17] 自分が調べた際のメモをほぼそのまま貼りつけているだけだったのを省察しました。 (yoshino)

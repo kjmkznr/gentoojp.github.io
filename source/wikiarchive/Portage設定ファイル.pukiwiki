@@ -1,0 +1,85 @@
+#contents
+#title
+
+*/usr/portage 以下のファイルは `emerge --sync` で上書きされます [#n444b921]
+
+[[distfiles]] や [[packages]] は上書きされません。
+
+覚える必要があるのは /etc/make.conf と /etc/portage/package.use ぐらいと思います。
+
+*sys-apps/portage [#w5def456]
+
+だいたいの目安です。書式などは [[Gentoo System ドキュメント:http://www.gentoo.org/doc/ja/index.xml?catid=gentoo]]を参考にして下さい。
+
+***/etc/gentoo-release [#z0a80fa7]
+
+:/etc/gentoo-release|Gentoo Base System のヴァージョンが記述されています。[[sys-apps/baselayout]] に関連記事があります。
+
+***/etc/make.profile [#ic8ef10d]
+
+:/etc/make.profile|シンボリックリンクです。/usr/portage/profiles/default-linux/x86/2005.1 の様に基準となる [[profile]] をリンク先にします。かなり左右されます。古過ぎる [[profile]] を使っている場合には [[Portage]] から注意されます。[[profile]] に関連記事があります。
+
+***/etc/make.conf [#oc8eaa01]
+
+:/etc/make.conf|$USE や $PORTDIR 等の[[Portage変数]]を記述します。/etc/make.conf.example がテンプレートになります。/etc/make.profile/use.defaults や /etc/make.profile/make.defaults は [[Portageツリー]]内部の /usr/portage/profiles 以下に繋がるため、`emerge --sync` で上書きされます。/etc/make.defaults は `emerge portage` で上書きされます。[[emerge]] に関連記事があります。
+
+***/etc/make.profile/packages [#a98a2581]
+
+:/etc/make.profile/packages|`emerge system` や `emerge world` の対象外となるパッケージリストです。[[mask]] されているといいます。[[Portageツリー]]内部の /usr/portage/profiles 以下に繋がるため、`emerge --sync` で上書きされます。[[profile]] に関連記事があります。
+
+***/var/lib/portage/world [#n29b9508]
+
+:/var/lib/portage/world|`emerge world` の対象となるパッケージリストです。直接編集しても構わないはずです。[[emerge]] に関連記事があります。
+
+***/etc/portage/package.mask [#xcdf37f1]
+
+:/etc/portage/package.mask|主に `emerge foobar` でヴァージョンを変更したくないパッケージを指定します。ユーザ定義の [[mask]] をします。[[profile]] と [[mask]] に関連記事があります。
+
+***/etc/portage/package.unmask [#m01524bb]
+
+:/etc/portage/package.unmask|主に `emerge foobar` でヴァージョンを変更したくないパッケージを指定したものを解除します。ユーザ定義だけでなくシステム定義のものまで unmask します。[[バグ報告]]できません。[[profile]] に関連記事があります。
+
+***/etc/portage/package.keywords [#oea76a7b]
+
+:/etc/portage/package.keywords| Gentoo System のブランチ調整とアーキテクチャ調整を行います。指定したパッケージに対してのみ、$ACCEPT_KEYWORDS と同様の効果があります。[[KEYWORDS]] については [[profile]] に関連記事があります。
+
+***/etc/portage/package.use [#r0bb2766]
+
+:/etc/portage/package.use|指定したパッケージに対してのみ、$USE と同様の効果があります。[[USEフラグ]]は $USE で毎回指定しないのが賢明です。[[Tree]] の [[profile]] などにシステム設定の [[USEフラグ]]があります。[[USEフラグ]]に関連記事があります。
+
+***/usr/portage/profiles/virtuals [#o2b5841f]
+
+:/usr/portage/profiles/virtuals|同様の機能を持った異なるパッケージを [[Portage]] は1つの仮想パッケージとして登録します。そうする事で必要な機能を基準としてで依存関係などを解決します。その関係図です。[[Portageツリー]] の [[profile]] です。[[Portageツリー]] 内部の /usr/portage/profiles 以下に繋がるため、`emerge --sync` で上書きされます。[[emerge]] に関連記事があります。
+
+***/etc/portage/package.provided [#k09ed535]
+
+:/etc/portage/package.provided|ライセンスや自作パッケージ等の理由のため [[Portage]] 経由では[[マージ]]できないパッケージを登録し、[[Portage]] に[[マージ]]してあると扱わせます。基本的には本家で提供されていない仮想パッケージを登録します。すると必要な機能が揃っていると錯覚させられます。[[emerge]] に関連記事があります。
+
+***/etc/make.profile/updates [#na30f185]
+
+:/etc/make.profile/updates|[[ebuildパッケージ]]がカテゴリ移動した場合など、それを示すために使われます。[[Portageツリー]] の [[profile]] です。[[Portageツリー]] 内部の /usr/portage/profiles 以下に繋がるため、`emerge --sync` で上書きされます。[[emerge]] に関連記事があります。
+
+________
+
+[[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]) の詳細は[[プロジェクトリスト:http://www.gentoo.org/proj/en/metastructure/projects.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]), [[Gentoo FAQ:http://www.gentoo.org/doc/ja/?catid=faq]], [[GentooJP FAQ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A3%C6%A3%C1%A3%D1%5D%5D]]
+- [[インストール]], [[Stage]], [[GRP]], [[Portageツリー]]
+- [[インストールした後にできること]], [[日本語入力設定事例集]], [[日本語デスクトップ環境/パッケージ]]
+- [[Gentooが採用している技術]]
+- [[コミュニティとの連絡手段]], [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]
+- [[本家に関連しそうな言葉]], [[GLEP]], [[コピーライト]], [[ライセンス]]
+
+[[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]]) の詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]])
+- [[メタ・ディストリビューション]], [[USEフラグ]], [[profile]], [[catalyst]], [[GNAP]]
+- [[コンパイル]], [[バイナリパッケージ]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+
+________
+
+-[2005-12-30]
+-[2006-03-19] 上記より更に追加されてます。修正お願いします。 (yoshino)
+-[2006-09-17] 「ポーテージ設定ファイル」から「Portage設定ファイル」へ移動 (yoshino)

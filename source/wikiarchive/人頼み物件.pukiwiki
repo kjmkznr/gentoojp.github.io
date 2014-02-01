@@ -1,0 +1,109 @@
+#title
+解決したら[[人頼み物件(済)]]に移動しましょう。
+----
+
+- w3m-0.5.2 に async パッチ、256色パッチが当たるようにして欲しい。
+-- http://www.page.sannet.ne.jp/knabe/d/ 3m-cvs-1.1001-async-4.diff.gz
+-- http://homepage3.nifty.com/slokar/w3m/w3m-256.html
+
+----
+
+- dev-db/libpq-8.2.4をマージすると、存在しないlibpq-4.aにリンクしたlibpq.aが出来てしまうので、src_install()辺りからもう一度dosymし直してlibpq-5へリンクするようにするか、もしくはlibpq-8.2.4.ebuildのSLOTを4から5に変えて欲しい。
+-- 一部訂正しました。
+
+----
+- app-misc/screen で http://www.dekaino.net/screen/01install.html にある「デッドロック防止パッチ」「半角カナ(JIS-X-0201 右半面)copy/paste文字化け修正パッチ」「utf-8におけるCJKコード文字幅の誤認識修正パッチ」を組み込んで欲しい。
+-- 残念ですがリンク先のパッチのライセンスが不明です。
+--- GPL に対するパッチなので、GPL ということになりませんか?
+--- ソフトウェアのライセンスとパッチファイルのライセンスは一緒だとは限りません。[[ライセンス]]は混ぜて大丈夫なものと駄目なものがあるのです。不明なものは権利を放棄していないと考えるべきです。バグ報告される明記されていないパッチファイルは権利が放棄してあるものと扱われます。gentooはライセンスについて幅広い考えを持っています。例えばコミュニティによる再配布を禁止しているパッケージも直接一次サイトからダウンロードすることで回避できるようになっています。これは面倒に思えるかもしれませんが、利用者に作る側が多い背景から来る要望を叶えています。
+-- http://blog.gcd.org/archives/50663205.html screen-4.0.2 にはこういう問題もあるらしい
+
+-----
+
+- app-i18n/jfbterm で USE=unicode なら unifont が依存関係に含まれるようになって、/etc/jfbterm.conf フォントディレクトリが /usr/share/fonts/ に正しく設定されるようになって欲しい。
+
+- app-i18n/kon2 が gcc-4.1.1 でコンパイル出来るようにして欲しいです。
+
+- 手書き入力の http://scim-imengine.sourceforge.jp/index.cgi?cmd=view;name=SCIMTomoe、SCIM Input Pad が使えるようになって欲しい。
+
+- media-libs/jpeg に http://cetus.sakura.ne.jp/softlab/jpeg-x86simd/jpegsimd.html を充てて高速化を計って貰いたい。また、sys-libs/zlib もソース・アーカイブ中contrib/ にアセンブラ・パッチが入っているので ebuild で活用出来るようになってほしい。
+
+- www-client/ に入っている 2ch 専用ブラウザは、紛らわしいので別のディレクトリに入るようにして欲しいです。日本語オンリーなので　ebuildjp 専科でもいいように思います。
+
+- /usr/portage/app-emulation/wine で wine-0.9.x が バージョン指定しなくとも引っかかるように wine-2005* を削除して欲しい。
+-- /etc/portage/package.mask に >=app-emulation/wine-9999 と書けばいいのではないでしょうか。
+
+- USE="cjk" で net-ftp/proftpd  コンパイルするときは  http://www.hakusan.tsg.ne.jp/tjkawa/software/misc/proftpd-iconv/index.jsp が当たるようにしてほしいです
+
+-同時に音を出す方法。dmixの設定方法がトリッキー by m3
+
+-ivtvドライバに[[ぱ研のパッチ:http://www.paken.org/linuxwiki/index.php?CX23416GYC-STVLP%A4%CE%B2%F2%C0%CF]]を当てるやつを誰か作ってください。
+
+-日本語入力設定事例集に従ってATOKXを設定したんですが,パネルが表示されません。みなさんは表示されますか？(kernel2.6.3 + gtk+-1.2.10)
+--atokx-1.0-r4ではうまく動かなかったので、[[atokx]]にあるr2を使っています。ATOKパレットも表示されています。 by HMM
+
+-日本語対応のLiveCD(特にPPC)を是非お願いします。by 匿名希望
+--うーん、インストーラがどうなるかによるんですけどね (^^; 幸い Gentoo はインストーラらしいインストーラはないので Knoppix で代用することもできますが、いかがでしょう。 by usata
+
+----
+
+-OpenOffice.org 1.xの日本語入力。by bluedwarf
+--kinput2 + Canna + OpenOffice.org 1.0.3ではなにも問題なく日本語入力ができるのですが、kinput2 + Canna + OpenOffice.org 1.1 beta2やStarSuite 6.1 beta2では日本語入力をしようとすると、(OpenOffice.orgやStarSuiteのタイトルバーなんかが点滅したりして、)正常に日本語入力ができないのですが、他の方はどうでしょうか？
+
+----
+
+-[[epson系のドライバ:http://www.epkowa.co.jp/tec/tec_p07.html]]のebuildが欲しいです。by tokoroten
+
+----
+
+-[[ircd-ja:http://ftp.arege.jp/debian-arege/dists/unstable/ircd-ja/]]のebuildが欲しいです。by tokoroten
+--マスターサイトはどこになりますか? by usata
+---うぅ、不明です。[[irc.kyoto-u.ac.jp:http://irc.kyoto-u.ac.jp/]]かとも思われるんですが。。。by tokoroten
+---ベースのircdが[[bugs:http://bugs.gentoo.org/show_bug.cgi?id=19449]]に投げられてますね。日本語パッチはあたってませんが by matsuu
+---net-irc/irc-serverに取り込まれてました。日本語パッチは含まれてません。 by matsuu
+---FriendChatのircdのebuild作ってみました。ircd-jaの配布元（もう無いような気がする）が見つかったら、ファイル名だけ入れ替えれば動くと思われます。 by loudear
+---現在は[[irc.kyoto-u.ac.jp:http://irc.kyoto-u.ac.jp/]]ではなく、[[IRCNET-JP:http://www.ircnet.jp/]]です。ここには最新版の[[irc2.11.0:ftp://ftp.irc.org/irc/server/irc2.11.0.tgz]]におけるjp-patchの[[irc2.11.0-2.11.0+jp8.patch:http://www.ircnet.jp/dist/server/jp-patch/irc2.11.0-2.11.0+jp8.patch]]が置いてあります。
+
+----
+
+-mod_jk2+jboss3(Tomcat版)を希望。 by gen
+--jboss3(Jetty版)はあるのにmod_jk2+jboss3(Tomcat版)がないのは、悲しい
+
+----
+
+-[[gnome-vim:http://www.opensky.ca/gnome-vim/]]を希望。evolutionの[[スクリーンショット:http://www.opensky.ca/gnome-vim/evolution.png]]がかなりしびれます。
+
+-UTF-8環境でsylpheedが文字化けして何も操作できません。env LANG=ja_JP.eucJP sylpheed(-claws)すれば何とかなってはいるものの。。。
+
+----
+
+-UTF-8環境でjpilotなどにuim-ximから入力できません。
+--現在もそうですか？by usata
+
+----
+
+-[[phpGroupware-jp:http://sourceforge.jp/projects/phpgwjp/]]を希望します。日本語対応のグループウェアです。
+
+----
+
+-[[X-Symbol:http://x-symbol.sourceforge.net/]]
+-[[WhizzyTeX:http://pauillac.inria.fr/whizzytex/]]
+
+以上 TeX 入力支援 on Emacs をお願いします。AUCTEX, Active DVI, RefTex を有効活用させるためにも。by Yamakawa
+
+----
+
+-[[Scarab:http://scarab.tigris.org/]]
+
+を希望します。
+[[日本語化:http://scarab-ja.sourceforge.jp/cgi-bin/hiki.cgi?FrontPage]]もされている、JavaベースのBTS(BugTrackingSystem)です。
+
+-[[DVTS:http://www.sfc.wide.ad.jp/DVTS/]]を希望します。インターネットを利用してDVデータを送受信するアプリケーションです。
+
+-[[qemu workstation:http://am.xs4all.nl/phpwiki/index.php/QemuWorkstation]]希望です.CPU emulator qemuのフロントエンドです。
+
+-ネットワークメディアサーバの[[wizd:http://www.geocities.jp/wizd_012h_hoge/]]をお願いします。
+
+-Apache2向けモジュールの[[mod_encoding:http://webdav.todo.gr.jp/]]をお願いします。Ebuildツリーに入ってるのはApache1向けなので使えないです。
+
+-毛筆フォントの[[青柳衡山フォント:http://musashi.or.tv/aoyagikouzanfont.htm]]をお願いします。

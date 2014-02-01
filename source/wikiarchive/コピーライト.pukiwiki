@@ -1,0 +1,109 @@
+#contents
+#title
+
+*コピーライトとライセンス [#y755f155]
+
+[[コピーライト]]や[[ライセンス]]質問は [[Gentoo Foundation, Inc.:mailto:trustees@gentoo.org]] に送ります。
+
+ドラフト版の [[Gentoo Linux 社会契約:http://www.gentoo.org/main/en/contract.xml]] ([[日本語:http://www.gentoo.org/main/ja/contract.xml]]) が公開されています。[[About Gentoo Linux:http://www.gentoo.org/main/en/about.xml]] ([[日本語:http://www.gentoo.org/main/ja/about.xml]]) や [[Philosophy:http://www.gentoo.org/main/en/philosophy.xml]] ([[日本語:http://wiki.gentoo.gr.jp/index.php?%5B%5B%BC%C1%CC%E4%5D%5D]]) から読むとわかりやすいかもしれません。
+
+[[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]] および [[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]] そのものは「GPLv2」です。[[コピーライト]]は「Gentoo Foundation, Inc.」です。[[ライセンス & コピーライトガイド:http://www.gentoo.org/proj/en/devrel/copyright/index.xml]]参考です。
+
+***「コピーライト(著作権)」(辞書検索例) [#x801b90d]
+
+[[wikipedia:http://ja.wikipedia.org/wiki/%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%9A%E3%83%BC%E3%82%B8]] の「[[コピーライト(著作権):http://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E9%9A%A3%E6%8E%A5%E6%A8%A9]]」参考。
+
+**パッケージ等に関して [#t3cfca32]
+
+パッケージのソースファイルなどは各配布元に従います。パッチファイルは上流に還元するのが好ましいのですが、担当者自身でも構いません。[[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]] で付属させたパッチファイルは還元するものとして扱われます。ライセンスが明記してあれば、コピーライトが不明でも採用されるかもしれません。コピーライトを明記すれば ChangeLog に名前を残してくれる几帳面な人もいます。[[ライセンス & コピーライトガイド:http://www.gentoo.org/proj/en/devrel/copyright/index.xml]]参考です。
+
+[[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]) および [[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]]) の[[コピーライト]]は「Gentoo Foundation, Inc.」です。担当者自身ではありません。
+
+**ドキュメント等に関して [#z8efd88e]
+
+[[コピーライト]]は「Gentoo Foundation, Inc.」です。担当者自身ではありません。但し翻訳した権利はあります。細かい点については[[ライセンス & コピーライトガイド:http://www.gentoo.org/proj/en/devrel/copyright/index.xml]]参考です。
+
+GentooJP 用オリジナルドキュメントの場合、コピーライトは担当者自身です。
+
+**ロゴやマスコット等に関して [#x030046f]
+
+[[コピーライト]]は「Gentoo Foundation, Inc.」です。担当者自身ではありません。細かい点については[[ライセンス & コピーライトガイド:http://www.gentoo.org/proj/en/devrel/copyright/index.xml]]参考です。
+
+「g」ロゴや「Gentoo」トレードマークについては[[ロゴガイドライン:http://www.gentoo.org/main/ja/name-logo.xml]]参考です。
+
+さらりとすごい事を言っているマスコットキャラクタが Larry the Cow です。どうでも良いことですが、オスかメスかで話題になった過去があります。同じように見えるかもしれませんが、あのハッカー集団やそのハッカー団体とは違います。
+
+[[x11-themes/gentoo-artwork]] や [[media-gfx/splash-themes-gentoo]] などに可愛らしい絵([[ロゴやテーマのサンプル:http://www.gentoo.org/main/en/graphics.xml]]や[[アイコンのサンプル:http://www.gentoo.org/dyn/icons.xml]])があります。[[Forums:http://forums.gentoo.org/]] を検索しても綺麗な画像があります。その昔チェックしまして、日本人のマンガかゲームの違反している絵を幾つか外して貰いました。
+
+***イメージカラー [#d17df18d]
+
+[[Gentoo]] のイメージカラーは「紫色と桃色(と白色)」だそうです。
+
+***「Gentoo」登録商標の要約... [#mda9dbbd]
+
+> わたしたちは、プロジェクトマネージャにそのプロジェクトを"Gentoo"と呼ばないこと、および、その名前に"Gentoo"という言葉が含まれないことを要求します。さもなければ、公式の情報入手、サポートやフィードバックの享受に際して、どこにいったらよいのかユーザは混乱してしまうでしょう。わたしたちは、"Gentoo"という言葉をオペレーティングシステムと関係する他の方法で(すなわちプロジェクトの名前には含まない方法で)使用する場合、Gentooは登録商標であり、"Gentoo"という言葉をGentooプロジェクトの一部としては使用すておらず、GentooプロジェクトやGentoo Foundationから指示や管理を受けていないと明示することを要求します。あなたの文章の最後に"Gentoo"に続けて™記号を追加し、「Gentooは、Gentoo Technologies, Inc.の登録商標です」と記述するのが一般的な方法です。
+
+過去の [[GWN]] の翻訳より転載。(™←トレードマーク記号)
+
+***「Gentoo」とコミュニティサイトについての要約... [#me66d42e]
+
+> 各ページは、そのサイトが公式のGentooプロジェクトの一部ではないことを明示しなければなりません。こうすることで、ユーザはそのプロジェクトに関して、Gentooプロジェクトからフィードバックやサポートを期待すべきではないことを知らせることができます。そのプロジェクトに関する要望については、多くの場合、Gentoo開発者はどのように扱ってよいかわからないでしょう。
+
+> WEBサイトは、公式のGentooWEBサイトに似てはいけません。Gentooウェブサイトで使われているレイアウト(現在のものと、もうすぐ変わる新しいレイアウトの両方とも)は、公式のGentooWEBサイトでのみ使用されます。同一、もしくは、似たようなレイアウトは、WEBサイトのオリジナルがどれなのか、また、フィードバックや要望をどこへ出せばよいのかということについて、ユーザを混乱させます。
+
+過去の [[GWN]] の翻訳より転載。
+
+***「g」ロゴの要約... [#v4fa4378]
+
+> ソフトウェアやハードウェア製品に商用目的でGentooロゴを使用することを計画している場合、わたしたちは、その製品で*主要な*最も大きなロゴとしてGentooロゴを使用しないことを要求します。その製品を使う人々は、製品にはGentooが含まれている、あるいは、Gentooに基づいたものであるが、サポートやフィードバックについては、あなたに対して要求すべきだと気づくでしょう。
+
+> パッケージ商品のような他の製品についてはどうでしょうか。商用目的のそのような製品に対して、わたしたちは、Gentooロゴや図のいかなる使用も現在は禁止しています。そのようなものを販売する場合、Gentoo Foundationは、個々の場合に応じて当事者に対して承認を与えるつもりです。多くの場合は売り上げの一部から使用料を取るような方法で、または、それらの製品の販売を伴う彼らの活動(たとえば、カンファレンスなど)によってGentooが利益を得る助けとなるようなプロジェクトに対しては許可するつもりです。
+
+> 非商用目的では、ロゴがGentooプロジェクトについてのものであるする限り、Gentooロゴを使用することができます。たとえば、GentooロゴをGentooについての記事と一緒に使用することができますし、カンファレンスで配布するGentoo LiveCDに使用することができます。
+
+過去の [[GWN]] の翻訳より転載。
+
+*商業 [#qe7b5e71]
+
+開発者を雇用したり、ハードウェアを寄贈したり、コミュニティと友好関係を築く企業や大学もあります。良く [[GWN]] に登場するのは Genesi の PegasosPPC 製品辺りの気がします。Intel や AMD の時と同様、最近は IBM や Sun Microsystems 等も積極的です。
+
+**Gentoo Foundation, Inc. [#b399e9fe]
+
+2004 年 06 月からドメインを含む資産は「Gentoo Technologies, Inc.」から「Gentoo Foundation, Inc.」になりました。米国において公式に非営利団体になったことを意味します。
+
+**GentooJP News [#o76f2aca]
+
+[[GentooJP News:http://www.gentoo.gr.jp/jpmain/news-submit.xml]] によると営利目的の広告も審査対象にしてくれるとの事です。
+
+**GentooJP スポンサ [#m1805705]
+
+[[スポンサ紹介:http://www.gentoo.gr.jp/jpmain/sponsors.xml]]にあります。[[ミラーリング]]は個人でも協力できます。
+
+**Gentoo や Portage を直接的または間接的に使った仕事はできますか？ [#y15f1ed0]
+
+[[インストールした後にできること]]に関連記事があります。
+
+________
+
+[[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]) の詳細は[[プロジェクトリスト:http://www.gentoo.org/proj/en/metastructure/projects.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]), [[Gentoo FAQ:http://www.gentoo.org/doc/ja/?catid=faq]], [[GentooJP FAQ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A3%C6%A3%C1%A3%D1%5D%5D]]
+- [[インストール]], [[Stage]], [[GRP]], [[Portageツリー]]
+- [[インストールした後にできること]], [[日本語入力設定事例集]], [[日本語デスクトップ環境/パッケージ]]
+- [[Gentooが採用している技術]]
+- [[コミュニティとの連絡手段]], [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]
+- [[本家に関連しそうな言葉]], [[GLEP]], [[コピーライト]], [[ライセンス]]
+
+[[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]]) の詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]])
+- [[メタ・ディストリビューション]], [[USEフラグ]], [[profile]], [[catalyst]], [[GNAP]]
+- [[コンパイル]], [[バイナリパッケージ]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+
+________
+
+
+-[2005-09-25] (yoshino)
+-[2005-11-06] (yoshino)

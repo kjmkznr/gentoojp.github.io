@@ -1,0 +1,76 @@
+#contents
+#title
+
+*Portage と cache [#jb05cc5f]
+
+[[Portage]]で [[cache]] と出たら「/var/cache/edb 以下の整理された [[Portageツリー]]情報」ぐらいで通じます。
+
+[[database]] と同じくテキストファイルで保存されます。
+
+***「キャッシュ」(辞書検索例) [#m7e8a15d]
+
+[[wikipedia:http://ja.wikipedia.org/wiki/%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%9A%E3%83%BC%E3%82%B8]] の「[[キャッシュ (コンピュータシステム):http://ja.wikipedia.org/wiki/%E3%82%AD%E3%83%A3%E3%83%83%E3%82%B7%E3%83%A5_%28%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%29]]」参考。
+
+**どんなものが含まれるのか [#rd754bc9]
+
+例えば /var/cache/edb/dep/usr/portage/sys-apps/baselayout-1.12.0_pre16-r3 は以下の内容のテキストファイルです。
+
+ _eclasses_=toolchain-funcs 	/usr/portage/eclass 	1140215747
+ 	multilib 	/usr/portage/eclass 	1141922163
+ 	eutils 	/usr/portage/eclass 	1142708810
+ 	portability	/usr/portage/eclass	1141850196
+ 	flag-o-matic	/usr/portage/eclass	1140392139
+ LICENSE=GPL-2
+ PROVIDE=virtual/baselayout
+ RESTRICT=
+ PDEPEND=
+ SRC_URI=mirror://gentoo/baselayout-1.12.0_pre16.tar.bz2
+ 	 http://dev.gentoo.org/~uberlord/baselayout/baselayout-1.12.0_pre16.tar.bz2
+ 	 http://dev.gentoo.org/~azarah/baselayout/baselayout-1.12.0_pre16.tar.bz2
+ 	 http://dev.gentoo.org/~vapier/dist/baselayout-1.12.0_pre16.tar.bz2
+ KEYWORDS=~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86
+ RDEPEND=>=sys-apps/sysvinit-2.86-r3
+ 	 !build? (
+ 	 !bootstrap? (
+ 	 >=sys-libs/readline-5.0-r1 >=app-shells/bash-3.1_p7 >=sys-apps/coreutils-5.2.1 ) )
+ SLOT=0
+ EAPI=
+ DEPEND=virtual/os-headers >=sys-apps/portage-2.0.51
+ 	 !bootstrap? ( sys-devel/patch )
+ 	 !bootstrap? ( sys-devel/patch )
+ DESCRIPTION=Filesystem baselayout and init scripts
+ IUSE=bootstrap build static unicode
+ CDEPEND=
+ HOMEPAGE=http://www.gentoo.org/
+
+**削除するとどうなるのか... [#m24372ca]
+
+要らなくなれば勝手に削除しても構いません。これらの操作で問題は発生しません。再び作成されます。
+
+**配置場所 [#lc1ea64e]
+
+配置場所はルートファイルシステムでなくても構いません。例えば共有ファイルシステムや tmpfs の様なメモリ上です。[[Portageツリー]]と異なるファイルシステムでも構いません。高速化するのであれば /usr/portage だけでなく、/var/db/pkg や /var/cache/edb も忘れないで下さい。詳しくは[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]にあります。[[ミラーリング]]、[[ネットワーク・インターフェイス]]、[[ネットワーク・ファイルシステム]]、[[ボリューム・マネージャ]]に関連記事があります。
+
+________
+
+[[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]) の詳細は[[プロジェクトリスト:http://www.gentoo.org/proj/en/metastructure/projects.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]), [[Gentoo FAQ:http://www.gentoo.org/doc/ja/?catid=faq]], [[GentooJP FAQ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A3%C6%A3%C1%A3%D1%5D%5D]]
+- [[インストール]], [[Stage]], [[GRP]], [[Portageツリー]]
+- [[インストールした後にできること]], [[日本語入力設定事例集]], [[日本語デスクトップ環境/パッケージ]]
+- [[Gentooが採用している技術]]
+- [[コミュニティとの連絡手段]], [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]
+- [[本家に関連しそうな言葉]], [[GLEP]], [[コピーライト]], [[ライセンス]]
+
+[[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]]) の詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]])
+- [[メタ・ディストリビューション]], [[USEフラグ]], [[profile]], [[catalyst]], [[GNAP]]
+- [[コンパイル]], [[バイナリパッケージ]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+
+________
+
+-[2005-12-30] (yoshino)
+-[2006-03-12] baselayout-1.12.0_pre16-r3 (yoshino)

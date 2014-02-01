@@ -1,0 +1,108 @@
+#contents
+#title
+
+*コンパイルとビルド [#z1c3e321]
+
+[[コンパイル]]と[[ビルド]]を区別しない文章も多いです。
+
+[[Portage]] で[[ビルド]]と出たら「[[ebuild]] する」もしくは「必要なファイルを適切な状態にして適切な場所に配置する」ぐらいで通じます。
+
+***「コンパイル」(辞書検索例) [#o5222f58]
+
+[[e-words:http://e-words.jp/]]の「[[コンパイル:http://e-words.jp/w/E382B3E383B3E38391E382A4E383AB.html]]」参考。
+
+***「ビルド」(辞書検索例) [#b55d010b]
+
+[[e-words:http://e-words.jp/]]の「[[ビルド:http://e-words.jp/w/E38393E383ABE38389.html]]」参考。
+
+
+*ビルドの連鎖とは... [#h4f003d8]
+
+例えば [[C]] で言うと、[[sys-devel/gcc]] は以下の作業を抽象化しています。
+
+C 言語ソースコード <=> gcc foo.c~
+↓...プリプロセッサ~
+前処理済みのソースコード~
+↓...コンパイラ~
+アセンブリ言語プログラム~
+↓...アセンブラ~
+オブジェクトコード~
+↓...リンケージエディッタ~
+実行可能プログラム
+
+[[Portage]] は何百回と繰り返す make, configure, gcc を抽象化しています。[[emerge]] を使えば以下の作業をコマンド1つで代用できます。つまり最終形態を伝えれば、追加・削除・再マージに必要なパッケージを自動計算してくれます。コアに近い [[USEフラグ]]を変更すると物凄い量が列挙されます。基本的にライブラリの依存地獄とは無縁ですが、[[Slot]] も自動計算してくれます。
+
+fooパッケージのmake  <=>  emerge qux~
+↓~
+barパッケージのmake~
+↓~
+bazパッケージのmake~
+↓~
+...snip...~
+↓~
+quxパッケージのmake
+
+ここで foo パッケージに標準ではない waldo パッケージと garply パッケージを使う事になったとします。更に bar パッケージと baz パッケージが不要になったとします。本来であれば以下の様にやり直さなければいけませんが、[[emerge]] を使えば以下の作業を( [[USEフラグ]]で指示した後)コマンド1つで代用できます。
+
+barパッケージのuninstall  <=>  USE="hoge -fuga" emerge qux~
+↓~
+bazパッケージのuninstall~
+↓~
+waldoパッケージのmake~
+↓~
+garplyパッケージのmake~
+↓~
+fooパッケージのmake~
+↓~
+...snip...~
+↓~
+quxパッケージのmake
+
+**sys-devel/gcc とは... [#edfdf568]
+
+[[Portage]] では [[C]] の知識よりもツールの知識が求められます。[[sys-devel/gcc]] はプログラミング言語のソースコードからマシンが実行できるオブジェクトを作り出すものです。[[sys-devel/gcc]] の説明は [[Gentoo]] の範疇ではありませんが、簡単に紹介します。オンラインマニュアルが整ってますが、解説書も出版されています。例えば CQ 出版社の『TECH I vol.29 実例で学ぶGCCの本格的活用法』は sys-devel/gcc-4.0 のコマンドオプションを 250 ページ以上に渡り解説しています。[[Portage]]、[[Bash]] ([[ebuildとbash]])、[[C]]、[[Python]] に関連記事があります。
+
+- gcc のプリプロセッサが source file から preprocessing file を作り、
+- gcc のコンパイラが preprocessing file から assemble file を作り、
+- gcc のアセンブラが assemble file から relocatable binary program を作り、
+- gcc のリンケージエディッタが relocatable binary program から executable load module を作ります。
+
+プリプロセッサもコンパイラもアセンブラもリンケージエディッタも gcc コマンドで制御できます。最終的に作られる executable load module は色々カスタマイズできます。例えば以下の様なことができます。
+
+- デバッグツールに必要な情報を追加する
+- プロファイルツールに必要な情報を追加する
+- 実行速度優先の最適化をする
+- 軽量化優先の最適化をする
+- 実行に必要ない部分を削除する
+- コンパイルするホストとは別のマシンで動作させる
+- 静的ライブラリと動的ライブラリの選択による調整をする
+- ライブラリの選択でライセンスの選択幅を増減させる
+- デフォルトではオフの機能をオンにする
+- デフォルトではオンの機能をオフにする
+- 標準的でない言語解析をする
+- ...snip...
+
+gcc コマンドは 1 つのパッケージを対象にします。ちなみに [[Portage]] が動作するのに必要最低限とされる [[Stage]] (Stage3) でも、50 以上のパッケージが必要とされます。デスクトップに使えば 100 や 200 でも足りないかもしれません。
+
+________
+
+[[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]) の詳細は[[プロジェクトリスト:http://www.gentoo.org/proj/en/metastructure/projects.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]), [[Gentoo FAQ:http://www.gentoo.org/doc/ja/?catid=faq]], [[GentooJP FAQ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A3%C6%A3%C1%A3%D1%5D%5D]]
+- [[インストール]], [[Stage]], [[GRP]], [[Portageツリー]]
+- [[インストールした後にできること]], [[日本語入力設定事例集]], [[日本語デスクトップ環境/パッケージ]]
+- [[Gentooが採用している技術]]
+- [[コミュニティとの連絡手段]], [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]
+- [[本家に関連しそうな言葉]], [[GLEP]], [[コピーライト]], [[ライセンス]]
+
+[[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]]) の詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]])
+- [[メタ・ディストリビューション]], [[USEフラグ]], [[profile]], [[catalyst]], [[GNAP]]
+- [[コンパイル]], [[バイナリパッケージ]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+
+________
+
+-[2006-09-17] (yoshino)

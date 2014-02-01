@@ -1,0 +1,24 @@
+*ttyレコーダー [#x4c408a7]
+
+-ページ: BugTrack
+-投稿者: [[yamakura]]
+-優先順位: 低
+-状態: 完了
+-カテゴリー: ebuild
+-投稿日: 2002-09-21 (土) 12:55:06
+-バージョン: 1.0.6
+
+CENTER:''この ebuild は本家ツリーに取り込まれました。 (app-misc/ttyrec)''
+
+問題無さそうならクリックしてください。(目安として使うだけです)
+#vote(問題なく動作しました。[2])
+**メッセージ [#o3758726]
+[[ttyレコーダー:http://namazu.org/~satoru/ttyrec/]]は、scriptコマンドのように、端末に表示された情報を記録するものですが、同時に時刻情報も記録するので、あたかもその場で操作しているかのように再生することができます。
+
+興味のある方は http://www.namazu.org/~satoru/unimag/ も見てください。ttyrec以外にもいろいろあって楽しいです。
+
+ebuildだけなので、digestは ebuildコマンドで作ってください。~
+ ebuild /path/to/ttyrec-1.0.5.ebuild digest
+です。
+----
+// #comment

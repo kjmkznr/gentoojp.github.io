@@ -1,0 +1,25 @@
+*qmail-vida(&ipv6&localtime) [#p74e3619]
+
+-ページ: BugTrack
+-投稿者: [[松田]]
+-優先順位: 低
+-状態: 提案
+-カテゴリー: ebuild
+-投稿日: 2003-05-05 (月) 04:53:28
+-バージョン: 0.53
+
+問題無さそうならクリックしてください。(目安として使うだけです)
+#vote(問題なく動作しました。)
+#attach
+**メッセージ [#g327003c]
+qmail-1.03-r10のsmtp-authはなんでか上手くいかないので
+自分も使ってるqmail-vidaのebuildを作ってみました。
+USEフラグにipv6を指定したらipv6対応パッチが当たります。
+(tcpserverにも当てないといけないので片手落ち状態。)
+USEフラグにlocaltimeを指定したらlocaltime対応パッチが当たります。
+
+----
+
+-lintoolで出るerrorを減らしました。でも、localtimeはuseフラグのエラーになってしまいます（＾＾； -- [[松田]] SIZE(10){2003-05-06 (火) 05:50:22}
+-あ、ipv6 パッチや localtime パッチの当たる ebuild ってこんなところに。USE フラグのエラーは (PORTDIR_OVERLAY されているディレクトリの profiles の)use.desc か use.local.desc に書けば消えるでしょうが、ここではたぶん qmail 以外で使いそうにないので use.local.desc でしょうかね。 -- [[usata]] SIZE(10){2003-08-02 (土) 09:36:54}
+// #comment

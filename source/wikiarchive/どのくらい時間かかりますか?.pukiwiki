@@ -1,0 +1,343 @@
+#title
+#contents
+
+*はじめに [#u9e7f754]
+Gentoo はソースからビルドしていく、という点がユニークです。しかし、いったいコンパイルにはどのくらい時間がかかるのか、意外にわからないものです。
+
+そこで、こんなマシンでこのパッケージはxx分かかりました、xx時間かかりました、というのを集めていくページです。time とか date の結果を張り付けてみてください。
+
+(今度は本当に)実験的な企画です。(真藤)
+
+**XFree-4.3.0-r2, ttmkfdir-3.0.9, freetype-2.1.4(真藤) [#k06e533e]
+3つ連続して emerge した、トータルの時間です。ttmkfdir, freetype, XFree の順にコンパイルしています。distcc は使ってません。 
+
+マシン
+ CPU: Pen3 450MHz, Mem: 384MB
+
+time コマンドの結果:
+ real    215m53.598s
+ user    130m39.095s
+ sys     20m0.696s
+
+*xfreeとttmkfdirとfreetypeを添付したtime-emergedで(萩原) [#jee9be08]
+そんなわけでMLにも流したスクリプトで真藤さんと同じ3つについて。distccとccache使ってます。
+
+マシン
+ CPU: Pen4 2.4GHz, Mem: 512MB
+
+$ time-emerged -r d 'ttmkfdir|freetype|xfree'
+ media-libs/freetype-2.1.3-r2 : 0:01:09(Thu Apr 10 03:59:20 2003)
+ x11-base/xfree-4.2.1-r2      : 0:42:38(Thu Apr 10 04:02:08 2003)
+ media-libs/freetype-1.3.1-r3 : 0:00:59(Fri Jun 13 13:37:49 2003)
+ media-libs/freetype-2.1.4    : 0:01:13(Sat Jun 14 21:05:28 2003)
+ x11-misc/ttmkfdir-3.0.9      : 0:01:00(Sat Jun 14 21:06:41 2003)
+ x11-base/xfree-4.3.0-r2      : 1:07:22(Sat Jun 14 21:11:43 2003)
+
+**ビルド時間ワースト10 [#ub026fd8]
+***CPU: Pen4 2.4GHz, Mem: 512MB(萩原) [#yb63b4b5]
+ついでに手元で時間がかかったもの上位10個を。
+
+$ time-emerged -r t | tail -10 | tac
+ app-office/openoffice-1.0.3-r1   : 7:34:08(Sat Jun 21 11:09:34 2003)
+ net-www/mozilla-1.4              : 1:09:31(Sun Jul 13 16:58:47 2003)
+ x11-base/xfree-4.3.0-r2          : 1:07:22(Sat Jun 14 21:11:43 2003)
+ net-www/mozilla-1.3-r1           : 1:04:45(Fri May 23 19:59:16 2003)
+ net-www/mozilla-1.3-r2           : 1:04:23(Mon Jul 14 19:13:32 2003)
+ net-www/mozilla-1.2.1-r5         : 0:46:13(Thu Apr 10 13:39:32 2003)
+ x11-base/xfree-4.2.1-r2          : 0:42:38(Thu Apr 10 04:02:08 2003)
+ net-mail/evolution-1.2.4         : 0:31:21(Wed Jun 11 10:39:17 2003)
+ sys-libs/glibc-2.3.1-r4          : 0:25:10(Sat Jun 14 20:34:07 2003)
+ sys-devel/gcc-3.2.2              : 0:17:57(Sat Jun 14 20:07:31 2003)
+
+***CPU: Celeron 733MHz, Mem: 256MB(yamakawa) [#pe4561ea]
+上に同じくです(更新しました-Sep 12 2003)。
+マシン
+ CPU: Celeron 733MHz, Mem: 256MB
+
+ $ time-emerged -r t | tail -10 | tac
+ app-office/openoffice-1.0.3-r1             : 9:38:55(Sat Jun  7 05:38:57 2003)
+ net-www/mozilla-1.4-r2                     : 3:10:20(Mon Jul 28 04:05:07 2003)
+ kde-base/kdelibs-3.1.3-r1                  : 3:09:39(Wed Aug  6 15:23:39 2003)
+ app-office/koffice-1.2.1-r1                : 2:56:02(Thu Jun  5 20:34:47 2003)
+ net-www/mozilla-1.4-r1                     : 2:44:44(Sat Jul 26 12:26:33 2003)
+ sys-devel/gcc-3.3.1-r1                     : 2:23:25(Mon Sep  8 07:59:26 2003)
+ net-www/mozilla-firebird-0.6-r7            : 2:12:50(Sun Jul 27 22:08:40 2003)
+ app-emulation/wine-20030709                : 2:10:58(Wed Jul 30 21:00:35 2003)
+ kde-base/kdemultimedia-3.1.2-r1            : 2:09:59(Sat Jul 12 11:00:38 2003)
+ sys-devel/gcc-3.2.3-r1                     : 2:05:09(Wed Jun 25 10:17:05 2003)
+
+***CPU: UltraSPARC IIi 333MHz, Mem: 384MB(matsuu) [#u1bcd838]
+
+ $ ./time-emerged -r t | tail -10 | tac
+ net-www/mozilla-1.3-r2                     : 10:10:56(Mon Jun 30 13:57:07 2003)
+ sys-devel/gcc-3.2.2                        : 3:35:06(Mon May  5 05:49:23 2003)
+ sys-devel/gcc-3.2.3-r1                     : 3:30:47(Thu Jul  3 19:13:46 2003)
+ sys-libs/glibc-2.3.1-r4                    : 2:34:21(Mon May  5 02:03:19 2003)
+ app-text/openjade-1.3.1-r6                 : 1:34:12(Sat Jun 28 08:54:44 2003)
+ dev-lang/perl-5.8.0-r10                    : 1:07:38(Mon May  5 10:30:48 2003)
+ media-gfx/gimp-1.2.3-r3                    : 1:02:30(Thu Jul 10 22:07:53 2003)
+ sys-devel/binutils-2.14.90.0.2             : 0:42:17(Thu Jul  3 18:31:29 2003)
+ sys-devel/binutils-2.13.90.0.18            : 0:34:37(Mon May  5 05:14:46 2003)
+ x11-libs/openmotif-2.1.30-r1               : 0:31:38(Thu Jul 10 18:11:40 2003)
+
+***CPU: PowerPC 405GPr 266MHz, Mem: 64MB(matsuu) [#t3134826]
+[[OpenBlockS 266:http://online.plathome.co.jp/products/openblocks/openblocks266/]]です。
+Xは入れてません。gccで7時間かかってます。
+ $ ./time-emerged -r t | tail -10 | tac
+ sys-devel/gcc-3.2.3-r1                : 7:08:50(Sat Jul  5 01:40:47 2003)
+ sys-devel/gcc-3.2.2-r2                : 6:07:12(Wed Jul  2 16:00:50 2003)
+ sys-libs/glibc-2.3.1-r4               : 5:58:34(Wed Jul  2 22:08:02 2003)
+ sys-libs/glibc-2.3.2-r1               : 5:21:01(Sat Jul  5 09:47:11 2003)
+ dev-lang/perl-5.8.0-r10               : 3:13:23(Mon Jun 30 20:29:35 2003)
+ sys-devel/gcc-3.2.1-r6                : 1:23:01(Fri Apr 11 09:15:48 2003)
+ dev-libs/libxml2-2.5.4                : 1:07:09(Tue Jul  1 14:29:14 2003)
+ dev-libs/openssl-0.9.6i-r2            : 1:01:49(Tue Jul  1 17:15:52 2003)
+ sys-devel/binutils-2.14.90.0.2        : 0:57:34(Sat Jul  5 08:49:37 2003)
+ sys-devel/libperl-5.8.0               : 0:52:44(Mon Jun 30 19:36:51 2003)
+
+***CPU: AMD Athlon(tm) 64 Processor 3200+, Mem: 512MB(matsuu) [#m8c19244]
+
+ # ./time-emerged -r t | tail -n 10 | tac
+ x11-base/xfree-4.3.0-r3                    : 0:44:51(Thu Nov 13 15:57:38 2003)
+ sys-libs/glibc-2.3.2-r2                    : 0:26:42(Thu Nov 13 15:20:33 2003)
+ sys-devel/gcc-3.3.1-r5                     : 0:21:47(Thu Nov 13 14:54:03 2003)
+ sys-devel/gcc-3.3.1-r1                     : 0:13:00(Mon Oct 20 08:58:41 2003)
+ dev-lang/perl-5.8.0-r12                    : 0:12:35(Thu Nov 13 14:23:27 2003)
+ sys-devel/gdb-5.3.90                       : 0:07:45(Fri Nov 14 02:25:26 2003)
+ media-libs/gst-plugins-0.6.3               : 0:07:09(Fri Nov 14 01:46:05 2003)
+ gnome-extra/gnome-games-2.4.0              : 0:06:04(Fri Nov 14 02:38:01 2003)
+ media-fonts/baekmuk-fonts-2.1-r1           : 0:05:52(Wed Nov 12 03:15:10 2003)
+ app-text/ghostscript-7.05.6-r3             : 0:05:17(Wed Nov 12 03:28:21 2003)
+
+***CPU: Pen4 2.4CGHz(HT-ON), Mem: 1024MB(kihei) [#k78df83a]
+ CPU: Pen4 2.4CGHz(HT-ON), Mem: 1024MB
+distcc,ccache入れてません(2003.07.29更新)
+
+ $ ./time-emerged -r t | tail -10 | tac
+ app-office/openoffice-1.0.3-r1             : 5:38:45(Sat Jul 26 13:18:57 2003)
+ kde-base/kdebase-3.1.2                     : 1:20:15(Tue Jul 15 12:42:50 2003)
+ app-office/koffice-1.2.1-r1                : 1:19:38(Tue Jul 15 19:36:19 2003)
+ kde-base/kdelibs-3.1.2                     : 1:05:00(Tue Jul 15 08:06:15 2003)
+ x11-base/xfree-4.3.0-r2                    : 0:58:25(Mon Jul 14 23:29:11 2003)
+ net-www/mozilla-firebird-0.6-r6            : 0:50:29(Sat Jul 26 21:45:35 2003)
+ kde-base/kdemultimedia-3.1.2-r1            : 0:50:17(Tue Jul 15 16:14:35 2003)
+ sys-libs/glibc-2.3.2-r1                    : 0:44:57(Sun Jul 27 19:32:08 2003)
+ sys-devel/gcc-3.2.2                        : 0:44:28(Mon Jul 14 03:15:53 2003)
+ sys-libs/glibc-2.3.1-r4                    : 0:40:20(Mon Jul 14 04:00:21 2003)
+
+***CPU: G4(7455) 867MHz, Mem: 640MB (PPC)(kihei) [#u73dd730]
+ccacheあり。時間設定に問題があって初期の頃のは１時間につき15分くらい引いた方がいいかも。
+ $ ./time-emerged -r t | tail -10 | tac
+ kde-base/kdebase-3.1.1a                    : 4:23:48(Sat Apr 12 07:08:09 2003)
+ app-office/openoffice-1.0.3                : 3:52:54(Thu May  8 12:15:34 2003)
+ kde-base/kdelibs-3.1.1a                    : 3:28:54(Sat Apr 12 03:38:16 2003)
+ x11-base/xfree-4.3.0-r3                    : 3:24:24(Wed Jun 11 09:39:02 2003)
+ kde-base/kdebase-3.1.2                     : 3:20:47(Mon May 26 21:41:00 2003)
+ net-www/mozilla-firebird-cvs-0.6-r1        : 3:06:11(Wed Jun 11 13:14:40 2003)
+ net-www/phoenix-cvs-0.5-r2                 : 3:06:00(Wed Apr  9 13:38:57 2003)
+ x11-libs/qt-3.1.2-r1                       : 2:38:08(Mon Apr 28 07:48:58 2003)
+ x11-base/xfree-4.3.0-r2                    : 2:27:28(Fri May  9 06:33:13 2003)
+ kde-base/kdelibs-3.1.2                     : 2:26:11(Mon May 26 19:14:49 2003)
+
+***CPU: Pen4 2.4BGHz, Mem: 1024MB(kimata) [#ub732ff5]
+Windows2k on VMWareは常時, Winny on Wine がたまに動いてます。
+ccacheは途中から使い始めました。distccも有効にしてありますが、現在都合によりほとんどの場合ローカルでしかコンパイルしてないのでかえって遅くなってると思われます。
+マシン
+ CPU: Pen4 2.4BGHz, Mem: 1024MB
+
+ net-www/mozilla-1.4                        : 1:49:09(Fri Jul 25 13:42:17 2003)
+ kde-base/kdebase-3.1.2                     : 1:38:44(Sat Jun 14 03:16:35 2003)
+ kde-base/kdemultimedia-3.1.2               : 0:52:12(Sat Jun 14 07:15:50 2003)
+ x11-libs/qt-3.1.2-r3                       : 0:45:09(Fri Jun 13 10:47:48 2003)
+ kde-base/kdenetwork-3.1.2                  : 0:43:53(Sat Jun 14 04:55:19 2003)
+ sys-libs/glibc-2.3.2-r1                    : 0:43:43(Fri Jul 18 23:15:31 2003)
+ kde-base/kdegames-3.1.2                    : 0:35:20(Sat Jun 14 06:40:09 2003)
+ sys-devel/gcc-3.2.3-r1                     : 0:35:16(Thu Jul 17 22:51:57 2003)
+ kde-base/kdegraphics-3.1.2                 : 0:34:16(Sat Jun 14 09:00:58 2003)
+ app-emulation/wine-20030618-r1             : 0:32:35(Fri Jul 25 15:31:26 2003)
+
+***CPU: Dual Xeon 3.06GHz(HT-OFF), Mem: 2G(桜本) [#dca159c3]
+ CPU: Dual Xeon 3.06GHz(HT-OFF) Mem: 2G
+SMPをONにするのを忘れていました。そのためHTもOFFです。distcc,ccacheは入れてません。
+ # ./time-emerged -r t | tail -10 | tac
+ x11-base/xfree-4.3.0-r2                    : 1:18:45(Fri Sep 26 13:38:35 2003)
+ sys-libs/glibc-2.3.2-r1                    : 0:39:39(Thu Sep 25 12:10:02 2003)
+ x11-libs/qt-3.1.2-r4                       : 0:32:06(Fri Sep 26 17:32:41 2003)
+ sys-devel/gcc-3.2.3-r1                     : 0:28:25(Thu Sep 25 11:36:23 2003)
+ dev-db/mysql-4.0.13-r4                     : 0:12:07(Fri Sep 26 17:20:34 2003)
+ dev-lang/perl-5.8.0-r12                    : 0:10:21(Fri Sep 26 11:04:37 2003)
+ kde-base/arts-1.1.4                        : 0:07:27(Fri Sep 26 18:06:22 2003)
+ media-libs/xine-lib-1_beta12               : 0:07:23(Mon Sep 22 10:36:48 2003)
+ kde-base/arts-1.1.3                        : 0:07:06(Thu Sep 25 02:34:52 2003)
+ gnome-base/nautilus-2.2.4                  : 0:06:42(Fri Sep 26 17:01:43 2003)
+SMPをONにして(HTもON)からkdebaseをコンパイルしてみました。
+ちなみに数秒で終ってるのはGRPインストールのものです。
+ # genlop -t kdebase kdelibs
+ 
+  * kde-base/kdebase
+ 
+      Merged   at Mon Sep 22 01:23:48 2003    (kdebase-3.1.3)
+        merge time: 14 seconds. 
+ 
+      Merged   at Fri Sep 26 13:33:07 2003    (kdebase-3.1.4)
+        merge time: 1 hour, 1 minute and 2 seconds.
+ 
+  merged totally 2 times in 1 hour, 1 minute and 16 seconds.
+  average merge time: 30 minutes and 38 seconds.
+ 
+ 
+  * kde-base/kdelibs
+ 
+      Merged   at Mon Sep 22 01:24:22 2003    (kdelibs-3.1.3-r1)
+        merge time: 15 seconds.
+ 
+      Merged   at Fri Sep 26 12:32:05 2003    (kdelibs-3.1.4)
+        merge time: 47 minutes and 47 seconds.
+ 
+  merged totally 2 times in 48 minutes and 2 seconds.
+  average merge time: 54 minutes and 39 seconds.
+2003,09,29追加&#65293;SMP(HT-ON)で今までのemergeのログを削除後、emerge -e world を行った結果です。
+ # ./time-emerged -r t | tail -10 | tac
+ kde-base/kde-i18n-3.1.4                    : 1:11:46(Sat Sep 27 07:33:42 2003)
+ kde-base/kdebase-3.1.4                     : 1:01:06(Sat Sep 27 09:09:16 2003)
+ x11-base/xfree-4.3.0-r2                    : 0:52:02(Sat Sep 27 04:28:40 2003)
+ kde-base/kdelibs-3.1.4                     : 0:46:41(Sat Sep 27 06:47:01 2003)
+ sys-devel/gcc-3.2.3-r1                     : 0:33:06(Sat Sep 27 03:08:29 2003)
+ net-www/mozilla-firebird-0.6.1             : 0:32:28(Sat Sep 27 10:15:21 2003)
+ sys-libs/glibc-2.3.2-r1                    : 0:31:33(Sat Sep 27 03:47:47 2003)
+ x11-libs/qt-3.1.2-r4                       : 0:22:01(Sat Sep 27 06:12:13 2003)
+ dev-lang/perl-5.8.0-r12                    : 0:10:59(Sat Sep 27 02:51:07 2003)
+ x11-libs/openmotif-2.2.2-r1                : 0:10:49(Sat Sep 27 08:54:45 2003)
+
+***CPU: VIA Eden(533MHz), Mem: 256MB(名無しさん) [#sdecce37]
+ CPU: VIA Eden(533MHz) RAM: 256MB
+無理は承知でStage1からビルドしてみました。予想を裏切らない、ビルドの遅さを披露してくれています。
+ちなみに、Webサーバとして稼動させ始めたところです。
+ sys-libs/glibc-2.3.2-r1             : 5:13:31(Wed Oct  1 07:54:44 2003)
+ sys-devel/gcc-3.2.3-r1              : 3:14:35(Wed Oct  1 04:10:18 2003)
+ dev-lang/perl-5.8.0-r12             : 0:55:54(Wed Oct  1 02:30:09 2003)
+ sys-devel/binutils-2.14.90.0.6-r2   : 0:32:11(Wed Oct  1 03:26:03 2003)
+ sys-libs/ncurses-5.3-r1             : 0:24:20(Wed Oct  1 01:13:39 2003)
+ sys-libs/db-4.0.14-r2               : 0:22:00(Wed Oct  1 00:23:08 2003)
+ sys-devel/libperl-5.8.0             : 0:19:51(Wed Oct  1 02:10:18 2003)
+ dev-libs/openssl-0.9.6j             : 0:18:13(Wed Oct  1 13:44:48 2003)
+ dev-lang/python-2.2.3-r1            : 0:16:11(Wed Oct  1 01:51:57 2003)
+ net-www/lynx-2.8.4.1c               : 0:13:42(Wed Oct  1 14:56:35 2003)
+
+***CPU: Pentium3 800(133), Mem: 1421444 kB(einguste) [#k2213837]
+ CPU:Pentium3 800(133) RAM: 1421444 kB
+で、stage1からビルド。途中から-: ccache distcc 導入しました。
+ sys-libs/glibc-2.3.2-r1             : 1:47:57(Wed Oct 29 04:09:36 2003)
+ dev-db/mysql-4.0.14-r2              : 0:44:37(Tue Nov  4 02:53:29 2003)
+ sys-devel/gcc-3.2.3-r2              : 0:36:41(Wed Oct 29 03:32:55 2003)
+ dev-lang/perl-5.8.0-r12             : 0:26:25(Wed Oct 29 07:36:33 2003)
+ sys-devel/gdb-5.3                   : 0:23:16(Thu Oct 30 08:28:37 2003)
+ net-libs/libwww-5.4.0-r1            : 0:14:42(Thu Oct 30 15:06:16 2003)
+ dev-php/mod_php-4.3.3-r3            : 0:13:33(Fri Oct 31 20:01:58 2003)
+ sys-devel/binutils-2.14.90.0.6-r6   : 0:12:33(Wed Oct 29 03:19:58 2003)
+ dev-php/php-4.3.3                   : 0:11:38(Thu Oct 30 16:49:14 2003)
+ sys-libs/ncurses-5.3-r2             : 0:10:41(Wed Oct 29 06:01:08 2003)
+
+***CPU: Pentium3 800, Mem:486MB(128MB+swap) [#g3e07158]
+ccache有り、distcc無しです。
+ app-office/openoffice-1.1.4              : 15:46:11(Tue Jan 25 21:55:37 2005)
+ kde-base/kdebase-3.3.2-r1                :  2:51:40(Sun Jan 16 21:25:21 2005)
+ sys-libs/glibc-2.3.4.20041102            :  2:50:11(Sun Jan 23 18:45:36 2005)
+ kde-base/kdelibs-3.3.2-r2                :  2:46:39(Sun Jan 16 18:38:42 2005)
+ kde-base/kdemultimedia-3.3.2             :  2:06:07(Mon Jan 17 00:42:36 2005)
+ x11-base/xorg-x11-6.8.0-r3               :  2:03:39(Sat Jan 15 20:13:06 2005)
+ sys-libs/glibc-2.3.4.20040808-r1         :  2:03:22(Sun Jan 16 06:42:06 2005)
+
+***CPU: Pentium3 1G, Mem:512MB [#e563e8b3]
+ccache・distcc有りです。
+ app-office/openoffice-2.0.3                  : 9:21:38(Mon Oct  2 20:55:41 2006)
+ sys-devel/gcc-4.1.1                          : 1:50:50(Mon Oct  2 17:26:25 2006)
+ kde-base/kdelibs-3.5.2-r6                    : 1:42:32(Sat Sep 30 03:19:52 2006)
+ x11-libs/qt-4.1.4                            : 1:30:40(Sat Sep 30 12:24:39 2006)
+ www-client/mozilla-firefox-1.5.0.7           : 1:07:47(Sat Sep 30 14:57:59 2006)
+ x11-base/xorg-server-1.0.2-r7                : 0:38:51(Fri Sep 29 23:30:08 2006)
+ x11-libs/qt-3.3.6-r1                         : 0:29:04(Mon Oct  2 19:19:01 2006)
+ gnome-extra/evolution-data-server-1.6.2      : 0:27:12(Sat Sep 30 16:58:38 2006)
+ kde-base/kcontrol-3.5.2                      : 0:26:47(Sat Sep 30 10:54:06 2006)
+ net-fs/samba-3.0.22-r3                       : 0:16:13(Sat Sep 30 02:11:06 2006)
+
+**バグ？ [#k642216f]
+どこに書けばいいのか分からなかったのでとりあえずここに書かせて頂きます。
+dev-db/mysql++のようなパッケージがあるとエラーとなってしまいますので
+以下のように修正してみました。--kimata
+
+ --- time-emerged-orig   2003-07-28 01:37:39.000000000 +0900
+ +++ time-emerged        2003-07-28 01:37:26.000000000 +0900
+ @@ -52,7 +52,7 @@
+      }
+    }
+   
+ -  if(/(\d+):[\s:]+completed emerge \(\d+ of \d+\) $current_package to \//){
+ +  if(/(\d+):[\s:]+completed emerge \(\d+ of \d+\) \Q$current_package\E to \//){     $time_ends=$1;
+   
+      next if defined $package_regexp && $current_package!~/$package_regexp/o;
+
+ありがとうございます。何げに少し書き直して本家のbugsにも登録してみたりしてたので(反応は無いですが(笑))助かります。で、何げに書き直したもの(pkg-time)も添付しておきます。オプションを少し変えたり、「最後にインストールしたパッケージのみ」じゃなくしたり、emergeにかかった平均の時間を出すようにしたりしてみました。--萩原
+
+*splat(萩原) [#j9b84e9d]
+なんと、splatというパッケージが存在することをさっきIRCで教えてもらいました(ちょっと切ない)。
+
+ $ splat -l /var/log/emerge.log xfree
+  * x11-base/xfree-4.2.1-r2
+ 
+        Emerged at: 木  4月 10 04:02:08 2003
+        Build time: 42 minutes, and 38 seconds
+ 
+  * x11-base/xfree-4.3.0-r2
+ 
+        Emerged at: 水  4月 23 20:12:22 2003
+        Build time: 1 hour, 1 minute, and 26 seconds
+ 
+        Emerged at: 土  6月 14 21:11:43 2003
+        Build time: 1 hour, 7 minutes, and 22 seconds
+
+という感じです。
+
+
+**glibc(nabeken) [#pc087108]
+ pentium 200Mhz mem 32MB
+なマシンに Gentoo 載せてます。glibc のコンパイルに掛った時間を取ってみました。
+ nabeken@yumi:~$ splat -c -l /var/log/emerge.log glibc
+ * sys-libs/glibc-2.3.2-r1
+ 
+     Emerged at: Sun Jul 27 18:23:17 2003
+  
+     Build time: 14 hours, 17 minutes, and 35 seconds
+真似はしないように:-)。
+
+**P4 2.53/512M [#g191bcb1]
+ nagy$ splat  -c -l /var/log/emerge.log glibc
+ * sys-libs/glibc-2.3.2-r3
+ 
+ 	Emerged at: Sat Nov 22 04:02:25 2003
+ 	Build time: 45 minutes, and 5 seconds
+
+ model name	: Intel(R) Pentium(R) 4 CPU 2.53GHz
+ cpu MHz		: 2519.300
+ 
+ Mem:  526712832
+
+**P4 2.4(HT)/512M(PC3200 dual) [#k94b67da]
+ * sys-libs/glibc-2.3.3_pre20040207
+ 
+        Emerged at: 土  4月 24 20:44:41 2004
+        Build time: 34 minutes, and 14 seconds
+
+ * x11-base/xfree-4.3.0-r5
+ 
+        Emerged at: 土  4月 24 23:06:50 2004
+        Build time: 1 hour, 8 seconds
+
+ * net-www/mozilla-firefox-0.8-r2
+ 
+        Emerged at: 日  4月 25 08:18:30 2004
+        Build time: 38 minutes, and 42 seconds
+
+*basc (masayang) [#wd26330e]
+app-portage/bascというパッケージを見つけました。
+そのプロジェクトホームページ　http://www.gentoo-stats.org にいくと、いろいろなパッケージのビルド時間（平均値ですが）を見ることができます。（masayang)

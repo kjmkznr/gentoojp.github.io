@@ -1,0 +1,20 @@
+#contents
+#title
+
+*Portage とボリューム・マネージャ [#f33abab4]
+
+/etc/conf.d/rc は [[sys-apps/baselayout]] に含まれています。
+
+*sys-apps/baselayout-1.11.14 [#ac761b2b]
+
+sys-apps/baselayout-1.11.14 でサポートしているものです。/etc/conf.d/rc に書式の説明がありますが、詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。
+
+***RAID [#z917529a]
+***EVMS [#q0e70371]
+***LVM [#b1b30543]
+***DM [#w3af5f96]
+
+========
+
+-[2005-12-30]
+-[2005-12-30] (yoshino)

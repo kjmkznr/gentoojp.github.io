@@ -1,0 +1,134 @@
+#contents
+#title
+
+*Portage と ebuildパッケージ [#u93b1233]
+
+何故こうなのかを創始者が語っています。[[Portage]] に関連記事があります。
+
+[[*.ebuild]] 一枚で AMD64 から PPC64 まで対応します。これは [[helper]], [[addon]], [[eclass]] と呼ばれるライブラリで実現しています。これらは全て [[Bash]] スクリプトです。[[Python]] スクリプトではありません。逆の視点から言えば "Bourne shell" だけでは駄目です。
+
+***「Ebuild」(辞書検索例) [#q4f4c31a]
+
+[[wikipedia:http://ja.wikipedia.org/wiki/%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%9A%E3%83%BC%E3%82%B8]] の「[[Ebuild:http://ja.wikipedia.org/wiki/Ebuild]]」参考。
+
+** *.ebuild を編集せずにシン・クライアントはできるのか？できないのか？ [#y6afce77]
+
+そもそも本家には [[PR プロジェクト:http://www.gentoo.org/proj/en/pr/index.xml]]や [[Documentation プロジェクト:http://www.gentoo.org/proj/en/gdp/index.xml]]があります。[[GWN サブプロジェクト:http://www.gentoo.org/proj/en/pr/gwn.xml]]が発行している [[GWN]] や[[公式サイト:http://www.gentoo.org/]]のページを幾つか読んで貰うのが雰囲気を伝えるには早い気がします。
+
+技術的価値以外に、「わくわくする」とか「こころときめく」とかが少なくないようです。例えば NASA (米航空宇宙局)で採用された際のインタビュー記事でもそんなことが書かれてます。デベロッパの視点のもありますが、ユーザの視点のもあります。尖った個人というより、適材適所を実行するメリット云々に近いです。
+
+***ゲームサーバ( http://www.lanzone.be/ と http://www.politics.be/ )のシステムををシン・クライアントにした Mathy Vanvoorden 氏のユーザ体験談とは... (*.ebuild は編集していませんが、真似するには Bash スクリプト程度が要求されます。C や Python は要らないと思います。) [#g43968a9]
+
+> Mathy さんのゲームサーバのシステム全ては Gentoo Linux が動くデュアル Pentium III からブートするシン・クライアントです。この仕様は普通のクライアント・サーバのモデルより便利な点が数個あります。まず、軽くて運び易いクライアントになります。でも最大の利点は新しいクライアントを足すのが簡単になる事です。二つのネットワークカードを繋げ、static IP が割当てられるように dhcpcd で MAC アドレスをセットし、サーバ側で新しいクライアントのベースディレクトリをコピーすれば終りです。
+
+> Mathy さん達のシステムは Linux Terminal Server Project を元に作られました。Gentoo にもディスクレスでマニュアルがありますが、幾つか変更が必要でした。LTSP のパッチはそのままですが、initrd スクリプトと Gentoo の init スクリプトを改良しました。例えば、init が NFS マウントを fsck しようとしないように依存性を取り除いたりしています。
+
+> このシン・クライアントを使うのは簡単です：フロッピーからブートすると 100MBit の接続でメインサーバと接続され、シン・クライアントのモデルが完成します。ですが、これは古いので LANZone の人達はフロッピーディスクドライブを無くし、ブート ROM 付きのネットワークカードでシン・クライアントのモデルが完成できるよう検討しています。ブート後はログインプロンプトを表示し、入力されたユーザ名によって起動するゲームが決まります。これは、ログインシェルの代りにスクリプトを呼び出すように getty プログラムに指示するだけです。例えば、「ut2k3instadm」でログインしたら getty プログラムがスクリプト経由で「UT 2003 Instagib デスマッチのゲームサーバ」を起動します。
+
+> 他に LANZone は 0.5TeraByte の FTPサーバ (ProFTPD)、ラウター (iptables)、そして各ユーザの転送量を 5kB/s に限定するための Squid の 3 台にも Gentoo Linux を採用してます。が、Mathy さんはラウター (iptables) を BSD カーネルに移行する事を検討してます。理由は、Linux カーネルよりよく帯域幅を振り分けると聞き、やってみたくなったからだそうです。
+
+過去の [[GWN]] を参考に編集。
+
+**一文でアピールすると... [#y80b2896]
+
+使用条件にあわせてコンパイルフラグを調整した自作パッケージを用意する必要がほとんどなくなります。
+
+**rpm や dpkg との互換性 [#r9022c6d]
+
+全くありません。
+
+但し rpmパッケージを作成するのは [[Portage]] で可能です。
+
+rpmパッケージや dpkgパッケージを [[ebuildパッケージ]]ヘ変換するのはライブラリの問題が発生します。しかしながら幾つかの [[ebuildパッケージ]]の正体は rpmパッケージまたは dpkgパッケージです。
+
+***ebuildパッケージ数は 11000 種以上、*.ebuild は 24000 枚以上 [#a1c0bfdd]
+
+2006年07月の状況です。
+
+ +-------------------------+
+ |   general statistics    |
+ +---------------+---------+
+ | architectures |      16 |
+ |    categories |     148 |
+ |      packages |   11185 |
+ |       ebuilds |   24126 |
+ |     distfiles |   31993 |
+ +---------------+---------+
+
+***profile が用意されているアーキテクチャは 20 種以上 [#nec14db7]
+
+[[profile]] に関連記事があります。
+
+***許可されているライセンス・ファイルは 500 枚以上 [#q021d638]
+
+[[ライセンス]]、[[コピーライト]]に関連記事があります。
+
+** *.ebuild は何処にありますか？ [#p88a5e6f]
+
+[[app-emulation/xen]] であれば /usr/portage/app-emulation/xen/xen-3.0.2.ebuild などがそれです。UTF8 で保存されたテキストファイルです。
+
+**Atom と Slot と Virtual [#v7d44df6]
+
+[[Atom]] と [[Slot]] と [[Virtual]] に関連記事があります。
+
+**xpak とは？ [#o1d6459a]
+
+[[*.xpak]] と [[*.bz2]] と [[*.tbz]] に関連記事があります。
+
+**KEYWORDS とは... [#qdd2709b]
+
+[[USEフラグ]]ではありません。[[KEYWORDS]] に関連記事があります。
+
+**/etc/init.d と /etc/env.d と /etc/conf.d など [#f3a5295c]
+
+[[ebuildパッケージ]]は [[*.ebuild]] だけではありません。[[Gentoo System ドキュメント:http://www.gentoo.org/doc/ja/index.xml?catid=gentoo]]に説明があります。
+
+*自分で *.ebuild を記述しないで拝借する [#rbd8abe1]
+
+自分で記述しようとすると覚えることが沢山あります。どの程度活用するかによりますが、[[Portageオーバーレイ]]も試してみて下さい。基本的なことは [[ebuildパッケージ]]にあります。
+
+**本文を記述せず、改名だけでヴァージョンアップする [#dfcd7077]
+
+[[Portage]] は本文を編集しなくとも単純なヴァージョンアップならば改名だけでできるように設計されています。
+
+[[Portageツリー]]に置くと `emerge --sync` で削除されてしまいます。ローカル専用の [[Portageツリー]] 、つまり [[Portageオーバーレイ]]を作成してみる所から始めるのが簡単と思われます。これは /usr/portage の他に /usr/local/portage にも追加の [[Portageツリー]] が存在する事を知らせ検索対象に加えるようにしています。[[Bugzilla例文集]]に具体例があります。
+
+**サードパーティ製の Portageツリーを拝借する [#bc3c40e4]
+
+本来の [[Portageツリー]] を編集する必要はありません。依存されていなければ、本体への影響もないので不要になれば勝手に削除して構いません。[[Portageオーバーレイ]]と [[app-portage/layman]] に関連記事があります。
+
+*自分で *.ebuild を記述する [#g74a8349]
+
+自分で記述するきっかけは、[[USEフラグ]]やコンパイルフラグを修正したり、DEPEND, RDEPEND, PDEPEND を修正したり、パッチファイルを追加したりする必要が発生したからだと思いますが、教科書的(アカデミック)に進めると、学ぶのはかなり最後の方になってしまいます。ピンポイントが [[Bugzilla例文集]]や [[eclass]] にあります。教科書的(アカデミック)なものは [[*.ebuild]] にあります。
+
+_____
+
+.. [GPMS] http://dev.gentoo.org/~spb/pms.pdf
+
+.. [GPM] http://wiki.gentoo.gr.jp/index.php?Gentoo_Package_Manager
+
+
+________
+
+[[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]) の詳細は[[プロジェクトリスト:http://www.gentoo.org/proj/en/metastructure/projects.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]), [[Gentoo FAQ:http://www.gentoo.org/doc/ja/?catid=faq]], [[GentooJP FAQ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A3%C6%A3%C1%A3%D1%5D%5D]]
+- [[インストール]], [[Stage]], [[GRP]], [[Portageツリー]]
+- [[インストールした後にできること]], [[日本語入力設定事例集]], [[日本語デスクトップ環境/パッケージ]]
+- [[Gentooが採用している技術]]
+- [[コミュニティとの連絡手段]], [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]
+- [[本家に関連しそうな言葉]], [[GLEP]], [[コピーライト]], [[ライセンス]]
+
+[[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]]) の詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]])
+- [[メタ・ディストリビューション]], [[USEフラグ]], [[profile]], [[catalyst]], [[GNAP]]
+- [[コンパイル]], [[バイナリパッケージ]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+
+________
+
+-[2005-09-19] 自分がソースコードを読んだ際のメモを基準にしています。独断と偏見が基準です。修正をお願いします。(yoshino)
+-[2006-07-09] 個人的に本家への案内を意識しています。「本家と関わる必要はないだろう」や「C や Python も必要じゃないか？」や「デベロッパ寄りのネタは書くべきでない」などは個々の意見があると思います。いろいろ考えたのですが、本家の一員にならなくともせっかくだから主催へ参加する雰囲気だけでも楽しみたいを選びました。 (yoshino)
+-[2006-09-17] 自分が調べた際のメモをほぼそのまま貼りつけているだけだったのを省察しました。 (yoshino)

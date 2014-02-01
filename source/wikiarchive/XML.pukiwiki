@@ -1,0 +1,128 @@
+#contents
+#title
+
+*Gentoo と XML [#gad45f88]
+
+[[XML]] を採用しています。スタイルシートで様々なメディアタイプに応じた変換をしている……はずです。
+
+度々議論になっていますが[[初期メンバーの考え:http://www.gentoo.org/main/en/articles.xml]]が反映されているのかもしれません。コミュニティで草稿に [[RST]] こと [[ReStrucredText]] を使う方もいますが、[[ジェンツー]]のドキュメントは [[XML]] が主流です。[[Portageツリー]] 内部も幾つかのテキストファイルは [[XML]] と UTF-8 が義務とされていますが、全部ではありません。[[XMLガイド:http://www.gentoo.org/doc/ja/xml-guide.xml]]があります。
+
+一方 [[XML]] 以外の書式も [[RST]] に統一されているわけではないようです。草稿に使われる [[RST]] は、厳密な書法を知らなくても読めたり書けたりできるのが使われる理由だと思います。本文に URI を埋めこまず注釈などを下部に集中させるのが特徴です。[[app-text/silvercity]] や [[dev-python/docutils]] で変換できます。
+
+**ハンドブック [#h80afc4f]
+
+[[ハンドブック]] に関連記事があります。
+
+**インストール [#m4df1d53]
+
+[[インストール]] に関連記事があります。
+
+また、ドキュメントは集中管理されており、[[インストールドキュメント:http://www.gentoo.org/doc/ja/?catid=install]]を読んで判ったものが全てです。「ネットワークを利用しない方法」や「バイナリパッケージを使い短時間で終らせる方法」や「コンパイルの途中で中断する方法」など全て掲載されています。他にも 「[[Windows の中で Gentoo Linux を動かす (coLinux):http://www.gentoo.org/doc/ja/colinux-howto.xml]]」や「[[Linux の中で Gentoo Linux を動かす (User Mode Linux):http://www.gentoo.org/doc/ja/uml.xml]]」などの手順は記事になっています。[[ディスクレス]]についても記事があります。
+
+**インストール後のお楽しみ [#fd9ed807]
+
+[[GDP]] こと [[Documentationプロジェクト:http://www.gentoo.org/proj/en/gdp/index.xml]]によりドキュメントは集中管理されているため、例えば「ネットワークからディスクレスでブートする」と「SELinux と grsecurityを同時に利用する」と「負荷分散ネットワークを構築する」が同じサイトにあり、[[インストール]]後に迷うことなくじっくりしみじみ楽しめます。(SELinux 等の記事は [[Documentationプロジェクト:http://www.gentoo.org/proj/en/gdp/index.xml]]でも [[Securityプロジェクト:http://www.gentoo.org/proj/en/security/index.xml]]でもなく [[Hardenedプロジェクト:http://www.gentoo.org/proj/en/hardened/index.xml]]の管轄ですが、[[GentooLinuxドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]で眺める分には意識する必要はありません。)
+
+[[GentooJP オリジナルドキュメント:http://www.gentoo.gr.jp/jpmain/docs-list.xml#doc_chap3]]にも[[フェイルオーバーガイド:http://www.gentoo.gr.jp/jpdoc/failover.xml]]や[[負荷分散ガイド:http://www.gentoo.gr.jp/jpdoc/load_balancing.xml]]といった記事があります。
+
+古いシステム全体を更新するのに便利な `emerge world` ですが、もの凄い量が対象になります。注意して下さい。最低限必要な[[ビルド]]は [[GLSA]] だけで、`emerge world` ではありません。[[GLSA]] こと "[[Gentoo Linux Security Announcements:http://wiki.gentoo.gr.jp/index.php?GentooLinuxSecurityAnnouncements]]" (または "[[Gentoo Linux Security Advisories:http://wiki.gentoo.gr.jp/index.php?GentooLinuxSecurityAdvisories]]") は [[Securityプロジェクト:http://www.gentoo.org/proj/en/security/index.xml]]による脆弱性注意報告です。
+
+***日本語環境について [#lc0fb331]
+
+[[日本語入力設定事例集]]や[[日本語デスクトップ環境/パッケージ]]に記事があります。
+
+***マニュアルに難しい概念が出現した際の解決手段 [#m06c36dd]
+
+あまり理解していなくとも [[USEフラグ]]だけで[[メタ・ディストリビューション]]自体は完了してしまうのですが、運用するための設定ファイルは自分で記述しなければなりません。
+
+難かしい概念が出現した場合には、[[検索エンジン:http://www.google.co.jp]]や [[Linux Japanese FAQ プロジェクト:http://www.linux.or.jp/JF/]]や [[Linux Japanese Manual プロジェクト:http://www.linux.or.jp/JM/INDEX/index.html]]が助けになると思います。
+
+ウェブ上の文章だけでは分り難かったり、もの足りなければ、参考書でも調べられます。「パターソン & ヘネシー」「アンドリュー・S・タネンバウム」「W・リチャード・スティーヴンス」「……」有名人の解説書は沢山あります。有名人でなくとも自分で理解できるものが良いと思います。中規模以上の本屋さんに置いてありそうで読者層にジェンツー愛好者を含む参考書を探すとするならば O'REILLY、CQ 出版社、ピアソン・エデュケーション、……辺りから始めるといろいろ発見があると思います。
+
+***「SysVinit (init スクリプト)」(ドキュメント検索例) [#j6180463]
+
+[[Linux Japanese Manual プロジェクト:http://www.linux.or.jp/JM/INDEX/index.html]] の「[[SysVinit (init スクリプト):http://www.linux.or.jp/JM/INDEX/linux.html]]」参考。
+
+***「iproute2 (ifconfig の後継)」(ドキュメント検索例) [#v779909b]
+
+[[Linux Japanese FAQ プロジェクト:http://www.linux.or.jp/JF/]] の「[[iproute2 (ifconfig の後継):http://www.linux.or.jp/JF/JFdocs/Adv-Routing-HOWTO/]]」参考。
+
+**ドキュメントの翻訳 [#p7afcfac]
+
+[[ドキュメント作成]]に関連記事があります。
+
+**サンプル [#q4e87f74]
+
+[[XML]] の構造については [[XMLガイド:http://www.gentoo.org/doc/ja/xml-guide.xml]]もあります。
+
+指示されている [[XML]] 要素の傾向としては、ブロック要素の p, pre, note, warn, impo, table, ol, ul 等が中心になり、インライン要素の path, c, i, codenote, comment 等が単語をファイル名なのかコマンド名なのかを明確にします。こんな雰囲気になるようです。
+
+ <section>
+ <title>節の題</title>
+ <body>
+ <pre id="sample100">
+ $ <i>入力</i>
+ <comment>(コメント)</comment>
+ 出力
+ </pre>
+ <ul id="sample200">
+   <li id="sample201">
+   <p>
+   <c>コマンド名</c>と<path>ファイル名</path>に使います。
+   <e>強調</e>です。
+   </p>
+   <figure link="/screenshot/2005-09-19.png" short="ラリー君" caption="牡牛のラリー君" />
+   </li>
+   <li id="sample202">
+   <p>
+    id属性もつけられるようです。
+   <uri link="#sample100">sample100</uri>へのリンクに使用できます。
+   </p>
+   </li>
+ </ul>
+ </body>
+ </section>
+
+*Documentation [#ne9555e5]
+
+[[GDP]] は "[[Gentoo Documentation Project:http://wiki.gentoo.gr.jp/index.php?GentooDocumentationProject]]" の事で、 [[Documentation プロジェクト:http://www.gentoo.org/proj/en/gdp/index.xml]]がそれです。[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]に反映されます。[[ドキュメントステータス:http://www.gentoo.org/proj/en/gdp/index.xml#doc_chap5]]や [[overview.xml:http://www.gentoo.org/doc/en/overview.xml]] ([[日本語:http://www.gentoo.org/doc/ja/overview.xml]]) で更新状況が分ります。[[XML ガイド:http://www.gentoo.org/doc/en/xml-guide.xml]]を参考にして下さい。
+
+*metadoc.xml [#u31e5cc7]
+
+[[metadoc.xml]] に関連記事があります。
+
+*project.xml [#lb85d280]
+
+[[project.xml]] に関連記事があります。
+
+*herds.xml [#l47d4001]
+
+[[herds.xml]] に関連記事があります。
+
+*metadata.xml [#h6ee6d46]
+
+[[metadata.xml]] に関連記事があります。
+
+________
+
+[[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]) の詳細は[[プロジェクトリスト:http://www.gentoo.org/proj/en/metastructure/projects.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]), [[Gentoo FAQ:http://www.gentoo.org/doc/ja/?catid=faq]], [[GentooJP FAQ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A3%C6%A3%C1%A3%D1%5D%5D]]
+- [[インストール]], [[Stage]], [[GRP]], [[Portageツリー]]
+- [[インストールした後にできること]], [[日本語入力設定事例集]], [[日本語デスクトップ環境/パッケージ]]
+- [[Gentooが採用している技術]]
+- [[コミュニティとの連絡手段]], [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]
+- [[本家に関連しそうな言葉]], [[GLEP]], [[コピーライト]], [[ライセンス]]
+
+[[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]]) の詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]])
+- [[メタ・ディストリビューション]], [[USEフラグ]], [[profile]], [[catalyst]], [[GNAP]]
+- [[コンパイル]], [[バイナリパッケージ]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+
+________
+
+-[2005-10-20] 
+-[2005-10-20] 足りないと思われます。修正お願いします。 (yoshino)

@@ -1,0 +1,25 @@
+*Plan9もどきのバックアップシステム [#kc3bbd32]
+
+-ページ: BugTrack
+-投稿者: [[matsuu]]
+-優先順位: 低
+-状態: 完了
+-カテゴリー: ebuild
+-投稿日: 2003-07-26 (土) 00:48:50
+-バージョン: 0.6
+
+
+CENTER:''この ebuild は本家に取り込まれました。(app-arch/pdumpfs)''
+
+**メッセージ [#p9cd2c89]
+http://namazu.org/~satoru/pdumpfs/
+
+近々バージョンアップ予定とSD誌で書かれてましたが...
+
+----
+
+-あ、これ欲しかったんです。作ろうかと思ってました。ありがたく使用させてもらいます。 -- [[なかの]] SIZE(10){2003-07-27 (日) 02:31:11}
+-SD誌見て、興味が湧きました。ありがたく使わせて頂きます。 -- [[satoki]] SIZE(10){2003-10-22 (水) 09:06:03}
+-1.1, 1.2 で tests/pdumpfs-test が月の境界でこけるようです (9/1 に emerge すると mv dest/$today dest/$yesterday で失敗) satoru 様に言ったほうがいいかな? -- [[hiroki]] SIZE(10){2004-09-02 (木) 13:17:43}
+-1.1, 1.2 で tests/pdumpfs-test が月の境界でこけるようです (9/1 に emerge すると mv dest/$today dest/$yesterday で失敗) satoru 様に言ったほうがいいかな? -- [[hiroki]] SIZE(10){2004-09-02 (木) 13:22:11}
+// #comment

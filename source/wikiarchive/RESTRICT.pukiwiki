@@ -1,0 +1,48 @@
+#contents
+#title
+
+*Portage と RESTRICT [#d9bab439]
+
+[[Portage]] の機能です。[[*.ebuild]]、つまり開発者がオンオフを指示します。残念ながらかなりの部分がマニュアル化されていないので隠し機能に近い感覚がありますが、禁止されている訳ではありません。
+
+*sys-apps/portage-2.1 [#ca529ac0]
+
+[[FEATURES]] とは意味が逆になります。
+
+***userpriv/nouserpriv [#a2320912]
+
+:userpriv/nouserpriv|portage:portage 権限で実行させません/させます。
+
+***mirror/nomirror [#c3d1f775]
+
+:mirror/nomirror|$GENTOO_MIRRORS を使わせません/使わせます。
+
+***fetch [#k773c312]
+
+:fetch|$GENTOO_MIRRORS, $SRC_URI を使わせません。つまり、自分で [[distfiles]] に用意しなくてはいけません。
+
+***primaryuri [#kbf129b0]
+
+:primaryuri|[[ミラーリング]]ではなく、一次配布先を優先させます。
+
+***nostrip [#b039dabd]
+
+:nostrip|実行可能プログラムを strip (debug に必要なデータを削って軽量化)させます。
+
+***test [#jc256783]
+
+:test|make check を[[ビルド]]前に加えません。
+
+***strict [#t15e92b1]
+
+:strict|scanelf を実行させません。
+
+***stricter [#k27b4b2f]
+
+:stricter|RUNPATH 検査をさせません。
+
+________
+
+-[2005-12-30]
+-[2005-12-30] portage チームメンバが2名も参加した忘年会に参加できず確認できていません。(yoshino)
+-[2006-03-19] 飲み会の飯屋にて portage 本家チームメンバに直接確認しようとしたのですが、御本人に外せない用事があるため早退されていました。時間的な制約もあり、自分は IRC に参加していないのです。間違いに気付いた方は修正して下さい。 (yoshino)

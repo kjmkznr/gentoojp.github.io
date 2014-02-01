@@ -1,0 +1,205 @@
+#contents
+#title
+
+* バグ報告をする人もしくはデベロッパの範囲です [#g52d8e71]
+
+開発用ドキュメントやプロジェクト特有のドキュメントは、本家が英語を理解する人を求めているため翻訳されません。理由の1つとして upstream (ソフトウェアの一次配布元) や Bugtracking System (Bugzilla) とのコミュニケーションがあります。本家は QA (品質保証)を意識するよう呼びかける運動を始めています。GLEP の 041 よりテスト専用の開発者を迎えています。GLEP の 033 によれば eclass の変更があります。
+
+このページの目的は「やってみたい!! でも何処から始めたらいいのか分らず、1時間ぐらい調べても把握できないからいつもそのままです……」と思う人の助けになればと考えています。もし面白いと感じたら是非本家へバグ報告やパッケージ作成してみて下さい。最終的には、マニュアルを読むための簡単な英語と Bash の修得を求められます。
+
+** 変化が落ち着き始めました [#q424636c]
+
+Portage 以外にも GPM/Ports System の有力候補が出現したのが大きいと思われます。ソースコード以外の劣化が激しい頃より紹介し易くなった、と思います。ジェンツー委員会は色々考えているようですので、デベロッパにならなくとも(なるつもりがなくとも)使い易くなっていると思います。
+
+理解し易いものにすれば、他の人が面倒を見てくれるかもしれません。インターポジショニングに注意してみて下さい。
+
+** 初めての分析ならば ... [#d547225f]
+
+VDB (何をマージしたかを保存しているデータベース)に ebuild 変数の詳細はあります。例えば /var/db/pkg/app-editors/emacs-21.4-r12 以下のテキストファイル群がそれです。
+
+作業中の ebuild 変数は保存されてません。Paludis であれば、/etc/paludis/bashrc に以下を記述すると rm -rf $PALUDIS_TMPDIR/$CATEGORY/$PF が実行されません。つまり、ビルド作業の残りがそのまま削除されません。例えば /var/tmp/portage/app-editors/emacs-21.4-r12/temp/loadsaveenv テキストファイルに作業中の ebuild 変数があります。
+
+ export SKIP_FUNCTION="tidyup"
+
+* ebuild 関数 [#l1664dde]
+
+- 手動で定義する関数
+- 自動で定義される命令
+
+便宜上、上を phase, ebuild_phase(ebuild-defined_functions) とし、下を helper, the_ebuild_environment(defined_commands) とします。
+
+** 手動で定義する関数 -- EBUILD_PHASE [#pb935209]
+
+手動で定義する関数とは、phase を表わす関数です。配布ファイルをフェッチして、エクスパンドして、コンフィギュアして、ビルドテストして、ビルドして、仮インストールして、実インストールして、etc. を段階として分解しているだけです。
+
+: phase/setup | Paludis 内の ebuild_f_setup() が呼ばれ、ebuild file 内のユーザが定義した pkg_setup() が実行される。
+: phase/unpack | Paludis 内の ebuild_f_unpack() が呼ばれ、ebuild file 内のユーザが定義した src_unpack() が実行される。
+: phase/compile | Paludis 内の ebuild_f_compile() が呼ばれ、ebuild file 内のユーザが定義した src_compile() が実行される。
+: phase/test | Paludis 内の ebuild_f_test() が呼ばれ、ebuild file 内のユーザが定義した src_test() が実行される。
+: phase/install | Paludis 内の ebuild_f_install() が呼ばれ、ebuild file 内のユーザが定義した src_install() が実行される。
+: phase/preinst | Paludis 内の ebuild_f_preinst() が呼ばれ、ebuild file 内のユーザが定義した pkg_preinst() が実行される。
+: phase/postinst | Paludis 内の ebuild_f_postinst() が呼ばれ、ebuild file 内のユーザが定義した pkg_postinst() が実行される。
+: phase/prerm | Paludis 内の ebuild_f_prerm() が呼ばれ、ebuild file 内のユーザが定義した pkg_prerm() が実行される。
+: phase/postrm | Paludis 内の ebuild_f_postrm() が呼ばれ、ebuild file 内のユーザが定義した pkg_postrm() が実行される。
+: phase/config | Paludis 内の ebuild_f_config() が呼ばれ、ebuild file 内のユーザが定義した pkg_config() が実行される。明示しなければ実行されない。
+: phase/nofetch | Paludis 内の ebuild_f_nofetch() が呼ばれ、ebuild file 内のユーザが定義した pkg_nofetch() が実行される。明示しなければ実行されない。
+
+*** phase :: setup [#qd220ce4]
+
+: dyn_setup() | Portage ならば phase::setup に dyn_setup() が対応し、以下が呼び出されます。つまり、以下を ebuild file で定義すると反映されます。GPMS で定義されているのは pkg_setup() だけです。
+
+: ebuild_f_setup() | /usr/libexec/paludis/pkg_setup.bash
+
+- pre_pkg_setup() -- Portage, Paludis
+- pkg_setup() -- GPMS, Portage, Paludis
+- post_pkg_setup() -- Portage, Paludis
+
+
+*** phase :: unpack [#i5f60732]
+
+: dyn_unpack() | Portage ならば phase::unpack に dyn_unpack() が対応し、以下が呼び出されます。つまり、以下を ebuild file で定義すると反映されます。GPMS で定義されているのは src_unpack() だけです。
+
+: ebuild_f_unpack() | /usr/libexec/paludis/src_unpack.bash
+
+- pre_src_unpack() -- Portage, Paludis
+- src_unpack() -- GPMS, Portage, Paludis
+- post_src_unpack() -- Portage, Paludis
+
+*** phase :: compile [#d5f8331a]
+
+: dyn_compile() | Portage ならば phase::compile に dyn_compile() が、対応し以下が呼び出されます。つまり、以下を ebuild file で定義すると反映されます。GPMS で定義されているのは src_compile() だけです。
+
+: ebuild_f_compile() | /usr/libexec/paludis/src_compile.bash
+
+- pre_src_compile() -- Portage, Paludis
+- src_compile() -- GPMS, Portage, Paludis
+- post_src_compile() -- Portage, Paludis
+
+*** phase :: test [#y3195dcf]
+
+: dyn_test() | Portage ならば phase::test に dyn_test() が対応し、以下が呼び出されます。つまり、以下を ebuild file で定義すると反映されます。GPMS で定義されているのは src_test() だけです。
+
+: ebuild_f_test() | /usr/libexec/paludis/src_test.bash
+
+- pre_src_test() -- Portage, Paludis
+- src_test() -- GPMS, Portage, Paludis
+- post_src_test() -- Portage, Paludis
+
+*** phase :: install [#a9ea8568]
+
+: dyn_install() | Portage ならば phase::install に dyn_install() が対応し、以下が呼び出されます。つまり、以下を ebuild file で定義すると反映されます。GPMS で定義されているのは src_install() だけです。
+
+: ebuild_f_install() | /usr/libexec/paludis/src_install.bash
+
+- pre_src_install() -- Portage, Paludis
+- src_install() -- GPMS, Portage, Paludis
+- post_src_install() -- Portage, Paludis
+
+*** phase :: preinst [#wf3b485b]
+
+: dyn_preinst() | Portage ならば phase::preinst に dyn_preinst() が対応し、以下が呼び出されます。つまり、以下を ebuild file で定義すると反映されます。GPMS で定義されているのは pkg_preinst() だけです。
+
+: ebuild_f_preinst() | /usr/libexec/paludis/pkg_preinst.bash
+
+- pre_pkg_preinst() -- Portage, Paludis
+- pkg_preinst() -- GPMS, Portage, Paludis
+- post_pkg_preinst() -- Portage, Paludis
+
+*** phase :: postinst [#w6568a53]
+
+: dyn_postinst() | Portage ならば phase::postinst に dyn_postinst() が対応し、以下が呼び出されます。つまり、以下を ebuild file で定義すると反映されます。GPMS で定義されているのは pkg_postinst() だけです。
+
+: ebuild_f_postinst() | /usr/libexec/paludis/pkg_postinst.bash
+
+- pre_pkg_postinst() -- Paludis
+- pkg_postinst() -- GPMS, Portage, Paludis
+- post_pkg_postinst() -- Paludis
+
+*** phase :: prerm [#nfeedfa7]
+
+: dyn_prerm() | Portage ならば phase::prerm に dyn_prerm() が対応し、以下が呼び出されます。つまり、以下を ebuild file で定義すると反映されます。GPMS では定義されていません。
+
+: ebuild_f_prerm() | /usr/libexec/paludis/pkg_prerm.bash
+
+- pre_pkg_prerm() -- Paludis
+- pkg_prerm() -- Portage, Paludis
+- post_pkg_postrm() -- Paludis
+
+*** phase :: postrm [#pa0c7490]
+
+: dyn_postrm() | Portage ならば phase::postrm に dyn_postrm() が対応し、以下が呼び出されます。つまり、以下を ebuild file で定義すると反映されます。GPMS では定義されていません。
+
+: ebuild_f_postrm() | /usr/libexec/paludis/pkg_postrm.bash
+
+- pre_pkg_postrm() -- Paludis
+- pkg_postrm() -- Portage, Paludis
+- post_pkg_postrm() -- Paludis
+
+*** phase :: config [#sa2736d6]
+
+: dyn_config() | FEATURES 等で明示しなければ実行されません。Portage ならば phase::config に dyn_config() が対応し、以下が呼び出されます。つまり、以下を ebuild file で定義すると反映されます。GPMS で定義されているのは pkg_conmfig() だけです。
+
+: ebuild_f_config() | /usr/libexec/paludis/pkg_config.bash
+
+- pre_pkg_config() -- Paludis
+- pkg_config() -- GPMS, Portage, Paludis
+- post_pkg_config() -- Paludis
+
+*** phase :: nofetch [#labf2898]
+
+: dyn_nofetch() | RESTRICT に fetch が含まれた場合に使用されます。Portage ならば phase::nofetch に dyn_nofetch() が対応し、以下が呼び出されます。つまり、以下を ebuild file で定義すると反映されます。GPMS で定義されているのは pkg_nofetch() だけです。
+
+: ebuild_f_nofetch() | /usr/libexec/paludis/pkg_nofetch.bash
+
+- pkg_nofetch() -- GPMS, Portage, Paludis
+
+
+*** Hooked on hook. [#ta4a9ec9]
+
+各 phase に対して Hook の概念を持つ GPM/Ports System もあります。
+
+
+_____
+
+.. [GPMS] http://dev.gentoo.org/~spb/pms.pdf
+
+.. [GPM] http://wiki.gentoo.gr.jp/index.php?Gentoo_Package_Manager
+
+.. [repository] http://wiki.gentoo.gr.jp/index.php?repository に関連記事があります。
+
+.. [USE_flag] http://wiki.gentoo.gr.jp/index.php?USE_flag に関連記事があります。
+
+.. [profile] http://wiki.gentoo.gr.jp/index.php?profile に関連記事があります。
+
+.. [ebuild_metadata(ebuild-defined_variables)] http://wiki.gentoo.gr.jp/index.php?ebuild_metadata(ebuild-defined_variables) に関連記事があります。
+
+.. [the_ebuild_environment(defined_variables)] http://wiki.gentoo.gr.jp/index.php?the_ebuild_environment(defined_variables) に関連記事があります。
+
+.. [ebuild_phase(ebuild-defined_functions)] http://wiki.gentoo.gr.jp/index.php?ebuild_phase(ebuild-defined_functions) に関連記事があります。
+
+.. [the_ebuild_environment(defined_commands)] http://wiki.gentoo.gr.jp/index.php?the_ebuild_environment(defined_commands) に関連記事があります。
+
+.. [ebuild_files] http://wiki.gentoo.gr.jp/index.php?ebuild_files に関連記事があります。
+
+.. [Portage] http://www.gentoo.org/proj/en/portage/index.xml が公式サイトです。
+
+.. [Paludis] http://paludis.pioto.org/ が公式サイトです。
+
+
+
+________________
+
+
+- [[Gentoo_Package_Manager]], [[Portage]], [[Paludis]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+- [[memorandum_about_Paludis(1)]], [[memorandum_about_Paludis(2)]], [[memorandum_about_Paludis(3)]], [[memorandum_about_Paludis(4)]], [[memorandum_about_Paludis(5)]], [[memorandum_about_Paludis(6)]], [[memorandum_about_Paludis(7)]], [[memorandum_about_Paludis(8)]], [[memorandum_about_Paludis(9)]], [[memorandum_about_Paludis(10)]], [[memorandum_about_Paludis(11)]], [[memorandum_about_Paludis(12)]], [[memorandum_about_Paludis(13)]], [[memorandum_about_Paludis(14)]], [[memorandum_about_Paludis(15)]], [[memorandum_about_Paludis(16)]]
+- [[repository]], [[USE_flag]], [[profile]]
+- [[ebuild_files]], [[ebuild_metadata(ebuild-defined_variables)]], [[ebuild_phase(ebuild-defined_functions)]], [[the_ebuild_environment(defined_variables)]], [[the_ebuild_environment(defined_commands)]], [[bash_for_ebuild]]
+
+
+________________
+
+- [2005-09-19] 自分がソースコードを読んだ際のメモを基準にしています。独断と偏見が基準です。修正をお願いします。(yoshino)
+- [2006-07-09] 個人的に本家への案内を意識しています。「本家と関わる必要はないだろう」や「C や Python も必要じゃないか？」や「デベロッパ寄りのネタは書くべきでない」などは個々の意見があると思います。いろいろ考えたのですが、本家の一員にならなくともせっかくだから主催へ参加する雰囲気だけでも楽しみたいを選びました。 (yoshino)
+- [2007-05-04] GPMS をちょっと読んだので反映させましたが、間違っていると思います。気に入ったら書き足して下さい。 (yoshino)

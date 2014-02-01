@@ -1,0 +1,434 @@
+#title
+
+追加・修正はご自由にどうぞ。
+
+注)自由に追加・修正できるためいたずらのFAQが掲載される可能性があります。利用者は十分注意して使用してください。
+
+#contents
+
+* 全般的に [#h218c067]
+** Gentoo Linuxとは一体なんですか [#a38e0ad1]
+
+用途が広くて、速い、x86, AMD64, IA64, Alpha, PPC, PPC64, SPARC, SPARC64, MIPS, HPPA のための完全にフリーの Linux ディストリビューションです。~
+他のディストリビューションと違い、"Portage"と呼ばれる高度なパッケージ管理システムを持っています。~
+（以上、本家サイトの説明の一部を邦訳）
+
+**Gentoo for Mac OS Xとはなんですか [#v37c53a9]
+
+Gentooで開発されたパッケージをMac OS X上で使おうというプロジェクトです。
+
+** Gentooという名前は何を由来にしているんでしょうか [#p3bc7ef8]
+
+Gentooの由来はペンギンの一種であるGentoo Penguin(和名ジェンツーペンギン)で、小さくてすばしっこいのが特徴です。
+
+** 他のLinuxディストリビューションとどう違うのですか [#yff83b05]
+
+Gentoo Linux を特徴づけているのは Portage というパッケージ管理システムですが、一言でまとめると、自由なところでしょうか？
+
+** Gentoo Linuxに関する情報はどうやって集めたらいいですか [#ie497907]
+
+--[[本家Gentoo Linux WebPage:http://www.gentoo.org/]]
+--[[本家MLアーカイブ:http://news.gmane.org/gmane.linux.gentoo.user]] 
+--[[Gentoo Linux Wiki:http://gentoo-wiki.com/]]
+--[[日本語Gentoo Linux ML:http://www.gentoo.gr.jp/jpmain/about-gentoojp.xml#doc_chap4]]
+--[[Gentoo Linux Users Group Japan:http://www.gentoo.gr.jp/]]
+---[[翻訳プロジェクト]]日本語ドキュメントの翻訳を行っています。 
+
+** このFAQはGentoo Linuxに関することのみを登録すべきですか [#pa7be81b]
+基本的にはその通りです。~
+とはいえその切り分けが難しいので悩んだら登録するぐらいの気持ちでいいです。
+
+** これはFAQなのに、答えが載っていないものがあります。なぜですか？ [#hee9d48b]
+あなたに答えてもらうのを待っているためです。
+
+* 入門編 [#g808bacd]
+
+** 日本語は問題なく使えますか？ [#a22c0769]
+使えます。（要追記）
+
+** 私のノートパソコンでGentooは問題なく動作しますか？ [#a737f248]
+
+** Gentooは時間がかかると聞いたのですが [#y628cd10]
+確かに、Gentooをインストールするのは時間がかかります。また、パッケージのインストールは基本的にソースプログラムからコンパイルするため、バイナリパッケージが用意された他のディストリビューションと比べると多少時間がかかるかもしれません。~
+しかし、バイナリパッケージに相当するGRP(Gentoo Reference Platform)や、分散コンパイルのdistcc、コンパイルキャッシュのccache等を利用すれば、パッケージのインストールにかかる時間を軽減することができます。~
+結果として最適化されたバイナリやUSEフラグによるカスタマイズされたパッケージが得られることを大きなメリットと考えられるのであれば、時間がかかることはあまり苦にならないでしょう。
+
+** GentooはRedHat系ですか？Debian系ですか？ [#v2d665bd]
+どちらでもありません。オリジナルです。
+
+** Gentooが動作する最低スペックを教えてください [#fb2cedca]
+
+
+** GentooをインストールするにはどれくらいのHDD容量が必要ですか [#d58bcb94]
+-GNAPなら32M?
+-Xなしなら?
+-Xありなら?
+-KDEなら?
+-GNOMEなら?
+
+** 商用ソフト「◯◯」はGentooで動作しますか [#v61ccf26]
+
+
+** Gentooの商用サポートは存在しますか [#a8ca8b22]
+存在しません？
+
+
+** Gentooは組込み用途に使えますか [#jf6134a0]
+はい。[[embeddedプロジェクト:http://www.gentoo.org/proj/en/base/embedded/index.xml]]が進行中です。
+
+* インストール編 [#sf375b7f]
+
+** インストーラは存在しないのですか [#y074b406]
+
+Gentoo Linuxには、他のLinuxディストリビューションに見られるようなインストーラは存在しません(2004年10月現在)。
+
+一応 GLIS (Gentoo Linux Install Script) http://sourceforge.net/projects/glis/ というインストーラプロジェクトがあります。でも手で作業することを厭わないことが重要です。
+
+[[Gentoo Linux Installer(GLI):http://www.gentoo.org/proj/en/releng/installer/index.xml]]プロジェクトが進行中です。
+
+** フロッピーからインストールしたい [#m504ad90]
+
+Gentoo ForumsのFAQにありました。
+
+http://forums.gentoo.org/viewtopic.php?t=8690
+
+Gentoo Linux フロッピーインストールガイド
+
+http://www.gentoo.gr.jp/jpdoc/fd-install.xml
+
+（報告）
+tomsrtbtで起動できなかったので、代わりにBG-Rescue Linux
+(http://omnibus.uni-freiburg.de/~giannone/rescue/current/ )を使ったらうまくいきました。
+
+** squid 経由で emerge rsync しようとすると、HTTP 403 だったりつながらなかったり [#m1c449f8]
+
+chroot 環境に入る前に、NICの設定しました？それでもだめなら、、
+
+英語版 FAQ にあるURLから Portage の tar.bz2 をひろって来てどうにかして展開する。
+
+scripts/bootstrap.sh の実行中にも同じ事を言われるが、/etc/make.conf
+に PROXYの設定をしても、スクリプトの最初の方で書き換えられて
+しまう。
+なので、/root/.wgetrc に http_proxy=<ip-address>:<port>
+として wget の方を設定しておくとOK。
+
+** MediaGXなどのCPUを搭載したPCでインストールしようとすると、途中でコンパイルに失敗します [#nd9a7993]
+i586以上向けにコンパイルされたバイナリではi386、i486互換のCPUでエラーが発生することがあります。/etc/make.confのうち、コンパイラに引き渡すオプションの部分を見直してみてはいかがでしょうか。
+
+コンパイラそのものがi586以上向けの場合は……i386向けにコンパイルされたブートCDなどを使うしかないのではないかなと。
+
+** 1.2をインストールしようと思うのですが、本家のドキュメントがハンドブックに置き換えられてしまいました。 [#da140c34]
+現在は情報が全てハンドブックに集約されつつあります。~
+特に明確な理由がなければ最新版をお使いください。最新版は[[Downloading Gentoo Linux:http://www.gentoo.org/main/en/where.xml]]からダウンロードが可能です。
+
+** インストール用のドキュメントが1.4のままなんですが。 [#v56995b2]
+ハンドブックの翻訳が完了しているのでそちらをご覧ください。
+-http://www.gentoo.org/doc/ja/handbook/
+
+** emerge がループしてるんですが． [#wacacfc8]
+システムクロックやハードウェアクロックは正しく設定されていますか？ これらが正しく設定されていないと，ソフトウェアによってはビルドがうまくいかない場合があります．
+ # date -s "2003/12/07 12:15"
+ # hwclock --systohc
+とするなどして時刻を設定してから再度 emerge してみて下さい．
+
+** 無線LAN経由でのインストールはできますか？ [#n9bdd734]
+認識されて、きちんと通信ができる状態に設定すれば可能です。無線の状況によって WEP key を指定したりしないといけない以外は普通のネットワークインストールと変わりません。
+
+** Gentoo って今後バイナリパッケージの配布も始まったりしますか？ [#ybcd65c9]
+すでに GRP という形で Gentoo 1.4 からインストール CD の中にバイナリパッケージが含まれて提供されています。Gentoo 1.4 の場合は KDE と GNOME は CD 2枚に分かれて入っているので、GRP から入れたい場合はいずれも手元に用意する必要があります。Gentoo 2004.0 ではインストール用のブート可能な LiveCD は universal という名前になり、パッケージ用 CD は package という名前に変更されましたので、インストール時 CD からバイナリパッケージを入れたい場合は両方の CD を用意してください。
+
+* デスクトップ編 [#jf0b523c]
+
+** KDE3.0.2からSylpheed0.8.1起動したのですけど、文字化けが...何もできません [#s0d501a0]
+
+~/.gtkrc を作ります。
+ style "gtk-default-ja" {
+        fontset = "-adobe-helvetica-medium-r-normal--12-*-*-*-*-*-iso8859-1,?
+                   -*-fixed-medium-r-normal--14-*-*-*-*-*-jisx0208.1983-0,?
+                   -ricoh-ms   
+ mincho-medium-r-normal--14-*-*-*-*-*-jisx0208.1983-0
+ ,?
+                   *-r-*"
+ }
+ class "GtkWidget" style "gtk-default-ja"
+
+参照：http://www.kde.gr.jp/ml/Kuser/msg03447.html
+
+
+** vimで日本語を使用したい [#l81b8f6a]
+vimは元々国際化されているので以下の設定をファイルを記述することにより使用できます.
+
+ ~/.vimrc
+ set encoding=utf-8
+ set termencoding=euc-jp
+ set fileencodings=iso-2022-jp,utf-8,ucs-2le,ucs-2,cp932,euc-jp
+(ISO-2022-JP を EUC-JP の前に置いた方が良いようです _ iconv を使用する場合 )
+
+[追記by puntium]ちなみに、
+-encodingはvim内部の文字列のエンコーディングです。つまり、ファイルを読み込んだときなどに、まずこのエンコーディングに変換されます。保存などしたときにはまた元のエンコーディングに戻されます。なるべく多くの文字を表現できるようにutf-8やucs-2などをお薦めします。((gvimを使用するときはencodingとロカールは一致してないといけません))
+-termencodingはターミナルのエンコーディングです。vimをターミナルから使用する場合はこの値をターミナルのエンコーディングと一致させる必要があります。ターミナルから入力された文字をどう解釈すれるかも、この値でコントロールできます。encodingとtermencodingの間のエンコーディング変換は自動的に行われます。
+-fileencodingsは、ファイルを読み込むときに行われる文字コード自動判別機能を制御するものです。指定されたエンコーディング順で自動確認が進行します。一番最初に成功したエンコーディングが使用されるので、より特殊なものを前の方に指定しないといけません。set fileencodings=latin1,utf-8などとすると、どのファイルに対しても、latin1が使用されます。
+-ファイルのエンコーディングを変換したいときは、まずファイルを読み込んで、set fileencoding=utf-8などとできます。(fileencodingsとfileencodingは違うので注意してください。前者はグローバルな設定で、後者はファイル毎、正確に言えばバッファ毎の設定です)
+
+** インストール後に、Kernelを再コンパイルしコピーしたのですが反映されていないようです [#keac5ed2]
+
+[[ハンドブック:http://www.gentoo.org/doc/ja/handbook/handbook-x86.xml?part=1&chap=0]]の通りにインストールすると、以下のようなfstabを記述しているはずです。
+
+ (抜粋) 
+ /dev/BOOT          /boot         ext3    noauto,noatime           1 2 
+
+noautoがついているために、/bootが自動でmountされていません。そのため本来とは違った場所にコピーしていることになります。以下のコマンドでKernelをコピーし直してください。
+
+ # mount /boot
+ # cp /usr/src/linux/arch/i386/boot/bzImage /boot
+
+なお、noautoを削除してしまっても問題ないです。
+
+また、GRUBではなくLILOを使用している場合は、
+
+ # make bzlilo
+
+を実行するか、
+
+ # /sbin/lilo -v
+
+を実行するかして下さい。
+
+** Kochiフォントなどをインストールしましたが、GNOMEで「ー」などが麻雀牌の様になります [#n78f5c74]
+
+GNOMEに日本語フォントを認識させる必要があります。/etc/font/local.confを修正してください。(書きかけで放置したままだった。)
+
+kochi系を認識させるためには、
+
+ <dir>/usr/X11R6/lib/X11/fonts/truetype</dir>
+
+を<fontconfig>の子として追加する必要があります。これだけだと太字などが使えません。(どうしたらいいかは調査中。)
+
+現在はこの設定は不要なはずです。(2004年10月)
+
+** インストールしましたが、起動時にルートパーティションがリードオンリーになってしまいます。 [#u688499f]
+起動時のメッセージ
+       ＊Activating(possible)swap...
+       Adding Swap：500464k swap-space (priority-1)              [ok]
+       *remounting root filesystem read-only (if necessary)...   [!!]
+       *Checking root filesystem ...
+          fsck 1.33(21-Apn-2003)
+       /dev/hdc3:clean,98837/966656 files,324586/1931202blocks   [ok]
+       *Remounting root filesystem read/write ...
+       *Root filesystem could not be mounted read/write:(        [!!]
+/etc/fstabの内容
+ /dev/hdc1		/boot		ext2		noauto,noatime	1 1
+ /dev/hdc3		/		ext3		default		1 1
+ /dev/hdc2		none		swap		sw		0 0
+ /dev/cdroms/cdrom0	/mnt/cdrom	iso9660		noauto,ro,user	0 0
+なお、genkernel時のログの内容は
+       * Creating initrd...
+       Warning: sd_mod.o not found; skipping...
+       Warning: sg.o not found; skipping...
+       Warning: sr_mod.o not found; skipping...
+       Warning: ide-cs.o not found; skipping...
+です。
+どなたか、よろしくご教授ください。
+
+[回答:usata] /dev/hdc3 はルートパーティションなので、dump や fsck 用のフラグは 0 0 にしておく必要があるでしょう。LiveCD で起動してマウントするなどして、1 1 となっている部分を 0 0 に変更してください。
+
+**shutdown時に以下の表示で止まってしまいます。 [#d6e1c2a4]
+
+ Remounting filesystems readonly (waits for 2 seconds, then:) [!!]
+ Give root password for maintenance:
+
+kernel 2.4.x + genkernel 3.x を使うとこうなるらしいです。手でカーネルコンパイルすると問題ないそうです。また、genkernel も 1.x 系列だとだいじょうぶみたいです。
+
+[参考]http://forums.gentoo.org/viewtopic.php?t=141230
+
+**日本語テキストの印刷環境設定方法を教えてください。 [#z808288d]
+[[Gentoo プリンティング ガイド:http://www.gentoo.org/doc/ja/printing-howto.xml]]を参照してください。~
+なお、当然ですが、日本語環境が適切に整っていて該当テキストを正しく表示できていることが前提条件となっています。
+
+
+* Portage編 [#k8379360]
+
+**日本語を使用したい [#m31470dd]
+
+アプリケーションにより以下のタイプに分けられます。
+
+１.元々国際化されているアプリケーション(GNOME,KDE,Sylpheedなど)~
+環境変数を設定することにより使用することが可能ですので,インストール時に何かする必要はありません.
+ 例)
+ # export LANG=ja_JP.eucjp
+
+２.日本語対応のebuildが存在するアプリケーション(w3m,postgresqlなど)~
+USEにnls又はcjkを設定することにより対応できます.
+ 例) 
+ # export USE="cjk nls" 
+(又は/etc/make.confにUSE="cjk nls"と記述。そのとき、次のコマンドが便利です。
+ # useflag -a "cjk nls" 
+) 
+ # emerge w3m
+USE フラグを管理するために便利な ufed (app-admin/ufed) というプログラムもあります。
+ # emerge ufed
+３.日本語専用のebuildが存在するアプリケーション(Canna,Kinput2,jlessなど)~
+ 例) 
+ そのままインストールします.
+ # emerge canna
+
+** GUIのPortage管理ツールはありますか [#m0887386]
+
+現在以下のツールが存在します。
+
+- [[portagemaster:http://portagemaster.sourceforge.net/]] (Java)
+- [[kentoo:http://www.ralfhoelzer.com/kentoo.html]] (KDE)
+- [[portage-prefpane:http://dev.gentoo.org/~hansmi/]] (Mac OS X)
+
+それぞれ
+ # emerge xxx
+でインストール可能ですが、あまりよくメンテナンスされていません。
+
+** ebuildを開発したいのですが、変数や関数の意味が分かりません [#u1fdcda2]
+以下のコマンドを実行すると、マニュアルを読むことが出来ます。
+ $ man 5 ebuild
+日本語版のマニュアルもあります。
+ # emerge jless-iso254
+ # emerge manpages-ja
+ $ LANG=ja_JP.eucJP PAGER=jless man 5 ebuild
+また、repomanというコマンドでチェックを行うことが出来ます。
+ $ cd (ebuild が置いてあるディレクトリ
+ $ repoman scan
+ $ repoman full
+
+** ebuildを作成したのですがどうやって本家に登録すればいいですか [#x44b9dff]
+
+http://bugs.gentoo.org/ から行います。
+
+詳しくは以下のドキュメントを参照してください。~
+http://www.gentoo.org/doc/ebuild-submit.html ~
+http://www.gentoo.org/doc/ja/ebuild-submit.xml (日本語訳)
+
+また、GentooJP ローカルのパッケージを登録できるツリーがあります。
+
+http://ebuild.gentoo.gr.jp/
+
+へ行って手順に従って登録すると、GentooJP の Portage ツリーに反映されます。ebuild 作成の練習、もしくは日本語パッチの問題で本家に持っていけないもの、または日本語で自分の書いた ebuild に対するコメントがほしい、といった場合に活用してください。GentooJP 開発者が本家の開発者と連携して最終的には本家のツリーに持っていけるものは本家のツリーに登録することも目標としています。
+
+** ebuildをbugzillaに登録したのですがなかなか反映されません [#b4f0bdf0]
+３週間から〜１ヵ月くらいかかることもよくありますので、気長に待ちましょう。~
+ある程度経っても何も変化がないようなら、bugzillaのページから催促したほうがよいです。人手が不足しているので、放置されるバグは半年以上平気で放置されます :-(
+
+** /etc/make.globals を誤って消してしまいました [#ra0cdf99]
+以下のコマンドでインストール用tbz2から取り出すことができます。
+ # tar xjpvf stage1-ix86-1.2.tbz2 ./etc/make.globals
+
+** ebuildを開発していますがどこにファイルをおけばいいですか [#ic7c7cf6]
+Portageのコマンドは/usr/portage(または/etc/make.confに記述した位置)に
+ファイルが存在することを前提としています。~
+しかし、/usr/portage以下に開発中のローカルなebuildを置くとemrge syncなどをしたさいに、上書きされたり、削除されたりしてしまいます。~
+
+そういう場合には/etc/make.confに以下を記述することでローカル用のディレクトリを指定することができます。
+Portageのコマンドはこのディレクトリを/usr/portageにoverlayして扱います。
+ PORTDIR_OVERLAY="/usr/local/portage"
+
+** emerge に失敗しました [#vf2e9fa5]
+emergeを実行する環境がまずい場合があります。~
+suでrootになった場合など前のユーザーの設定をひきずっているいないか確認してください。
+ # su -
+でrootになると、前のユーザーの設定をひきずらずにrootになれます。
+
+rootになってもXのterminal上では失敗する場合があります(vim-coreなど)。~
+コンソール上でemergeを実施してみてください。
+
+localeが設定されていると失敗する場合があるようです。環境変数LANG,LC_ALLの設定を確認してください。
+
+emerge自体のバージョンが古いためにemergeが失敗することもあります。よくわからないエラーが出る場合は、
+ emerge --update emerge
+をお勧めします。
+
+それでもだめな場合にはhttp://bugs.gentoo.org/に登録してください。
+
+** パッケージの情報を取得したいのですが [#o6bc74ef]
+qpkg や etcat コマンドが役に立ちます。gentoolkitパッケージに入っているのでemerge gentoolkitしてください。~
+その他の使い方についてはman qpkgを参照してください。 
+現在は qpkg および etcat は非推奨で equery を用いることが推奨されています。qpkg や etcat でバグを見つけても直される可能性が少ないため、機能は貧弱ですが equery を使った方がいいでしょう。また、qpkg は Python で書かれているので遅いですが、Perl で書かれていて高速に動作する epm というパッケージもあります。
+
+ /bin/uname がどのパッケージからインストールされたかを表示
+ $ qpkg -f /bin/uname 
+ もしくは
+ $ equery belongs /bin/uname
+ もしくは
+ $ epm -qf /bin/uname
+
+ sys-apps/portageがシステムに追加したファイルの一覧
+ $ qpkg -l sys-apps/portage
+ もしくは
+ $ equery files sys-apps/portage
+ もしくは
+ $ epm -ql sys-apps/portage
+
+qpkgはgentoolkitパッケージに入っています。
+
+** 配布元がCVSのebuildを作成したいのですが。 [#y6d6a0b6]
+cvs.eclassというのを使用すると手軽に作成できます。~
+サンプル(これ以外の部分は通常のebuildと同様です)
+ ECVS_BRANCH=""
+ ECVS_SERVER="cvs.navi2ch.sourceforge.net:/cvsroot/navi2ch"
+ ECVS_USER="anonymous"
+ ECVS_MODULE="navi2ch"
+ 
+ inherit cvs
+ 
+ S=${WORKDIR}/${ECVS_MODULE}
+ 
+ src_unpack() {
+     cvs_src_unpack
+ }
+
+ただし Gentoo Linux 開発者ポリシーの ebuild ポリシー 
+http://www.gentoo.org/doc/ja/policy.xml に書いてあるように、
+通例 "live" cvs より snapshot cvs のほうが好まれます。Gentoo JP のサイトに
+スナップショットを置くこともできますので、cvs ebuild を作りたい場合はまず
+Gentoo JP dev ML にご一報ください。
+
+** /usr/portage/distfilesに要らなくなったソースがたくさん残っているのですが。 [#m576d7a6]
+自動的に取得されるソースは /usr/portage/distfiles に格納されますが、
+増えるばっかりですね。消すことはまだ考慮されていないようです。
+必要なときに無ければ再度ダウンロードされることになるので、
+中身は全部消してしまっても差し支えありません。
+(サーバ・ネットワークの負荷を考えると、推奨されることではないですが…)
+
+ebuildが更新されることで使われなくなった、古いソースだけを消してしまいたいという
+要求もあると思います。[[本家ML:http://lists.gentoo.org]]のgentoo-userに
+[[面白い方法:http://lists.gentoo.org/pipermail/gentoo-user/2002-August/028970.html]]が投稿されているので、
+試してみてもいいかも知れません。ただし、操作には充分気をつけてください。
+
+**現在インストールされているパッケージ一覧を表示する方法はありますか？ [#ib21fe9d]
+
+equery listもしくはepm -qaを使えば取得できます。
+
+**コンパイル速度を上げたい時にはCPUとメモリのどちらをアップグレードすればよいですか？ [#jf031cb9]
+スワップでも発生していない限り、メモリを増やしたところでコンパイル速度は変わりません。~
+CPUをより高性能なものに取り替えてください。
+
+* 起動スクリプト編 [#i320bb01]
+
+** 手動で起動しようとすると、「〜 has already been started.」のエラーが出ますが、そのサービスは起動していません。なぜですか？ [#o6e901fa]
+
+サービスが途中で落ちたり、直接サービスをkillした場合にこの事象が発生します。
+
+ 例：
+ # /etc/init.d/xdm start
+ * WARNING:  "xdm" has already been started.
+
+この場合以下のコマンドで、サービスが終了していることを教えなければなりません。
+ # /etc/init.d/xdm zap
+  * Manually resetting xdm to stopped state.
+
+** ネットワークの設定を変更して、/etc/init.d/net.eth0 stop start を行いました。すると依存するdhcpなども再起動してしまいました。dhcpが再起動するとIPアドレスが変更されてしまったり不都合が発生します。何かいい方法はありますか？ [#y51ecd4a]
+
+ /etc/init.d/net.eth0 pause start
+としてください。ネットワークだけ再起動します。~
+([[Gentoo-dev ML:http://lists.gentoo.org/pipermail/gentoo-dev/2002-October/015937.html]]より)
+
+*雑多な質問 [#j649a267]
+
+** Gentoo みたいなソースからビルドするディストリビューションだと /usr/include 以下のカーネルヘッダを2.x系に変えるのって大変じゃないですか？ [#ie0b5289]
+
+ユーザ側で入れ換えるだけであれば emerge コマンドを入力するだけなので簡単ですが、開発者側からするとアプリケーションが全部新しいカーネルヘッダでコンパイルして動くかどうか調べないといけないので、大変です。実際にカーネルヘッダを2.6にすることによって壊れるアプリケーションが多々あることが知られていたので、Gentoo では2.6のヘッダーを正式にサポートするまでには時間が掛かりました。

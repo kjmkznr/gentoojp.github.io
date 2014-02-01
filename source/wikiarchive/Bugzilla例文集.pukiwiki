@@ -1,0 +1,65 @@
+#contents
+#title
+
+*パッケージのバージョンをあげてほしい [#u1098efc]
+たいていのパッケージはバージョンが更新されたら新しくなりますが、2週間ほど待っても更新されないようでしたら報告しましょう
+-Summary:(パッケージ名) version bump
+-Description:(パッケージ名) version bump
+
+*どこに、どのような方法で報告したらいいのでしょうか? [#ca1c3878]
+
+下記のバグジラ入門を参考にして下さい。
+
+*バグ報告するための .patch の作成手順 [#a3e556df]
+
+- 修正前: foo.ebuild
+- 修正後: bar.ebuild (UTF8保存)
+
+ diff --unified foo.ebuild bar.ebuild > qux.patch
+
+*○○が違反しているから書き直して下さい!! [#gbcee9b9]
+
+「○○が [[repoman]] や [[metadata.xml]] に違反しているから書き直して下さい!!」と[[バグ報告]]しても、その返事には「いますぐ対処する必要性を感じないかな。あなたが修正ファイルを投稿するなら話は別だけれども。clean up まで待ってよ。」辺りが主流です。どうか厳しいこと言わずに見守って下さい。
+
+*改名だけでヴァージョンアップできましたが、この報告も *.ebuild が必要ですか？ [#ab2bbcc1]
+
+配布元や作成者だけのテストでは [[Gentoo]] において [[mask]] と同じです。[[バグ報告]]を通して、新設された [[Gentoo]] のアーキテクチャチームにテストをお願いして下さい。やがて [[testing]] になり、そして [[stable]] になります。[[バグ報告]]には「ヴァージョンアップ希望」と書いて、その際に「ローカルでは改名だけで成功した」と本文に加えて下さい。添付したければ [[*.ebuild]] を添付しても構わないと思います。
+
+余談ですが、[[Portage]] は単純なヴァージョンアップなら [[*.ebuild]] を直接編集せずともできるように設計されています。この場合 [[Bash]] の知識は問われません。以下の手順です。
+
+小さな [[tree]] を作成します。簡単に改名(この場合は複製)で済ませます。~
+↓~
+ mkdir -p /usr/local/portage/Category_name/Package_name
+ cd /usr/local/portage/Category_name/Package_name
+ cp /usr/portage/Category_name/Package_name/Package_name-1.0.ebuild 
+     ./Package_name-2.0.ebuild
+↓~
+それを追加探索する様、指示します。~
+↓~
+ nano -w /etc/make.conf
+ > PORTAGE_OVERLAY="/usr/local/portage"
+↓~
+このまま続行すると「ファイルが足りない」と注意されるので必要なファイルも複製します。~
+↓~
+ cp -r /usr/portage/Category_name/Package_name/files ./
+↓~
+このまま続行すると「必要なファイルを検査した結果、登録されているハッシュ値が違うので不正ファイルかもしれない」と注意されます。承知した上でハッシュ値を偽造します。尚、[[FEATURES]] で [[GPG署名]]をオンにしておくと開発者の [[GPG署名]]がないハッシュ値は無効とされますので偽造できません。~
+↓~
+ ebuild ./Package_name-2.0.ebuild digest
+↓~
+単純なもの、つまり「パッチが当たらない」などのエラーが発生しなければ[[マージ]]されます。 [[ebuild]] に関連記事があります。~
+↓~
+ ebuild ./Package_name-2.0.ebuild merge
+
+*バグジラ入門 [#c5a6186f]
+
+[[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]] に関連記事があります。
+
+
+=====
+
+-[2005-??-??]
+-[2005-??-??]
+-[2005-12-30] バグジラ入門 (yoshino)
+-[2006-03-12] ○○が違反しているから書き直して下さい!! (yoshino)
+-[2006-03-19] 改名だけでヴァージョンアップできましたが、この報告も *.ebuild が必要ですか？ (yoshino)

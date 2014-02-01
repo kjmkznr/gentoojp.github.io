@@ -1,0 +1,367 @@
+#contents
+#title
+
+*コミュニティ窓口 [#i3a3dc98]
+
+ユーザからの要望を聞く窓口に [[www-apps/bugzilla]] を利用しています。バグ追跡だけに利用しているのではなく、「GCC のドキュメントが欲しいです」や「ヴァージョンアップを希望します」や「RSync ミラー作ったので公認申請します」の類も担当しています。
+
+一度報告すれば、解決されるまで検索する度に出現します。メーリングリストより推奨されます。また、進行段階を "RESOLVED" から "CLOSED" へ進行させる必要はなく、特別な理由がなければするべきではありません。および、解決する人が開発者である必要はありません。[[バグ・デー]]があります。どちらかと言うと解決しようとする人は [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]] 中心で、Forums や ML や IRC を必要以上に見ない方が多いようです。
+
+開発者と言えど自分の知らない分野は解決できません。「日本語表示の方法ぐらい開発者なら誰でも知っていそう」という期待にすら答えられないのが現実です。また、残念ながら解決してくれる人が本家に偏っているのも事実です。「今日は1時間ぐらい余裕があるからバグ潰しをしよう」と思う開発者はまず本家を見ます。そして1つ2つ潰している間に1時間が経過します。メーリングリストの場合は解決できる人が見ていない場合がありますが、[[バグ報告]]の場合は(数週間から数ヶ月かかるかもしれませんが)少なくともできるできないの返事はきます。
+
+[[stable]]、[[testing]]、[[mask]] の目安にもなります。また、[[GLEP]] の 041 より [[QA]] (品質保証)と関係してパッケージテスト専用のスタッフも迎えようとしています。
+
+[[セキュリティ]]上の[[バグ報告]]は [[GLSA]] として発表されます。[[GLSA]] こと "[[Gentoo Linux Security Announcements:http://wiki.gentoo.gr.jp/index.php?GentooLinuxSecurityAnnouncements]]" (または "[[Gentoo Linux Security Advisories:http://wiki.gentoo.gr.jp/index.php?GentooLinuxSecurityAdvisories]]") は [[Securityプロジェクト:http://www.gentoo.org/proj/en/security/index.xml]]による脆弱性注意報告です。
+
+**バグ報告、ドキュメント作成、パッケージ作成、ミラーリング [#a4c019cc]
+
+[[バグ報告]]、[[ドキュメント作成]]、[[パッケージ作成]]、[[ミラーリング]]に関連記事があります。
+
+**バグ・デー [#q2b1af24]
+
+[[バグ・デー]]に関連記事があります。
+
+**バグ報告の活発さ [#r1555473]
+
+毎週発行される [[GWN]] こと[[ジェンツー・ウィークリィ・ニュースレター:http://wiki.gentoo.gr.jp/index.php?GentooWeeklyNewsletter]]の 2005-09-11 から 2005-09-18 間のバグ状況は以下の様になっています。
+
+ ・ 769 new bugs during this period
+ ・ 380 bugs closed or resolved during this period
+ ・ 65 previously closed bugs were reopened this period
+ 
+ Of the 8286 currently open bugs: 101 are labeled 'blocker', 
+ 186 are labeled 'critical', and 547 are labeled 'major'.
+
+7 日間で 769 のバグ(詳細を見るとこの内 61 個は新規 ebuild 登録で新規バグ発見ではない)が報告され、380 のバグが解決され、65 のバグが再発したとわかります。累積で大小あわせ 8286 のバグが未解決で、その内解決しないと先に進めない本当に重大なものが 101、クラッシュやメモリリークなどで利用できないものが  186、主機能の不具合が 547 とされています。残り 7452 は我慢できなくもないバグとされています。
+
+1 年後の[[バグ報告]]( 2006-09-10 から 2006-09-17 間)は以下の状況です。
+
+ ・ 861 new bugs during this period
+ ・ 430 bugs closed or resolved during this period
+ ・ 32 previously closed bugs were reopened this period
+ ・ 166 closed as NEEDINFO/WONTFIX/CANTFIX/INVALID/UPSTREAM during this period
+ ・ 202 bugs marked as duplicates during this period
+ 
+ Of the 11130 currently open bugs: 37 are labeled 'blocker', 
+ 126 are labeled 'critical', and 530 are labeled 'major'.
+
+実際のところコミュニティ全体で言えば 1 ヶ月間で大小含め 3600 以上の報告に対し 1800 以上のバグを修正し、1 年間で 44000 以上の報告に対し 22000 以上のバグを修正していることになります。
+
+[[セキュリティ]]上の[[バグ報告]]は [[GLSA]] として発表されます。
+
+**相手は人間なので間違っても平気です [#i8153efa]
+
+デベロッパへ直接訴えることができます。間違っても本文が伝われば間違った登録項目はデベロッパ側が修正してくれます。
+
+MIT (マサチューセッツ工科大学)や CMU (カーネギーメロン大学)等学生のジョークは無視します。
+
+もう少し言えば、本文が伝わればいいので自身でパッチが書けなくともできます。ただし、パッチファイルがないと複数の報告があった場合に優先度が下がります。デベロッパは [[Gentoo]] が職業ではないので、多く(優先度が低いもの)は数週間から数ヶ月待ちます。本文が伝わるとはそういった彼等が再現できるようにすることです。
+
+*バグジラ入門 [#n3831034]
+
+[[バグ報告]]、[[ドキュメント作成]]、[[パッケージ作成]]に個々の流れがあります。
+
+ログイン後の詳しい手順は [[Bugzillaガイド:http://www.gentoo.org/doc/en/bugzilla-howto.xml]]、[[ebuild新規登録:http://www.gentoo.org/doc/ja/ebuild-submit.xml]]、[[セキュリティ・バグの検索:http://www.gentoo.org/security/en/bug-searching.xml]]、[[Bugzillaのヘルプ:http://bugs.gentoo.gr.jp/queryhelp.cgi]]、[[あなたがGentooLinuxに貢献できる事:http://www.gentoo.gr.jp/jpmain/contribution.xml]]、[[Bugzilla例文集:http://wiki.gentoo.gr.jp/index.php?%5B%5BBugzilla%CE%E3%CA%B8%BD%B8%5D%5D]]や[[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]] に参考記事があります。
+
+**バグジラ用語のニュアンス [#a0210c00]
+
+[[www-apps/bugzilla]] とほとんど同じです。
+
+***Status (進行段階)のニュアンス...但し担当者交代などで戻る時もあります [#kfadfc50]
+
+-[Unconfirmed] 未確認です。
+-[New] 担当者を探しています。
+-[Assigned] 担当者が見つかりました、結果報告をお待ち下さい。
+-[Reopened] 一度解決しましたが再発しました、結果報告をお待ち下さい。
+-[Resolved] 担当者より結果報告が出てます、反映されるには QA (品質保証)検査が残っています。
+-[Verified] QA (品質保証)に合格しました、stable には未だ待って下さい。
+-[Closed] (Gentoo では使用しないで下さい。)
+
+***Resolution (解決を試みた結果)のニュアンス [#y69df6b9]
+
+-[Fixed] 直しました。
+-[Invalid] バグではありません。
+-[Wontfix] バグかもしれませんが直しません。それは他のパッケージにも影響するか、gentooの問題ではないか、だからです。
+-[Later] (使用されていません。)
+-[Remind] (使用されていません。)
+-[Duplicate] 既に報告済みです。報告前に検索を御願いします。
+-[Worksforme] 私では解決できませんでした。教えてくれる人がいたり、私自身がスキルアップできれば話は違うのですが……申し訳ありません。
+-[moved] 違う Product に移動しました。
+-[needinfo] 情報が足りず、報告内容が理解できませんでした。情報を追加して下さい。
+
+***Severity (被害の範囲)のニュアンス [#q6a421a7]
+
+-[Blocker] 他の開発者にも影響します。早急に対策して下さい。
+-[Critical] 全く使えません。
+-[Major] 主要機能が駄目です。意味がありません。
+-[Normal] 一部機能が駄目です。困ります。
+-[Minor] ユーザ設定でどうにかなるのですが……。
+-[Trivial] どうでもいいかもしれませんが……。
+-[Enhancement] 不具合報告ではなく、よりよくするための自分の作品です。
+
+**Main Page [#ye00cc49]
+
+具体的な URI は http://bugs.gentoo.org/ です。
+
+http://bugs.gentoo.org/createaccount.cgi でユーザ登録します。登録に必要なメールアドレスはフリーメールでも構いません。不安であれば偽名で適当に1つ作ってみて下さい。その後作り直しても良いし、最初のアカウント登録内容の変更をしても構いません。
+
+**Login Page [#q64f18db]
+
+登録すると以下の機能が利用できます。使うのは「Advanced search of existing reports」と「Enter a new bug report」がほとんどです。
+
+***View Bugs Reported Today [#ff37a3a7]
+
+:View Bugs Reported Today|本日報告されたばかりのバグ報告のリストです。開発者が利用します。
+
+***Search existing bug reports [#ve773009]
+
+:Search existing bug reports|バグ報告を検索します。同類の報告がないかどうか調査できます。
+
+***Advanced search of existing reports [#wb10126e]
+
+:Advanced search of existing reports|バグ報告を検索します。同類の報告がないかどうか調査できます。より詳細な条件で検索します。
+
+***Enter a new bug report [#e324ebc3]
+
+:Enter a new bug report|バグ報告をします。バグ報告以外にもコミュニティ窓口として利用して構いません。
+
+***Summary reports and charts [#r8bbae36]
+
+:Summary reports and charts|統計情報です。
+
+***Change password or user preferences [#i60e4201]
+
+:Change password or user preferences|このバグジラを活用するにはログイン、つまりユーザ登録が必要です。そのパスワード等を変更します。
+
+***Log out bugzilla_user@mail.google.ne.jp [#daccedeb]
+
+:Log out bugzilla_user@mail.google.ne.jp|ログアウトします。
+
+***Add to Sidebar (requires a Mozilla browser like Mozilla Firefox) [#y79501eb]
+
+:Add to Sidebar (requires a Mozilla browser like Mozilla Firefox)|サイドバー機能を使います。
+
+***SSL Enabled Gentoo Bugzilla [#jde32bd1]
+
+:SSL Enabled Gentoo Bugzilla|SSL で続きを行います。
+
+**Advanced search of existing reports [#f7d73aea]
+
+具体的な URI は http://bugs.gentoo.org/query.cgi?format=advanced です。
+
+記録に残らないので適当に何回が試してみて下さい。選択済みの項目を減らすには、[[www-client/mozilla-firefox]] の場合は ctrl + click で解除です。[[app-emacs/emacs-w3m]] の場合は enter で解除です。
+
+***Summary [#r5b207c5]
+
+-Summary:
+--[contains all of the words/strings] 区切られた検索文字列同士の関係です。
+--[ ] 検索文字列です。空白が区切り文字です。デフォルトでは全てに一致します。
+
+***Product [#n6903884]
+
+-Product:
+--[ ] 分類区分です。デフォルトでは全てに一致します。
+
+***Component [#ra18605c]
+
+-Component:
+--[ ] 分類区分です。デフォルトでは全てに一致します。
+
+***Version [#t11fc232]
+
+-Version:
+--[ ] 分類区分です。デフォルトでは全てに一致します。
+
+***A comment [#j61ba6a1]
+
+-A comment:
+--[contains the string] 区切られた検索文字列同士の関係です。
+--[ ] 検索文字列です。空白が区切り文字です。デフォルトでは全てに一致します。
+
+***The URL [#bd96b0fa]
+
+-The URL:
+--[contains all of the words/strings] 区切られた検索文字列同士の関係です。
+--[ ] 検索文字列です。空白が区切り文字です。デフォルトでは全てに一致します。
+
+***Whiteboard [#g7dd479d]
+
+-Whiteboard:
+--[contains all of the words/strings] 区切られた検索文字列同士の関係です。
+--[ ] 検索文字列です。空白が区切り文字です。デフォルトでは全てに一致します。
+
+***Keyword [#e3ca674d]
+
+-Keyword:
+--[contains all of the keywords] 区切られた検索文字列同士の関係です。
+--[ ] 検索文字列です。空白が区切り文字です。デフォルトでは全てに一致します。
+
+***Status [#s0458320]
+
+-Status:
+--[NEW ASSIGNED REOPEND] Status (進行段階)です。
+
+***Resolution [#e46939bb]
+
+-Resolution:
+--[ ] Resolution (解決を試みた結果)です。デフォルトでは全てに一致します。
+
+***Severity [#w2efef1b]
+
+-Severity:
+--[ ] Severity (被害の範囲)です。デフォルトでは全てに一致します。
+
+***Priority [#ofbd8609]
+
+-Priority:
+--[ ] Priority (解決順の優先度)です。デフォルトでは全てに一致します。
+
+***Hardware [#aa76f2eb]
+
+-Hardware:
+--[ ] Hardware (バグを確認したアーキテクチャ)です。デフォルトでは全てに一致します。
+
+***OS [#s0a679b8]
+
+-OS:
+--[ ] OS (バグを確認したオペレーションシステム)です。デフォルトでは全てに一致します。
+
+***Email and Numbering [#r4a325e5]
+
+-Email and Numbering:
+--[the Bug assignee] メールアドレス宛先分類です。
+--[contains] 検索文字の関係です。
+--[ ] 検索メールアドレスです。デフォルトでは全てに一致します。
+
+***Only bugs changed between [#aac3104b]
+
+-Only bugs changed between:
+--[ ] 期間の開始です。
+--[Now] 期間の終了です。デフォルトでは全てに一致します。
+
+***where one or more of the following changed [#v864f578]
+
+-where one or more of the following changed:
+--[ ] 変更のあった項目の指定です。デフォルトでは全てに一致します。
+
+***and the new value was [#m0dca08d]
+
+-and the new value was:
+--[ ] 変更後の値の指定です。デフォルトでは全てに一致します。
+
+***bugs number [#b77c2959]
+
+-bugs number:
+--[Only include] 区切られた bugsID 同士の関係です。
+--[ ] デフォルトでは全てに一致します。
+
+***sort results by [#uec4651c]
+
+-sort results by:
+--[Bug Number] 検索結果の順番です。
+
+**Enter a new bug report [#sece232f]
+
+具体的な URI は http://bugs.gentoo.org/enter_bug.cgi です。
+
+記録に残ります。とはいえ後から変更も可能です。ちょっとした間違いであればデベロッパ側で修正してくれるので、各項目は神経質にならなくとも平気です。本文、つまり報告内容だけはしっかり伝わるように書いて下さい。
+
+[[*.ebuild]] や [[*.patch]] や [[*.xml]] を自分で用意していれば、一度報告してから attachment で情報追加という形になります。もしも催促するなら「ずっとこの問題について頑張ってきました。新しい発見があったので追加します。私の能力では解決に近づいているかどうかも分りません。何かアドバイスがあれば教えて下さい。その発見というのは……」ぐらいで喧嘩しないのが無難です。
+
+***Reporter [#o36ed1d6]
+
+-Reporter:
+--[bugzilla_user@mail.google.ne.jp] ユーザ名です。フリーメールで構いません。
+
+***Product [#gd772595]
+
+-Product:
+--[Gentoo Linux] 1つ前のページで選択済みです。
+
+***Version [#bfd02b7a]
+
+-Version:
+--[unspecified] 分類区分です。
+
+***Component [#g5301b9d]
+
+-Component:
+--[Applications] 分類区分です。
+
+***Platform [#m945f8a8]
+
+-Platform:
+--[All] Hardware (バグを確認したアーキテクチャ)です。
+
+***OS [#vbccfa2e]
+
+-OS:
+--[Other] OS (バグを確認したオペレーションシステム)です。
+
+***Priority [#i3f17720]
+
+-Priority:
+--[P2] Priority (解決順の優先度)です。開発側で変更するかもしれません。
+
+***Severity [#w72d0510]
+
+-Severity:
+--[normal] Severity (被害の範囲)です。開発側で変更するかもしれません。
+
+***Initial State [#zd26af61]
+
+-Initial State:
+--[new] Status (進行段階)です。
+
+***Assignto [#efb31ced]
+
+-Assignto:
+--[ ] 作成/更新した人のメールアドレスです。[[metadata.xml]] か ChangeLog 参考。デフォルトはコミュニティに調べさせます。当然ですが、これは解決まで遅くなるだけです。
+
+***Cc [#a4f9b755]
+
+-Cc:
+--[ ] 他にも知らせたい人のメールアドレスです。
+
+***URL [#jc2bfcc8]
+
+-URL:
+--[ ] 参考にしたウェブページです。
+
+***Summary [#zca18d52]
+
+-Summary:
+--[ ] 検索される時に分り易いものにします。
+
+***Description [#w28a9621]
+-Description:
+--[ ] 以下の5つがあれば大丈夫だと思います。足りないと Resolution にまともな返事が貰えないかもしれません。当然ですが、これは解決まで遅くなるだけです。
+---Overview Description -- 概要です。ここで伝わらないと無視されるので、具体的な名称を使って下さい。
+---Step to Reproduce -- 再現するまでの手順を書いて下さい。再現できないと原因が特定できないため、解決できません。番号リストによる手順の説明が推奨されます。ちなみに、ドキュメントに関する意見などの場合にはこの項目が不要です。
+---Actual Results -- 再現するとしても 100% 同じ条件になるとは限らないので、あなたの場合のエラーメッセージを記述して下さい。/etc/make.conf に $PORTAGE_LOGDIR = /var/log/portage/ を設定すると、各パッケージのコンパイル出力が保存されます。長過ぎても意欲を削ぐ原因になってしまいますが、短か過ぎると伝わりません。パッケージのエラーメッセージとパッケージ管理システムのエラーメッセージの両方を適当に転載して下さい。ちなみに、ドキュメントに関する意見などの場合には間違っている箇所を記述して下さい。
+---Expected Results -- 実際はどうなるのが正しいと思われるのかを書いて下さい。例えば「コンパイルが正常に終了するはず」や「パッケージ専用のユーザとグループが用意されるはず」や「hoge-fuga/foo パッケージとの連携ができるはずなので USEフラグが増やされるべき」などです。ちなみに、ドキュメントに関する意見などの場合には正しいと思う文章を記述して下さい。
+---Additional Information -- その時の `emerge --info` の結果を転載して下さい。パッケージの問題ではなく、間違ったキーワードを設定しているために起こったものかもしれません。ちなみに、ドキュメントに関する意見などの場合にはこの項目が不要です。
+
+________
+
+[[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]) の詳細は[[プロジェクトリスト:http://www.gentoo.org/proj/en/metastructure/projects.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]), [[Gentoo FAQ:http://www.gentoo.org/doc/ja/?catid=faq]], [[GentooJP FAQ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A3%C6%A3%C1%A3%D1%5D%5D]]
+- [[インストール]], [[Stage]], [[GRP]], [[Portageツリー]]
+- [[インストールした後にできること]], [[日本語入力設定事例集]], [[日本語デスクトップ環境/パッケージ]]
+- [[Gentooが採用している技術]]
+- [[コミュニティとの連絡手段]], [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]
+- [[本家に関連しそうな言葉]], [[GLEP]], [[コピーライト]], [[ライセンス]]
+
+[[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]]) の詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]])
+- [[メタ・ディストリビューション]], [[USEフラグ]], [[profile]], [[catalyst]], [[GNAP]]
+- [[コンパイル]], [[バイナリパッケージ]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+
+________
+
+-[2005-09-19] 
+-[2006-09-17] 自分が調べた際のメモをほぼそのまま貼りつけているだけだったのを省察しました。 (yoshino)

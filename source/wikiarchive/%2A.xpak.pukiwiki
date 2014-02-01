@@ -1,0 +1,58 @@
+#contents
+#title
+
+* *.tbz と *.bz2 と *.xpak [#xc39a581]
+
+[[dbfile]] と呼ばれます。
+
+[[バイナリパッケージ]]は [[*.tbz]] ですが、それは 2 つからなります。bzip2 圧縮されたパッケージ本体 ([[*.bz2]]) と [[database]] のパッケージ情報を圧縮した書庫 ([[*.xpak]]) です。[[sys-apps/portage]] や [[apps-portage/portage-utils]] で操作できます。
+
+** *.xpak にはどんなものが含まれるのか [#hdb1d1cb]
+
+[[database]] の内容です。
+
+- CATEGORY
+- SLOT
+- USE
+- EAPI
+- DEPEND
+- DESCRIPTION
+- LICENSE
+- environment.bz2
+- IUSE
+- RDEPEND
+- foo.ebuild
+- CXXFLAGS
+- NEEDED
+- CHOST
+- PDEPEND
+- CFLAGS
+- KEYWORDS
+- PF
+- CBUILD
+- HOMEPAGE
+- FEATURES
+
+
+________
+
+[[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]) の詳細は[[プロジェクトリスト:http://www.gentoo.org/proj/en/metastructure/projects.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]), [[Gentoo FAQ:http://www.gentoo.org/doc/ja/?catid=faq]], [[GentooJP FAQ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A3%C6%A3%C1%A3%D1%5D%5D]]
+- [[インストール]], [[Stage]], [[GRP]], [[Portageツリー]]
+- [[インストールした後にできること]], [[日本語入力設定事例集]], [[日本語デスクトップ環境/パッケージ]]
+- [[Gentooが採用している技術]]
+- [[コミュニティとの連絡手段]], [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]
+- [[本家に関連しそうな言葉]], [[GLEP]], [[コピーライト]], [[ライセンス]]
+
+[[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]]) の詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]])
+- [[メタ・ディストリビューション]], [[USEフラグ]], [[profile]], [[catalyst]], [[GNAP]]
+- [[コンパイル]], [[バイナリパッケージ]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+
+________
+
+-[2006-09-17] (yoshino)

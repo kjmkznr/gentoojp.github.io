@@ -1,0 +1,13 @@
+#contents
+#title
+
+*Gentoo と project.xml [#h685d6dc]
+
+各プロジェクトの紹介文です。[[TLP]] だけでなくそのサブプロジェクトの参加メンバーやプロジェクトゴールなどが記述されています。[[プロジェクトリスト:http://www.gentoo.org/proj/en/metastructure/projects.xml]]に反映されます。[[Project.xml ガイド:http://www.gentoo.org/proj/en/metastructure/projectxml.xml]]や [[XML ガイド:http://www.gentoo.org/doc/en/xml-guide.xml]]を参考にして下さい。[[XML]] に関連記事があります。
+
+開発用ドキュメントやプロジェクト特有のドキュメントは、本家が英語を理解する人を求めているため翻訳されません。
+
+========
+
+-[2005-10-20] 
+-[2005-10-20] (yoshino)

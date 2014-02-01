@@ -1,0 +1,120 @@
+#title
+#contents
+
+* ebuild file を理解せずに特定パッケージだけコンパイルフラグの調整 [#ra861bfd]
+
+公式サイトのマニュアル [paludis_manual]_ で確認して下さい。
+
+** 本来は USE_flag で完結すべきで、これは「メンテナの反応が待てないため、とりあえず、どうにかなれば良い」程度です [#s2c50685]
+
+ebuild file を理解する予定の方々は自作 ebuild files で管理した方が確実ですから、読み飛ばして下さい。/etc/paludis/bashrc です。パッケージ毎に use_flag 経由ではなく直接 ebuild 変数を追加します。
+
+
+
+ # [A-Za-z_][A-Za-z0-9_]*
+ # foo-bar/baz-qux-quux -> foo_bar_baz_qux_quux
+ function <category>_<package> () {
+   export FOO=foo
+   export BAR=bar
+   export BAZ=baz
+ }
+ 
+ function <category>_<package> () {
+   export FOO=foo
+   export BAR=bar
+   export BAZ=baz
+ }
+ 
+ function <category>_<package> () {
+   export FOO=foo
+   export BAR=bar
+   export BAZ=baz
+ }
+ 
+ # [A-Za-z_][A-Za-z0-9_]*
+ # foo-bar/baz-qux-quux -> foo_bar_baz_qux_quux
+ declare functionname=$(echo "$CATEGORY/$PN" | sed -e 's:[+./-]:_:g' )
+ if [[ typeset -f "$functionname" ]] ; then 
+   eval "$functionname"
+ fi
+
+** export して意味がありそうな変数 [#c0aa22a0]
+
+helper を活用していれば反映されるのですが、意図的にコンパイルフラグを無視するものもあり、実際は各 ebuild file に依存します。どんな値が有効なのかは具体的なシステムコマンドに依存します。本来は USE_flag で完結すべきで、これは「メンテナの反応が待てないため、とりあえず、どうにかなれば良い」程度です。
+
+- EXTRA_ECONF
+- EXTRA_EINSTALL
+- EXTRA_EMAKE
+- DESTTREE
+- INSDESTTREE
+- EXEDESTTREE
+- DOCDESTTREE
+- INSOPTIONS
+- DIROPTIONS
+- EXEOPTIONS
+- LIBOPTIONS
+- SANDBOX_READ
+- SANDBOX_WRITE
+- SANDBOX_PREDICT
+- SANDBOX_DENY
+- SKIP_FUNCTIONS
+
+*** $SKIP_FUNCTIONS が理解する phase [#u46bf6c6]
+
+Paludis 独自の phase が加えられています。test は make test 等、tidyup は rm -rf /var/tmp/portage/<category><package> 等、strip は strip -g file 等を省略します。digest、sandbox、document がオンオフ選択出来ない設計なのは意図的だそうです。
+
+- setup
+- nofetch
+- unpack
+- compile
+- test
+- install
+- preinst
+- postinst
+- prerm
+- postrm
+- config
+- init
+- prepare
+- fetch
+- merge
+- unmerge
+- tidyup
+- strip
+- loadenv
+- saveenv
+- fetchbin
+- initbin
+- unpackbin
+
+
+
+_____
+
+
+.. [paludis_manual] http://paludis.pioto.org/
+
+.. [ebuild_metadata(ebuild-defined_variables)] http://wiki.gentoo.gr.jp/index.php?ebuild_metadata(ebuild-defined_variables) に関連記事があります。
+
+.. [the_ebuild_environment(defined_variables)] http://wiki.gentoo.gr.jp/index.php?the_ebuild_environment(defined_variables) に関連記事があります。
+
+.. [ebuild_phase(ebuild-defined_functions)] http://wiki.gentoo.gr.jp/index.php?ebuild_phase(ebuild-defined_functions) に関連記事があります。
+
+.. [the_ebuild_environment(defined_commands)] http://wiki.gentoo.gr.jp/index.php?the_ebuild_environment(defined_commands) に関連記事があります。
+
+
+________________
+
+
+
+- [[Gentoo_Package_Manager]], [[Portage]], [[Paludis]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+- [[memorandum_about_Paludis(1)]], [[memorandum_about_Paludis(2)]], [[memorandum_about_Paludis(3)]], [[memorandum_about_Paludis(4)]], [[memorandum_about_Paludis(5)]], [[memorandum_about_Paludis(6)]], [[memorandum_about_Paludis(7)]], [[memorandum_about_Paludis(8)]], [[memorandum_about_Paludis(9)]], [[memorandum_about_Paludis(10)]], [[memorandum_about_Paludis(11)]], [[memorandum_about_Paludis(12)]], [[memorandum_about_Paludis(13)]], [[memorandum_about_Paludis(14)]], [[memorandum_about_Paludis(15)]], [[memorandum_about_Paludis(16)]]
+- [[repository]], [[USE_flag]], [[profile]]
+- [[ebuild_files]], [[ebuild_metadata(ebuild-defined_variables)]], [[ebuild_phase(ebuild-defined_functions)]], [[the_ebuild_environment(defined_variables)]], [[the_ebuild_environment(defined_commands)]], [[bash_for_ebuild]]
+
+
+________________
+
+- [2007-05-04] 気に入ったら書き足して下さい。 (yoshino)

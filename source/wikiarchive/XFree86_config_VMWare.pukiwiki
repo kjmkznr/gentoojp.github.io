@@ -1,0 +1,100 @@
+COLOR(RED):SIZE(20):CENTER:''！！！このページにはまだまだ嘘が有るかもしれません！！！''
+
+*VMWareでのXF86Config [#m7aa706e]
+ Section "ServerLayout"
+ 	Identifier     "XFree86 Configured"
+ 	Screen      0  "Screen0" 0 0
+ 	InputDevice    "Mouse0" "CorePointer"
+ 	InputDevice    "Keyboard0" "CoreKeyboard"
+ EndSection
+ 
+ Section "Files"
+ 	RgbPath      "/usr/X11R6/lib/X11/rgb"
+ 	ModulePath   "/usr/X11R6/lib/modules"
+ 	FontPath     "/usr/X11R6/lib/X11/fonts/misc/"
+ 	FontPath     "/usr/X11R6/lib/X11/fonts/Speedo/"
+ 	FontPath     "/usr/X11R6/lib/X11/fonts/Type1/"
+ 	FontPath     "/usr/X11R6/lib/X11/fonts/CID/"
+ 	FontPath     "/usr/X11R6/lib/X11/fonts/75dpi/"
+ 	FontPath     "/usr/X11R6/lib/X11/fonts/100dpi/"
+ EndSection
+ 
+ Section "Module"
+ 	Load  "extmod"
+ 	Load  "xie"
+ 	Load  "pex5"
+ 	Load  "dri"
+ 	Load  "dbe"
+ 	Load  "record"
+ 	Load  "xtrap"
+ 	Load  "glx"
+ 	Load  "speedo"
+ 	Load  "type1"
+ 	Load  "freetype"
+ EndSection
+ 
+ Section "InputDevice"
+ 	Identifier  "Keyboard0"
+ 	Driver      "keyboard"
+ EndSection
+ 
+ Section "InputDevice"
+ 	Identifier  "Mouse0"
+ 	Driver      "mouse"
+ 	Option	    "Protocol" "PS/2"
+ 	Option	    "Device" "/dev/mouse"
+ EndSection
+ 
+ Section "Monitor"
+ 	Identifier   "vmware"
+ 	VendorName   "VMware"
+ 	ModelName    "Virtual Monitor"
+ 	HorizSync    1 - 10000
+ 	VertRefresh  1 - 10000
+ 	ModeLine "640x480" 100 640 700 800 900 480 500 600 700
+ 	ModeLine "800x600" 100 800 900 1000 1100 600 700 800 900
+ 	ModeLine "1024x768" 100 1024 1100 1200 1300 768 800 900 1000
+ 	ModeLine "1152x864" 100 1152 1200 1300 1400 864 900 1000 1100
+ 	ModeLine "1152x900" 100 1152 1200 1300 1400 900 1000 1100 1200
+ 	ModeLine "1280x1024" 100 1280 1300 1400 1500 1024 1100 1200 1300
+ 	ModeLine "1376x1032" 100 1376 1400 1500 1600 1032 1100 1200 1300
+ 	ModeLine "1600x1200" 100 1600 1700 1800 1900 1200 1300 1400 1500
+ 	ModeLine "2364x1773" 100 2364 2400 2500 2600 1773 1800 1900 2000
+ EndSection
+ 
+ Section "Device"
+ 	### Available Driver options are:-
+ 	### Values: <i>: integer, <f>: float, <bool>: "True"/"False",
+ 	### <string>: "String", <freq>: "<f> Hz/kHz/MHz"
+ 	### [arg]: arg optional
+ 	#Option     "HWcursor"                  # [<bool>]
+ 	#Option     "NoAccel"                   # [<bool>]
+ 	Identifier  "VMware SVGA"
+ 	Driver      "vmware"
+ 	VendorName  "VMware"
+ 	BoardName   "VMware SVGA"
+ 	#ChipSet     "generic"
+ 	BusID       "PCI:0:15:0"
+ EndSection
+ 
+ Section "Screen"
+ 	Identifier "Screen0"
+ 	Device     "VMware SVGA"
+ 	Monitor    "vmware"
+ 	DefaultDepth    24
+ 	SubSection "Display"
+ 		Depth     8
+ 		Modes     "800x600" "640x480" "1024x768"
+ 	EndSubSection
+ 	SubSection "Display"
+ 		Depth     16
+ 		Modes     "1024x768"
+ 	EndSubSection
+ 	SubSection "Display"
+ 		Depth     24
+ 		Modes     "1024x768"
+ 	EndSubSection
+ EndSection
+
+
+RIGHT:'''最終更新日 2002-10-07 (月) 21:11:14'''

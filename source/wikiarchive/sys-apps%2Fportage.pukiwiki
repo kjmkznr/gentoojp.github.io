@@ -1,0 +1,10 @@
+#title
+#contents
+
+GPM/Ports System [GPM]_ の一種です。マージ後は `man emerge` が可能です。関連記事 [Portage]_ があります。
+
+_____
+
+.. [GPM] http://wiki.gentoo.gr.jp/index.php?Gentoo_Package_Manager
+
+.. [Portage] http://wiki.gentoo.gr.jp/index.php?Portage

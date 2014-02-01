@@ -1,0 +1,83 @@
+#contents
+#title
+
+*Portage と Portageツリー (tree) の Snapshot [#ia70f2a0]
+
+「Portage」と「ツリー」ではなく「Portageツリー」で 1 つのジェンツー用語です。ルートは /usr/portage ……というより、厳密に言えば CVS ツリーである 「Gentoo Linux Tree」 の 「gentoo-x86」 モジュールが [[Portageツリー]]だったはずです。
+
+FreeBSD の「Ports/Packages」「Portsツリー」を意識するかどうかとか「state configuration の tree？」とか「emerge --tree？」とか悩むぐらいなら「/usr/portage 以下の [[*.ebuild]] や [[*.patch]] 等ファイル群」ぐらいに思えば通じます。
+
+[[Portageツリー]] には [[profile]] も含まれます。[[distfiles]] や [[packages]] は含まれません。[[Portageツリー]]が [[*.ebuild]]、[[distfiles]] がソースファイル、[[packages]] がバイナリファイルです。
+
+-[[Stage 配布時の Snapshot:http://gentoo.channelx.biz/releases/snapshots/]]
+-[[最新の Snapshot:http://gentoo.channelx.biz/snapshots/]]
+-[[Alt-overlay の Snapshot:http://gentoo.channelx.biz/experimental/snapshots/]]
+-[[viewcvs.gentoo.org:http://viewcvs.gentoo.org/]] (廃止) → [[本家の公開レポジトリ:http://sources.gentoo.org/]]
+-[[packages.gentoo.org:http://packages.gentoo.org/]]
+
+***「ツリー(木構造)」(辞書検索例) [#p38a9801]
+
+[[wikipedia:http://ja.wikipedia.org/wiki/%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%9A%E3%83%BC%E3%82%B8]] の「[[ツリー(木構造):http://ja.wikipedia.org/wiki/%E6%9C%A8%E6%A7%8B%E9%80%A0_%28%E3%83%87%E3%83%BC%E3%82%BF%E6%A7%8B%E9%80%A0%29]]」参考。
+
+*** repository [#g57a4bce]
+
+[[tree]] は [[repository]] の一種です。親子関係後の木構造を示します。portage tree ならば gentoo repository、つまり本家が提供する [[repository]] と言う点を強調します。
+
+**emerge --sync は Portageツリーを同期します [#pfbd69eb]
+
+`emerge --sync` は [[Portageツリー]]を本家の CVSツリー(厳密にはミラーリングしている国内サーバ)と同期する事を意味します。
+
+[[Portage]] が動く環境は、使用する使用しないに限らず、11000 種 24000 枚を越える [[*.ebuild]] をローカルに保有します。そのサイズは 20MB を越えます。保有する位置を [[Portageツリー]]と言います。保有するのは [[*.ebuild]] だけです。ソースコードは必要になったら自動的にダウンロードして [[distfiles]] に保存します。[[マージ]]後のパッケージは[[バイナリパッケージ]]として [[packages]] に残すことも選択できます。
+
+標準では [[Portageツリー]]の同期に [[net-misc/rsync]] を使います。[[Portage]] には HTTP 経由でも同期を可能にする [[emerge-webrsync]] コマンドが含まれてます。差分のみをダウンロードする [[app-portage/emerge-delta-webrsync]] もあります。またソースファイルの差分のみをダウンロードする [[app-portage/getdelta]] もあります。
+
+内部のファイルを落書しようが改名しまくろうが、同期してしまえば元に戻ります。[[Portageオーバーレイ]]は `emerge --sync` に左右されません。
+
+ツリーの同期の途中で通信が切断されてしまった場合でも問題ありません。再び同じ命令をすれば再開位置を自動計算してくれます。これはソースコードをダウンロード中に切断されてしまった場合でも同じです。
+
+***Portageオーバーレイ [#m8c12839]
+
+[[Portageオーバーレイ]] に関連記事があります。
+
+**配置場所 [#vba92783]
+
+配置場所はルートファイルシステムでなくても構いません。例えば共有ファイルシステムや tmpfs の様なメモリ上です。/usr/portage だけでなく、/var/db/pkg や /var/cache/edb も忘れないで下さい。記事が[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]にあります。[[ネットワーク・インターフェイス]]、[[ネットワーク・ファイルシステム]]、[[ボリューム・マネージャ]]に関連記事があります。
+
+**マージ済のパッケージ群で、現在の tree にはもうその *.ebuild のリヴィジョンがないもの [#h3a48493]
+
+[[マージ]]済のパッケージ群で、現在の [[tree]] にはもうその [[*.ebuild]] のリヴィジョンがないものを調査するのであれば [[dev-python/ipython]] (シェル並に対話機能を強化した [[Python]]) 上で `import portage ; [x for x in portage.db["/"]["vartree"].getallcpv() if len(portage.portdb.xmatch("match-all","="+x))==0]` とでも入力すれば答えがでます。[[dev-python/ipython]] を使っているのでもなければ "list comprehension" 記述にする必要はないのでスクリプトファイルにでもして下さい。
+
+ないからといって必ずしもアップデートする必要はありません。しかしながら [[GLSA]] の保護対象ではないので、[[GLSA]] の脆弱性注意報告が該当するか否かは各自で判断する必要があります。
+
+*Snapshot と Stage1, Stage2 [#d5470168]
+
+[[Stage]] の stage1, stage2 などは配布時の [[Portageツリー]]で行うのが無難です。
+
+*app-portage/layman [#v25a7ab4]
+
+[[app-portage/layman]] に関連記事があります。
+
+________
+
+[[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]) の詳細は[[プロジェクトリスト:http://www.gentoo.org/proj/en/metastructure/projects.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]), [[Gentoo FAQ:http://www.gentoo.org/doc/ja/?catid=faq]], [[GentooJP FAQ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A3%C6%A3%C1%A3%D1%5D%5D]]
+- [[インストール]], [[Stage]], [[GRP]], [[Portageツリー]]
+- [[インストールした後にできること]], [[日本語入力設定事例集]], [[日本語デスクトップ環境/パッケージ]]
+- [[Gentooが採用している技術]]
+- [[コミュニティとの連絡手段]], [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]
+- [[本家に関連しそうな言葉]], [[GLEP]], [[コピーライト]], [[ライセンス]]
+
+[[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]]) の詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]])
+- [[メタ・ディストリビューション]], [[USEフラグ]], [[profile]], [[catalyst]], [[GNAP]]
+- [[コンパイル]], [[バイナリパッケージ]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+
+________
+
+-[2005-10-20] (yoshino)
+-[2006-09-17] (yoshino)
+-[2006-11-05] ハンドブックに sys-apps/Portage-2.1 に関する説明が加えられるようです。今後はハンドブックが確実です。 (yoshino)

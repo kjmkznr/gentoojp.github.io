@@ -1,0 +1,164 @@
+#title
+#contents
+
+* Portage と同様な操作をする手順 [#lc04c727]
+
+公式サイトのマニュアル [paludis_manual]_ で確認して下さい。
+
+** 対話型操作のための準備 [#t2911815]
+
+- app-admin/eselect
+- app-shells/bash-completion
+- sys-apps/paludis
+
+以上をマージします。前の二つは動作に関係ありませんが、コマンドライン操作への解決策としてコミュニティが用意しているものです。引数を暗記せずに済みます。これを標準にするか否かの問題があるため、マージしただけでは駄目です。以下は標準にする手順です。root 権限で行って下さい。
+
+ eselect bashcomp list
+ eselect bashcomp enable --global <番号>
+
+シェルを再起動させても反応がなければ /etc/profile が原因です。
+
+ cp /etc/profile.d/bash-completion /etc/profile.d/bash-completion.sh
+
+それでも反応がなければログインシェルでないのが原因です。/etc/profile を読み込むのはログインシェルです。ログインシェルでなければ rc file、つまり ~/.bashrc で /etc/profile.d/bash-completion を読み込ませて下さい。
+
+ if [[ -f /etc/profile.d/bash-completion ]] ; then
+   source /etc/profile.d/bash-completion
+ fi
+
+tar <Tab> や paludis --<Tab> を試してみて下さい。引数の候補が出現します。app-editors/emacs 愛好者は「コレ要らないから C + c, C + p, C + i とか出来ないの？」かもしれませんが、paludis.el は未だ用意されてません。
+
+後で app-admin/sudo を設定しておいて下さい。
+
+*** シェルスクリプト [#vb491935]
+
+Paludis のコマンドは引数が多いです。慣れたら app-shells/bash-completion による <Tab> よりも、スクリプトを作成してしまう事もできます。サンプルとしてそのままなもの (Usage や Help も用意していないもの)を作成してみました。動かない場合は、他に作って公開している方も何人かいますので、保守していそうなものを探して見て下さい。
+
+ 1) inform_of_version    11) pretend_to_unmerge
+ 2) inform_of_system     12) unmerge
+ 3) synchronize          13) regenerate_cache
+ 4) report_GLSA          14) regenerate_SYSTEM
+ 5) query_contents       15) regenerate_WORLD
+ 6) query_owner          16) regenerate_SECURITY
+ 7) query_repository     17) regenerate_INSECURITY
+ 8) query_package        18) regenerate_EVERYTHING
+ 9) pretend_to_merge
+ 10) merge
+ Input number, please >>
+
+- paludis.sh [paludis.sh]_
+- adjutrix.sh [adjutrix.sh]_
+- contrarius.sh [contrarius.sh]_
+- inquisitio.sh [inquisitio.sh]_
+- qualudis.sh [qualudis.sh]_
+
+* 指示したアクションで動作が左右され、アクションは省略できない [#qee1735c]
+
+ paludis --<アクション> --<アクション特有のオプション> --<標準のオプション>
+
+** 現在の設定を確認する [#xb55e9bb]
+
+ paludis --info
+ paludis --version
+ paludis --list-repogitories
+ paludis --list-categories --repository <repository>
+ paludis --list-packages --repository <repository>
+ paludis --list-sets
+ paludis --list-sync-protocols
+ paludis --list-repository-formats
+ paludis --list-list-dep-tag-categories
+ adjutrix --display-profiles-use --profile default-linux/amd64/2007.0
+ ...snip...
+
+** tree (/usr/portage 以下のファイル群) を同期する [#db8c0856]
+
+ paludis --sync
+ eselect news list
+
+** GLSA (脆弱性注意報告)を確認する [#xafd998f]
+
+ paludis --report
+
+** QA (品質保証)を確認する [#s63bc4f3]
+
+** パッケージを正規表現で検索する [#qca0a0db]
+
+ inquisitio --search --matcher pcre net-.*vde
+
+複数の repository を扱う際に統一性を拘らなければ app-portage/eix がより特化しています。速度は inquisitio もキャッシュを作成させれば高速です。
+
+** マージに関係する USEフラグの意味とオンオフ状態を調べる [#g24f7613]
+
+ paludis --install --pretend --show-use-descriptions all freetype
+
+** 実際にマージする [#j5863d98]
+
+ paludis --install rt2500
+
+Portage とは依存関係計算が異なります。似た計算にさせる事も選べます。
+
+ paludis --install --dl-reinstall if-use-changed\
+                   --dl-reinstall-targets auto\
+                   --dl-upgrade as-needed\
+                   --dl-new-slots as-needed\
+                   --dl-downgrade as-needed\
+                   rt2500
+
+** マージ後のパッケージがどんなファイルを提供したのかを調べる [#m70b1374]
+
+ paludis --contents gcc
+
+**マージ後のファイルがどのパッケージに含まれるものか調べる [#b3795c15]
+
+ paludis --owner nsswitch.conf
+
+** 実際にアンマージする [#efadec7c]
+
+ paludis --uninstall mozilla-firefox
+
+削除後は使われなくなるであろう上位も含む。
+
+ paludis --uninstall --with-unused-dependencies mozilla-firefox
+
+削除後は使えなくなるであろう下位も含む。
+
+ paludis --uninstall --with-dependencies mozilla-firefox
+
+system, world の <set> に含まれない孤立と思われるパッケージを削除 …… ライブラリまでは確認しないため、いきなりコレを実行すると危険です。最初に全て(恐らく 100 以上)をリビルドします。次に孤立していると判断されたものをリムーブします。最後に計算間違いだったものをリマージします。
+
+ paludis --uninstall-unused
+
+** repository を自作する人向けの機能が満載 [#l0040392]
+
+adjutrix, contrarius, qualudis ... がそれです。
+
+
+_____
+
+.. [paludis_manual] http://paludis.pioto.org/
+
+.. [paludis.sh] http://wiki.gentoo.gr.jp/index.php?paludis.sh に関連記事があります。
+
+.. [adjutrix.sh] http://wiki.gentoo.gr.jp/index.php?adjutrix.sh に関連記事があります。
+
+.. [contrarius.sh] http://wiki.gentoo.gr.jp/index.php?contrarius.sh に関連記事があります。
+
+.. [inquisitio.sh] http://wiki.gentoo.gr.jp/index.php?inquisitio.sh に関連記事があります。
+
+.. [qualudis.sh] http://wiki.gentoo.gr.jp/index.php?qualudis.sh に関連記事があります。
+
+________________
+
+
+
+- [[Gentoo_Package_Manager]], [[Portage]], [[Paludis]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+- [[memorandum_about_Paludis(1)]], [[memorandum_about_Paludis(2)]], [[memorandum_about_Paludis(3)]], [[memorandum_about_Paludis(4)]], [[memorandum_about_Paludis(5)]], [[memorandum_about_Paludis(6)]], [[memorandum_about_Paludis(7)]], [[memorandum_about_Paludis(8)]], [[memorandum_about_Paludis(9)]], [[memorandum_about_Paludis(10)]], [[memorandum_about_Paludis(11)]], [[memorandum_about_Paludis(12)]], [[memorandum_about_Paludis(13)]], [[memorandum_about_Paludis(14)]], [[memorandum_about_Paludis(15)]], [[memorandum_about_Paludis(16)]]
+- [[repository]], [[USE_flag]], [[profile]]
+- [[ebuild_files]], [[ebuild_metadata(ebuild-defined_variables)]], [[ebuild_phase(ebuild-defined_functions)]], [[the_ebuild_environment(defined_variables)]], [[the_ebuild_environment(defined_commands)]], [[bash_for_ebuild]]
+
+
+________________
+
+- [2007-05-04] 気に入ったら書き足して下さい。 (yoshino)

@@ -1,0 +1,33 @@
+#title
+#contents
+
+- [2006-12-24] Wii (のリモコン)も[[検索:http://www.google.co.jp/search?q=gentoo+wii]]すると出現しますね。Playstation 3 や Wii ではありませんが、Genesi 社より本家へクリスマスプレゼントがあったそうです。[[Adopt a Developer project (デベロッパがやりたいと思ってlいるけど支援を必要としているもの):http://www.gentoo.org/proj/en/userrel/adopt-a-dev/]]も変化があった様です。
+
+- [2006-12-07] 1 枚の [[*.ebuild]] で arm から mips まで対応する [[Portage]] ですが、cell を加える実験が始まってます。cell の実験を行っている [[overlays]] (サードパーティ製の [[tree]] を追加検索対象にできる機能) は http://overlays.gentoo.org/dev/lu_zero に説明があります。Playstation 3 の動作報告は http://whitesanjuro.googlepages.com/ にあります。ppc64 の [[installcd]] そのままが使えるみたいですね。
+
+- [2006-11-27] PacSec (セキュリティの専門家による国際会議)が開かれています。本家のデベロッパ(昨年と同じイタリア人のカッコイイ方)も来日しています。詳しくは http://www.pacsec.jp/ にあります。11 月 26 日(日)には GentooJP でメンバでなくとも参加できる歓迎会(飲み会)が開かれたそうです。
+
+-[2006-11-23] 国内企業も参加した SC06 (ハイパフォーマンス分野に関する国際会議)にて Gentoo Linux で動くマシン( 972 x 6-core little endian MIPS64 nodes と 650 MIPS64 nodes )が SiCortex 社のブース (#629) に登場しました。計算ノードで動いていないため厳密に Gentoo マシンとは言えないそうです。ですが「but months, not years and it definitely will run Gentoo on the compute nodes.」と関係者が porting (他の環境で動かすこと) に向けて力強い発言を残しています。 http://sicortex.com/prod_white.shtml で読めます。これとは違いますが PC クラスタの Beowulf の書籍は図書館や大きな本屋に置いてあると思います。
+
+-[2006-11-07] 11 月 09 日(木)の「[[第３回 OSDL Japan Linux Symposium:http://www.osdl.jp/modules/eguide/event.php?eid=3]]」に本家の方も参加されるそうです。
+
+-[2006-11-01] 「Gentoo GNU/kFreeBSD」に[[例の sparc64:http://www.google.co.jp/search?q=ultrasparc+opensparc+gentoo]] を追加するためのテストが始まってます。[[ミラーサイト:http://www.gentoo.org/main/en/mirrors.xml]] ([[位置は /experimental/sparc/freebsd:http://gentoo.channelx.biz/experimental/sparc/freebsd/]]) で Stage を配布してます。インストール方法は http://www.gentoo.org/doc/en/gentoo-freebsd.xml のままのようです。
+
+-[2006-10-20] 10 月 28 日(土)に GentooJP の方々が「オープンソースカンファレンス2006 Tokyo/Fall」に参加されます。http://www.ospn.jp/osc2006-fall/ にあります。春は ebuild の講習会がありましたが、今回はセミナー参加していないとのことです。展示会場にマシン出展とミニセミナー講演と缶バッチ販売をするそうです。メンバでなくとも参加できる会食が昼(昼休み)と夜(飲み会)にあり、「一緒に飯喰っていいですか？」でじっくり会話できると思います。
+
+-[2006-10-01] NASA (米航空宇宙局)では惑星の表面調査を行うプロジェクトが進行しています。「K-10」「Scout」「Athlete」「Centaur」「Robonaut」「Astronaut」「Command trailer」の月面車が実験中です。その「Scout」に Gentoo Linux が採用されてます。NASA とはコロンビア以来ですね。活躍は http://robonaut.jsc.nasa.gov/desert06.htm で読めます。
+
+-[2006-09-02] Greater Houlton Christian Academy ロボット教室の記事が Linux Journal に掲載されています。Gentoo Linux が認識する安くて便利な部品だけでロボットを組み立て、三台のロボットの違いを説明しています。http://www.linuxjournal.com/comment/reply/9103 で読めます。Greater Houlton Christian Academy と言えば、CBS (米国三大放送局の一つ)に属する WAGM の科学技術系のニュースで Gentoo Linux のイメージ管理方法が取り挙げられた所ですね。
+
+-[2006-09-01] 2006.1 のインストーラと Stage ファイルの配布が始まりました。[[profile]] にデスクトップ用の設定が加わりました。Gentoo にとって「デスクトップ用の設定」の配布は今回が初めてになります。[[net-p2p/bittorrent]] の [[*.torrent 入手先:http://torrents.gentoo.org/]]。([[*.torrent の使い方:http://king.gentoo.gr.jp/index.php?%5B%5Bnet-p2p%2Fbittorrent%5D%5D]])
+
+
+-[2006-08-17] 品質保証とも関連してか Portage-Tree ( /usr/portage 以下のデータ群)の更新が慎重になっていますが、overlays (サードパーティ製の Tree を追加検索対象にできる機能)をサポートするツール app-portage/layman 及び Tree を集中管理するサイト http://overlays.gentoo.org/ が用意されました。役割上は [[stable]] ではなく、[[testing]] どころか、むしろ [[mask]] を補佐するものです。研究や商業、一次配布元への直接バグ報告目的などが例です。
+
+-[2006-08-12] [[Adopt a Developer project:http://www.gentoo.org/proj/en/userrel/adopt-a-dev/]] が始まったみたいです。先日も「Sun 社さまより Porting (別の環境で動かすこと)の助けに使って欲しいと Niagara box が寄附されました」とのニュースがありましたが、これはそういったものの意味と目的が少し違う様です。
+
+-[2006-07-30] 本家の公開レポジトリが http://sources.gentoo.org/ へ移動しています。Tree から削除された ebuild もココで入手できます。
+
+-[2006-03-05] 2006.0 よりグラフィカルなインストーラになりました。Gentoo にとって「インストーラあり」の配布は今回が初めてになります。
+
+-[2006-02-14] GentooのBSDプロジェクトは、日本のオンラインコンピュータマガジン「PC Web」特別賞を授与されました。「Gentoo GNU/kFreeBSD」は、ユーザランドにGentooの長所を取り入れ、カーネルにFreeBSDの長所を取り入れています。

@@ -1,0 +1,44 @@
+#contents
+#title
+
+* ebuild files [#cc377eef]
+
+関連記事 [ebuild_files]_ があります。
+
+** ebuild 変数 [#w908e9a0]
+
+- 手動で定義する変数
+- 自動で定義される変数
+
+便宜上、上を ebuild_metadata(ebuild-defined_variables) とし、下を the_ebuild_environment(defined_variables) とします。
+
+** ebuild 関数 [#tfa73dc9]
+
+- 手動で定義する関数
+- 自動で定義される命令
+
+便宜上、上を phase, ebuild_phase(ebuild-defined_functions) とし、下を helper, the_ebuild_environment(defined_commands) とします。
+
+_____
+
+
+
+.. [GPMS] http://dev.gentoo.org/~spb/pms.pdf
+
+.. [GPM] http://wiki.gentoo.gr.jp/index.php?Gentoo_Package_Manager に関連記事があります。
+
+.. [repository] http://wiki.gentoo.gr.jp/index.php?repository に関連記事があります。
+
+.. [USE_flag] http://wiki.gentoo.gr.jp/index.php?USE_flag に関連記事があります。
+
+.. [profile] http://wiki.gentoo.gr.jp/index.php?profile に関連記事があります。
+
+.. [ebuild_files] http://wiki.gentoo.gr.jp/index.php?ebuild_files に関連記事があります。
+
+.. [ebuild_metadata(ebuild-defined_variables)] http://wiki.gentoo.gr.jp/index.php?ebuild_metadata(ebuild-defined_variables) に関連記事があります。
+
+.. [the_ebuild_environment(defined_variables)] http://wiki.gentoo.gr.jp/index.php?the_ebuild_environment(defined_variables) に関連記事があります。
+
+.. [ebuild_phase(ebuild-defined_functions)] http://wiki.gentoo.gr.jp/index.php?ebuild_phase(ebuild-defined_functions) に関連記事があります。
+
+.. [the_ebuild_environment(defined_commands)] http://wiki.gentoo.gr.jp/index.php?the_ebuild_environment(defined_commands) に関連記事があります。

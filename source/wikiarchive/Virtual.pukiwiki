@@ -1,0 +1,84 @@
+#contents
+#title
+
+*Portage と Virtual [#i88a2de6]
+
+通常同じ [[Atom]] は複数存在できませんが、[[Slot]] を使うと混在できます。同一アプリケーションの複数のヴァージョンを混在させたい場合に [[Slot]] を使います。[[Virtual]] は同じ機能を異なるアプリケーションで代替する際に重複を防ぐために使います。
+
+古いものは $PROVIDE による [[Atom]] でしたが、新しいものは [[*.ebuild]] で表現します。[[GPMS]] にあります。
+
+**ヴァーチャルカテゴリにはどんなものがあるのか [#fc65ad58]
+
+2007 年 05 月現在です。
+
+- virtual/c++-tr1-functional
+- virtual/c++-tr1-memory
+- virtual/c++-tr1-type-traits
+- virtual/ghostscript
+- virtual/glu
+- virtual/glut
+- virtual/gnat
+- virtual/init
+- virtual/jdk
+- virtual/jre
+- virtual/libiconv
+- virtual/libintl
+- virtual/libstdc++
+- virtual/mpi
+- virtual/mysql
+- virtual/opengl
+- virtual/pcmcia
+- virtual/perl-CGI
+- virtual/perl-DB_File
+- virtual/perl-Digest-MD5
+- virtual/perl-File-Spec
+- virtual/perl-File-Temp
+- virtual/perl-Getopt-Long
+- virtual/perl-IO
+- virtual/perl-MIME-Base64
+- virtual/perl-Math-BigInt
+- virtual/perl-Memoize
+- virtual/perl-PodParser
+- virtual/perl-Safe
+- virtual/perl-Scalar-List-Utils
+- virtual/perl-Storable
+- virtual/perl-Sys-Syslog
+- virtual/perl-Test
+- virtual/perl-Test-Harness
+- virtual/perl-Test-Simple
+- virtual/perl-Text-Balanced
+- virtual/perl-Time-HiRes
+- virtual/perl-Time-Local
+- virtual/perl-digest-base
+- virtual/perl-libnet
+- virtual/perl-locale-maketext
+- virtual/perl-net-ping
+- virtual/pmake
+- virtual/qmail
+- virtual/x11
+- virtual/xft
+
+
+________
+
+[[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]) の詳細は[[プロジェクトリスト:http://www.gentoo.org/proj/en/metastructure/projects.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]), [[Gentoo FAQ:http://www.gentoo.org/doc/ja/?catid=faq]], [[GentooJP FAQ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A3%C6%A3%C1%A3%D1%5D%5D]]
+- [[インストール]], [[Stage]], [[GRP]], [[Portageツリー]]
+- [[インストールした後にできること]], [[日本語入力設定事例集]], [[日本語デスクトップ環境/パッケージ]]
+- [[Gentooが採用している技術]]
+- [[コミュニティとの連絡手段]], [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]
+- [[本家に関連しそうな言葉]], [[GLEP]], [[コピーライト]], [[ライセンス]]
+
+[[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]]) の詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]])
+- [[メタ・ディストリビューション]], [[USEフラグ]], [[profile]], [[catalyst]], [[GNAP]]
+- [[コンパイル]], [[バイナリパッケージ]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+
+________
+
+-[2006-09-17] (yoshino)
+-[2006-11-05] ハンドブックに sys-apps/Portage-2.1 に関する説明が加えられるようです。今後はハンドブックが確実です。 (yoshino)

@@ -1,0 +1,20 @@
+* [#of1917f8]
+
+-ページ: BugTrack
+-投稿者: [[rspace]]
+-優先順位: 低
+-状態: 着手
+-カテゴリー: ebuild
+-投稿日: 2003-09-16 (火) 20:16:50
+-バージョン: 2.3a
+
+問題無さそうならクリックしてください。(目安として使うだけです)
+#vote(問題なく動作しました。)
+#attach
+**メッセージ [#ib7e4653]
+ファイル名のエンコードを一括変換するツールです。(euc-jp, shift_jis, jis, cap)~
+Perlで書かれています。~
+(ebuildにする程の大きなパッケージではないので、不適切だったら削除して下さい。)~
+http://www.samba.gr.jp/project/contrib/smbchartool.html
+----
+// #comment

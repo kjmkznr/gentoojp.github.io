@@ -1,0 +1,39 @@
+とっても仮の情報です。嘘が書いてある可能性もあり。たたき台です。
+
+*galapagos.gentoo.gr.jp [#sf8d4139]
+ GentooJPメインのサーバー
+ 安定性重視。
+ 止まるとえらいことになるメール関係やDNS、GentooJPの静的なページなど。
+
+**  インストールしてある主なもの [#l841160e]
+***  apache [#p3a2dabe]
+ www.gentoo.gr.jpとしてGentooJPの静的コンテンツを配信
+   現行のサーバと同じくAxKitを用いています。
+   設定はAxKitの部分だけ書いておきます。
+
+   PerlModule AxKit
+   SetHandler perl-script
+   PerlHandler AxKit
+   PerlSetVar AxTranslateOutput 1
+   PerlSetVar AxOutputCharset ISO_8859-1
+   AxCacheDir /var/cache/axkit
+   AxAddStyleMap application/x-xpathscript Apache::AxKit::Language::XPathScript
+   #AxAddStyleMap text/xsl Apache::AxKit::Language::Sablot
+   AxAddPlugin Apache::AxKit::StyleChooser::QueryString
+   AxAddStyleMap text/xsl Apache::AxKit::Language::LibXSLT
+
+   /var/www/www.gentoo.gr.jp/以下にコンテンツ置いてます。
+   wwwグループに所属しているuserであれば書込み可能です。
+
+
+***  qmail [#x51108ba]
+  GentooJPのメーリングリスト
+  @gentoo.gr.jpの各種エイリアスアドレスの管理
+    ユーザーを追加するときには・・・・・・・・・
+
+
+*king.gentoo.gr.jp [#hddc5350]
+ GentooJP開発者のアプリケーションサーバ
+ 実験環境。ちょっとプロセスを暴走させたりしても電源再起動してコンソールから作業したりすることもできるので、安心して暴走させることができる(嘘)
+ GentooJP開発者のwebページなどこのサーバに置かれる予定。
+ とりあえず ebuild-uploader と PukiWiki が移転しました(macaroni 稼働までのつなぎ)

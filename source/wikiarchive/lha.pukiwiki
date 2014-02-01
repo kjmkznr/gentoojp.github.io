@@ -1,0 +1,19 @@
+*LHa on UNIX [#b0bd87e4]
+
+-ページ: BugTrack
+-投稿者: [[matsuu]]
+-優先順位: 低
+-状態: 完了
+-カテゴリー: ebuild
+-投稿日: 2002-11-16 (土) 09:12:35
+-バージョン: 1.14i
+
+
+CENTER:''このebuildは本家のツリーに取り込まれました。(app-arch/lha)''
+
+**メッセージ [#yb40824c]
+sourceforge.jp上に運用が移行したLHa on UNIXです。
+
+autoconf/automake化や文字コードの自動判別、バグ修正などが施されています。
+
+----

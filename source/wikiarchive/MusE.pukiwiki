@@ -1,0 +1,34 @@
+*Linux (Midi) Music Editor [#e3a5547d]
+
+-ページ: BugTrack
+-投稿者: [[Atzm]]
+-優先順位: 低
+-状態: 却下
+-カテゴリー: ebuild
+-投稿日: 2002-09-08 (日) 01:45:47
+-バージョン: 
+
+問題無さそうならクリックしてください。(目安として使うだけです)
+#vote(問題なく動作しました。)
+#attach
+**メッセージ [#k86f7989]
+Linux用MIDIシーケンサ、MusEです。
+ALSAドライバに依存しているため、どうしようか迷っています。
+ebuild内でカーネルに手を出すわけにはいかないし…。
+
+設定としては、ALSAの snd-[自分のサウンドカード名]、snd-seq、
+カーネルのRealTimeClockを有効にして、alsa-utilsに入っているalsamixerで
+ミュートを解除し音量を上げます。
+(OSSを使っている場合、インストールは出来ても音が鳴りませんので、OSSは切っておかなければなりません)
+
+尚、libsndfileの1.0.0にも依存しています。
+まだこのバージョンはportageツリーに入っていないので、
+別途添付のlibsndfile-1.0.0.ebuildも
+ /usr/portage.local/media-libs/libsndfile
+辺りに追加して下さい。
+----
+
+-libsndfile-1.0.1が本家に取り込まれました。 -- [[matsuu]] SIZE(10){2002-12-01 (日) 20:49:59}
+-本家に登録されているmedia-sound/museとは同名の別物ですね。ややこしい・・・。 -- [[matsuu]] SIZE(10){2003-05-31 (土) 07:22:33}
+-media-sound/museseqとして本家に取り込まれてます -- [[matsuu]] SIZE(10){2005-11-11 (金) 06:42:22}
+// #comment

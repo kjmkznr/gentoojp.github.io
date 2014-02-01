@@ -1,0 +1,192 @@
+#contents
+#title
+
+*Gentoo とドキュメント作成 [#o3b2721b]
+
+[[あなたが Gentoo Linux に貢献できる事:http://www.gentoo.gr.jp/jpmain/contribution.xml]]には「Gentoo Linux 好きだからもっと良くなって欲しい」と本質的な言葉が含まれています。「そういう気持ちはあるけど・・・はっきりしない。一応ドキュメントを探したけど1時間で分らなければどうでもいいやと思ってきてしまい、そのままみたいなそんなとこ。」って人もいるのではないかと思います。もう1回その気持ちを確かめてみません？
+
+**相手は人間なので間違っても平気です [#z92ac8c8]
+
+デベロッパへ直接訴えることができます。間違っても本文が伝われば間違った登録項目はデベロッパ側が修正してくれます。
+
+MIT (マサチューセッツ工科大学)や CMU (カーネギーメロン大学)等学生のジョークは無視します。
+
+もう少し言えば、本文が伝わればいいので自身でパッチが書けなくともできます。ただし、パッチファイルがないと複数の報告があった場合に優先度が下がります。デベロッパは [[Gentoo]] が職業ではないので、多く(優先度が低いもの)は数週間から数ヶ月待ちます。本文が伝わるとはそういった彼等が再現できるようにすることです。
+
+*コミュニティ窓口 [#m539537d]
+
+ユーザからの要望を聞く窓口に [[www-apps/bugzilla]] を利用しています。バグ追跡だけに利用しているのではなく、「GCC のドキュメントが欲しいです」や「ヴァージョンアップを希望します」や「RSync ミラー作ったので公認申請します」の類も担当しています。
+
+一度報告すれば、解決されるまで検索する度に出現します。メーリングリストより推奨されます。また、進行段階を "RESOLVED" から "CLOSED" へ進行させる必要はなく、特別な理由がなければするべきではありません。および、解決する人が開発者である必要はありません。[[バグ・デー]]があります。どちらかと言うと解決しようとする人は [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]] 中心で、Forums や ML や IRC を必要以上に見ない方が多いようです。
+
+開発者と言えど自分の知らない分野は解決できません。「日本語表示の方法ぐらい開発者なら誰でも知っていそう」という期待にすら答えられないのが現実です。また、残念ながら解決してくれる人が本家に偏っているのも事実です。「今日は1時間ぐらい余裕があるからバグ潰しをしよう」と思う開発者はまず本家を見ます。そして1つ2つ潰している間に1時間が経過します。メーリングリストの場合は解決できる人が見ていない場合がありますが、[[バグ報告]]の場合は(数週間から数ヶ月かかるかもしれませんが)少なくともできるできないの返事はきます。
+
+[[stable]]、[[testing]]、[[mask]] の目安にもなります。また、[[GLEP]] の 041 より [[QA]] (品質保証)と関係してパッケージテスト専用のスタッフも迎えようとしています。
+
+[[セキュリティ]]上の[[バグ報告]]は [[GLSA]] として発表されます。[[GLSA]] こと "[[Gentoo Linux Security Announcements:http://wiki.gentoo.gr.jp/index.php?GentooLinuxSecurityAnnouncements]]" (または "[[Gentoo Linux Security Advisories:http://wiki.gentoo.gr.jp/index.php?GentooLinuxSecurityAdvisories]]") は [[Securityプロジェクト:http://www.gentoo.org/proj/en/security/index.xml]]による脆弱性注意報告です。
+
+**バグジラ入門 [#udb30a3b]
+
+[[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]] に関連記事があります。
+
+*ドキュメントに間違いを発見したら [#fc499419]
+
+これも[[バグ報告]]です。
+
+**本家経由 [#o7681f78]
+
+具体的な流れは [[www-apps/bugzilla]] の使い方になります。
+
+バグ発見!!~
+↓~
+[[本家 BugTrack (英語):http://bugs.gentoo.org/]]もしくは [[BugsJP (日本語):http://bugs.gentoo.gr.jp/enter_bug.cgi]]にアカウント登録(メールアドレス必要)します。登録する上で必要なメールアドレスはフリーメールで構いません。~
+↓~
+重複した報告を避けるため、バグを検索します。~
+↓~
+なければバグ報告を、既にあるがまだ未解決であれば情報追加をします。Summary はバグを潰してくれる人が一覧表示する時に分り易いものにすると効果的です。添付ファイルは2回目以降に attachment として送ります。[[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]に参考記事があります。~
+↓~
+[[Bugzillaガイド:http://www.gentoo.org/doc/en/bugzilla-howto.xml]]を参考にして下さい。これらのような開発者側の原因追及を助ける情報がないと優先度が低くなるみたいです。パッチまで記述できる人はパッチの説明を忘れないようにします。~
+↓~
+あとは担当者が出現するのを待ったり、情報を追加したり、自分でも勉強してみたりします。~
+
+ログイン後の詳しい手順は [[Bugzilla ガイド:http://www.gentoo.org/doc/en/bugzilla-howto.xml]]、[[ebuild 新規登録:http://www.gentoo.org/doc/ja/ebuild-submit.xml]]、[[セキュリティ・バグの検索:http://www.gentoo.org/security/en/bug-searching.xml]]、[[Bugzilla のヘルプ:http://bugs.gentoo.gr.jp/queryhelp.cgi]]、[[あなたが Gentoo Linux に貢献できる事:http://www.gentoo.gr.jp/jpmain/contribution.xml]]、[[Bugzilla 例文集:http://wiki.gentoo.gr.jp/index.php?%5B%5BBugzilla%CE%E3%CA%B8%BD%B8%5D%5D]]や [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]に参考記事があります。
+
+**国内経由 [#w0fe5c41]
+
+具体的な流れは http://www.daifukuya.com/kagemai/ の使い方になります。
+
+バグ発見!!~
+↓~
+http://projects.gentoo.gr.jp/docs/bts/guest.cgi?project=doc&action=top を参考にして下さい。恐らく「新規ドキュメント」でいいと思います。細かい点を間違ってもデベロッパが適切に修正してくれます。
+
+*ドキュメントの翻訳 [#x03f4704]
+
+ドキュメント作成には、海外ドキュメント翻訳活動とオリジナルドキュメント作成活動の2つがあります。ほとんどの [[Gentoo Linux ドキュメント:http://www.gentoo.org/doc/ja/index.xml]]の[[ライセンス]]は「[[Creative Commons:http://creativecommons.org/licenses/by-sa/2.0]]」です。または「Public Domain」です。Copyright は「Gentoo Foundation, Inc.」です。担当者自身の名前をにはできません。但し翻訳者としての権利はあります。オリジナルドキュメントの場合は担当者です。[[ライセンス&コピーライトガイド:http://www.gentoo.org/proj/en/devrel/copyright/index.xml]]参考です。[[ライセンス]]と[[コピーライト]]に関連記事があります。
+
+[[GWN]] や[[公式ドキュメント:http://www.gentoo.org/doc/ja/list.xml]]を翻訳します。既にあるものを最新のものへする事も翻訳と呼びます。開発用ドキュメントやプロジェクト特有のドキュメントは、本家が英語を理解する人を求めているため翻訳されません。
+
+[[ドキュメントポリシー:http://www.gentoo.org/proj/en/gdp/doc/doc-policy.xml]]、[[翻訳ガイド:http://www.gentoo.org/proj/ja/gdp/doc/translators-howto.xml]]や [[CVSガイド:http://www.gentoo.org/doc/ja/cvs-tutorial.xml]]や[[ドキュメント開発のTips&Tricks:http://www.gentoo.org/proj/ja/gdp/doc/doc-tipsntricks.xml]]や [[XMLガイド:http://www.gentoo.org/doc/ja/xml-guide.xml]]に参考記事があります。
+
+**本家経由 [#gb1dd025]
+
+具体的な流れは [[www-apps/bugzilla]] の使い方になります。
+
+バグ発見!!~
+↓~
+[[本家 BugTrack (英語):http://bugs.gentoo.org/]]もしくは [[BugsJP (日本語):http://bugs.gentoo.gr.jp/enter_bug.cgi]]にアカウント登録(メールアドレス必要)します。登録する上で必要なメールアドレスはフリーメールで構いません。~
+↓~
+重複した報告を避けるため、バグを検索します。~
+↓~
+なければバグ報告を、既にあるがまだ未解決であれば情報追加をします。Summary はバグを潰してくれる人が一覧表示する時に分り易いものにすると効果的です。添付ファイルは2回目以降に attachment として送ります。[[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]に参考記事があります。~
+↓~
+[[Bugzillaガイド:http://www.gentoo.org/doc/en/bugzilla-howto.xml]]を参考にして下さい。これらのような開発者側の原因追及を助ける情報がないと優先度が低くなるみたいです。パッチまで記述できる人はパッチの説明を忘れないようにします。~
+↓~
+あとは担当者が出現するのを待ったり、情報を追加したり、自分でも勉強してみたりします。~
+
+ログイン後の詳しい手順は [[Bugzilla ガイド:http://www.gentoo.org/doc/en/bugzilla-howto.xml]]、[[ebuild 新規登録:http://www.gentoo.org/doc/ja/ebuild-submit.xml]]、[[セキュリティ・バグの検索:http://www.gentoo.org/security/en/bug-searching.xml]]、[[Bugzilla のヘルプ:http://bugs.gentoo.gr.jp/queryhelp.cgi]]、[[あなたが Gentoo Linux に貢献できる事:http://www.gentoo.gr.jp/jpmain/contribution.xml]]、[[Bugzilla 例文集:http://wiki.gentoo.gr.jp/index.php?%5B%5BBugzilla%CE%E3%CA%B8%BD%B8%5D%5D]]や [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]に参考記事があります。
+
+**国内経由 [#ye7be53b]
+
+具体的な流れは http://www.daifukuya.com/kagemai/ の使い方になります。
+
+バグ発見!!~
+↓~
+http://projects.gentoo.gr.jp/docs/bts/guest.cgi?project=doc&action=top を参考にして下さい。恐らく「新規ドキュメント」でいいと思います。細かい点を間違ってもデベロッパが適切に修正してくれます。
+
+***訳語の目安 [#xd8ba91c]
+
+http://dev.gentoo.gr.jp/~shindo/ にあります。[[GWN]] に沿うようにするようです。
+
+***古い手順 [#z1bfe162]
+
+[[GentooLinuxドキュメント:http://www.gentoo.org/doc/ja/index.xml]]を翻訳するのなら、[[翻訳状況:http://www.gentoo.gr.jp/jpmain/trans_status.xml]]で重複していないのを確かめ、[[翻訳メーリングリスト:http://www.gentoo.gr.jp/jpmain/about-gentoojp.xml#doc_chap4]]で宣言してから、[[ドキュメント翻訳の手順:http://www.gentoo.gr.jp/jpmain/translation.xml]]を実行するみたいです。その時には[[ドキュメント作成環境の構築ガイド:http://www.gentoo.gr.jp/jpdoc/gentoojp-xml-environment.xml]]が参考になります。[[翻訳メーリングリスト:http://www.gentoo.gr.jp/jpmain/about-gentoojp.xml#doc_chap4]]では査読も行なってくれています。
+
+歴史家には [[CVS+SSH登録方法:http://wiki.gentoo.gr.jp/index.php?%5B%5BSourceForge%B3%AB%C8%AF%BC%D4%CD%D1%A5%AC%A5%A4%A5%C9%5D%5D]]や[[流れ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%CB%DD%CC%F5%A4%CE%BC%EA%BD%E7%5D%5D]]や[[翻訳時の約束メモ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%CB%DD%CC%F5%A5%E1%A5%E2%5D%5D]]や[[初期のGWN翻訳:http://www.gentoo.gr.jp/jpdoc/gwn-history.xml]]も参考になるかもしれません。
+
+*オリジナルドキュメントの投稿 [#v846571a]
+
+ドキュメント作成には、海外ドキュメント翻訳活動とオリジナルドキュメント作成活動の2つがあります。ほとんどの [[Gentoo Linux ドキュメント:http://www.gentoo.org/doc/ja/index.xml]]の[[ライセンス]]は「[[Creative Commons:http://creativecommons.org/licenses/by-sa/2.0]]」です。または「Public Domain」です。Copyright は「Gentoo Foundation, Inc.」です。担当者自身の名前をにはできません。但し翻訳者としての権利はあります。オリジナルドキュメントの場合は担当者です。[[ライセンス&コピーライトガイド:http://www.gentoo.org/proj/en/devrel/copyright/index.xml]]参考です。[[ライセンス]]と[[コピーライト]]に関連記事があります。
+
+[[Gentoo用オリジナルドキュメント:http://www.gentoo.gr.jp/jpmain/docs-list.xml]]に掲載されている様な記事を書くのなら、[[Gentoo用オリジナルドキュメントの作成:http://www.gentoo.gr.jp/jpmain/original-doc.xml]]が参考になります。その時には[[ドキュメント作成環境の構築ガイド:http://www.gentoo.gr.jp/jpdoc/gentoojp-xml-environment.xml]]が参考になります。分らなければ[[メーリングリスト:http://www.gentoo.gr.jp/jpmain/about-gentoojp.xml#doc_chap4]]でいいみたいです。
+
+**XML 構造 [#t222ebb4]
+
+[[XML]] の構造については [[XMLガイド:http://www.gentoo.org/doc/ja/xml-guide.xml]]もあります。
+
+指示されている [[XML]] 要素の傾向としては、ブロック要素の p, pre, note, warn, impo, table, ol, ul 等が中心になり、インライン要素の path, c, i, codenote, comment 等が単語をファイル名なのかコマンド名なのかを明確にします。こんな雰囲気になるようです。
+
+ <section>
+ <title>節の題</title>
+ <body>
+ <pre id="sample100">
+ $ <i>入力</i>
+ <comment>(コメント)</comment>
+ 出力
+ </pre>
+ <ul id="sample200">
+   <li id="sample201">
+   <p>
+   <c>コマンド名</c>と<path>ファイル名</path>に使います。
+   <e>強調</e>です。
+   </p>
+   <figure link="/screenshot/2005-09-19.png" short="ラリー君" caption="牡牛のラリー君" />
+   </li>
+   <li id="sample202">
+   <p>
+    id属性もつけられるようです。
+   <uri link="#sample100">sample100</uri>へのリンクに使用できます。
+   </p>
+   </li>
+ </ul>
+ </body>
+ </section>
+
+**本家経由 [#n6661b7b]
+
+具体的な流れは [[www-apps/bugzilla]] の使い方になります。
+
+バグ発見!!~
+↓~
+[[本家 BugTrack (英語):http://bugs.gentoo.org/]]もしくは [[BugsJP (日本語):http://bugs.gentoo.gr.jp/enter_bug.cgi]]にアカウント登録(メールアドレス必要)します。登録する上で必要なメールアドレスはフリーメールで構いません。~
+↓~
+重複した報告を避けるため、バグを検索します。~
+↓~
+なければバグ報告を、既にあるがまだ未解決であれば情報追加をします。Summary はバグを潰してくれる人が一覧表示する時に分り易いものにすると効果的です。添付ファイルは2回目以降に attachment として送ります。[[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]に参考記事があります。~
+↓~
+[[Bugzillaガイド:http://www.gentoo.org/doc/en/bugzilla-howto.xml]]を参考にして下さい。これらのような開発者側の原因追及を助ける情報がないと優先度が低くなるみたいです。パッチまで記述できる人はパッチの説明を忘れないようにします。~
+↓~
+あとは担当者が出現するのを待ったり、情報を追加したり、自分でも勉強してみたりします。~
+
+ログイン後の詳しい手順は [[Bugzilla ガイド:http://www.gentoo.org/doc/en/bugzilla-howto.xml]]、[[ebuild 新規登録:http://www.gentoo.org/doc/ja/ebuild-submit.xml]]、[[セキュリティ・バグの検索:http://www.gentoo.org/security/en/bug-searching.xml]]、[[Bugzilla のヘルプ:http://bugs.gentoo.gr.jp/queryhelp.cgi]]、[[あなたが Gentoo Linux に貢献できる事:http://www.gentoo.gr.jp/jpmain/contribution.xml]]、[[Bugzilla 例文集:http://wiki.gentoo.gr.jp/index.php?%5B%5BBugzilla%CE%E3%CA%B8%BD%B8%5D%5D]]や [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]に参考記事があります。
+
+**国内経由 [#m0bec79c]
+
+具体的な流れは http://www.daifukuya.com/kagemai/ の使い方になります。
+
+バグ発見!!~
+↓~
+http://projects.gentoo.gr.jp/docs/bts/guest.cgi?project=doc&action=top を参考にして下さい。恐らく「新規ドキュメント」でいいと思います。細かい点を間違ってもデベロッパが適切に修正してくれます。
+
+*GentooJP News への投稿 [#qbf1e7f1]
+
+[[GentooJP News:http://www.gentoo.gr.jp/jpmain/news-submit.xml]] によると営利目的の広告も審査対象にしてくれるとの事です。
+
+[[GWN]] はアピール記事がトップ記事になったりしているので、構わないと思います。
+
+*Wiki [#q411a824]
+
+[[Gentoo-Wiki:http://gentoo-wiki.com/Main_Page]]は愛好者によるファンサイトです。非公式なものなので、翻訳対象にはなっていません。
+
+GentooJP で明確に禁止していると言う話は聞いた事はありませんが、[[GentooJP-Wiki:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A5%CB%A5%E5%A1%BC%A5%B9%B2%E1%B5%EE%A5%ED%A5%B0%5D%5D]] は [[Gentoo-Wiki:http://gentoo-wiki.com/Main_Page]]を翻訳する目的で用意されたのではない事は確かです。むしろ [[Forum:http://forums.gentoo.org/]] の代用だったようです。[[GentooJP-Wiki:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A5%CB%A5%E5%A1%BC%A5%B9%B2%E1%B5%EE%A5%ED%A5%B0%5D%5D]] には GentooJP 設立の流れが残っています。
+
+*GentooJP-wiki の翻訳プロジェクト [#v0f759f6]
+
+過去のものであり、現在は利用されていません。
+
+余談ですが、[[GentooJP-wiki をぐるりと見渡す:http://wiki.gentoo.gr.jp/index.php?cmd=list]]と、500d 等最終更新が 2003 年の古いページが大量にでてきます。250 ページ近いものを頑張って読むと、今の形になるまでに Gentoojp-wiki は[[翻訳プロジェクト:http://wiki.gentoo.gr.jp/index.php?%5B%5B%CB%DD%CC%F5%A4%CE%BC%EA%BD%E7%5D%5D]]だったり、[[GentooJP ebuild プロジェクト:http://wiki.gentoo.gr.jp/index.php?%5B%5BEbuild%A5%D7%A5%ED%A5%B8%A5%A7%A5%AF%A5%C8%5D%5D]]だったり、[[BugTrackプロジェクト:http://wiki.gentoo.gr.jp/index.php?BugTrack]]だったりしていたようです。Gentoo Linux を未体験でディストリビューションの情報収集をしていたとしても、「Gentoo Linuxのブームは去った」と勘違いしてはいけません。当初 GentooJP-wikiは既に Gentoo Linux をやっている人達向けに作成されたようです。
+
+========
+
+-[2005-09-19]
+-[2005-09-24] プロジェクト担当者でないものからの視点です。すみません。おかしな所があれば修正お願いします。(yoshino)
+-[2006-09-17] 自分が調べた際のメモをほぼそのまま貼りつけているだけだったのを省察しました。 (yoshino)

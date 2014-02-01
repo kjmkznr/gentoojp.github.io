@@ -1,0 +1,72 @@
+#contents
+#title
+
+*emerge のログと ebuild のログ [#t64d60ad]
+
+[[ビルド]]の連鎖がエラー原因の追跡を困難にします。その対策です。
+
+*sys-apps/portage [#ye567f93]
+
+だいたいの目安です。書式などは [[Gentoo System ドキュメント:http://www.gentoo.org/doc/ja/index.xml?catid=gentoo]]を参考にして下さい。
+
+**ポーテージのロギングファイル [#mfb7d959]
+
+[[Portage設定ファイル]]に関連記事があります。
+
+***/var/log/emerge.log [#p66a9b72]
+
+:/var/log/emerge.log|[[emerge]] コマンドの履歴が残ります。[[app-portage/portage-utils]] の qlop コマンドでログ解析できます。
+
+***/var/log/portage/* [#dcefe3e0]
+
+:/var/log/portage/*|/etc/make.conf に $PORTAGE_LOGDIR = /var/log/portage/ を設定すると、各パッケージの [[ebuild]] コマンドの出力が保存されます。エラーが発生した場合、その[[バグ報告]]にはエラー出力を長過ぎず短過ぎずに載せる必要がありますが、その際に便利です。
+
+**ポーテージ変数 [#y678a1f6]
+
+sys-apps/portage-2.1 以降は詳細に設定できます。[[Portage変数]]に関連記事があります。
+
+***$PORTAGE_LOGDIR [#bd46e906]
+
+:$PORTAGE_LOGDIR|
+
+***$PORTAGE_ELOG_CLASSES [#z9cb0780]
+
+:$PORTAGE_ELOG_CLASSES|
+
+***$PORTAGE_ELOG_SYSTEM [#xc08eb20]
+
+:$PORTAGE_ELOG_SYSTEM|
+
+***$PORTAGE_ELOG_COMMAND [#o5b605ad]
+
+:$PORTAGE_ELOG_COMMAND|
+
+***$PORTAGE_ELOG_MAILURI [#jd2f360f]
+
+:$PORTAGE_ELOG_MAILURI|
+
+
+________
+
+[[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]) の詳細は[[プロジェクトリスト:http://www.gentoo.org/proj/en/metastructure/projects.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]), [[Gentoo FAQ:http://www.gentoo.org/doc/ja/?catid=faq]], [[GentooJP FAQ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A3%C6%A3%C1%A3%D1%5D%5D]]
+- [[インストール]], [[Stage]], [[GRP]], [[Portageツリー]]
+- [[インストールした後にできること]], [[日本語入力設定事例集]], [[日本語デスクトップ環境/パッケージ]]
+- [[Gentooが採用している技術]]
+- [[コミュニティとの連絡手段]], [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]
+- [[本家に関連しそうな言葉]], [[GLEP]], [[コピーライト]], [[ライセンス]]
+
+[[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]]) の詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]])
+- [[メタ・ディストリビューション]], [[USEフラグ]], [[profile]], [[catalyst]], [[GNAP]]
+- [[コンパイル]], [[バイナリパッケージ]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+
+________
+
+-[2005-12-30]
+-[2006-03-19] 上記より更に追加されてます。修正お願いします。 (yoshino)
+-[2006-09-17] 「ポーテージ設定ファイル」から「Portage設定ファイル」へ移動 (yoshino)

@@ -1,0 +1,36 @@
+*全文検索システム Namazu [#nf565964]
+
+-ページ: BugTrack
+-投稿者: [[naoto]]
+-優先順位: 低
+-状態: 完了
+-カテゴリー: ebuild
+-投稿日: 2002-08-25 (日) 01:45:24
+-バージョン: 2.0.12
+
+問題無さそうならクリックしてください。(目安として使うだけです)
+
+CENTER:''このebuildは本家のツリーに取り込まれました。(app-text/namazu,その他)''
+
+**メッセージ [#gc505250]
+namazu の ebuild を作ってみました.~
+詳しくは, http://www.namazu.org を見て下さい.
+
+USE="cjk nls kakasi chasen" でインストールして下さい.~
+kakasi と chasen は, どちらか一方でも ok です.~
+また, USE に "tcltk" を加えると tknamazu もインストールされます.
+
+依存関係は nkf と, kakasi を使う場合には, 同梱の kakasi, Text-Kakasi に依存してます.~
+chasen を使う場合には,  別に登録した chasenと Text-ChaSen が必要です.
+
+
+----
+
+-ありがとうございます、無事入りました。使ってみて何かあれば書かせていただきます。('仲間たち'は、kakasi/chasenのことです(^_^;) -- [[yamakura]] SIZE(10){2002-08-25 (日) 11:05:54}
+-インデックス構築も検索もちゃんとできました。インストール先については、特に違和感は感じないです。namazuのほうで、 /usr/var/... というディレクトリが掘られるのは不要だと思います。(あるいは /var/namazu/... かな) -- [[yamakura]] SIZE(10){2002-08-25 (日) 18:19:27}
+-namazu/index を /var/lib/ に変更しました. あと, namazu.el 等もインストールするようにしました. -- [[naoto]] SIZE(10){2002-08-26 (月) 21:24:43}
+-namazu-2.0.12 用の ebuild を追加しました. -- [[naoto]] SIZE(10){2002-09-07 (土) 00:37:59}
+-chasen をサポートしたのですが, 前回とインストール方法が変わったんで注意して下さい. -- [[naoto]] SIZE(10){2002-09-07 (土) 00:39:41}
+-私のところではText-Kakasiがemergeできないです./usr/portage/dev-perl/Text-Kakasi/files/Text-Kakasi-1.05-gentoo.diffってどこにあるんですか? -- [[tokoroten]] SIZE(10){2003-09-18 (木) 07:24:37}
+-おっと、filesにありませんね。追加しましたので、すみませんが emerge sync してもう一度試してみてください。 -- [[yamakura]] SIZE(10){2003-09-18 (木) 10:09:58}
+// #comment

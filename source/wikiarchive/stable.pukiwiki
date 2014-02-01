@@ -1,0 +1,37 @@
+#contents
+#title
+
+*Portage と stable [#v50a67b4]
+
+[[GLEP]] の 022 より広い意味での [[KEYWORDS]] とはカーネル、Cライブラリ、ユーザランド、アーキテクチャを示します。通常はアーキテクチャだけです。[[KEYWORDS]] のマーク無し、例えば「amd64」が amd64 アーキテクチャの [[stable]] です。[[KEYWORDS]] の「~」マーク、例えば「~amd64」が amd64 アーキテクチャの [[testing]] です。
+
+コミュニティとしては「推奨できる」と言っているわけですので、不具合を見つけたら[[バグ報告]]しましょう。
+
+[[mask]] → [[testing]] → [[stable]] です。amd64 上で x86 [[KEYWORDS]] を許したりするとややこしい問題になるかもしれません。また、[[GLEP]] の 041 より [[QA]] (品質保証)と関係してパッケージテスト専用のスタッフも迎えようとしています。[[app-portage/herdstat]] で状況が分ります。また、[[GLSA]] の対象になります。[[GLSA]] こと" [[Gentoo Linux Security Announcements:http://wiki.gentoo.gr.jp/index.php?GentooLinuxSecurityAnnouncements]]" (または "[[Gentoo Linux Security Advisories:http://wiki.gentoo.gr.jp/index.php?GentooLinuxSecurityAdvisories]]") は [[Securityプロジェクト:http://www.gentoo.org/proj/en/security/index.xml]]による脆弱性注意報告です。
+
+**dead [#q2068671]
+
+古くなりサポート対象から外れたものです。[[Portage]] には [[Slot]] と呼ばれる複数ヴァージョンの混在を許す概念がありますが、それからも外れたことを示します。
+
+[[GLSA]] を自分で判断できればもう暫く [[dead]] のままでも問題ありませんが、[[stable]] にして欲しいようです。アップグレードに関しての注意点が[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]に追加されるものがあります。
+
+**tree [#nd715bbb]
+
+[[tree]] に関連記事があります。
+
+**overlays [#n4b03a19]
+
+[[overlays]] に関連記事があります。
+
+**KEYWORDS とは... [#p3720b09]
+
+[[USEフラグ]]ではありません。[[profile]] に関連記事があります。
+
+**ヴァージョン と リヴィジョン [#f3133c93]
+
+[[メタ・ディストリビューション]]に関連記事があります。
+
+________
+
+-[2005-09-19] 
+-[2006-09-17] 自分が調べた際のメモをほぼそのまま貼りつけているだけだったのを省察しました。 (yoshino)

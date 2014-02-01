@@ -1,0 +1,38 @@
+|本名|小町守|
+|PC初使用|1998年12月|
+|Linux初使用|1999年2月|
+|Mac OS X初使用|2001年2月|
+|Gentoo初使用|2002年8月|
+|ディストリビューション歴|Windows 98→FreeBSD 3.1〜4.7→Windows 2000→Gentoo 1.4_rc4(~x86)→Gentoo 2004.0(x86)→Mac OS X 10.3〜(現在に至る)|
+|自分のページ|http://www.smalltown.ne.jp/~usata/|
+
+Gentooで使っているアプリケーション
+|デスクトップ環境|なし(たまにGNOME)|
+|ウィンドウマネージャ|fluxbox|
+|端末エミュレータ|mlterm|
+|シェル|zshとzsh-completion|
+|ブラウザ|風博士とw3m|
+|2chブラウザ|風博士でp2|
+|エディタ|Vim か Emacs(メール読み書き、もしくは IRC するとき、もしくは TeX 書くとき)|
+|メーラ|Wanderlust|
+|IRC|Riece + plum|
+|IM|Gaim(MSN)|
+|日本語入力|Emacs 上では ddskk、X 上では SCIM (scim-anthy/scim-prime)|
+|フォント|shinonome の 7x14(fixed の場合) かあくあフォント(TrueType の場合)|
+|sys-kernel|mm-sources(~x86)/gentoo-sources(x86)|
+|FS|reiser4, reiserfs, ext3|
+|ARCH|x86|
+
+MacOSX で使っているアプリケーション
+|パッケージシステム|Fink|
+|デスクトップ環境|Aqua(たまにXのアプリケーションを使う)|
+|端末エミュレータ|Terminal.app、XのときはFinkのmlterm|
+|シェル|Mac OS Xのzsh|
+|ブラウザ|Mac OS XのSafariとFirefox、ターミナルでは Fink のw3m|
+|2chブラウザ|Safariでp2|
+|エディタ|FinkのCarbon EmacsもしくはTerminal.appでemacs -nw|
+|メーラ|Thunderbird|
+|IRC|emacs -nw して Fink の riece|
+|IM|MS謹製のMSN Messenger|
+|日本語入力|Fink の Carbon Emacs 上でATOK17(もしくは Terminal.app で emacs -nw して ATOK17)、AquaアプリケーションではATOK17、X上では Fink の kinput2 + Canna|
+|フォント|ヒラギノ Osaka|

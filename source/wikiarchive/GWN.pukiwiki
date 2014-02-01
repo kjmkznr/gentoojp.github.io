@@ -1,0 +1,85 @@
+#contents
+#title
+
+*Gentoo Weekly Newsletter [#j74de958]
+
+[[GWN]] は "[[Gentoo Weekly Newsletter:http://wiki.gentoo.gr.jp/index.php?GentooWeeklyNewsletter]]" の事です。 [[PR プロジェクト:http://www.gentoo.org/proj/en/pr/index.xml]]の [[GWN サブプロジェクト:http://www.gentoo.org/news/en/gwn/current.xml]]が担当しています。[[ジェンツー・ウィークリィ・ニュースレター:http://www.gentoo.org/news/ja/gwn/gwn.xml]]がそれです。
+
+"[[Gentoo Weekly Newsletter:http://wiki.gentoo.gr.jp/index.php?GentooWeeklyNewsletter]]" と同様なものに "[[Debian Weekly News:http://www.debian.org/News/weekly/]]" や "[[Fedora Weekly News:http://fedoranews.org/mediawiki/index.php/Fedora_Weekly_News]]" があります。名は知られていても定期的に広報活動をしているグループは意外と少なく、活発なメジャー・ディストリビューションの証とも言えます。[[日本語:http://www.gentoo.org/news/ja/gwn/gwn.xml]]で読めます。(リンク先は最新版の幾つかが翻訳されていない様に見えますが、それは反映されるまでの流通上の制限であり、実際は [[gentoojp-usersのメーリングリスト:http://www.gentoo.gr.jp/jpmain/about-gentoojp.xml#doc_chap4]]で最新版が読めます。)
+
+歴史家のための[[初期のGWN翻訳:http://www.gentoo.gr.jp/jpdoc/gwn-history.xml]]もあります。
+
+*Planet Gentoo [#t5ca5d6c]
+
+[[GLEP]] の 030 より採用されました。
+
+他の広報活動で有名なのは "Planet" と呼ばれる開発者による WeBlog があります。"[[Planet KDE:http://www.planetkde.org/]]" や "[[Planet Gnome:http://planet.gnome.org/]]" などが知られています。本家では "[[Planet Gentoo:http://planet.gentoo.org/]]" があります。([[Wikiページの改善案]]より、[[GentooJP:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A5%CB%A5%E5%A1%BC%A5%B9%B2%E1%B5%EE%A5%ED%A5%B0%5D%5D]] の方針は[[メンバー紹介:http://wiki.gentoo.gr.jp/index.php?%5B%5BMembers%5D%5D]]のみのようです。[[航海日誌:http://diary.gentoo.gr.jp/]]もそれになるかもしれません。[[GentooJP:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A5%CB%A5%E5%A1%BC%A5%B9%B2%E1%B5%EE%A5%ED%A5%B0%5D%5D]] 版 Planet は開発者の日記サイトで同じ事ですし、本家 Planet の翻訳が必要かどうかは怪しく、ほとんどの人にとって[[ジェンツー・ウィークリィ・ニュースレター:http://www.gentoo.org/news/ja/gwn/gwn.xml]]で十分なのは間違いないとは思います。)
+
+*メーリングリストのミニコラム [#z2fdc464]
+
+「[[gentoojp-usersメーリングリスト:http://ml.gentoo.gr.jp/users/]]」には質問メールなどとは別にミニコラムが流れます。[[GWN]] は本家の記事ですが、こちらは日本人が日本人向けに書いた記事です。メール 1 通で完結しています。2006 年 01 月より新しい順に 10 通ほど抜き出してみました。(明確な基準はなく、題名と直後のメール関係だけで区別しただけです。)
+
+-http://ml.gentoo.gr.jp/users/200601.month/1541.html
+--From:  認知酒 氏
+--Subject:  ご報告：　ideからsataへの引越し
+
+-http://ml.gentoo.gr.jp/users/200601.month/1537.html
+--From:  SUZUKI Youji 氏
+--Subject:  x11-xorg-7.0   を試してみました(祝:日本語TTFのBOLD化対応!!)
+
+-http://ml.gentoo.gr.jp/users/200601.month/1534.html
+--From:  takesima 氏
+--Subject:  mpeg4ファイル結合
+
+-http://ml.gentoo.gr.jp/users/200511.month/1492.html
+--From:  OS rider 氏
+--Subject:  amd64 のフルバックアップ
+
+-http://ml.gentoo.gr.jp/users/200511.month/1490.html
+--From:  OS rider 氏
+--Subject:  partimage cp
+
+-http://ml.gentoo.gr.jp/users/200510.month/1470.html
+--From:  hiroron 氏
+--Subject:  ibookのairport(AirMac)でWEP+128bit暗号を使う注意点
+
+-http://ml.gentoo.gr.jp/users/200509.month/1401.html
+--From:  OS rider 氏
+--Subject:  日本語入力設定事例集の「日本語予測入力 PRIME   の設定」について
+
+-http://ml.gentoo.gr.jp/users/200508.month/1323.html
+--From:  ヒロシです 氏
+--Subject:  要確認：athron64とxfce4
+
+-http://ml.gentoo.gr.jp/users/200505.month/1200.html
+--From:  OS rider 氏
+--Subject:  ご報告： cdrw  の packet writing
+
+-http://ml.gentoo.gr.jp/users/200502.month/1039.html
+--From:  武藤 雅幸 氏
+--Subject:  /usr/portage   を Mac OS X     で nfs  マウント
+
+________
+
+[[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]) の詳細は[[プロジェクトリスト:http://www.gentoo.org/proj/en/metastructure/projects.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]), [[Gentoo FAQ:http://www.gentoo.org/doc/ja/?catid=faq]], [[GentooJP FAQ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A3%C6%A3%C1%A3%D1%5D%5D]]
+- [[インストール]], [[Stage]], [[GRP]], [[Portageツリー]]
+- [[インストールした後にできること]], [[日本語入力設定事例集]], [[日本語デスクトップ環境/パッケージ]]
+- [[Gentooが採用している技術]]
+- [[コミュニティとの連絡手段]], [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]
+- [[本家に関連しそうな言葉]], [[GLEP]], [[コピーライト]], [[ライセンス]]
+
+[[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]]) の詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]])
+- [[メタ・ディストリビューション]], [[USEフラグ]], [[profile]], [[catalyst]], [[GNAP]]
+- [[コンパイル]], [[バイナリパッケージ]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+
+________
+
+-[2005-09-19]
+-[2005-11-06] GentooWeeklyNewsletterから移動。(yoshino)
+-[2006-02-19] メーリングリストのミニコラム。(yoshino)

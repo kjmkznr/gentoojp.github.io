@@ -1,0 +1,323 @@
+#contents
+#title
+
+*Portage と ebuild [#r108157b]
+
+[[sys-apps/portage]] のコマンドです。
+
+今でこそ直接使うのはデバッグぐらいですが、[[emerge]] コマンドがなかった頃はユーザもこれだったそうです。ユーザが [[ebuild]] コマンドの使い方を知らなくとも困ることは全くありません。デベロッパは修得が必須です。
+
+[[emerge]] を --debug 引数で実行すれば分りますが、[[ebuild.sh]] を何百回も呼び出しています。[[Portage]] における単体[[マージ]]の中核機能です。[[portage.py]] は連鎖の流れを制御します。[[ebuild]] を使うと [[ebuild.sh]] そのまま、つまり [[emerge]] より低い視点から呼びだすことが可能です。[[ebuild]] には連鎖という概念はありません。[[USEフラグ]]、[[profile]]、[[FEATURES]]、[[RESTRICT]] で左右されます。
+
+***一文でアピールすると... [#r9b813db]
+
+使用条件にあわせてコンパイルフラグを調整した自作パッケージを用意する必要がほとんどなくなります。
+
+***portage を原稿用紙1枚ぐらいで説明してみると... [#o784998b]
+
+[[メタ・ディストリビューション]]に関連記事があります。
+
+***emerge と ebuild を説明してみると... [#i64e083f]
+
+[[emerge]] と [[ebuild]] に関連記事があります。
+
+*EBUILD_PHASES ... emerge はどのように処理されているのか [#bfddc31d]
+
+[[emerge]] は [[ebuild]] に連鎖の概念を加えたコマンドです。[[emerge]] コマンドでも [[ebuild]] コマンドでも [[ebuild.sh]] を使っています。[[ebuild.sh]] は [[Portage]] における単体[[マージ]]の中核機能です。
+
+[[emerge]] コマンドでも [[ebuild]] コマンドでも [[portage.py]] を使っています。[[portage.py]] は [[Portage]] における連鎖制御の中核機能です。連鎖という概念がない [[ebuild]] が [[portage.py]] を経由するのは [[emerge]] と矛盾させないためです。[[portage.py]] が理解する処理はおおまかに言えば以下になります。[[Phase]]、つまり進行段階の認識には [[.unpacked]] 等のファイルを目印として残しています。[[emerge]] コマンドでこれらを感じることはできません。[[ebuild]] コマンドならこれらを感じることができます。実際はこの進行段階よりもっと細かく、つまりより低い [[ebuild.sh]] の視点より実行できます。
+
+[[Phase]] に関連記事があります。
+
+ebuild files を書くのに知る必要があるのは以下です。
+
+- setup
+- nofetch
+- unpack
+- compile
+- test
+- install
+- preinst
+- postinst
+- prerm
+- postrm
+- config
+
+以下は Portage 独自の追加です。
+
+- info
+- fetch
+- digest
+- manifest
+- qmerge
+- merge
+- unmerge
+- package
+- rpm
+- depend
+
+*操作概念 ... sys-apps/portage-2.1 [#g1ebb91c]
+
+[[マージ]]工程を1ステップづつ再現できます。
+
+ Usage: ebuild ./foo.ebuild valid_commands
+
+[[ebuild]] コマンドに流れを制御する機能はありません。フラグに従い工程を実行するだけです。[[ポーテージ]]の [[USEフラグ]]、[[profile]]、[[FEATURES]]、[[RESTRICT]] が流れを制御する機能です。[[*.ebuild]] が個々の[[ebuildパッケージ]]情報です。
+
+**valid_commands ... emerge より低い視点、つまり ebuild の進行段階 [#o58f4b3a]
+
+各 [[Phase]] のデフォルト動作は決められています。が、各パッケージの [[*.ebuild]] には必要な [[Phase]] を定義しなければなりません。取り込む [[.eclass]] 内に EXPORT_FUNCTIONS() があるものは [[Phase]] に必要なその関数を上書きしているため、src_compile() 等を [[*.ebuild]] にて自分で定義する必要がないかもしれません。
+
+***help [#t2364171]
+
+ヘルプを呼び出した時の動作です。
+
+以下を呼びだします。
+
+- [[dyn_help()]]
+
+***fetch [#w5e30e73]
+
+簡単に言えば、[[マージ]]に必要なファイル群をダウンロードします。(ライセンス等の関係上)受動的ダウンロードを禁止しているパッケージもあります。各自で能動的にダウンロードする必要があります。[[distfiles]] に関連記事があります。
+
+以下を呼びだします。
+
+- [[fetch()]]
+- [[*.ebuild]] で [[pkg_nofetch()]] を上書き可能です。
+
+***manifest [#xc7d6111]
+
+簡単に言えば、[[.ebuild]], [[.patch]], [[.digest]] 等の [[Manifest]] を作成します。[[Manifest]] に関連記事があります。
+
+以下を呼びだします。
+
+- [[digestgen()]]
+
+***digest [#abe16410]
+
+簡単に言えば、[[.ebuild]], [[.patch]], [[.digest]], [[.tar.bz2]] 等の [[Manifest]] を作成します。[[Manifest]] に関連記事があります。
+
+以下を呼びだします。
+
+- [[digestgen()]]
+
+***qmerge [#e66f7299]
+
+実マージを行います。[[Phase]] をまとめて実行できるショートカットとしての意味もあります。
+
+以下を呼びだします。
+
+- <preinst>
+- [[merge()]]
+- <unmerge>
+- <postinst>
+
+***merge [#t56053ac]
+
+実マージを行います。[[Phase]] をまとめて実行できるショートカットとしての意味もあります。
+
+以下を呼びだします。
+
+- <fetch>
+- <unpack>
+- <compile>
+- <install>
+- <qmerge>
+
+***unmerge [#v58edbec]
+
+実アンマージを行います。[[Phase]] をまとめて実行できるショートカットとしての意味もあります。
+
+以下を呼びだします。
+
+- <prerm>
+- [[unmerge()]]
+- <postrm>
+
+***depend [#s425bcbc]
+
+以下を呼びだします。
+
+- 依存関係によるコンパイルの連鎖
+
+***package [#v1e23cc7]
+
+[[*.tar.tbz2]] と [[*.xpak]] より[[バイナリパッケージ]]を作成します。[[FEATURES]] などで明示する必要があります。
+
+以下を呼びだします。
+
+- [[dyn_package()]]
+
+***rpm [#p86751aa]
+
+RPM 用の[[バイナリパッケージ]]を作成します。[[FEATURES]] などで明示する必要があります。
+
+以下を呼びだします。
+
+- [[dyn_rpm()]]
+
+***clean [#ef47b59d]
+
+作業ファイル群を削除します。[[.unpacked]] や [[.compiled]] は [[Phase]] の進行段階を示すファイルです。[[FEATURES]] などで明示する必要があります。
+
+以下を呼びだします。
+
+- [[dyn_clean()]]
+-- $PORTAGE_BUILDDIR/image
+-- $T
+-- $PORTAGE_BUILDDIR/.unpacked
+-- $PORTAGE_BUILDDIR/.compiled
+-- $PORTAGE_BUILDDIR/.tested
+-- $PORTAGE_BUILDDIR/.installed
+-- $PORTAGE_BUILDDIR/.packaged
+-- $PORTAGE_BUILDDIR/.build-info
+-- $WORDDIR
+-- $PORTAGE_BUILDDIR
+-- $PORTAGE_BUILDDIR/distdir
+
+***setup [#g9f4f66a]
+
+[[ebuild]] の [[Phase]] 実行前の初期化を行います。デフォルトでは何も定義されていません。必要であれば、各パッケージの [[*.ebuild]] で上書き定義します。
+
+以下を呼びだします。
+
+- [[dyn_setup()]]
+-- [[*.ebuild]] で [[pre_pkg_setup()]] を上書き可能です。
+-- [[*.ebuild]] で [[pkg_setup()]] を上書き可能です。
+-- [[*.ebuild]] で [[post_pkg_setup()]] を上書き可能です。
+
+***unpack [#o2b0f1d7]
+
+[[マージ]]に必要なファイルの展開を行います。デフォルトでは ${WORKDIR} 内で解凍作業をします。必要であれば、各パッケージの [[*.ebuild]] で上書き定義します。目印として [[.unpacked]] を残します。
+
+以下を呼びだします。
+
+- <setup>
+- [[dyn_unpack()]]
+-- [[*.ebuild]] で [[pre_src_unpack()]] を上書き可能です。
+-- [[*.ebuild]] で [[src_unpack()]] を上書き可能です。
+-- [[*.ebuild]] で [[post_src_unpack()]] を上書き可能です。
+
+***compile [#t7ef5f45]
+
+[[ビルド]]を行います。デフォルトでは ${S} 内で [[make]] 作業を実行します。必要であれば、各パッケージの [[*.ebuild]] で上書き定義します。目印として [[.compiled]] を残します。
+
+以下を呼びだします。
+
+- <setup>
+- [[dyn_compile()]]
+-- [[*.ebuild]] で [[pre_src_compile()]] を上書き可能です。
+-- [[*.ebuild]] で [[src_compile()]] を上書き可能です。
+-- [[*.ebuild]] で [[post_src_compile()]] を上書き可能です。
+
+***test [#i6d9807f]
+
+テストを行います。デフォルトでは行われません。[[FEATURES]] などで明示する必要があります。必要であれば、各パッケージの [[*.ebuild]] で上書き定義します。目印として [[.tested]] を残します。
+
+以下を呼びだします。
+
+- <setup>
+- [[dyn_test()]]
+-- [[*.ebuild]] で [[pre_src_test()]] を上書き可能です。
+-- [[*.ebuild]] で [[src_test()]] を上書き可能です。
+-- [[*.ebuild]] で [[post_src_test()]] を上書き可能です。
+
+***install [#w7369776]
+
+仮マージを行います。実マージではありません。デフォルトでは何も定義されていません。${S} 内で実行し、${D} へ仮マージする手段が求められます。必要であれば、各パッケージの [[*.ebuild]] で上書き定義します。実マージは上書き定義できません。目印として [[.installed]] を残します。
+
+以下を呼びだします。
+
+- <setup>
+- [[dyn_install()]]
+-- [[*.ebuild]] で [[pre_src_install()]] を上書き可能です。
+-- [[*.ebuild]] で [[src_install()]] を上書き可能です。
+-- [[*.ebuild]] で [[post_src_install()]] を上書き可能です。
+
+***preinst [#e67b985c]
+
+実マージの直前に実行します。デフォルトでは何も定義されていません。必要であれば、各パッケージの [[*.ebuild]] で上書き定義します。実マージは上書き定義できません。
+
+以下を呼びだします。
+
+- [[dyn_preinst()]]
+-- [[*.ebuild]] で [[pre_pkg_preinst()]] を上書き可能です。
+-- [[*.ebuild]] で [[pkg_preinst()]] を上書き可能です。
+-- [[*.ebuild]] で [[post_pkg_preinst()]] を上書き可能です。
+
+***postinst [#f6b74299]
+
+実マージの直後に実行します。デフォルトでは何も定義されていません。必要であれば、各パッケージの [[*.ebuild]] で上書き定義します。実マージは上書き定義できません。
+
+以下を呼びだします。
+
+-- [[pre_pkg_postinst()]]
+-- [[*.ebuild]] で [[pkg_postinst()]] を上書き可能です。
+-- [[post_pkg_postinst()]]
+
+***prerm [#of758670]
+
+実アンマージの直前に実行します。デフォルトでは何も定義されていません。必要であれば、各パッケージの [[*.ebuild]] で上書き定義します。実マージは上書き定義できません。
+
+以下を呼びだします。
+
+-- [[pre_pkg_prerm()]]
+-- [[*.ebuild]] で [[pkg_prerm()]] を上書き可能です。
+-- [[post_pkg_prerm()]]
+
+***postrm [#tdf12ee0]
+
+実アンマージの直後に実行します。デフォルトでは何も定義されていません。必要であれば、各パッケージの [[*.ebuild]] で上書き定義します。実マージは上書き定義できません。
+
+以下を呼びだします。
+
+-- [[pre_pkg_postrm()]]
+-- [[*.ebuild]] で [[pkg_postrm()]] を上書き可能です。
+-- [[post_pkg_postrm()]]
+
+***config [#y53045ad]
+
+実マージの後にパッケージとして便利と思われる作業を実行します。人によっては余計な行為になるため、[[FEATURES]]で明示しないと実行されません。デフォルトでは何も定義されていません。必要であれば、各パッケージの[[*.ebuild]]で上書き定義します。実マージは上書き定義できません。
+
+以下を呼びだします。
+
+-- [[pre_pkg_config()]]
+-- [[*.ebuild]] で [[pkg_config()]] を上書き可能です。
+-- [[post_pkg_config()]]
+
+***nofetch [#b14b1ca7]
+
+-- [[pkg_nofetch()]]
+
+***info [#ye089726]
+
+--[[pre_pkg_info()]]
+--[[pkg_info()]]
+--[[post_pkg_info()]]
+
+________
+
+[[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]) の詳細は[[プロジェクトリスト:http://www.gentoo.org/proj/en/metastructure/projects.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]), [[Gentoo FAQ:http://www.gentoo.org/doc/ja/?catid=faq]], [[GentooJP FAQ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A3%C6%A3%C1%A3%D1%5D%5D]]
+- [[インストール]], [[Stage]], [[GRP]], [[Portageツリー]]
+- [[インストールした後にできること]], [[日本語入力設定事例集]], [[日本語デスクトップ環境/パッケージ]]
+- [[Gentooが採用している技術]]
+- [[コミュニティとの連絡手段]], [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]
+- [[本家に関連しそうな言葉]], [[GLEP]], [[コピーライト]], [[ライセンス]]
+
+[[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]]) の詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]])
+- [[メタ・ディストリビューション]], [[USEフラグ]], [[profile]], [[catalyst]], [[GNAP]]
+- [[コンパイル]], [[バイナリパッケージ]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+
+________
+
+
+-[2005-09-19]
+-[2005-12-30] 修正を御願いします。(yoshino)
+-[2006-04-14] 少し明確にしました。 (yoshino)
+-[2006-09-17] 自分が調べた際のメモをほぼそのまま貼りつけているだけだったのを省察しました。 (yoshino)

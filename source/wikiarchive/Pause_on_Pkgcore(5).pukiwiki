@@ -1,0 +1,71 @@
+#title
+#contents
+
+* RESTRICT [#z1523be3]
+
+Portage, Paludis, Pkgcore の範囲ではなく ebuild_files [ebuild]_ の範囲です。
+
+** RESTRICT とは？ [#p8068236]
+
+デベロッパがオンオフする内部機能の目印です。
+
+GPMS [gpms]_ に掲載されています。一般ユーザは解除出来ません。
+
+
+________________
+
+
+
+.. [gpms] http://dev.gentoo.org/~spb/pms.pdf が PDF です。
+
+.. [gpm] http://wiki.gentoo.gr.jp/index.php?Gentoo_Package_Manager に関連記事があります。
+
+.. [meta-distribution] http://wiki.gentoo.gr.jp/index.php?%5B%5B%A5%E1%A5%BF%A1%A6%A5%C7%A5%A3%A5%B9%A5%C8%A5%EA%A5%D3%A5%E5%A1%BC%A5%B7%A5%E7%A5%F3%5D%5D に関連記事があります。 
+
+.. [sandbox] root:root でさえも登録ディレクトリ以外へのアクセスを禁止させる LD_PRELOAD のハック。
+
+.. [glsa] 脆弱性注意報告。
+
+.. [qa] 品質保証。
+
+.. [repository] http://wiki.gentoo.gr.jp/index.php?repository に repository, tree, overlays の関連記事があります。
+
+.. [portage] http://www.gentoo.org/proj/en/portage/index.xml は公式サイトです。
+
+.. [paludis] http://paludis.pioto.org/ は公式サイトです。
+
+.. [pkgcore] http://www.pkgcore.org/ は公式サイトです。
+
+.. [vdb] システムに何がどんな状態でマージ済みかを保存しているデータベース。
+
+.. [features] ユーザが機能をオンオフ調整する portage 変数。pkgcore は採用、paludis は不採用。
+
+.. [restrict] デベロッパが機能をオンオフ調整する ebuild 変数。
+
+.. [digest/manifest] 誰が作成したものかを保証する機能。
+
+.. [ebuild] http://wiki.gentoo.gr.jp/index.php?ebuild_files に関連記事があります。
+
+.. [prefix] http://wiki.gentoo.gr.jp/index.php?prefix に関連記事があります。
+
+.. [overlays] http://wiki.gentoo.gr.jp/index.php?overlays に関連記事があります。
+
+.. [use_flag] http://wiki.gentoo.gr.jp/index.php?USE_flag に関連記事があります。
+
+.. [profile] http://wiki.gentoo.gr.jp/index.php?profile に関連記事があります。
+
+
+________________
+
+
+
+- [[Gentoo_Package_Manager]], [[Portage]], [[Paludis]], [[Pkgcore]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+- [[Pause_on_Pkgcore(1)]], [[Pause_on_Pkgcore(2)]], [[Pause_on_Pkgcore(3)]], [[Pause_on_Pkgcore(4)]], [[Pause_on_Pkgcore(5)]], [[Pause_on_Pkgcore(6)]], [[Pause_on_Pkgcore(7)]], [[Pause_on_Pkgcore(8)]], [[Pause_on_Pkgcore(9)]], [[Pause_on_Pkgcore(10)]], [[Pause_on_Pkgcore(11)]], [[Pause_on_Pkgcore(12)]], [[Pause_on_Pkgcore(13)]], [[Pause_on_Pkgcore(14)]], [[Pause_on_Pkgcore(15)]], [[Pause_on_Pkgcore(16)]]
+- [[repository]], [[USE_flag]], [[profile]], [[prefix]], [[overlays]]
+- [[ebuild_files]], [[ebuild_metadata(ebuild-defined_variables)]], [[ebuild_phase(ebuild-defined_functions)]], [[the_ebuild_environment(defined_variables)]], [[the_ebuild_environment(defined_commands)]], [[bash_for_ebuild]]
+
+________________
+
+- [2007-08-05] 気に入ったら書き足して下さい。 (yoshino)

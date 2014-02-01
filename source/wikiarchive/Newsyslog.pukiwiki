@@ -1,0 +1,21 @@
+*Newsyslog [#kc559ba7]
+
+-ページ: BugTrack
+-投稿者: [[yamakura]]
+-優先順位: 低
+-状態: 完了
+-カテゴリー: ebuild
+-投稿日: 2002-08-09 (金) 20:35:25
+-バージョン: 
+
+
+CENTER:''このebuildは本家のツリーに取り込まれました。(app-admin/newsyslog)''
+
+**メッセージ [#i1c2d6a4]
+やっぱりこれでないと…(^-^;
+　/etc/newsyslog.confはきちんといじらないと
+エラーになります。
+　/etc/cron.hourly/newsyslog.cron を編集してコメントを外せば、
+1時間置きに動くようになります。
+----
+// #comment

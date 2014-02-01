@@ -1,0 +1,21 @@
+*multi-line grep [#xc57234b]
+
+-ページ: BugTrack
+-投稿者: [[yamakura]]
+-優先順位: 低
+-状態: 着手
+-カテゴリー: ebuild
+-投稿日: 2002-08-24 (土) 23:10:30
+-バージョン: 5.0.1.2
+
+問題無さそうならクリックしてください。(目安として使うだけです)
+#vote(問題なく動作しました。)
+#attach
+**メッセージ [#r4d9f0f1]
+Perlで書かれた高機能grepです。最新は5.0.1.?なのですが、まだbetaのようなので、2.26用のebuildも入れてあります。どっちも /usr/bin/mg しか入りませんので、[[mgのページ:http://www.srekcah.org/~utashiro/perl/scripts/mg/]]のマニュアルなどを参照してください。
+
+日本語を使うには -j オプションがありますが、これには jcode.pl が必要になります。
+USE="cjk" で jcode.pl にRDEPENDします。jcode.plも別で登録しましたので、
+そちらをご利用ください。
+----
+// #comment

@@ -1,0 +1,54 @@
+#navi([[日本語入力設定事例集]])
+
+*日本語予測入力 PRIME の設定 [#n2fd0a09]
+
+**インストール [#l76860c1]
+
+ # emerge app-i18n/prime
+
+でインストールされます。依存するパッケージがけっこうあります。 Emacs でも PRIME を使おうという人は、USE フラグに emacs を追加しておいてください(もしくは app-emacs/prime-el をあとで手動で入れます)。
+
+**設定方法 [#pf63d548]
+
+*** Emacs で使う場合 [#d2abf706]
+
+app-i18n/anthy をインストールしていなければ、このままで PRIME 経由で入力できます。C-\ で変換エンジンがオンになります。操作は文字を打っていけば自然に分かるでしょうが、便利なキーバインドは /usr/share/doc/prime-(バージョン)/html/index.html を見るとよいでしょう。
+
+app-i18n/anthy をインストールしているときは、anthy のほうがデフォルトとして起動されてしまいますので、デフォルトでは PRIME を使いたい場合は、~/.emacs などに
+
+ (setq default-input-method "japanese-prime")
+
+と書いてください。
+
+*** X 環境で使いたい場合 [#l60d0991]
+
+PRIME に加え、uim もしくは scim をインストールします。
+
+ # emerge app-i18n/uim
+
+そして、~/.xinitrc などで GTK_IM_MODULE と XMODIFIERS を設定します。
+
+ GTK_IM_MODULE=uim
+ QT_IM_MODULE=uim
+ XMODIFIERS=@im=uim
+ export GTK_IM_MODULE QT_IM_MODULE XMODIFIERS
+ uim-xim &
+
+以上で X 上のアプリケーションで Shift + Space と押すと uim-prime 
+が立ち上がり、PRIME による入力ができるようになります。
+
+uim ではなく scim を使いたい場合は以下のようにします。
+
+ # emerge scim-prime
+
+そして環境変数を設定します。
+
+ GTK_IM_MODULE=scim
+ QT_IM_MODULE=scim
+ XMODIFIERS="@im=SCIM"
+ export GTK_IM_MODULE QT_IM_MODULE XMODIFIERS
+ scim -d
+
+Ctrl + Space で SCIM のバーが立ち上がって使えるようになります。
+
+#navi([[日本語入力設定事例集]])

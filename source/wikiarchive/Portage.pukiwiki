@@ -1,0 +1,188 @@
+#contents
+#title
+
+*宣伝的な事柄 [#t2060763]
+
+未体験者へのアピールです。
+
+**Portage はポーテージと読みます [#x6584d96]
+
+創始者が FreeBSD の Ports にヒントを得たソースファイル形式のパッケージ管理システムです。ちょっと前までは [[True Ports System:http://stuff.mit.edu/iap/gentoo/]] だとか [[Portage Ports System:http://wiki.gentoo.gr.jp/index.php?PortagePortsSystem]] だとか難しい言葉が使われていました。何十何百と続く[[ビルド]]の連鎖を、何十何百回のコンパイルフラグ指定ではなく、一回の [[USEフラグ]]のオンオフと [[profile]] の指定で制御するものです。これを[[メタ・ディストリビューション]]と呼びます。
+
+技術者の視点で技術者を育てようとする一面があるため、「ハッカー達が無料でテクニカルサポートをしてくれる」という期待とちょっと温度差があるかもしれません。20 代が最も多い層ですし、学び易いようにドキュメントも集中管理されてます。「学校や職場でいう教える」だけでなく「作りたいものがあり、実現したい、でも最初の一つを作って終わりではないから今からそうしている」や「好敵手を育てる」や「自分が勉強を続けたい」といった風に考えてみるのはどうでしょう。実際のところコミュニティ全体で言えば 1 ヶ月間で大小含め 3600 以上の報告に対し 1800 以上のバグを修正し、1 年間で 44000 以上の報告に対し 22000 以上のバグを修正していることになります。テクニカルサポートを本家はビジネスモデルにしていませんが、ビジネスモデルとして代行してくれる企業があります。
+
+創造するきっかけをあちこちに残そうとしています。これが難しくなる原因でもあります。この「ココをもっと調べてみたくなった、と言って欲しい」という願いは本家に限った話ではないようです。例えば、教科書『アート・オブ・コンピュータ・プログラミング』で有名なドナルド・E・クヌース氏の作品に恋愛小説『至福の超現実数』があります。物語はビル君がアリスちゃんに数学プロポーズをなんとか成功させるという喜劇ですが、その解説で「もちろん、主として楽しむためのものであり、喜びのいくぶんかが読者に伝わればと思っているが、心の奥では、あることを真剣に意図していることも認めなければならない。...snip... 創造力は教科書では教えられないが、この小説のような『反教科書』なら使えるかもしれないと思った。そこでランダウの『解析学の基礎』の正反対のものを書こうとしてみた。何とかして数学を『教室から連れ出して生活に入れ』、読者に自分の手で抽象的な数学の概念を調べてみたいと思わせよう -- 私のねらいはその一法を示すことだった。」とあります。
+
+***「Portage」(辞書検索例) [#d9c28046]
+
+[[wikipedia:http://ja.wikipedia.org/wiki/%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%9A%E3%83%BC%E3%82%B8]] の「[[Portage:http://ja.wikipedia.org/wiki/Portage]]」参考。
+
+***ebuildパッケージ数は 11000 種以上、*.ebuild は 24000 枚以上 [#p492c386]
+
+[[ebuildパッケージ]] に関連記事があります。
+
+***profile が用意されているアーキテクチャは 20 種以上 [#he57afcf]
+
+[[profile]] に関連記事があります。
+
+***許可されているライセンス・ファイルは 500 枚以上 [#ob831c73]
+
+[[ライセンス]]、[[コピーライト]]に関連記事があります。
+
+**「パッケージがコンパイルされるまで長い時間かかっても価値がある」理由とは... [#v3463a52]
+
+そもそも本家には [[PR プロジェクト:http://www.gentoo.org/proj/en/pr/index.xml]]や [[Documentation プロジェクト:http://www.gentoo.org/proj/en/gdp/index.xml]]があります。[[GWN サブプロジェクト:http://www.gentoo.org/proj/en/pr/gwn.xml]]が発行している [[GWN]] や[[公式サイト:http://www.gentoo.org/]]のページを幾つか読んで貰うのが雰囲気を伝えるには早い気がします。
+
+技術的価値以外に、「わくわくする」とか「こころときめく」とかが少なくないようです。例えば NASA (米航空宇宙局)で採用された際のインタビュー記事でもそんなことが書かれてます。デベロッパの視点のもありますが、ユーザの視点のもあります。尖った個人というより、適材適所を実行するメリット云々に近いです。
+
+***タッチスクリーン操作の「Video Jukebox」に Portage を採用した Douglas Robertson 氏の語る「パッケージがコンパイルされるまで長い時間かかっても価値がある」理由とは...(余談ですが、読む限りでは rpm パッケージも ebuild パッケージも自作しない、つまりユーザ視点の様です) [#o3b12350]
+
+> もっとも成功した製品は「Video Jukebox」というミュージックビデオエンタテイメントシステムで、主にパブやバーに設置されました。タッチスクリーン操作で音楽を選択し、パブやバーのテレビでミュージックビデオを鑑賞することができます。そして広告主は特定の場所に向けてピンポイントに宣伝を行うことができます。...snip...
+
+> Jukebox クライアントソフトウェアはインターネット経由で更新します。(Zymeta 社が Portage を使いオンデマンドのメディア配信プラットフォームを開発し、これにより一ヶ所に集めたバックエンドシステムが全てのプラットフォームを統括できると言う説明が前置きにあります。)
+
+> 最初から独自の Portageツリーを用意することも考えました。が、tarball からビルドし、それを使用することにしました。将来は Portageツリーを使って個々のパッケージの更新を行うでしょう。そうすれば jukebox クライアントにセキュリティの欠陥が見つかったときに(バックエンドのシステムとネットワークを通して)最新状態に保つことができます。...snip...
+
+> Gentoo 採用の前、Zymeta 社はサーバを Red Hat で稼働させており、jukebox クライアントに Debian を使用していました。...snip...
+
+> Red Hat の RPM に不満を抱えている人もいますが、私は好きでした。しかし様々な最新のパッケージ（ PostgreSQL やいくつかのネットワークツール）が必要になったとき、その RPM は異なったバージョンでビルドされているので動作しませんでした。それぞれの依存関係を持ったそれぞれのバージョンを要求したのです。この依存地獄が起こらないため、私の心配と反対に、Gentoo の portage はパッケージがコンパイルされるまで長い時間がかかっても、価値があります。...snip...
+
+> 私の唯一の不満は、時としてパッケージの stable 化に長い時間を要することです。メンテナが生産・企業システムで実行していると仮定して、コンパイルとその後が正常に動作することを保証してくれることが好きなのですが、時々それが少し長過ぎます。...snip...
+
+過去の [[GWN]] を参考に編集。
+
+**Zaurus で、iPod で、Xbox で、PS2 で、Kurobox で、Lantank で、... Gentoo を動かす [#j34f4559]
+
+軽くあやかりものになるにあたり [[PS2 に Gentoo:http://playstation2-linux.com/projects/gentoo-ps2]] やら [[玄箱に Gentoo:http://www.kurobox.com/online/tiki-index.php?page=projectsGenToo&PHPSESSID=81f9cb1e20997635b1573acec036a27a]] やら [[白箱に Gentoo:http://dev.gentoo.org/~vapier/superh/lantank/HOWTO.html]] やら [[iPod に Gentoo:http://gentoo-wiki.com/HOWTO_Using_an_iPod_With_Gentoo_Linux]] やら [[Zaurus に Gentoo:http://gentooforzaurus.opensistemas.com/]] やら [[Xbox に Gentoo:http://gentoox.shallax.com/]] やら ... があります。これを商品(サービス)にしている人もいます。[[相撲コンピュータ (Sumo Computer):http://sumocomputer.com/html/Category-1-0.html]] とは[[玄箱 (kurobox):http://www.kuroutoshikou.com/home.html]] に Gentoo をインストールした商品名(サービス名？)です。
+
+デスクトップでもメインフレームでも同じ [[*.ebuild]] が動きます。Zaurus, iPod, Xbox, PS2, Kurobox, Lantank ... 等を [[Gentoo]] 化するのは [[Stage]]、つまり [[sys-apps/baselayout]] や [[sys-fs/udev]] から完全構築を行います。[[Portage]] 化、つまり完全構築するのではなくパッケージ管理システムだけも行われています。
+
+***BSD 上で Portage [#d688a35c]
+
+SH や ARM で動かすための [[Stage]] の様な [[sys-apps/baselayout]] や [[sys-fs/udev]] から完全構築するのではなく、[[Portage]] だけを動かします。詳しくは [[Gentoo/ALT プロジェクト:http://www.gentoo.org/proj/en/gentoo-alt/index.xml]]の [[BSD 上で Portage:http://www.gentoo.org/proj/en/gentoo-alt/bsd/index.xml]]を参考にして下さい。
+
+Gentoo の BSD プロジェクトは、日本のオンラインコンピュータマガジン「PC Web」特別賞を授与されました。「Gentoo GNU/kFreeBSD」は、ユーザランドに Gentoo の長所を取り入れ、カーネルに FreeBSD の長所を取り入れています。
+
+***MacOS 上で Portage [#d4f9784d]
+
+SH や ARM で動かすための [[Stage]] の様な [[sys-apps/baselayout]] や [[sys-fs/udev]] から完全構築するのではなく、[[Portage]] だけを動かします。詳しくは [[Gentoo/ALT プロジェクト:http://www.gentoo.org/proj/en/gentoo-alt/index.xml]]の [[MacOS 上で Portage:http://www.gentoo.org/proj/en/gentoo-alt/macos/index.xml]]を参考にして下さい。
+
+***Solaris 上で Portage [#h0514ed6]
+
+SH や ARM で動かすための [[Stage]] の様な [[sys-apps/baselayout]] や [[sys-fs/udev]] から完全構築するのではなく、[[Portage]] だけを動かします。詳しくは [[Forums:http://forums.gentoo.org/]] の [[Solaris 上で Portage:http://forums.gentoo.org/viewtopic.php?t=113387]]を参考にして下さい。
+
+その後 [[Portaris:http://www.portaris.org/wiki/Main_Page]] が用意されました。
+
+***Windows 上で Portage [#q14e549b]
+
+[[sys-apps/portage]] に cygwin の名前だけは登場しています。
+
+**「Linux って何ですか？」の私に Gentoo や Portage は難しいですか？ [#o6163f4c]
+
+目標に左右されます。[[Gentoo]] のユーザ層は技術者を目指してコンピュータを勉強中の 20 代が最も多いです。「流行の技術が他社からサービスされるのを待つ側」より「流行の技術を他社へサービスする側」に興味がある人は少なくないようです。
+
+まずは書店で「Linux 入門書」を購入してみて下さい。どの出版社でも、二年三年古くても、薄くても構いません。コマンドラインからの操作(マウスではなくキーボード中心)で解説しているような教科書っぽいのが無難です。これは「[[Gentoo]] のデフォルトの画面が白黒でマウスも使えないから初心者向けではない」からではなく、「本当に触ったこともない人を [[Gentoo]] のマニュアルは読者像に考えていない」と思うからです。マニュアルそのものは学び易いと思います。
+
+「Linux 入門書」を読み終えて、つまりシェルやらネットワークやらデバイスやらの後にが順番かもしれませんが、興味が冷めない内に [[Gentoo]] に触れて欲しい気もします。どうせネットワークの勉強をするのだし思いきってパソコンを 2 台用意して [[Gentoo]] と「Linux 入門書」で紹介されているディストリビューションで通信する所から楽しむのも面白いのでは、と勧めたいです。やがてアプローチの違いが気になるかもしれません。これはディストリビューションの思想の違いです。もしかしたら [[Gentoo]] を面倒に感じるかもしれません。逆にもしも気に入ったら、共有したり、分散したり、仮想化したり……いろいろ試してみて下さい。プログラミング言語も面白いです。[[インストールした後にできること]]に関連記事があります。
+
+**ソースファイル形式の他のパッケージ管理システム「Sorcery」 [#t93ffea0]
+
+[[Portage]] は [[Python]] で記述されていますが、Sorcery は [[Bash]] で記述されています。どちらも運用するだけなら [[Bash]] の知識だけで十分です。印象として一番違うのは、管理システム用語に 「spell」 や 「grimoire」 と言ったオカルト用語をつけ、操作コマンドも「sorcery update」や「cast emacs」などと本格的にそれっぽい世界に徹底しているところです。
+
+Sorcery を使ったディストリビューションで一番有名なのは [[SourceMage:http://www.sourcemage.org]] かもしれません。「宗家 Sorcerer より分家 SourceMage がどうして有名なのか。」って話は長くなるので省きます。sys-devel/distcc や sys-devel/prelink などお馴染の機能も標準で紹介されています。[[Linux From Scratch (LFS):http://www.linuxfromscratch.org/]] や [[Gentoo]] 程に教育面の思想は強くはないみたいです。
+
+***o.g.o (Portageオーバーレイの集中管理サイト) [#ueb1461f]
+
+一連のゴタゴタから抜け出して [[o.g.o:http://overlays.gentoo.org/]] ([[Portageオーバーレイ]]の集中管理サイト)が再開しています。ここには Cell (Playstation 3 を含む) や Efika (2006 年のクリスマスプレゼント)等が置かれてます。ガイド([[ヘビーユーザ向け:http://www.gentoo.org/proj/en/overlays/userguide.xml]]、[[デベロッパ向け:http://www.gentoo.org/proj/en/overlays/devguide.xml]])があります。こういった仕組み自体に興味がある方は [[FreeBSD:http://www.freebsd.org/ja/]] の [[Ports:http://www.jp.freebsd.org/www.FreeBSD.org/ja/ports/index.html]]、[[Source Mage:http://www.sourcemage.org/node/]] の [[Sorcery:http://www.sourcemage.org/codex]]、[[Slackware:http://www.slackware.com/index.php]] で利用可能な [[Portpkg:http://portpkg.berlios.de/]] ……と比較するのも面白いかもしれません。[[GLEP-0049 (パッケージ・マネージメント・システム案):http://www.gentoo.org/proj/en/glep/glep-0049.html]]もあります。
+
+*具体的な事柄 [#x38d0c9e]
+
+「本家への案内」を意識した記事になってます。
+
+**一文でアピールすると... [#p347fae8]
+
+使用条件にあわせてコンパイルフラグを調整した自作パッケージを用意する必要がほとんどなくなります。
+
+***Portage を原稿用紙 1 枚ぐらいで説明してみると... [#dcbf326b]
+
+/usr/portage 以下にある CVS ツリーへ繋がるパッケージデータ群から、/etc/make.conf に指定された条件のもと、make の連鎖を制御するものです。依存関係は自動計算します。現在の状態は /var/db/pkg 以下のデータベースに保存します。ユーザは望むのならツリーを毎日更新して構いません。それによってツリー内データがデータベースより新しくなっているなら、該当するパッケージを更新することを指示できます。
+
+また、ユーザは条件を後から変更することもできます。その場合も Portage はデータベースと比較し、再マージ・追加・削除が必要なパッケージを自動計算します。
+
+条件にはかなり細かい指示もできます。細かい指示は /etc/portage 以下に記述します。ユーザは古いシステムを停止することなく、gcc や linux-headers のようなコア部分から更新できます。
+
+***emerge と ebuild を説明してみると... [#se4f18de]
+
+[[emerge]] と [[ebuild]] に関連記事があります。
+
+***ビルドの連鎖とは... [#hf2f09d2]
+
+[[コンパイル]]と[[ビルド]]に関連記事があります。
+
+**Portage とその周辺ツール [#g9674fad]
+
+[[portageとその周辺ツール]]に関連記事があります。
+
+***カスタマイゼーションとパーソナライゼーション [#seec8f38]
+
+[[emerge]] に関連記事があります。
+
+**Portage と Python [#wc903949]
+
+[[Python]] に関連記事があります。
+
+[[Bash]] ([[ebuildとbash]])、[[C]] に関連記事があります。
+
+**Portageツリーとは... [#u5634b52]
+
+[[Portageツリー]]に関連記事があります。
+
+**求められるマシン性能は... [#o12cd6b4]
+
+[[Portage]] はメインメモリに 64MB が必要です。[[sys-apps/baselayout]] や [[sys-fs/udev]] 次第では 32MB で起動できます。それ未満は手軽にできません。それでも[[ポーテージ]]の動作を考えるとやはり 64MB は必要と思います。[[コンパイラ]]等を登載しない [[GNAP]] は 32MB です。
+
+組み込み向けのアーキテクチャの [[Stage]] も用意されています。
+
+[[ディスクレス]]での管理については[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]にまとまっています。
+
+[[コンパイル]]については分散・並列処理ができます。クロス・コンパイル環境を作成し、処理を高性能なマシンに任せ、成果物を低性能マシンと共有させるのが無難です。
+
+**コンパイルとバイナリパッケージ [#k44c6bc5]
+
+[[コンパイル]]と[[バイナリパッケージ]]に関連記事があります。
+
+*思想的な事柄 [#j128b36d]
+
+イメージカラーが紫と桃(と白)です。さらりとすごい事を言っているマスコットキャラクタが Larry the Cow です。どうでも良いことですが、オスかメスかで話題になった過去があります。同じように見えるかもしれませんが、あのハッカー集団やそのハッカー団体とは違います。
+
+**Gentoo と 標準 [#n3169eb7]
+
+Linux の標準化を目指した [[Free Standards Group (FSG):http://www.osdl.jp/newsroom/press_releases/2004/2004_09_14_sanfrancisco.html]] の [[Linux Standards Base (LSB):http://www.linuxbase.org/]] との関係が今後も注目されるところです。
+
+**ライセンスとコピーライト [#t3857a1a]
+
+[[ライセンス]]、[[コピーライト]]に関連記事があります。
+
+________
+
+[[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]) の詳細は[[プロジェクトリスト:http://www.gentoo.org/proj/en/metastructure/projects.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]), [[Gentoo FAQ:http://www.gentoo.org/doc/ja/?catid=faq]], [[GentooJP FAQ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A3%C6%A3%C1%A3%D1%5D%5D]]
+- [[インストール]], [[Stage]], [[GRP]], [[Portageツリー]]
+- [[インストールした後にできること]], [[日本語入力設定事例集]], [[日本語デスクトップ環境/パッケージ]]
+- [[Gentooが採用している技術]]
+- [[コミュニティとの連絡手段]], [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]
+- [[本家に関連しそうな言葉]], [[GLEP]], [[コピーライト]], [[ライセンス]]
+
+[[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]]) の詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]])
+- [[メタ・ディストリビューション]], [[USEフラグ]], [[profile]], [[catalyst]], [[GNAP]]
+- [[コンパイル]], [[バイナリパッケージ]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+
+________
+
+-[2005-09-19] (yoshino)
+-[2006-09-17] 自分が調べた際のメモをほぼそのまま貼りつけているだけだったのを省察しました。 (yoshino)

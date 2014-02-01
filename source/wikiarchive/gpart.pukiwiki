@@ -1,0 +1,21 @@
+*Guess PC-type hard disk partitions [#oc856bec]
+
+-ページ: BugTrack
+-投稿者: [[yamakura]]
+-優先順位: 低
+-状態: 完了
+-カテゴリー: ebuild
+-投稿日: 2002-08-12 (月) 10:39:22
+-バージョン: 0.1h
+
+
+CENTER:''このebuildは本家のツリーに取り込まれました。(sys-apps/gpart)''
+
+**メッセージ [#y1f8ace4]
+手持ちのディスクをfdiskしようとしたら、
+Segmentation faultしてしまって大弱り。
+これで解決できればいいのだけれど…。
+
+せっかくなので、ebuildにしてみました。
+自分で作った中では、一番シンプルです。
+----

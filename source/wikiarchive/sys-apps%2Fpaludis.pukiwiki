@@ -1,0 +1,10 @@
+#title
+#contents
+
+GPM/Ports System [GPM]_ の一種です。マージ後は `man paludis` が可能です。関連記事 [Paludis]_ があります。
+
+_____
+
+.. [GPM] http://wiki.gentoo.gr.jp/index.php?Gentoo_Package_Manager
+
+.. [Paludis] http://wiki.gentoo.gr.jp/index.php?Paludis

@@ -1,0 +1,119 @@
+#title
+#contents
+
+* dynamic configuration files [#td61e1c0]
+
+公式サイトのマニュアル [paludis_manual]_ で確認して下さい。
+
+
+** 一つとて用意せずとも動きます [#gf3fb821]
+
+必要コマンドである etc-update が Paludis にありません。2007 年 05 月では共存可能、つまり Block (依存関係集合で要素の衝突を意味する)されないようです。警告が出現しますが、何も移行手続きをせずとも Portage 側設定ファイルを読み込み動きます。移行のためのガイド [migrating_to_paludis]_ が用意されてます。移行を促進する自動変換スクリプトがあります。
+
+** specpath、システム設定ファイル、ユーザ設定ファイル [#yc4a6183]
+
+一番最初に読み込むのは /etc/paludis/specpath です。
+
+システムの設定ディレクトリは /etc/paludis です。$ROOT と <--environment> で位置は変化するかもしれません。
+
+ユーザ毎の設定ディレクトリは ~/.paludis です。つまり Portage と異なり、一般ユーザが使う事を考えられています。
+
+Paludis を root:root で実行させないで下さい。項目があるのは /etc/paludis/environment.bash です。
+
+*** USE_flag [#c4b391a0]
+
+存在せずとも動きます。良く使われる手段としては ebuild 変数 [ebuild_metadata(ebuild-defined_variables)]_ [the_ebuild_environment(defined_variables)]_ で分岐するがあります。
+
+ /etc/paludis/use.bash >> /etc/paludis/use.conf
+
+*** Keywords [#sa733157]
+
+存在せずとも動きます。良く使われる手段としては ebuild 変数 [ebuild_metadata(ebuild-defined_variables)]_ [the_ebuild_environment(defined_variables)]_ で分岐するがあります。
+
+ /etc/paludis/keywords.bash >> /etc/paludis/keywords.conf
+
+*** Mask [#fe5e055e]
+
+存在せずとも動きます。良く使われる手段としては ebuild 変数 [ebuild_metadata(ebuild-defined_variables)]_ [the_ebuild_environment(defined_variables)]_ で分岐するがあります。
+
+ /etc/paludis/package_mask.bash >> /etc/paludis/package_mask.conf
+
+*** Unmask [#t56baac9]
+
+存在せずとも動きます。良く使われる手段としては ebuild 変数 [ebuild_metadata(ebuild-defined_variables)]_ [the_ebuild_environment(defined_variables)]_ で分岐するがあります。
+
+ /etc/paludis/package_unmask.bash >> /etc/paludis/package_unmask.conf
+
+*** Mirror [#h16fe649]
+
+存在せずとも動きます。良く使われる手段としては ebuild 変数 [ebuild_metadata(ebuild-defined_variables)]_ [the_ebuild_environment(defined_variables)]_ で分岐するがあります。
+
+ /etc/paludis/mirrors.bash >> /etc/paludis/mirrors.conf
+
+*** License [#q45e3dbe]
+
+存在せずとも動きます。良く使われる手段としては ebuild 変数 [ebuild_metadata(ebuild-defined_variables)]_ [the_ebuild_environment(defined_variables)]_ で分岐するがあります。
+
+ /etc/paludis/license.bash >> /etc/paludis/license.conf
+
+*** Repository [#v5bd2669]
+
+存在せずとも動きます。良く使われる手段としては ebuild 変数 [ebuild_metadata(ebuild-defined_variables)]_ [the_ebuild_environment(defined_variables)]_ で分岐するがあります。
+
+ /etc/paludis/repositories/<repository>.bash >> /etc/paludis/repositories/<repository>.conf
+ /etc/paludis/repositories/repository_defaults.bash >> /etc/paludis/repositories/repository_defaults.conf
+
+*** Set [#m40cf010]
+
+存在せずとも動きます。良く使われる手段としては ebuild 変数 [ebuild_metadata(ebuild-defined_variables)]_ [the_ebuild_environment(defined_variables)]_ で分岐するがあります。
+
+ /etc/paludis/sets/<set>.bash >> /etc/paludis/sets/<set>.conf
+
+*** environment [#b48c5d30]
+
+存在せずとも動きます。良く使われる手段としては ebuild 変数 [ebuild_metadata(ebuild-defined_variables)]_ [the_ebuild_environment(defined_variables)]_ で分岐するがあります。
+
+ /etc/paludis/environment.bash >> /etc/paludis/environment.conf
+
+
+*** Bashrc [#ea6b7b8a]
+
+存在せずとも動きます。良く使われる手段としては ebuild 変数 [ebuild_metadata(ebuild-defined_variables)]_ [the_ebuild_environment(defined_variables)]_ で分岐するがあります。
+
+ /etc/paludis/bashrc
+
+*** Hook [#u396c9da]
+
+存在せずとも動きます。良く使われる手段としては ebuild 変数 [ebuild_metadata(ebuild-defined_variables)]_ [the_ebuild_environment(defined_variables)]_ で分岐するがあります。
+
+ /etc/paludis/hooks/<hook>/foo.bash
+ /etc/paludis/hooks/<hook>/bar.hook
+
+_____
+
+.. [paludis_manual] http://paludis.pioto.org/
+
+.. [ebuild_metadata(ebuild-defined_variables)] http://wiki.gentoo.gr.jp/index.php?ebuild_metadata(ebuild-defined_variables) に関連記事があります。
+
+.. [the_ebuild_environment(defined_variables)] http://wiki.gentoo.gr.jp/index.php?the_ebuild_environment(defined_variables) に関連記事があります。
+
+.. [ebuild_phase(ebuild-defined_functions)] http://wiki.gentoo.gr.jp/index.php?ebuild_phase(ebuild-defined_functions) に関連記事があります。
+
+.. [the_ebuild_environment(defined_commands)] http://wiki.gentoo.gr.jp/index.php?the_ebuild_environment(defined_commands) に関連記事があります。
+
+
+________________
+
+
+
+- [[Gentoo_Package_Manager]], [[Portage]], [[Paludis]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+- [[memorandum_about_Paludis(1)]], [[memorandum_about_Paludis(2)]], [[memorandum_about_Paludis(3)]], [[memorandum_about_Paludis(4)]], [[memorandum_about_Paludis(5)]], [[memorandum_about_Paludis(6)]], [[memorandum_about_Paludis(7)]], [[memorandum_about_Paludis(8)]], [[memorandum_about_Paludis(9)]], [[memorandum_about_Paludis(10)]], [[memorandum_about_Paludis(11)]], [[memorandum_about_Paludis(12)]], [[memorandum_about_Paludis(13)]], [[memorandum_about_Paludis(14)]], [[memorandum_about_Paludis(15)]], [[memorandum_about_Paludis(16)]]
+- [[repository]], [[USE_flag]], [[profile]]
+- [[ebuild_files]], [[ebuild_metadata(ebuild-defined_variables)]], [[ebuild_phase(ebuild-defined_functions)]], [[the_ebuild_environment(defined_variables)]], [[the_ebuild_environment(defined_commands)]], [[bash_for_ebuild]]
+
+
+________________
+
+- [2007-05-04] 気に入ったら書き足して下さい。 (yoshino)

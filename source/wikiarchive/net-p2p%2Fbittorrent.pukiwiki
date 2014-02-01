@@ -1,0 +1,40 @@
+#contents
+#title
+
+*net-p2p/bittorrent [#tb40a275]
+
+P2P によるファイル交換手段の1つです。[[Python]] スクリプトです。Leecher, Seeder, Tracker 全てに対応しています。
+
+ /usr/bin/bittorrent-console
+ /usr/bin/bittorrent-curses
+ /usr/bin/bittorrent-tracker
+ /usr/bin/changetracker-console
+ /usr/bin/launchmany-console
+ /usr/bin/launchmany-curses
+ /usr/bin/maketorrent
+ /usr/bin/maketorrent-console
+ /usr/bin/torrentinfo-console
+
+**ジェンツーのStage, インストールCD, LiveCDの入手 [#sb08d044]
+
+http://torrents.gentoo.org/ より、ミラーサイトからでなくとも、[[Gentoo]]の [[Stage]], [[installcd]]/[[livecd]] の入手が可能です。ユーザ同士でファイル交換をするため、サーバに負担がかかりません。
+
+Leecher、Seeder、Tracker と言う役割があります。Leecher だけを説明します。「ファイルを入手するだけの人」です。構造的に「入手するだけの人」でもダウンロードとアップロードは自動的に行われます。「ダウンロードするファイル」とは希望するファイルです。誰かのマシンから断片を複製させて貰うことになります。「アップロードするファイル」とはダウンロード途中のそのファイルです。誰か希望している人がいればあなたのマシンが断片を与えることになります。ダウンロードが終了すればアップロードも終了します。無理矢理アップロードを拒否することもできますが、そこまで強い信念がある場合は [[net-p2p/bittorrent]] より他の手段がぴったりくるはずです。
+
+Firewall の制限や ISP の規制などといった障害がある場合は、(調整して回避する事も可能ですが) [[net-p2p/bittorrent]] を使わず、[[net-misc/wget]] などで HTTP や FTP 経由より入手して下さい。
+
+*** *.torrent の使い方 [#p9e0d877]
+
+http://torrents.gentoo.org/ より、希望するファイルに沿った [[*.torrent]] ファイルをダウンロードします。これを元に断片を収集します。サイズは数十 KB です。~
+↓~
+コマンドラインより `torrentinfo-console ./stage3.torrent` を実行します。ダウンロードするファイルの説明やそのリストが表示されます。~
+↓~
+コマンドラインより `bittorrent-console ./stage3.torrent` を実行します。ダウンロードが始まり、カレントディレクトリに保存されます。アップロードも同時に行われます。中断するにはプロセスを kill するだけです。再開するには同じコマンドを実行して下さい。`wget --continue ftp://hoge/stage3` の様に続きから再開してくれます。より詳しくはマニュアルを参考にして下さい。~
+↓~
+念のため、[[sys-apps/coreutils]] (md5sum コマンド, sha1sum コマンド)や [[app-crypt/gnupg]] などでダウンロードしたファイルを確認して下さい。
+
+
+========
+
+-[2006-03-05] (yoshino)
+-[2006-09-17] bittorrent から net-p2p/bittorrent に移動。(yoshino)

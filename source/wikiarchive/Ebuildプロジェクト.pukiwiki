@@ -1,0 +1,59 @@
+* GentooJP ebuild 管理プロジェクト [#d99c0ba2]
+このページでは、ebuild 管理プロジェクトの成果を発表していきます。
+
+現在は、[[GentooJP ebuild uploader:http://king.gentoo.gr.jp/ebuild-uploader/]]として引き継がれました。
+
+** GentooJP ebuild 管理プロジェクトとは [#p976f8e7]
+[[Gentoo Linux Users Group Japan(通称: GentooJP):http://www.gentoo.gr.jp]]では、
+日本語を利用する方向けのパッケージを主としたebuildを提供していきます。
+充分にテストされ問題なく機能しているパッケージは、
+[[Gentoo Linux:http://www.gentoo.org]]にフィードバックします。
+そのためには、積極的に公開し多くの人にパッケージを使っていただき、
+不具合や改善点などを報告していただきたいと考えています。
+
+現在 ebuild 管理プロジェクトで管理しているパッケージは、
+BugTrackに登録されたものとGentooJPのメーリングリストに投稿されたものです。
+今後も、BugTrackやMLで新規に登録/投稿されたり修正されたりしたものについては、
+随時プロジェクトに反映させていきます。
+
+このプロジェクトは、ユーザのみなさんの声があって、初めて成り立ちます。
+このプロジェクトが発展していくことを期待しています。
+
+
+** 利用方法 [#j6e7f9d1]
+現在は、tarballによる提供のみになります。
+以下に、/usr/local/portage を使う場合を例として説明します。
+
+- ツリーを展開するディレクトリを用意する(初回のみ)
+
+ # mkdir /usr/local/portage
+- ダウンロードしたファイルを展開する
+
+ # cd /usr/local/portage
+ # tar jxvf /path/to/downloadedfile/portagejp-<日付>.tar.bz2
+- make.conf に PORTDIR_OVERLAY を設定する
+
+ (make.conf内に以下のように記述)
+ PORTDIR_OVERLAY=/usr/local/portage
+- emerge コマンドでパッケージをインストールする
+
+ (namazuのUSEフラグとインストールが必要な依存パッケージを表示する)
+ # emerge -vp namazu
+ (cannaをインストールする)
+ # emerge canna
+ (マスクされているパッケージの場合は、ACCEPT_KEYWORDSを指定する必要があります)
+ # ACCEPT_KEYWORDS="~x86" emerge nkf
+
+** バグレポート [#cafe7739]
+- 使おうとしたけれども emerge できない
+- emerge はできたけれどうまくうごかない
+- 欲しい機能が有効になっていない
+- このアプリケーションのebuildが欲しい
+
+など、意見や要望を gentoojp-users メーリングリストや、このページ下部のご意見箱よりお寄せください。たくさんの報告をお待ちしております。
+
+----
+
+ご意見箱
+-checkpwがemergeできませんでした。errnoが定義されていないということで、ヘッダ周りの問題でしょうか？最近gentooを導入してみたので、gccは3.2.3のみです。 -- [[einguste]] SIZE(10){2003-11-03 (月) 20:01:38}
+// #comment

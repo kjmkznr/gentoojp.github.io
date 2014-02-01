@@ -1,0 +1,32 @@
+#navi([[日本語入力設定事例集]])
+
+*kinput2+cannaの設定 [#x8523588]
+
+**インストール [#x8b2c09e]
+
+USE フラグに canna を追加し、
+
+ # emerge kinput2
+
+を実行します。
+
+**Cannaサーバーをデフォルトで起動する様にする [#pb67311c]
+
+ $ su
+ # rc-update add canna default
+
+なお、今すぐ起動するには、
+
+ # /etc/init.d/canna start
+
+**設定方法 [#n41e4e97]
+
+~/.xinitrc または ~/.xsession または ~/.gnomerc に以下を追加。
+
+ export XMODIFIERS="@im=kinput2"
+ kinput2 -canna &
+
+なお、~/.gnomercを利用する場合、gnome-session の前までに挿入。
+
+
+#navi([[日本語入力設定事例集]])

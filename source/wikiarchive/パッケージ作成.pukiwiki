@@ -1,0 +1,114 @@
+#contents
+#title
+
+*Gentoo とパッケージ作成 [#m1db5d88]
+
+[[あなたが Gentoo Linux に貢献できる事:http://www.gentoo.gr.jp/jpmain/contribution.xml]]には「Gentoo Linux 好きだからもっと良くなって欲しい」と本質的な言葉が含まれています。「そういう気持ちはあるけど・・・はっきりしない。一応ドキュメントを探したけど1時間で分らなければどうでもいいやと思ってきてしまい、そのままみたいなそんなとこ。」って人もいるのではないかと思います。もう1回その気持ちを確かめてみません？
+
+**相手は人間なので間違っても平気です [#y363868d]
+
+デベロッパへ直接訴えることができます。間違っても本文が伝われば間違った登録項目はデベロッパ側が修正してくれます。
+
+MIT (マサチューセッツ工科大学)や CMU (カーネギーメロン大学)等学生のジョークは無視します。
+
+もう少し言えば、本文が伝わればいいので自身でパッチが書けなくともできます。ただし、パッチファイルがないと複数の報告があった場合に優先度が下がります。デベロッパは [[Gentoo]] が職業ではないので、多く(優先度が低いもの)は数週間から数ヶ月待ちます。本文が伝わるとはそういった彼等が再現できるようにすることです。
+
+*コミュニティ窓口 [#d9229e3d]
+
+ユーザからの要望を聞く窓口に [[www-apps/bugzilla]] を利用しています。バグ追跡だけに利用しているのではなく、「GCC のドキュメントが欲しいです」や「ヴァージョンアップを希望します」や「RSync ミラー作ったので公認申請します」の類も担当しています。
+
+一度報告すれば、解決されるまで検索する度に出現します。メーリングリストより推奨されます。また、進行段階を "RESOLVED" から "CLOSED" へ進行させる必要はなく、特別な理由がなければするべきではありません。および、解決する人が開発者である必要はありません。[[バグ・デー]]があります。どちらかと言うと解決しようとする人は [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]] 中心で、Forums や ML や IRC を必要以上に見ない方が多いようです。
+
+開発者と言えど自分の知らない分野は解決できません。「日本語表示の方法ぐらい開発者なら誰でも知っていそう」という期待にすら答えられないのが現実です。また、残念ながら解決してくれる人が本家に偏っているのも事実です。「今日は1時間ぐらい余裕があるからバグ潰しをしよう」と思う開発者はまず本家を見ます。そして1つ2つ潰している間に1時間が経過します。メーリングリストの場合は解決できる人が見ていない場合がありますが、[[バグ報告]]の場合は(数週間から数ヶ月かかるかもしれませんが)少なくともできるできないの返事はきます。
+
+[[stable]]、[[testing]]、[[mask]] の目安にもなります。また、[[GLEP]] の 041 より [[QA]] (品質保証)と関係してパッケージテスト専用のスタッフも迎えようとしています。
+
+[[セキュリティ]]上の[[バグ報告]]は [[GLSA]] として発表されます。[[GLSA]] こと "[[Gentoo Linux Security Announcements:http://wiki.gentoo.gr.jp/index.php?GentooLinuxSecurityAnnouncements]]" (または "[[Gentoo Linux Security Advisories:http://wiki.gentoo.gr.jp/index.php?GentooLinuxSecurityAdvisories]]") は [[Securityプロジェクト:http://www.gentoo.org/proj/en/security/index.xml]]による脆弱性注意報告です。
+
+**ebuildパッケージの自作とメタ・ディストリビューション [#e1eb2755]
+
+[[メタ・ディストリビューション]]に関連記事があります。
+
+**バグジラ入門 [#w2d88bae]
+
+[[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]] に関連記事があります。
+
+*新規 ebuild 登録の手順 [#kd8de026]
+
+License は必ず指定する必要があります。/usr/portage/licenses/ 以下が参考になります。パッチファイルは上流に還元するため配布元と同じが推奨されます。Copyright は「Gentoo Foundation, Inc.」です。担当者自身の名前にはできません。[[ライセンス&コピーライトガイド:http://www.gentoo.org/proj/en/devrel/copyright/index.xml]]参考です。[[ライセンス]]と[[コピーライト]]に関連記事があります。
+
+具体的な流れは [[www-apps/bugzilla]] の使い方になります。[[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]] に関連記事があります。
+
+**本家 [#b8a530cb]
+
+[[開発者ドキュメント:http://www.gentoo.org/proj/en/devrel/handbook/handbook.xml]]と[[開発者ポリシー:http://www.gentoo.org/doc/ja/policy.xml]]を読みます。開発用ドキュメントやプロジェクト特有のドキュメントは、本家が英語を理解する人を求めているため翻訳されません。~
+↓~
+作成します。[[*.ebuild]] や [[ebuildパッケージ]]に関連記事があります。~
+↓~
+[[ebuild 登録ガイド:http://www.gentoo.org/doc/ja/ebuild-submit.xml]]より、新規は [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]] で[[バグ報告]]と同じ手順 (Component は Ebuilds、Seventy は Enhancement) で申請します。添付ファイルは2回目以降に attachment として送ります。
+
+ログイン後の詳しい手順は [[Bugzillaガイド:http://www.gentoo.org/doc/en/bugzilla-howto.xml]]、[[ebuild 新規登録:http://www.gentoo.org/doc/ja/ebuild-submit.xml]]、[[セキュリティ・バグの検索:http://www.gentoo.org/security/en/bug-searching.xml]]、[[Bugzilla のヘルプ:http://bugs.gentoo.gr.jp/queryhelp.cgi]]、[[あなたが Gentoo Linux に貢献できる事:http://www.gentoo.gr.jp/jpmain/contribution.xml]]、[[Bugzilla 例文集:http://wiki.gentoo.gr.jp/index.php?%5B%5BBugzilla%CE%E3%CA%B8%BD%B8%5D%5D]]や [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]に参考記事があります。
+
+**国内 [#uc9d50ec]
+
+[[開発者ドキュメント:http://www.gentoo.org/proj/en/devrel/handbook/handbook.xml]]と[[開発者ポリシー:http://www.gentoo.org/doc/ja/policy.xml]]を読みます。開発用ドキュメントやプロジェクト特有のドキュメントは、本家が英語を理解する人を求めているため翻訳されません。~
+↓~
+作成します。[[*.ebuild]] や [[ebuildパッケージ]]に関連記事があります。~
+↓~
+[[ebuildjp 新規登録:http://ebuild.gentoo.gr.jp/upload.php?visible=]]の専用 form から行います。
+
+*既存パッケージの保守 [#fceb0c81]
+
+新規登録する事はせず(自分が登録したのではない)既存パッケージを保守する行為も[[パッケージ作成]]と呼びます。[[GentooJP FAQ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A3%C6%A3%C1%A3%D1%5D%5D]]に記事があります。
+
+[[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]] または [[BugsJP:http://bugs.gentoo.gr.jp/enter_bug.cgi]] で未解決のバグを検索し、パッチファイル等解決方法を送ります。解決方法を送信する人が、[[バグ報告]]をした本人である必要も、開発担当者である必要も、ありません。
+
+**本家 [#s269d7ae]
+
+[[開発者ドキュメント:http://www.gentoo.org/proj/en/devrel/handbook/handbook.xml]]と[[開発者ポリシー:http://www.gentoo.org/doc/ja/policy.xml]]を読みます。開発用ドキュメントやプロジェクト特有のドキュメントは、本家が英語を理解する人を求めているため翻訳されません。~
+↓~
+作成します。[[*.ebuild]] や [[ebuildパッケージ]]に関連記事があります。~
+↓~
+[[ebuild 登録ガイド:http://www.gentoo.org/doc/ja/ebuild-submit.xml]]より、保守は [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]] で[[バグ報告]]と同じ手順 (Component は Ebuilds、Seventy は Enhancement) で申請します。添付ファイルは2回目以降に attachment として送ります。
+
+ログイン後の詳しい手順は [[Bugzillaガイド:http://www.gentoo.org/doc/en/bugzilla-howto.xml]]、[[ebuild 新規登録:http://www.gentoo.org/doc/ja/ebuild-submit.xml]]、[[セキュリティ・バグの検索:http://www.gentoo.org/security/en/bug-searching.xml]]、[[Bugzilla のヘルプ:http://bugs.gentoo.gr.jp/queryhelp.cgi]]、[[あなたが Gentoo Linux に貢献できる事:http://www.gentoo.gr.jp/jpmain/contribution.xml]]、[[Bugzilla 例文集:http://wiki.gentoo.gr.jp/index.php?%5B%5BBugzilla%CE%E3%CA%B8%BD%B8%5D%5D]]や [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]に参考記事があります。
+
+**国内 [#o6d28b03]
+
+[[開発者ドキュメント:http://www.gentoo.org/proj/en/devrel/handbook/handbook.xml]]と[[開発者ポリシー:http://www.gentoo.org/doc/ja/policy.xml]]を読みます。開発用ドキュメントやプロジェクト特有のドキュメントは、本家が英語を理解する人を求めているため翻訳されません。~
+↓~
+作成します。[[*.ebuild]] や [[ebuildパッケージ]]に関連記事があります。~
+↓~
+[[ebuildjp 新規登録:http://ebuild.gentoo.gr.jp/upload.php?visible=]]の専用 form から行います。
+
+*Portageオーバーレイの利用 [#pc8c04f1]
+
+[[Portageオーバーレイ]]に関連記事があります。
+
+**app-portage/layman [#m36bf380]
+
+[[app-portage/layman]]に関連記事があります。
+
+**ebuild-uploader (ebuildjp) [#m9294d4c]
+
+上記 [[app-portage/layman]] でも ebuildjp は利用できます。
+
+[[現在の ebuild プロジェクトの説明:http://www.gentoo.gr.jp/jpmain/ebuild-uploader.xml]]を読み、/usr/local/portagejp に [[overlays]] を作成します。~
+↓~
+`emerge hoge`でお試しできます。~
+
+ebuildjp の[[バグ報告]]は[[各パッケージのページ:http://ebuild.gentoo.gr.jp/]]で行います。[[uploader への要望:http://wiki.gentoo.gr.jp/index.php?%5B%5Bebuild-uploader%B2%FE%CE%C9%B0%C6%5D%5D]]もあります。何かあれば[[メーリングリスト:http://www.gentoo.gr.jp/jpmain/about-gentoojp.xml#doc_chap4]]でいいと思います。
+
+[[初期のebuildプロジェクトの説明:http://www.gentoo.gr.jp/jpmain/project-ebuild.xml]]もあります。
+
+*GentooJP-wiki の GentooJP ebuild 管理プロジェクト [#w91c6006]
+
+過去のものであり、現在は利用されていません。
+
+余談ですが、[[GentooJP-wiki をぐるりと見渡す:http://wiki.gentoo.gr.jp/index.php?cmd=list]]と、500d 等最終更新が 2003 年の古いページが大量にでてきます。250 ページ近いものを頑張って読むと、今の形になるまでに Gentoojp-wiki は[[翻訳プロジェクト:http://wiki.gentoo.gr.jp/index.php?%5B%5B%CB%DD%CC%F5%A4%CE%BC%EA%BD%E7%5D%5D]]だったり、[[GentooJP ebuild プロジェクト:http://wiki.gentoo.gr.jp/index.php?%5B%5BEbuild%A5%D7%A5%ED%A5%B8%A5%A7%A5%AF%A5%C8%5D%5D]]だったり、[[BugTrackプロジェクト:http://wiki.gentoo.gr.jp/index.php?BugTrack]]だったりしていたようです。Gentoo Linux を未体験でディストリビューションの情報収集をしていたとしても、「Gentoo Linuxのブームは去った」と勘違いしてはいけません。当初 GentooJP-wikiは既に Gentoo Linux をやっている人達向けに作成されたようです。
+
+========
+
+-[2005-09-19] 
+-[2005-09-24] プロジェクト担当者でないものからの視点です。すみません。おかしな所があれば修正お願いします。(yoshino)
+-[2006-09-17] 自分が調べた際のメモをほぼそのまま貼りつけているだけだったのを省察しました。 (yoshino)

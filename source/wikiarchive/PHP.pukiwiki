@@ -1,0 +1,16 @@
+[[PHP: Hypertext Preprocessor:http://jp2.php.net/]]
+#contents
+*php [#gb98e37e]
+ emerge php
+としたところ、、、cliしか使えないパッケージと判明~
+どれがCGI用のパッケージなんだろうかと調査中。
+ emerge php-cgi
+で良いのかな？現在インストール中。良さそうです。
+[[SuEXEC:http://httpd.apache.org/docs/suexec.html]]か[[suphp:http://www.suphp.org]]で動かしたいなぁ~
+suphpで動作中。suphpは、portageにないみたいなので、ソースからインストールしました。
+*mod_php [#ub151449]
+ emerge mod_php
+*[[APC 2.0(Alternative PHP Cache):http://pecl.php.net/package/APC]] [#m4371034]
+PHPのextension。実行されたPHPの中間コードをキャッシュして、２回目以降の実行のオーバヘッドを軽減する仕組み。
+同類のものに、ionCubeの[[PHP Accelerator:http://www.php-accelerator.co.uk/]] などがある。
+ emerge PECL-apc

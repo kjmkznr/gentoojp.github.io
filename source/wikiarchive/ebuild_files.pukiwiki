@@ -1,0 +1,262 @@
+#contents
+#title
+
+* バグ報告をする人もしくはデベロッパの範囲です [#s5567246]
+
+開発用ドキュメントやプロジェクト特有のドキュメントは、本家が英語を理解する人を求めているため翻訳されません。理由の1つとして upstream (ソフトウェアの一次配布元) や Bugtracking System (Bugzilla) とのコミュニケーションがあります。本家は QA (品質保証)を意識するよう呼びかける運動を始めています。GLEP の 041 よりテスト専用の開発者を迎えています。GLEP の 033 によれば eclass の変更があります。
+
+このページの目的は「やってみたい!! でも何処から始めたらいいのか分らず、1時間ぐらい調べても把握できないからいつもそのままです……」と思う人の助けになればと考えています。もし面白いと感じたら是非本家へバグ報告やパッケージ作成してみて下さい。最終的には、マニュアルを読むための簡単な英語と Bash の修得を求められます。
+
+** 変化が落ち着き始めました [#h451a0bd]
+
+Portage 以外にも GPM/Ports System の有力候補が出現したのが大きいと思われます。ソースコード以外の劣化が激しい頃より紹介し易くなった、と思います。ジェンツー委員会は色々考えているようですので、デベロッパにならなくとも(なるつもりがなくとも)使い易くなっていると思います。
+
+理解し易いものにすれば、他の人が面倒を見てくれるかもしれません。インターポジショニングに注意してみて下さい。
+
+** 初めての分析ならば ... [#p6383f5b]
+
+VDB (何をマージしたかを保存しているデータベース)に ebuild 変数の詳細はあります。例えば /var/db/pkg/app-editors/emacs-21.4-r12 以下のテキストファイル群がそれです。
+
+作業中の ebuild 変数は保存されてません。Paludis であれば、/etc/paludis/bashrc に以下を記述すると rm -rf $PALUDIS_TMPDIR/$CATEGORY/$PF が実行されません。つまり、ビルド作業の残りがそのまま削除されません。例えば /var/tmp/portage/app-editors/emacs-21.4-r12/temp/loadsaveenv テキストファイルに作業中の ebuild 変数があります。
+
+ export SKIP_FUNCTION="tidyup"
+
+*自分で ebuild file を記述しないで拝借する [#h39be44a]
+
+自分で記述しようとすると覚えることが沢山あります。どの程度活用するかによりますが、[[Portageオーバーレイ]]も試してみて下さい。基本的なことは [[ebuildパッケージ]]にあります。
+
+*自分で ebuild file を記述する [#t864783f]
+
+自分で記述するきっかけは、[[USEフラグ]]やコンパイルフラグを修正したり、DEPEND, RDEPEND, PDEPEND を修正したり、パッチファイルを追加したりする必要が発生したからだと思いますが、教科書的(アカデミック)に進めると、学ぶのはかなり最後の方になってしまいます。ピンポイントが [[Bugzilla例文集]]や [[eclass]] にあります。教科書的(アカデミック)なものは [[ebuild_files]] にあります。
+
+** ebuild file に必要な覚える事柄は結構あります... [#j9a95ce1]
+
+普通のユーザが詳細を知る必要は全くありません。知らなくとも [[USEフラグ]]でカスタマイズできるのがバイナリファイル形式パッケージ管理システムに対するソースファイル形式パッケージ管理システムの魅力であるはずです。それ以上のカスタマイズ、つまり想定範囲外のカスタマイズを望むのであれば理解が求められます。理解するために知識が要求されるのは RPM や DPKG を自作する場合と同じです。[[ジェンツー]]はコミュニティの性質上教育的でありますが、どれが簡単かどれが柔軟かは好みに左右されます。
+
+[[開発者ドキュメントリスト:http://www.gentoo.org/doc/ja/index.xml?catid=gentoodev]]には約束事が記述されています。[[Unofficial Gentoo Development Guide:http://www.firedrop.org.uk/devmanual/]] (閉鎖)→ [[Gentoo Development Guide:http://dev.gentoo.org/~plasmaroo/devmanual/]] は開発者がメモとして残しているドキュメントですが、これも多くは約束事です。基本的な原理はソースコードが確実です。量が多いように見えますが、コア部分は少量で、難易度も高くはありません。[[ebuildとbash]] に関連記事があります。
+
+** ebuild 変数 [#u84da692]
+
+- 手動で定義する変数
+- 自動で定義される変数
+
+便宜上、上を ebuild_metadata(ebuild-defined_variables) とし、下を the_ebuild_environment(defined_variables) とします。
+
+** ebuild 関数 [#o6c10d7d]
+
+- 手動で定義する関数
+- 自動で定義される命令
+
+便宜上、上を phase, ebuild_phase(ebuild-defined_functions) とし、下を helper, the_ebuild_environment(defined_commands) とします。
+
+** 具体例 -- emacs-18.59-r4.ebuild (1992 年頃の作品を 2007 年にパッケージ化するとこうなります) [#odcbf8da]
+
+ # $Header: /var/cvsroot/gentoo-x86/app-editors/emacs/emacs-18.59-r4.ebuild,v 1.2 2007/04/24 21:49:30 ulm Exp $
+ 
+ inherit eutils toolchain-funcs flag-o-matic
+ 
+ DESCRIPTION="The extensible self-documenting text editor"
+ HOMEPAGE="http://www.gnu.org/software/emacs/"
+ SRC_URI="mirror://gnu/old-gnu/emacs/${P}.tar.gz
+ 	mirror://gentoo/emacs-18-patches.tar.bz2
+ 	ftp://ftp.splode.com/pub/users/friedman/emacs/${P}-linux22x-elf-glibc21.diff.gz"
+ 
+ LICENSE="GPL-1"
+ SLOT="18"
+ KEYWORDS="~x86"
+ IUSE="X"
+ 
+ RDEPEND="sys-libs/ncurses
+ 	>=app-admin/eselect-emacs-0.3
+ 	X? ( x11-libs/libX11 )"
+ DEPEND="${RDEPEND}"
+ PROVIDE="virtual/editor"
+ 
+ MY_BASEDIR="/usr/share/emacs/${PV}"
+ MY_LOCKDIR="/var/lib/emacs/lock"
+ 
+ src_unpack() {
+ 	unpack ${A}
+ 	cd "${S}"
+ 	epatch "${WORKDIR}/${P}-linux22x-elf-glibc21.diff"
+ 	epatch "${WORKDIR}/${P}-unexelf.patch"
+ 	epatch "${WORKDIR}/${P}-gentoo.patch"
+ 	epatch "${WORKDIR}/${P}-gcc4.patch"
+ }
+ 
+ src_compile() {
+ 	SANDBOX_ON=0
+ 
+ 	# autoconf? What's autoconf? We are living in 1992. ;-)
+ 	local arch
+ 	case ${ARCH} in
+ 		x86)   arch=intel386 ;;
+ 		*)	   die "Architecture ${ARCH} not supported" ;;
+ 	esac
+ 	local cmd="s/\"s-.*\.h\"/\"s-linux.h\"/;s/\"m-.*\.h\"/\"m-${arch}.h\"/"
+ 	use X && cmd="${cmd};s/.*\(#define HAVE_X_WINDOWS\).*/\1/"
+ 	sed -e "${cmd}" src/config.h-dist >src/config.h
+ 
+ 	cat <<-END >src/paths.h
+ 		#define PATH_LOADSEARCH "${MY_BASEDIR}/lisp"
+ 		#define PATH_EXEC "${MY_BASEDIR}/etc"
+ 		#define PATH_LOCK "${MY_LOCKDIR}/"
+ 		#define PATH_SUPERLOCK "${MY_LOCKDIR}/!!!SuperLock!!!"
+ 	END
+ 
+ 	# -O3 and -finline-functions cause segmentation faults at run time.
+ 	filter-flags -finline-functions
+ 	replace-flags -O[3-9] -O2
+ 	strip-flags
+ 
+ 	emake -j1 CC="$(tc-getCC)" CFLAGS="${CFLAGS} -Demacs" || die
+ }
+ 
+ src_install() {
+ 	dodir ${MY_BASEDIR}
+ 	dodir /usr/share/man/man1
+ 	make install LIBDIR="${D}${MY_BASEDIR}" BINDIR="${D}/usr/bin" \
+ 		MANDIR="${D}/usr/share/man/man1" || die
+ 	chmod -R go-w "${D}${MY_BASEDIR}"
+ 	rmdir "${D}${MY_BASEDIR}/lock"
+ 
+ 	dodir ${MY_LOCKDIR%/*}
+ 	diropts -m0777
+ 	dodir ${MY_LOCKDIR}
+ 	keepdir ${MY_LOCKDIR}
+ 
+ 	for i in emacsclient etags ctags; do
+ 		mv "${D}"/usr/bin/${i}{,-emacs-${SLOT}} || die "mv ${i} failed"
+ 	done
+ 	mv "${D}"/usr/bin/emacs{,-${SLOT}} || die "mv emacs failed"
+ 	mv "${D}"/usr/share/man/man1/emacs{,-emacs-${SLOT}}.1 || die
+ 	dosym ../emacs/${PV}/info /usr/share/info/emacs-${SLOT}
+ 
+ 	dodoc README PROBLEMS
+ }
+ 
+ pkg_postinst() {
+ 	eselect emacs update --if-unset
+ }
+ 
+ pkg_postrm() {
+ 	eselect emacs update --if-unset
+ }
+
+
+***どの様な配布形態が流行ってますか？ 圧縮した方がいいのですか？ [#c0a1f9c7]
+
+2006年07月の状況です。
+
+ +----------------------+
+ |distfiles distribution|
+ +------------+---------+
+ |  extension |   count |
+ +------------+---------+
+ |   .tar.bz2 |   10007 |
+ |   .texinfo |       1 |
+ |    .tar.gz |   16281 |
+ |     .patch |     243 |
+ |      .html |      19 |
+ |       .bin |      75 |
+ |       .bz2 |     602 |
+ |       .deb |       2 |
+ |       .jar |      57 |
+ |       .pdf |      66 |
+ |       .rpm |     290 |
+ |       .tar |      90 |
+ |       .tgz |    1979 |
+ |       .txt |      30 |
+ |       .wsz |      30 |
+ |       .xpi |      70 |
+ |       .zip |    1349 |
+ |       .rar |      10 |
+ |        .7z |       1 |
+ |        .gz |     675 |
+ |         .Z |     116 |
+ +------------+---------+
+
+***ライセンスとコピーライト [#m10bae6e]
+
+[[ライセンス]]、[[コピーライト]]に関連記事があります。
+
+***バグ報告、ドキュメント作成、パッケージ作成、ミラーリング [#g98f6865]
+
+[[バグ報告]]、[[ドキュメント作成]]、[[パッケージ作成]]、[[ミラーリング]]に関連記事があります。
+
+***バグ報告するための *.patch の作成手順 [#fd14a60a]
+
+- 修正前: foo.ebuild
+- 修正後: bar.ebuild (UTF8保存)
+
+ diff --unified foo.ebuild bar.ebuild > qux.patch
+
+*デベロッパは C が得意である必要がありますか？ [#r647ddb8]
+
+そもそも本家には [[PR プロジェクト:http://www.gentoo.org/proj/en/pr/index.xml]]や [[Documentation プロジェクト:http://www.gentoo.org/proj/en/gdp/index.xml]]があります。[[GWN サブプロジェクト:http://www.gentoo.org/proj/en/pr/gwn.xml]]が発行している [[GWN]] や[[公式サイト:http://www.gentoo.org/]]のページを幾つか読んで貰うのが雰囲気を伝えるには早い気がします。
+
+技術的価値以外に、「わくわくする」とか「こころときめく」とかが少なくないようです。例えば NASA (米航空宇宙局)で採用された際のインタビュー記事でもそんなことが書かれてます。デベロッパの視点のもありますが、ユーザの視点のもあります。
+
+***好きなものは X86 と Windows ソフトウェアと Linux ソフトウェアと PHP と言う Lisa Marie Seelye さんは sys-devel/distcc を含む班のメンテナです... [#pb3be546]
+
+> Lisaさんによると、パッケージの管理者の仕事は簡明です：早起きして、バグを潰して Gentooとdistccのユーザの人生をもっと自適にする事です。LisaさんがGentoo Linuxプロジェクに加わったのは、Bugzillaに投稿したebuildやバグがSeemant Kulleenさんに見出されたのがきっかけでした。Lisaさんによると、これらは自分がdistccを使えるようにした自分勝手な貢献でしたが、オープンソースの良さは他の人にも良い影響があって、自分自身も嬉しくなる事です。他に、Lisaさんは数個のWin32プログラムを開発し、ソースも公開しましたが、 Gentooは参加した始めての「本当の」OSSプロジェクトだそうです。Lisaさんは学生で、家計を支えるためにPHPアプリケーションを作成してます。
+
+> PHPが大好きなLisaさんの一番誇りに思う仕事は、あるPHPプロジェクトのために作った、あるパスを与えられたらその中のjpeg全てをデータベースに加え、サムネイルまで作る関数です。コメント付きでたった57行のこの関数を作る事で、Lisaさんはスタックの新しい操作法と PHP/Apache関数の使い方を覚えたそうです。
+
+> 一番好きなソフトはWindowsとLinuxソフトのミックスです：まず、Win32ネイティブでマルチプロトコルなメッセージングクライエントのTrillianが大好きだそうです。
+
+> 次に、世界一のブラウザと考え、サーフィンには欠かせないOpera。
+
+> x86 好きLisaさんは三台のマシンを使ってます：1.2GHz Athlon T-Birdと640MB RAMを搭載するデスクトップ、K6-2/400MHz、128MB RAM、そしてよくバグるNICを搭載したテストマシン、そしてデュアルP3(1GHzと733MHz)を搭載し、grsecurityの規制下で色んなサービスを稼働してるサーバです。
+
+> デスクトップとテストマシンでは2.4.20-OpenMosixカーネルを使い、サーバの方では2.4.20- gentoo-r5を稼働してるそうです。デスクトップでは、~x86の最新のevolution、そしてデフォルトのGNOMEシステムを使ってるそうです。
+
+> 「私は自分でいなくてはならない、何故なら他にそれをやってくれる人などいないから。」 - ある友達 
+
+過去の [[GWN]] より転載。
+
+
+_____
+
+.. [GPMS] http://dev.gentoo.org/~spb/pms.pdf
+
+.. [GPM] http://wiki.gentoo.gr.jp/index.php?Gentoo_Package_Manager
+
+.. [repository] http://wiki.gentoo.gr.jp/index.php?repository に関連記事があります。
+
+.. [USE_flag] http://wiki.gentoo.gr.jp/index.php?USE_flag に関連記事があります。
+
+.. [profile] http://wiki.gentoo.gr.jp/index.php?profile に関連記事があります。
+
+.. [ebuild_metadata(ebuild-defined_variables)] http://wiki.gentoo.gr.jp/index.php?ebuild_metadata(ebuild-defined_variables) に関連記事があります。
+
+.. [the_ebuild_environment(defined_variables)] http://wiki.gentoo.gr.jp/index.php?the_ebuild_environment(defined_variables) に関連記事があります。
+
+.. [ebuild_phase(ebuild-defined_functions)] http://wiki.gentoo.gr.jp/index.php?ebuild_phase(ebuild-defined_functions) に関連記事があります。
+
+.. [the_ebuild_environment(defined_commands)] http://wiki.gentoo.gr.jp/index.php?the_ebuild_environment(defined_commands) に関連記事があります。
+
+.. [ebuild_files] http://wiki.gentoo.gr.jp/index.php?ebuild_files に関連記事があります。
+
+.. [Portage] http://www.gentoo.org/proj/en/portage/index.xml が公式サイトです。
+
+.. [Paludis] http://paludis.pioto.org/ が公式サイトです。
+
+
+
+________________
+
+
+- [[Gentoo_Package_Manager]], [[Portage]], [[Paludis]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+- [[memorandum_about_Paludis(1)]], [[memorandum_about_Paludis(2)]], [[memorandum_about_Paludis(3)]], [[memorandum_about_Paludis(4)]], [[memorandum_about_Paludis(5)]], [[memorandum_about_Paludis(6)]], [[memorandum_about_Paludis(7)]], [[memorandum_about_Paludis(8)]], [[memorandum_about_Paludis(9)]], [[memorandum_about_Paludis(10)]], [[memorandum_about_Paludis(11)]], [[memorandum_about_Paludis(12)]], [[memorandum_about_Paludis(13)]], [[memorandum_about_Paludis(14)]], [[memorandum_about_Paludis(15)]], [[memorandum_about_Paludis(16)]]
+- [[repository]], [[USE_flag]], [[profile]]
+- [[ebuild_files]], [[ebuild_metadata(ebuild-defined_variables)]], [[ebuild_phase(ebuild-defined_functions)]], [[the_ebuild_environment(defined_variables)]], [[the_ebuild_environment(defined_commands)]], [[bash_for_ebuild]]
+
+
+________________
+
+- [2005-09-19] 自分がソースコードを読んだ際のメモを基準にしています。独断と偏見が基準です。修正をお願いします。(yoshino)
+- [2006-07-09] 個人的に本家への案内を意識しています。「本家と関わる必要はないだろう」や「C や Python も必要じゃないか？」や「デベロッパ寄りのネタは書くべきでない」などは個々の意見があると思います。いろいろ考えたのですが、本家の一員にならなくともせっかくだから主催へ参加する雰囲気だけでも楽しみたいを選びました。 (yoshino)
+- [2007-05-04] GPMS をちょっと読んだので反映させましたが、間違っていると思います。気に入ったら書き足して下さい。 (yoshino)

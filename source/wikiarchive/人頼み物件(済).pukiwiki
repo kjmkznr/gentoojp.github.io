@@ -1,0 +1,131 @@
+#title
+こっちは解決したもの
+-----
+- http://www.vmware.com/download/player/ のパッケージ
+--[[Bug 110027:http://bugs.gentoo.org/show_bug.cgi?id=110027]] 参照
+-- 2005/11/30 に portage に組み込まれました
+- mod_ruby の 20_mod_ruby.conf のインストール先を >=apache-2.0.54-r31 なら、/etc/apache2/conf/modules.d から /etc/apache2/modules.d に変えて欲しいです。 by 匿名Rubyist
+-- mod_ruby-1.2.4-r1以降は/etc/apache2/modules.dにインストールされるようになりました。
+-gcc-4.0.x で glibc-2.3.5 がコンパイル出来るようhttp://www.linuxfromscratch.org/patches/lfs/gcc4/ なパッチを組み込んで貰いたい。
+-- glibc-2.3.5.20050722 で gcc-4.0.x 対応しました
+-[[かんな辞書:http://cannadic.oucrc.org/]] 変換効率アップにぜひ。 by kihei
+--自分で出来そうな気がしてきました。 by kihei
+--そんな辞書があるんですね。かなり期待。[[なかの]]
+--それなりに出来たのですが、cvsがようわからないのでUPの研究します by kihei(VSS慣れの災い)
+--なんならここに添付しちゃってもいいですよ.上の方のメニューから添付を押せばできると思います.
+--添付してみました。by kihei
+---作ってみると、迷うところたくさんありますね。digestはいるのかしら？
+---みなさん、gCvsとかTkcvsとかつかえているのかなあ？
+
+--早速使ってみました。ばっちり使えているようです。以下のファイルの修正をebuildでしてあげるともっといいかもしれません。[[なかの]]
+
+ /etc/canna/default.canna
+ /var/lib/canna/dic/canna/dics.dir
+--迷ったのは、まさしくここです。Portageのシステムに関わる気がして...
+--apacheとmodの動作を勉強しています。by kihei
+---''(結果)やっぱりcanna本体に手をつけないと''、すっきりしませんね。 by kihei
+---うーんそうなんですかねぇ。なんとかなりそうな気がしますが[][[なかの]]
+--その上インストールが終了したら、「mkdic -fq gcannaを各ユーザーで実行しましょう。」って出すとそれっぽいと思います。
+--ついでに、Canna restartせい！と。by kihei
+--他にもhttp://www.coolbrain.net/shion.htmlなどがありますね。 by yn
+----
+
+- 日本語のばっちり使えるMP3プレイヤー
+-- xmmsはどうも日本語があまりきれいに出ない[]
+-- きれいに出ないってのはどういう状態か分かりませんが、正しいフォントセットを選べば日本語ちゃんと表示されますよ。それともCP932などの文字コード自動認識などでしょうか？ by [[matsuu]]
+-- そうですそうです。自動認識まではしなくてもいいですが、shiftjisを普通に表示させたいです。
+-- Shift-JISパッチなら、他のほとんどのdistroにすでにあるような[][]by yn
+----
+----
+----
+
+-.emacsが欲しい [[なかの]]
+
+portageから作成したemacsにしっくりくる日本語(canna)が使える.emacsが欲しいです。
+数年ぶりにemacsを使用してみようかと思ったけど、うまいこと.emacsが書けないです。
+誰かアップしてくれないかなぁ。~
+とりあえず、Cannot open load file: japan-util このエラーがわからない[]
+--japan-util は /usr/share/emacs/21.x/language の下にあるはずなんですが?? by naoto
+--xemacs(USE="mule")ですが、(set-language-environment 'Japanese)すると、同様にjapan-utilでエラーが出ます。常用するわけではないので、直前に(load-file "/usr/lib/xemacs/mule-packages/lisp/mule-base/japan-util.el")を入れて回避してます。emacsではこのエラーは見たこと無いです。cannaは使ってませんが[][] by yamakura
+--あ、そうです。xemacs(use mule)で作りました。どうも設定が大変だ[][[なかの]]
+--一応, [[yc.el:http://www.ceres.dti.ne.jp/~knak/yc.html]] と簡単な .emacs のサンプル入りの ebuild を作ったんですが, FSF Emacs 向けです..... by naoto
+--特にxemacsにこだわっているわけではないです。期待してます。[[なかの]]
+----
+
+----
+-gs-sources-2.4.23を希望~
+
+現在のgs-sources-2.4.23_pre8.ebuildは、下記URLの対策は済んでいるのでしょうか？
+もし済んでいないのなら、対策済みのパッケージがあると助かります。
+http://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2003-0961
+--書き込まれたのは12月2日のようですが、1日の時点で gs-sources-2.4.22_pre2.ebuild に、2日の時点で gs-sources-2.4.23_pre8-r1.ebuild に対策入ってますよ。ChangeLog を見たり ebuild ファイルを開いてみたりすると、どのパッケージにどういう修正が入っているのか分かります。
+--ありがとうございます。emerge sync、emerge -vp worldで2.4.23_pre8-r1のUpdateが確認できました。タイミングが悪かったのでしょう。それにしてもカーネルパッケージの対応が早いのはありがたいです。2.4.22_pre2というのもあるんですね、、。
+----
+-[[PRIME:http://taiyaki.org/prime/install.html]]のebuildが欲しいです。 by kit
+--http://bugs.gentoo.org/show_bug.cgi?id=31498 にありますが、けっこう依存関係複雑です。そのうち時間が取れたら(Ruby の部分だけでも)入れますのでお待ちください。 by usata
+--本家にコミットしました。 by usata
+----
+-[[gdesklet:http://gdesklets.gnomedesktop.org/index.php]]のebuildが欲しいです。by  Watanabe
+--[[Bugs #27355:http://bugs.gentoo.org/show_bug.cgi?id=27355]]にありますね。
+--ありがとうございます。早速インストールしました。めちゃめちゃかっこいいです。 by Watanabe
+----
+-[[fml:http://www.sapporo.iij.ad.jp/staff/fukachan/fml/]]のebuildが欲しいです。by tokoroten
+--→ [[ebuild-uploader の fml のところ:http://gentoojp.sourceforge.jp/ebuild-uploader/view.php?category=net-mail&app=fml]]に置いてみました。(usata)
+----
+-[[変愚蛮怒:http://hengband.sourceforge.jp/index.html]]のebuild欲しいです。自分で作ったんですが、インストールされるファイルが少なくて起動できませんでした。 by maro
+--http://bugs.gentoo.org/show_bug.cgi?id=31447 にあります by usata
+--取り込まれました by usata
+----
+-[[PyDS:http://pyds.muensterland.org/]]のebuildが欲しいです。by oki
+--本家に取り込まれました by usata
+-----
+-[[CyberBit.ttf:http://www.alltheweb.com/search?cat=ftp&cs=iso-8859-1&ftype=4&q=cyberbit.zip]] 本家に登録されていなかったらお願い by kihei
+--本家ではないですが http://dev.gentoo.org/~liquidx/local/liquidx/media-fonts/cjk-cyberbit/ にあります。 by usata
+
+----
+-[[EffecTV:http://effectv.sourceforge.net/index.ja.html]] 本家に見当たりません。是非お願い致します。 by araki
+--→[[EffecTV]]
+
+----
+-[[SDIC:http://www.namazu.org/~tsuchiya/sdic/]]をお願いします。 by t-wata
+--→[[sdic]]
+
+----
+----
+-[[perlftlib:http://www.io.com/~kazushi/xtt/]]が無いのが不思議でしようがないのです。 by Yamakawa
+--作ってはあったんですが登録してませんでした．→[[perlftlib]] by Atzm
+
+----
+-xnp2を希望。
+--作ってはあるんですが [[ebuild-uploader:http://gentoojp.sourceforge.jp/ebuild-uploader/]] の運用が開始してからそこに登録しようと思ってます．すぐ必要な場合は [[こちら:http://callisto.comlab.soft.iwate-pu.ac.jp/~g031y177/gentoo/ebuilds1.html#xnp2]] からどうぞ．by atzm
+----
+-素朴な疑問、PukiWikiって入ってないんですね。by yamakawa
+--ebuild uploader に置いてみました。こういうアプリケーションて、システムデフォルトに入れる人もいれば、個人の public_html に入れる人もいるので、ebuild が作りにくいという事情はあると思います。(ebuild なのでシステムの DocumentRoot に入れるものしかサポートしませんが) あと、日本語でしか情報が書かれていないアプリケーションは、やっぱり本家に持っていきにくいです。PukiWiki は中国語版とフランス語版があるようですが[]by usata
+----
+-mltermのCVS版が欲しいー。
+--とりあえず CVS スナップショットを追加しました。Live CVS の追加はどれだけ追いかけたい人がいるかによります。個人的には機能として満足しているのでプライオリティは低いです。(Live CVS だと常に正常に動くことをメンテナが保証するよう努力しないといけないので負担が高いのです) by usata
+----
+-[[ATOK for Linux:http://www.justsystem.co.jp/linux/atok.html]]を希望します。日本語入力システムです。是非！
+--app-i18n/atokx2が追加されていたので、早速インストールしたところ正常に動作することを確認しました。usata様ありがとうございます！！
+----
+-udevを使用したいと考えているのですが、[[Gentoo udev Guide:http://www.gentoo.org/doc/en/udev-guide.xml]]の通りにやっても、出来ませんでした。どなたかHELPお願いします！
+--genkernelを使ってカーネル構築してますか？genkernelを使わずに普通にカーネルを構築しそれを利用すればできると思います。後、こちらも参考に[[Dechibels UDEV Setup.:http://webpages.charter.net/decibelshelp/LinuxHelp_UDEVPrimer.html]]
+---ありがとうございます。試してみます！（参考までになのですが、なぜgenkernelを使うと駄目なのでしょうか？）
+---自分だけかも知れませんがgenkernel3.xを使って構築するとブートパラメータに手が入るらしくdevfs以外は使えなくなるという症状がありました。genkernel1.xではどうだかわかりませんが。
+---genkernelを使わない方法で上手く行きました！アリガ島ございます♪
+
+-[[KBabel:http://i18n.kde.org/tools/kbabel/]]を希望します。KDE用の翻訳ツールです。
+--[[bugs #30215:http://bugs.gentoo.org/show_bug.cgi?id=30215]]
+
+-[[EBNETD:http://www.sra.co.jp/people/m-kasahr/ebnetd/index-ja.html]]をお願いします。by iijima
+--ndtpdがこれに取り込まれたようです。
+
+-gentoo での bonding の使い方をぜひ！
+-- http://bugs.gentoo.org/show_bug.cgi?id=22303 ここら辺のを参考にしてなんとか出来ました♪
+-- http://ru.gentoo-wiki.com/HOWTO_Настройка_Bonding を参考に出来ましたよ。by taiyo
+
+-app-i18n/uniconで[[UNICON による Linux 日本語 console:http://vdr.jp/d/19700101.html]]にあるパッチが当たるようになってほしいです。
+--4/23修整の3.0.4-r1ではそのパッチが当たるようになっています。 by tom
+
+-[[GNU Virtual Private Ethernet:http://savannah.gnu.org/projects/gvpe]]をお願いします。
+--とりあえず動くebuildを作ってみました．依存関係とか全然チェックしてません．セキュリティオプションの指定の仕方が解らなかったので，デフォルトでは(READMEに従って)最高に高くしてあります．by tom

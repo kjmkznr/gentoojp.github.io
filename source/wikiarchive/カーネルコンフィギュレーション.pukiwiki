@@ -1,0 +1,27 @@
+*カーネルコンフィギュレーション [#g5805f38]
+
+膨大なコンフィギュレーション項目の日本語訳と分かりやすい解説を作りませんか？
+最終目標は最新のカーネルを追うことと、実際のコンフィギュレーションと同じ形式の
+ページを作ることです。
+
+**General setup [#g5805f38]
+
+ Prompt for development and/or incomplete code/drivers
+***開発中や不完全なコード/ドライバも表示 [#w7e0b577]
+
+ここに日本語訳を書く？
+
+【補足】
+不完全な物はともかく開発中の物には有用かつ実用的な物もあるので選択しておいたほうがよいでしょう。
+
+ Local version - append to kernel release
+
+ Automatically append version information to the version string
+
+ Support for paging of anonymous memory (swap)
+***無名メモリのページングのサポート（スワップ） [#b5e04394]
+
+日本語訳は無しでもよいかも？
+
+【補足】
+十分なメモリがあっても一般的にはスワップを用意しておくべきでしょう。

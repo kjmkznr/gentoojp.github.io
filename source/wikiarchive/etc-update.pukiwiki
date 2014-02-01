@@ -1,0 +1,120 @@
+#contents
+
+* etc-updateって何? [#a5cf7b11]
+etc-updateはGentoo LinuxのPortageに付属するコマンドです。
+主として /etc にあるファイルの更新を行います。
+
+** emergeの動作 [#n589713f]
+emergeコマンドによって、ユーザの希望するパッケージがシステムに
+インストールされるのですが、特にアップデートの場合、ユーザが手を入れた
+設定ファイルなどが上書きされてしまっては困ります。
+そこで、emergeは決められた場所にあるファイルを更新する場合、
+上書きするのではなく別名をつけてインストールします。
+
+例えば、baselayoutの新しいバージョンが出たとしましょう。新しいバージョンを
+emergeすると /etc/fstabが更新されることになりますが、このファイルにはユーザの
+環境に合わせて変更が加えられえているはずです。それを上書きされてしまっては、
+面倒です。
+
+しかし実際には上書きされてしまうことはありません。Portageではこのようなファイルを
+保護する仕組みがあります。この例では、/etc/fstabを更新する代わりに/etc/._cfg0000_fstab という
+ファイルが作成されます(数字の部分はetc-updateのサボり具合によって変わります;-))。
+
+ところで、emergeはどのようにして特別扱いするファイルを決めているのでしょうか。
+/etc/make.globalsを見てください。CONFIG_PROTECTという変数が定義されています。
+この変数に定義されたディレクトリ(サブディレクトリを含む)にあるファイルは
+保護の対象となり、emergeが書き換えることはありません。
+
+** etc-update の動作 [#fe01fc95]
+emergeは /etc にあるファイルを上書きしないということはわかりましたが、ではそのまま
+放置してもいいのでしょうか? 無論、放置すべきではありません。ユーザが自分の責任で
+更新しなければなりません。
+
+では、どうすればいいでしょうか? 実に簡単です。._cfgで始まるファイルを見つけ出し、
+現在あるファイルと見比べて、適当にファイルを更新します。それがすんだら._cfgで
+始まるファイルは削除してしまいましょう。先ほどのfstabの例なら、._cfg0000_fstabと/etc/fstab
+を見比べながら /etc/fstab を更新し、._cfg0000_fstabを削除するのです。
+
+しかし、このようにして更新しなければならないファイルが増えてくると、手間も増大してきます。
+差分を確認しながら更新するためのツールが欲しいという声に応えるように、etc-updateが
+登場しました。
+
+このツールを使うと、対話式に更新するファイルを選択し、差分を確認したり
+マージしたりという操作を行うことができます。これによって随分作業を簡略化できます。
+
+しかし、注意してください。etc-updateは先に述べた作業を補助するツールに過ぎません。
+''設定ファイルを更新するのはあなたです!!'' 不安ならバックアップを取ってから作業する、
+これ基本です。
+
+* どんな時に使うの? [#if64251d]
+emergeしたあと、このような表示が出ることがあります。
+ * IMPORTANT: 2 config files in /etc need updating.
+ * Type emerge --help config to learn how to update config files.
+これを見て、emerge --help config を読んだ人はもうこのテキストを読む必要はありません ;-P
+
+このメッセージは、/etc に更新が必要なファイルが２つある、ということを意味しています。
+._cfgで始まるファイルが /etc に２つあるということです。このような場合こそ etc-update の
+出番です。
+
+* どうやって使うの? [#dccbdc98]
+root権限で etc-update コマンドを実行します。
+
+ # /usr/sbin/etc-update
+ 1) /etc/fstab
+ /etc/._cfg0000_fstab
+ 2) /etc/make.conf
+ /etc/._cfg0000_make.conf
+ Please select a file to edit by entering the corresponding number.
+               (-1 to exit) (-3 to auto merge all remaining files)
+                            (-5 to auto-merge AND not use 'mv -i'):
+- -1 etc-updateを終了
+- -3 全てのファイルを問い合わせしながら上書き
+- -5 全てのファイルを問い合わせなしで上書き
+
+ファイルの前についている番号(1もしくは2)を入力すると、そのファイルの
+更新ができます。
+
+ --- /etc/fstab
+ +++ /etc/._cfg0000_fstab
+ (ここに差分が表示される)
+ End of differences between /etc/fstab and /etc/._cfg0000_fstab
+ 1) Replace original with update
+ 2) Delete update, keeping original as is
+ 3) Interactively merge original with update
+ 4) Show differences again
+ Please select from the menu above (-1 to ignore this update):
+- 1 ._cfgファイルで旧ファイルを上書きする
+- 2 ._cfgファイルを削除して、旧ファイルをそのまま残す
+- 3 対話式にマージする
+- 4 差分をもう一度表示する
+- -1 前のメニューに戻る
+
+3の場合はどうなるでしょう。
+ Merging /etc/._cfg0000_fstab and /etc/fstab
+ foo                              <              ← 旧ファイルにあるが新ファイルにない行
+ %
+                                  > bar          ← 新ファイルにあるが旧ファイルにない行
+ %
+ hoge                             | hogehoge     ← 行の内容が変更された
+ %
+- r 新しいファイルの内容を選択する
+- l 古いファイルの内容を選択する
+- q 作業を中止する
+
+マージの場合、それぞれ違いがある部分で、どのように変更を加えるのかを答えなければなりません。
+プロンプト(%)で ? を入力すれば簡単なヘルプがでます。
+基本的には、rを入力して右(新)を取るか、lを入力して左(旧)を取るか、です。
+これは最初は戸惑うこともあると思いますのでファイルのバックアップを取ってから
+いろいろ試してみるとよいと思います。
+
+* etc-update で vimdiff が使えるって本当? [#fe5b8b83]
+/etc/etc-update.conf を見ると vimdiff をマージに使うなという注意書きがありますが、実はそんなことはなくて、
+
+ merge_command="vim +r%orig -d %merged %new"
+
+と書けば vimdiff でマージすることができます。ただしこれで激しくテストしたわけではないので(いつも sdiff 使ってます)、この設定で問題が出た人は教えてください。
+
+* 参考文献 [#m9260ce7]
+etc-update(1), make.conf(5), 'emerge --help config'
+----
+// #comment

@@ -1,0 +1,84 @@
+#contents
+#title
+
+*Gentoo とバグ報告 [#ca9e9121]
+
+[[あなたが Gentoo Linux に貢献できる事:http://www.gentoo.gr.jp/jpmain/contribution.xml]]には「Gentoo Linux 好きだからもっと良くなって欲しい」と本質的な言葉が含まれています。「そういう気持ちはあるけど・・・はっきりしない。一応ドキュメントを探したけど1時間で分らなければどうでもいいやと思ってきてしまい、そのままみたいなそんなとこ。」って人もいるのではないかと思います。もう1回その気持ちを確かめてみません？
+
+**相手は人間なので間違っても平気です [#w7dc9d80]
+
+デベロッパへ直接訴えることができます。間違っても本文が伝われば間違った登録項目はデベロッパ側が修正してくれます。
+
+MIT (マサチューセッツ工科大学)や CMU (カーネギーメロン大学)等学生のジョークは無視します。
+
+もう少し言えば、本文が伝わればいいので自身でパッチが書けなくともできます。ただし、パッチファイルがないと複数の報告があった場合に優先度が下がります。デベロッパは [[Gentoo]] が職業ではないので、多く(優先度が低いもの)は数週間から数ヶ月待ちます。本文が伝わるとはそういった彼等が再現できるようにすることです。
+
+*コミュニティ窓口 [#r681261d]
+
+ユーザからの要望を聞く窓口に [[www-apps/bugzilla]] を利用しています。バグ追跡だけに利用しているのではなく、「GCC のドキュメントが欲しいです」や「ヴァージョンアップを希望します」や「RSync ミラー作ったので公認申請します」の類も担当しています。
+
+一度報告すれば、解決されるまで検索する度に出現します。メーリングリストより推奨されます。また、進行段階を "RESOLVED" から "CLOSED" へ進行させる必要はなく、特別な理由がなければするべきではありません。および、解決する人が開発者である必要はありません。[[バグ・デー]]があります。どちらかと言うと解決しようとする人は [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]] 中心で、Forums や ML や IRC を必要以上に見ない方が多いようです。
+
+開発者と言えど自分の知らない分野は解決できません。「日本語表示の方法ぐらい開発者なら誰でも知っていそう」という期待にすら答えられないのが現実です。また、残念ながら解決してくれる人が本家に偏っているのも事実です。「今日は1時間ぐらい余裕があるからバグ潰しをしよう」と思う開発者はまず本家を見ます。そして1つ2つ潰している間に1時間が経過します。メーリングリストの場合は解決できる人が見ていない場合がありますが、[[バグ報告]]の場合は(数週間から数ヶ月かかるかもしれませんが)少なくともできるできないの返事はきます。
+
+[[stable]]、[[testing]]、[[mask]] の目安にもなります。また、[[GLEP]] の 041 より [[QA]] (品質保証)と関係してパッケージテスト専用のスタッフも迎えようとしています。
+
+[[セキュリティ]]上の[[バグ報告]]は [[GLSA]] として発表されます。[[GLSA]] こと "[[Gentoo Linux Security Announcements:http://wiki.gentoo.gr.jp/index.php?GentooLinuxSecurityAnnouncements]]" (または "[[Gentoo Linux Security Advisories:http://wiki.gentoo.gr.jp/index.php?GentooLinuxSecurityAdvisories]]") は [[Securityプロジェクト:http://www.gentoo.org/proj/en/security/index.xml]]による脆弱性注意報告です。
+
+**バグジラ入門 [#j377069e]
+
+[[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]] に関連記事があります。
+
+*バグ報告の流れ [#s09a24c1]
+
+具体的な流れは [[www-apps/bugzilla]] の使い方になります。[[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]] に関連記事があります。
+
+**本家 [#h09f2c4a]
+
+バグ発見!!~
+↓~
+[[本家 BugTrack (英語):http://bugs.gentoo.org/]]もしくは [[BugsJP (日本語):http://bugs.gentoo.gr.jp/enter_bug.cgi]]にアカウント登録(メールアドレス必要)します。登録する上で必要なメールアドレスはフリーメールで構いません。~
+↓~
+重複した報告を避けるため、バグを検索します。~
+↓~
+なければバグ報告を、既にあるがまだ未解決であれば情報追加をします。Summary はバグを潰してくれる人が一覧表示する時に分り易いものにすると効果的です。添付ファイルは2回目以降に attachment として送ります。[[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]に参考記事があります。~
+↓~
+[[Bugzillaガイド:http://www.gentoo.org/doc/en/bugzilla-howto.xml]]を参考にして下さい。これらのような開発者側の原因追及を助ける情報がないと優先度が低くなるみたいです。パッチまで記述できる人はパッチの説明を忘れないようにします。~
+↓~
+あとは担当者が出現するのを待ったり、情報を追加したり、自分でも勉強してみたりします。~
+
+ログイン後の詳しい手順は [[Bugzilla ガイド:http://www.gentoo.org/doc/en/bugzilla-howto.xml]]、[[ebuild 新規登録:http://www.gentoo.org/doc/ja/ebuild-submit.xml]]、[[セキュリティ・バグの検索:http://www.gentoo.org/security/en/bug-searching.xml]]、[[Bugzilla のヘルプ:http://bugs.gentoo.gr.jp/queryhelp.cgi]]、[[あなたが Gentoo Linux に貢献できる事:http://www.gentoo.gr.jp/jpmain/contribution.xml]]、[[Bugzilla 例文集:http://wiki.gentoo.gr.jp/index.php?%5B%5BBugzilla%CE%E3%CA%B8%BD%B8%5D%5D]]や [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]に参考記事があります。
+
+***バグ報告の活発さ [#x1c5aabc]
+
+[[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]に関連記事があります。
+
+**国内 [#v1668f65]
+
+BugsJP では画面にでるもののパスワード紛失時の救出サービスは起動していないようで、パスワードを忘れてしまうとログインできなくなるようです。
+
+
+***国内メーリングリスト [#ma8cbb93]
+
+[[メーリングリスト:http://www.gentoo.gr.jp/jpmain/about-gentoojp.xml#doc_chap4]]があります。
+
+ユーザ同士の会話で解決できそうな疑問を相談するものだと思うのですが、もし具体的な解決策を欲しいのであれば[[バグ報告]]と思います。解決できる人で[[バグ報告]]以外を見ていないというのは珍しくないです。
+
+***人頼み物件 [#bb006c5c]
+
+[[人頼み物件:http://wiki.gentoo.gr.jp/index.php?%5B%5B%BF%CD%CD%EA%A4%DF%CA%AA%B7%EF%5D%5D]]と言うものもあります。
+
+ユーザ同士の会話で解決できそうな疑問を相談するものだと思うのですが、もし具体的な解決策を欲しいのであれば[[バグ報告]]と思います。解決できる人で[[バグ報告]]以外を見ていないというのは珍しくないです。
+
+*GentooJP-wiki の Bug Track [#x070943f]
+
+過去のものであり、現在は利用されていません。
+
+余談ですが、[[GentooJP-wiki をぐるりと見渡す:http://wiki.gentoo.gr.jp/index.php?cmd=list]]と、500d 等最終更新が 2003 年の古いページが大量にでてきます。250 ページ近いものを頑張って読むと、今の形になるまでに Gentoojp-wiki は[[翻訳プロジェクト:http://wiki.gentoo.gr.jp/index.php?%5B%5B%CB%DD%CC%F5%A4%CE%BC%EA%BD%E7%5D%5D]]だったり、[[GentooJP ebuild プロジェクト:http://wiki.gentoo.gr.jp/index.php?%5B%5BEbuild%A5%D7%A5%ED%A5%B8%A5%A7%A5%AF%A5%C8%5D%5D]]だったり、[[BugTrackプロジェクト:http://wiki.gentoo.gr.jp/index.php?BugTrack]]だったりしていたようです。Gentoo Linux を未体験でディストリビューションの情報収集をしていたとしても、「Gentoo Linuxのブームは去った」と勘違いしてはいけません。当初 GentooJP-wikiは既に Gentoo Linux をやっている人達向けに作成されたようです。
+
+========
+
+-[2005-09-19]
+-[2005-09-24] プロジェクト担当者でないものからの視点です。すみません。おかしな所があれば修正お願いします。(yoshino)
+-[2005-11-04] 数ヶ月 → 数週間 (yoshino)
+-[2006-09-17] 自分が調べた際のメモをほぼそのまま貼りつけているだけだったのを省察しました。 (yoshino)

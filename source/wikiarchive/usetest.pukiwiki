@@ -1,0 +1,79 @@
+ebuild の IUSE 変数から，USE フラグの組み合わせのパターンを生成し，それぞれのパターンでビルドが成功するかどうかを自動的に検証してくれるスクリプトです．ebuild の HOMEPAGE に困って慌てて作ったわけではありません．多分． -- atzm
+
+usetest is a tester for ebuild in all USE flag patterns. It generates all patterns of USE flags from IUSE variables, it lets run emerge on each USE flag. 
+
+#contents
+
+**ダウンロード (download) [#cdff21c5]
+最新版は 0.1 です．http://dev.gentoo.gr.jp/~atzm/distfiles/usetest-0.1.tar.bz2 から取得するか，[[bugs:http://bugs.gentoo.org/show_bug.cgi?id=36390]] から ebuild を取得してインストールを行って下さい．
+
+Latest version is 0.1. We can get it from http://dev.gentoo.gr.jp/~atzm/distfiles/usetest-0.1.tar.bz2 , or we can get ebuild from [[bugs:http://bugs.gentoo.org/show_bug.cgi?id=36390]].
+
+**インストール (install) [#z58c847a]
+***直接ダウンロードしてくる場合 (from archive) [#k6b5a088]
+[[アーカイブ:http://dev.gentoo.gr.jp/~atzm/distfiles/usetest-0.1.tar.bz2]] を展開すると usetest-0.1 というディレクトリが現れます．その中に移動して二つのファイル usetest と usetest.rb に実行権をつけて下さい．
+ $ chmod +x usetest usetest.rb
+その後パスの通ったディレクトリにコピーするか，もしくはこの二つのファイルを同じディレクトリに置いて，このディレクトリ内で使用して下さい．
+
+Extract [[archive:http://dev.gentoo.gr.jp/~atzm/distfiles/usetest-0.1.tar.bz2]], then directory named usetest-0.1 is created. Go to this directory, permit executable to two files named usetest and usetest.rb.
+ $ chmod +x usetest usetest.rb
+After, copy these files to directory in PATH variable or put to same directory these files, then we can let run it only in this directory.
+
+***ebuild を利用して emerge でインストールする場合 (from ebuild) [#v3ce6972]
+特にやることはありません．emerge するだけです．
+
+Nothing to be done. Just emerge ;)
+
+**使い方 (usage) [#xe4acb96]
+検証したい ebuild ファイルは PORTDIR(_OVERLAY) なディレクトリに，利用できる形で配置してあることが必須です．
+ PORTDIR_OVERLAY="/usr/local/portage"
+としてあったとすると，usetest の書式は
+ # usetest /usr/local/portage/app-hoge/hoge/hoge-0.1.ebuild
+のようになります (絶対パスで書く必要はありませんが)．ebuild ファイルから IUSE 変数を読み取り USE フラグのパターンを生成し，それぞれについて emerge を開始します．
+
+例えば，この hoge-0.1.ebuild の IUSE 変数に cjk と nls の二つのキーワードが入っていたとすると，usetest 内部で
+
+ # USE=" cjk  nls" emerge =hoge-0.1
+ # USE=" cjk -nls" emerge =hoge-0.1
+ # USE="-cjk  nls" emerge =hoge-0.1
+ # USE="-cjk -nls" emerge =hoge-0.1
+
+が実行されることになります．
+
+-ebuild ファイルは複数指定することが可能です．
+-emerge を行うわけですので当然作業は root や sudo などで行って下さい．
+
+We must put ebuild file to PORTDIR(_OVERLAY) directory. If PORTDIR_OVERLAY is setted following line:
+ PORTDIR_OVERLAY="/usr/local/portage"
+usetest's syntax is
+ # usetest /usr/local/portage/app-hoge/hoge/hoge-0.1.ebuild
+also we don't have to set absolute path ;)
+
+Then usetest generates patterns of USE flags, lets run emerge on each USE flag pattern.
+
+For example, if hoge-0.1.ebuild has IUSE="cjk nls", then usetest lets run following command:
+ # USE=" cjk  nls" emerge =hoge-0.1
+ # USE=" cjk -nls" emerge =hoge-0.1
+ # USE="-cjk  nls" emerge =hoge-0.1
+ # USE="-cjk -nls" emerge =hoge-0.1
+
+-usetest accepts some args.
+-We must run as root.
+
+**オプション (options) [#rbc65fcc]
+|-v|デフォルトでは emerge 中のメッセージを全て殺すので結果以外の表示は行いませんが，このオプションを付加することによって全てのメッセージを端末に吐き出します．|
+|-n|デフォルトでは Gentoo 特有のカラフルな結果表示を行いますが，このオプションを付加することによって表示が淡泊になります．|
+|-f|デフォルトでは emerge に失敗するとその時点で usetest 自体も終了しますが，このオプションを付加することによって，失敗しようがどうなろうが最後まで実行しようとします．|
+|-o|emerge を --oneshot で実行します．テストによってあなたの world dependency を汚したくないという場合などに利用できるでしょう．|
+|-O|emerge を --nodeps で実行します．依存性を解決しないのでテストとしてはお勧めできません．|
+|-B|emerge を --buildpkgonly で実行します．これを利用すると，あなたのシステムには実際にはインストールは行われません．テストによってあなたの環境を変化させないためにはこのオプションを用いると良いでしょう．|
+
+|-v|print verbose messages.|
+|-n|without colors.|
+|-f|force run. Don't stop if ebuild has some errors.|
+|-o|keep your world dependency using --oneshot.|
+|-O|with --nodeps. but I don't recommend this option.|
+|-B|keep your environment using --buildpkgonly.|
+
+**ライセンス (license) [#m4fa339f]
+GNU General Public License version 2 or later

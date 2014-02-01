@@ -1,0 +1,146 @@
+#title
+#contents
+
+* 仕組み [#j4bdf02e]
+
+公式サイトのマニュアル [pkgcore]_ で確認して下さい。
+
+** ebuild files を書くのに知る必要があるのは以下です。 [#u16168d5]
+
+ebuild files [ebuild]_ で上書き定義が可能です。
+
+*** setup [#ge8aae28]
+
+- pre_pkg_setup()
+- pkg_setup()
+- post_pkg_setup()
+
+*** nofetch [#p30ea9dd]
+
+- pkg_nofetch()
+
+*** unpack [#k27b8ef7]
+
+- pre_src_unpack()
+- dyn_unpack()
+- post_src_unpack()
+
+*** compile [#y82b0e85]
+
+- pre_src_compile()
+- dyn_compile()
+- post_src_compile()
+
+*** test [#w300a8c8]
+
+- pre_src_test()
+- dyn_test()
+- post_src_test()
+
+*** install [#p46d4784]
+
+- pre_src_install()
+- dyn_install()
+- post_src_install()
+
+*** preinst [#ucecddcb]
+
+- pre_pkg_preinst()
+- dyn_preinst() | pkg_preinst()
+- post_pkg_preinst()
+
+*** postinst [#sff49759]
+
+- pre_pkg_postinst()
+- dyn_postinst() | pkg_prerm()
+- post_pkg_postinst()
+
+*** prerm [#w9866f12]
+
+- pre_pkg_prerm()
+- dyn_prerm() | pkg_prerm()
+- post_pkg_prerm()
+
+*** postrm [#m9f5ef74]
+
+- pre_pkg_postrm()
+- dyn_postrm() | pkg_postrm()
+- post_pkg_postrm()
+
+*** config [#id3dc67e]
+
+- pre_pkg_config()
+- dyn_config() | pkg_config()
+- post_pkg_config()
+
+
+** 以下は Pkgcore 独自の追加です。 [#r2ce4ad4]
+
+*** setup-binpkg [#e4192114]
+
+- pre_pkg_setup()
+- pkg_setup()
+- post_pkg_setup()
+
+*** depend [#te26e1cb]
+
+
+
+
+________________
+
+
+
+.. [gpms] http://dev.gentoo.org/~spb/pms.pdf が PDF です。
+
+.. [gpm] http://wiki.gentoo.gr.jp/index.php?Gentoo_Package_Manager に関連記事があります。
+
+.. [meta-distribution] http://wiki.gentoo.gr.jp/index.php?%5B%5B%A5%E1%A5%BF%A1%A6%A5%C7%A5%A3%A5%B9%A5%C8%A5%EA%A5%D3%A5%E5%A1%BC%A5%B7%A5%E7%A5%F3%5D%5D に関連記事があります。 
+
+.. [sandbox] root:root でさえも登録ディレクトリ以外へのアクセスを禁止させる LD_PRELOAD のハック。
+
+.. [glsa] 脆弱性注意報告。
+
+.. [qa] 品質保証。
+
+.. [repository] http://wiki.gentoo.gr.jp/index.php?repository に repository, tree, overlays の関連記事があります。
+
+.. [portage] http://www.gentoo.org/proj/en/portage/index.xml は公式サイトです。
+
+.. [paludis] http://paludis.pioto.org/ は公式サイトです。
+
+.. [pkgcore] http://www.pkgcore.org/ は公式サイトです。
+
+.. [vdb] システムに何がどんな状態でマージ済みかを保存しているデータベース。
+
+.. [features] ユーザが機能をオンオフ調整する portage 変数。pkgcore は採用、paludis は不採用。
+
+.. [restrict] デベロッパが機能をオンオフ調整する ebuild 変数。
+
+.. [digest/manifest] 誰が作成したものかを保証する機能。
+
+.. [ebuild] http://wiki.gentoo.gr.jp/index.php?ebuild_files に関連記事があります。
+
+.. [prefix] http://wiki.gentoo.gr.jp/index.php?prefix に関連記事があります。
+
+.. [overlays] http://wiki.gentoo.gr.jp/index.php?overlays に関連記事があります。
+
+.. [use_flag] http://wiki.gentoo.gr.jp/index.php?USE_flag に関連記事があります。
+
+.. [profile] http://wiki.gentoo.gr.jp/index.php?profile に関連記事があります。
+
+
+________________
+
+
+
+- [[Gentoo_Package_Manager]], [[Portage]], [[Paludis]], [[Pkgcore]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+- [[Pause_on_Pkgcore(1)]], [[Pause_on_Pkgcore(2)]], [[Pause_on_Pkgcore(3)]], [[Pause_on_Pkgcore(4)]], [[Pause_on_Pkgcore(5)]], [[Pause_on_Pkgcore(6)]], [[Pause_on_Pkgcore(7)]], [[Pause_on_Pkgcore(8)]], [[Pause_on_Pkgcore(9)]], [[Pause_on_Pkgcore(10)]], [[Pause_on_Pkgcore(11)]], [[Pause_on_Pkgcore(12)]], [[Pause_on_Pkgcore(13)]], [[Pause_on_Pkgcore(14)]], [[Pause_on_Pkgcore(15)]], [[Pause_on_Pkgcore(16)]]
+- [[repository]], [[USE_flag]], [[profile]], [[prefix]], [[overlays]]
+- [[ebuild_files]], [[ebuild_metadata(ebuild-defined_variables)]], [[ebuild_phase(ebuild-defined_functions)]], [[the_ebuild_environment(defined_variables)]], [[the_ebuild_environment(defined_commands)]], [[bash_for_ebuild]]
+
+________________
+
+- [2007-08-05] 気に入ったら書き足して下さい。 (yoshino)

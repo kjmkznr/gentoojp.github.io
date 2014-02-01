@@ -1,0 +1,81 @@
+#contents
+#title
+
+*フレームバッファの背景にジェンツーロゴを表示する [#g0179f8b]
+
+純正 [[installcd]]/[[livecd]] の背景は [[x11-base/xorg-x11]] ではなくフレームバッファで提供されています。[[インストール]]手段もそうですが、[[Portage]] だからそうしているわけではありません。
+
+[[ブートローダの画像を真似したい]]、[[ログインの画像を真似したい]]、[[フレームバッファの画像を真似したい]]に関連記事があります。
+
+**initrd [#i116824f]
+
+[[sys-boot/grub]] の後、ブートアップ画面を [[installcd]]/[[livecd]] の様なデザインにするには、ルートファイルシステムのマウントを initrd 経由にします。[[media-gfx/splashutils]] で必要なものは揃います。media-gfx/splash-themes-* に追加デザインがあります。確認したのは 2005 年 11 月です。
+
+ emerge splashutils
+ eix splash-th
+ 
+ > media-gfx/bootsplash-themes 
+ >    Available versions:  20040821-r1
+ > media-gfx/bootsplash-themes-livecd 
+ >    Available versions:  2004.0 2004.1 2004.2-r4 ~2004.3-r1
+ > media-gfx/splash-themes-gentoo 
+ >    Available versions:  20050429
+ > media-gfx/splash-themes-livecd 
+ >    Available versions:  2004.3 2005.0 2005.1
+ 
+ emerge '=media-gfx/splash-themes-gentoo-20050429'
+ emerge '=media-gfx/splash-themes-livecd-2004.3'
+ emerge '=media-gfx/splash-themes-livecd-2005.0'
+ emerge '=media-gfx/splash-themes-livecd-2005.1'
+
+splash_geninitramfs コマンドで initrd を作成します。この例では /boot/splash.initrd がそれです。
+
+もし[[カーネル]]が initrd と framebuffer をサポートせずに作成されていれば、内蔵(Y)で再カーネルコンパイルをします。[[sys-kernel/genkernel]] や [[sys-kernel/module-rebuild]] が便利かもしれません。[[Handbook (フレームバッファの設定):http://www.gentoo.org/doc/ja/handbook/handbook-x86.xml?part=1&chap=10]]に記事があります。一番簡単なのは[[コンパイル]]をせずに [[installcd]]/[[livecd]] の[[カーネルを複製で済ませる短縮手段:http://www.gentoo.org/doc/ja/gentoo-x86-tipsntricks.xml]]を使う事です。必要なパッチも当てられてます。
+
+ mount /dev/hda1 /boot
+ splash_geninitramfs -g /boot/splash.initrd -r 1024x768 --all
+ nano -w /boot/grub/grub.conf
+ rc-update add splash default
+
+ちなみに splash_geninitramfs のヘルプです。
+
+ Usage: splash_geninitramfs [options] [--all|theme ...]
+ 
+ Main operation modes:
+   -g, --generate=IMG  generate an initramfs image with all necessary files
+   -a, --append=IMG    append a theme and helper files (if necessary)
+                       to an initramfs image
+   -c, --copy=DIR      copy all necessary files into the specified directory;
+                       DIR should point to the root directory of an initramfs
+   -h, --help          show this help message
+ 
+ Options:
+   -r, --res=RES   copy data for specific resolutions only; RES is a 
+                   comma-separated list of the resolutions for which the images
+                   are to be copied
+   -v, --verbose   verbose output
+       --no8bpp    ignore 8bpp images (can save a lot of space)
+
+余談ですが /boot/grub/grub.conf の設定例です。
+
+ # For booting GNU/Linux
+ title 2.6.11-h.ex3.splash
+ root (hd0,0)
+ kernel /vmlinuz-2.6.11-h.ex3 root=/dev/hda3 vga=0x318 ￥
+        video=vesafb:mtrr,ywrap,1024x768-32@85 ￥
+        splash=silent,theme:livecd-2005.1 quiet CONSOLE=/dev/tty1
+ initrd /splash.initrd
+
+/etc/init.d/splash は /dev/fbsplash を必要とします。テーマは、"gentoo" でラリー君、"emergence" で渋いロゴ (2004.0？)、2005.1 で LiveCD ロゴが出現します。/etc/conf.d/splash で調整できます。ブットアップ中だけでなく、シャットダウン中もロゴが表示されます。
+
+*フレームバッファに日本語を使う [#bbd3a36f]
+
+フレームバッファ・コンソールに日本語を表示させるにはフォントなどが必要となります。好みのフォントの他、[[app-i18n/jfbterm]] を[[マージ]]します。jfbterm コマンドを実行 (シェルレベル+1) した後で、[[app-editors/emacs]] などを起動すれば日本語が表示できるはずです。[[app-i18n/jfbterm]] 上に [[app-misc/screen]] も実行 (シェルレベル+1) できます。
+
+[[app-i18n/jfbterm]] は日本語を表示するだけです。日本語入力するために別パッケージが必要です。[[app-i18n/uim]] を実行 (シェルレベル+1) したり、[[app-editors/emacs]] + [[app-emacs/ddskk]] を設定したり、……好きな組合せを選びます。[[日本語入力設定事例集:http://wiki.gentoo.gr.jp/index.php?%5B%5B%C6%FC%CB%DC%B8%EC%C6%FE%CE%CF%C0%DF%C4%EA%BB%F6%CE%E3%BD%B8%5D%5D]]に記事があります。
+
+========
+
+-[2005-11-20] 面白いのがあったら足して下さい。 (yoshino)
+-[2006-01-06] 「jfbterm では EUC-JP、mlterm では UTF-8 と使い分ける」はジェンツー特有の話でもないのでとりさげました。検索すればもっと一般的な説明をしたサイトが出てくると思います。 (yoshino)
+-[2006-09-17] フレームバッファから移動。 (yoshino)

@@ -1,0 +1,24 @@
+*Emacs-21.3対応Mule-UCS [#m0216f89]
+
+-ページ: BugTrack
+-投稿者: [[Atzm]]
+-優先順位: 低
+-状態: 完了
+-カテゴリー: ebuild
+-投稿日: 2003-04-24 (木) 18:04:08
+-バージョン: 0.84
+
+
+CENTER:''このebuildは本家のツリーに取り込まれました。(dev-lisp/mule-ucs)''
+
+**メッセージ [#ub42695d]
+本家に登録されているmule-ucsがemacs-21.3で使えなかったので，
+emacs-21.3に対応するためのパッチを当てました．
+
+http://tats.iris.ne.jp/mule-ucs/
+
+currentではFixされているそうなんですが0.84だとダメみたいです．
+
+----
+
+#comment

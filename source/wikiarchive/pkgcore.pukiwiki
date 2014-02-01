@@ -1,0 +1,7 @@
+
+#title
+#contents
+
+* sys-apps/pkgcore [#rf5ad0f5]
+
+pkgcore と言うコマンドはなく、pmerge, pebuild, pquery, pmaint, pconfig になります。[[Pkgcore]] に関連記事があります。

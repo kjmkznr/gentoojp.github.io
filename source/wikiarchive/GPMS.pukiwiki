@@ -1,0 +1,33 @@
+#title
+#contents
+
+2007 年 05 月に Gentoo Package Manager に求める機能を定義した Gentoo Package Manager Specification [GPMS]_  が提出されてます。
+
+Tree layout [repository]_ や ebuild 変数 [ebuild_metadata(ebuild-defined_variables)]_ [the_ebuild_environment(defined_variables)]_ や ebuild 関数 [ebuild_phase(ebuild-defined_functions)]_ [the_ebuild_environment(defined_commands)]_ といった ebuild file [ebuild_files]_ に関するものが含まれます。
+
+
+_____
+
+.. [GPMS] http://dev.gentoo.org/~spb/pms.pdf
+
+.. [GPM] http://wiki.gentoo.gr.jp/index.php?Gentoo_Package_Manager
+
+.. [repository] http://wiki.gentoo.gr.jp/index.php?repository に関連記事があります。
+
+.. [USE_flag] http://wiki.gentoo.gr.jp/index.php?USE_flag に関連記事があります。
+
+.. [profile] http://wiki.gentoo.gr.jp/index.php?profile に関連記事があります。
+
+.. [ebuild_metadata(ebuild-defined_variables)] http://wiki.gentoo.gr.jp/index.php?ebuild_metadata(ebuild-defined_variables) に関連記事があります。
+
+.. [the_ebuild_environment(defined_variables)] http://wiki.gentoo.gr.jp/index.php?the_ebuild_environment(defined_variables) に関連記事があります。
+
+.. [ebuild_phase(ebuild-defined_functions)] http://wiki.gentoo.gr.jp/index.php?ebuild_phase(ebuild-defined_functions) に関連記事があります。
+
+.. [the_ebuild_environment(defined_commands)] http://wiki.gentoo.gr.jp/index.php?the_ebuild_environment(defined_commands) に関連記事があります。
+
+.. [ebuild_files] http://wiki.gentoo.gr.jp/index.php?ebuild_files に関連記事があります。
+
+_____
+
+-[2007-05-04] (yoshino)

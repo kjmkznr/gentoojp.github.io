@@ -1,0 +1,19 @@
+*漢字直接入力 for emacs [#wf1ec71d]
+
+-ページ: BugTrack
+-投稿者: [[matsuu]]
+-優先順位: 低
+-状態: 移動
+-カテゴリー: ebuild
+-投稿日: 2003-06-12 (木) 18:48:13
+-バージョン: 2.3.1
+
+問題無さそうならクリックしてください。(目安として使うだけです)
+#vote(問題なく動作しました。[1])
+**メッセージ [#k28b557f]
+http://openlab.ring.gr.jp/tcode/tc2/
+
+[[T-CODE:http://openlab.ring.gr.jp/tcode/intro.html]]や[[TUT-CODE:http://www.crew.sfc.keio.ac.jp/~chk/index.html]]などの漢字直接入力が利用可能なemacs用日本語入力環境です。
+
+----
+// #comment

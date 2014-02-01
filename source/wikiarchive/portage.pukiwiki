@@ -1,0 +1,15 @@
+#contents
+#title
+
+*Portage と sys-apps/portage [#u857cabd]
+
+具体的な [[sys-apps/portage]] を指す場合と全体的な [[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]] を指す場合があります。[[portage]] コマンドというものはありません。
+
+[[sys-apps/portage]] の略で [[portage]] が多い気がしますが、曖昧な言葉であるため重要単語になる場面では厳密に記述するのが伝わります。[[Portage]] に関連記事があります。
+
+========
+
+-[2005-09-19]
+-[2005-09-19] あれ、確か本人が sys-apps/portage-3.0 の開発を始めたとかなんとか言ってた様な気がしないでもなく・・・。まだお酒の量が少ない頃の話だったと思うのだけれども・・・。貴重な情報忘れる馬鹿ですみません。(yoshino)
+-[2005-11-06] GentooJP-wiki の [[Config管理をカラー化:http://wiki.gentoo.gr.jp/index.php?%5B%5Btips%BD%B8%2FConfig%B4%C9%CD%FD%A4%F2%A5%AB%A5%E9%A1%BC%B2%BD%5D%5D]]へのリンク。 (yoshino)
+-[2006-09-17] 自分が調べた際のメモをほぼそのまま貼りつけているだけだったのを省察しました。 (yoshino)

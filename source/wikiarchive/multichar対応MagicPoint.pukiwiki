@@ -1,0 +1,24 @@
+*multichar対応MagicPoint [#j9122147]
+
+-ページ: BugTrack
+-投稿者: [[atzm]]
+-優先順位: 低
+-状態: 完了
+-カテゴリー: ebuild
+-投稿日: 2003-02-09 (日) 00:45:34
+-バージョン: 1.09a-r1
+
+問題無さそうならクリックしてください。(目安として使うだけです)
+#vote(問題なく動作しました。)
+#attach
+**メッセージ [#a1376941]
+日本語のTrueTypeフォントが使えなかったので、使えるようにしてみました。
+USE="truetype nls"でemergeして下さい。
+
+----
+
+-以前本家のebuildを日本語でるように直してもらったはずなのですが、何か足りなかったのかな。--disable-vflib と--with-freetypeがポイント？ -- [[なかの]] SIZE(10){2003-02-09 (日) 10:53:08}
+-うわっすみません！ 今試してみたら使えました！ ただ/etc/vfontcapがないとエラーを吐いて止まるようです。 -- [[atzm]] SIZE(10){2003-02-09 (日) 16:22:16}
+- 3BUYCP  <a href="http://wkgnvteptcfo.com/">wkgnvteptcfo</a>, [url=http://ncbvmifhbgql.com/]ncbvmifhbgql[/url], [link=http://luvgsgbvvglk.com/]luvgsgbvvglk[/link], http://epsahlsyzmlj.com/ -- [[chsoktobie]] &new{2013-08-27 (火) 04:14:19};
+
+#comment

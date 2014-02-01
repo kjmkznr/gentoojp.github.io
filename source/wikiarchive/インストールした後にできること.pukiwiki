@@ -1,0 +1,148 @@
+#contents
+#title
+
+*Gentoo Linux で出来る事は... [#ne680468]
+
+[[Gentooが採用している技術]]に関連記事があります。
+
+**ハンドブック [#c78abb15]
+
+[[ハンドブック]]に関連記事があります。 
+
+**マニュアルが用意されているもの -- ディスクレス, SELinux, 負荷分散... [#l0ba7765]
+
+[[GDP]] こと [[Documentation プロジェクト:http://www.gentoo.org/proj/en/gdp/index.xml]]によりドキュメントは集中管理されているため、例えば「ネットワークからディスクレスでブートする」と「SELinux と grsecurity を同時に利用する」と「負荷分散ネットワークを構築する」が同じサイトにあり、[[インストール]]後に迷うことなくじっくりしみじみ楽しめます。(SELinux 等の記事は [[Documentation プロジェクト:http://www.gentoo.org/proj/en/gdp/index.xml]]でも [[Security プロジェクト:http://www.gentoo.org/proj/en/security/index.xml]]でもなく [[Hardened プロジェクト:http://www.gentoo.org/proj/en/hardened/index.xml]]の管轄ですが、[[Gentoo Linux ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]で眺める分には意識する必要はありません。)
+
+[[GentooJP オリジナルドキュメント:http://www.gentoo.gr.jp/jpmain/docs-list.xml#doc_chap3]]にも[[フェイルオーバーガイド:http://www.gentoo.gr.jp/jpdoc/failover.xml]]や[[負荷分散ガイド:http://www.gentoo.gr.jp/jpdoc/load_balancing.xml]]といった記事があります。
+
+古いシステム全体を更新するのに便利な `emerge world` ですが、もの凄い量が対象になります。注意して下さい。最低限必要な[[ビルド]]は [[GLSA]] だけで、`emerge world` ではありません。[[GLSA]] こと "[[Gentoo Linux Security Announcements:http://wiki.gentoo.gr.jp/index.php?GentooLinuxSecurityAnnouncements]]" (または "[[Gentoo Linux Security Advisories:http://wiki.gentoo.gr.jp/index.php?GentooLinuxSecurityAdvisories]]") は [[Securityプロジェクト:http://www.gentoo.org/proj/en/security/index.xml]]による脆弱性注意報告です。
+
+***日本語環境について [#cce6b8c7]
+
+[[日本語入力設定事例集]]や[[日本語デスクトップ環境/パッケージ]]に記事があります。
+
+***マニュアルに難しい概念が出現した際の解決手段 [#h06e2e13]
+
+あまり理解していなくとも [[USEフラグ]]だけで[[メタ・ディストリビューション]]自体は完了してしまうのですが、運用するための設定ファイルは自分で記述しなければなりません。
+
+難かしい概念が出現した場合には、[[検索エンジン:http://www.google.co.jp]]や [[Linux Japanese FAQ プロジェクト:http://www.linux.or.jp/JF/]]や [[Linux Japanese Manual プロジェクト:http://www.linux.or.jp/JM/INDEX/index.html]]が助けになると思います。
+
+ウェブ上の文章だけでは分り難かったり、もの足りなければ、参考書でも調べられます。「パターソン & ヘネシー」「アンドリュー・S・タネンバウム」「W・リチャード・スティーヴンス」「……」有名人の解説書は沢山あります。有名人でなくとも自分で理解できるものが良いと思います。中規模以上の本屋さんに置いてありそうで読者層にジェンツー愛好者を含む参考書を探すとするならば O'REILLY、CQ 出版社、ピアソン・エデュケーション、……辺りから始めるといろいろ発見があると思います。
+
+***「SysVinit (init スクリプト)」(ドキュメント検索例) [#ic08f325]
+
+[[Linux Japanese Manual プロジェクト:http://www.linux.or.jp/JM/INDEX/index.html]] の「[[SysVinit (init スクリプト):http://www.linux.or.jp/JM/INDEX/linux.html]]」参考。
+
+***「iproute2 (ifconfig の後継)」(ドキュメント検索例) [#x9fd75fb]
+
+[[Linux Japanese FAQ プロジェクト:http://www.linux.or.jp/JF/]] の「[[iproute2 (ifconfig の後継):http://www.linux.or.jp/JF/JFdocs/Adv-Routing-HOWTO/]]」参考。
+
+**マニュアルが用意されていないもの [#he13299a]
+
+むしろ用意されていないものの方が多いです。用意されていないから出来ないということはないです。[[Gentoo]] 以外も助けになります。[[プロジェクトリスト:http://www.gentoo.org/proj/en/index.xml?showlevel=3]]には、これからドキュメントが用意されるであろうプロジェクトもあります。
+
+***コードを書く時間と本を読む時間 [#s709e9c9]
+
+これから[[メタ・ディストリビューション]]を始める人は、どちらかに偏り過ぎないで下さい。コードを書く時間だけでは好悪による不安定な問題解決になり、本を読む時間だけでは一般化し過ぎて前提条件と現場の変化に対応できないからです。形式知や暗黙知は経営学の範囲ですが難しく考えず、時間の許す限り、コードを書いて勉強してコードを書いて勉強して……を繰返してみて下さい。
+
+*Portage で出来る事は... [#cc1cba02]
+
+[[メタ・ディストリビューション]]に関連記事があります。
+
+**一文でアピールすると... [#n185baf7]
+
+使用条件にあわせてコンパイルフラグを調整した自作パッケージを用意する必要がほとんどなくなります。
+
+**Portage の得意分野 [#he9d5ae9]
+
+[[メタ・ディストリビューション]]する必要があるもの全てです。
+
+[[ビルド]]の連鎖を制御するものなので自分でどうにかできるものに [[Portage]] はかなり便利ですが、そうでないものは頼ることになります。その時に「あれ、こういったのは [[Portage]] が得意だと思うけれど・・・」や「意外にも [[Gentoo]] が一番良かった!!」というのはあります。
+
+ちなみにパッケージ範囲が違うので直接の比較はできませんが、120 以上の分類の中[[セキュリティ]]や [[GDP]] を除いた開発者で 10 人以上在籍するのは、AMD64(プロジェクト中最大派閥)、 Apache、 Base([[ポーテージ]]を含まない[[ジェンツー]])、 GCC、 Java、 Kernel、 MIPS、 Mobile(デバイス)、 Mail(qmail 等は含まない)、 NetMon(ネットワークモニター)、 PPC、 Sci(サイエンス)、 SPARC、 Toolchain(glibc, binutils, gcc, linux-headers)、 Video、 Web-apps(ウェブブラウザ等を含まないウェブアプリケーション)、 X86となっています。以上は 2005 年 09 月の状況です。仮想化チームなど増えてます。
+
+むしろ [[GWN]] のバグランキング辺りが活発度の目安になるかもしれません。
+
+**ebuildパッケージ [#r479a1f9]
+
+[[*.ebuild]] 一枚で AMD64 から PPC64 まで対応します。これは [[helper]], [[addon]], [[eclass]] と呼ばれるライブラリで実現しています。これらは全て [[Bash]] スクリプトです。[[Python]] スクリプトではありません。逆の視点から言えば "Bourne shell" だけでは駄目です。[[*.ebuild]] や [[ebuildとbash]] に関連記事があります。
+
+***自分で *.ebuild を記述しないで拝借する [#j9de78a9]
+
+自分で記述しようとすると覚えることが沢山あります。どの程度活用するかによりますが、[[Portageオーバーレイ]]も試してみて下さい。基本的なことは [[ebuildパッケージ]]にあります。
+
+***自分で *.ebuild を記述する [#i208fb8d]
+
+自分で記述するきっかけは、[[USEフラグ]]やコンパイルフラグを修正したり、DEPEND, RDEPEND, PDEPEND を修正したり、パッチファイルを追加したりする必要が発生したからだと思いますが、教科書的(アカデミック)に進めると、学ぶのはかなり最後の方になってしまいます。ピンポイントが [[Bugzilla例文集]]や [[eclass]] にあります。教科書的(アカデミック)なものは [[*.ebuild]] にあります。
+
+*愛好者は何に Gentoo を使っているのか [#ea7438e1]
+
+そもそも本家には [[PR プロジェクト:http://www.gentoo.org/proj/en/pr/index.xml]]や [[Documentation プロジェクト:http://www.gentoo.org/proj/en/gdp/index.xml]]があります。[[GWN サブプロジェクト:http://www.gentoo.org/proj/en/pr/gwn.xml]]が発行している [[GWN]] や[[公式サイト:http://www.gentoo.org/]]のページを幾つか読んで貰うのが雰囲気を伝えるには早い気がします。
+
+技術的価値以外に、「わくわくする」とか「こころときめく」とかが少なくないようです。例えば NASA (米航空宇宙局)で採用された際のインタビュー記事でもそんなことが書かれてます。デベロッパの視点のもありますが、ユーザの視点のもあります。尖った個人というより、適材適所を実行するメリット云々に近いです。
+
+**高校生の Kenneth 君が学校のコンピュータをイメージ管理しようとして考えた策とは？そして生徒と先生の反応は... (読む限りでは、ネットワークは職員が Windows で管理しているようです。) [#lfc9e260]
+
+> 高校生の Kenneth 君は時折学校のコンピューターの管理を手伝ってます。ある日、学校の職員が、Office XP の価格の高さに驚き、Kenneth 君にコンピュータールームの 44 台のマシン中 6 台に Linux を導入するように頼みました。Kenneth 君は KDE、GNOME、OpenOffice、Mozilla、Samba、CUPS、distcc、gaim (おおっと、生徒に優しい学校ですね！)、 MPlayer、Flash、Java、そして GNUPlot を含むイメージを作る事にしました。イメージで管理するべきと思ったからです。もちろん、彼がそのために使ったのは Gentoo Linux でした。
+
+> 1) Kenneth 君が問題を考えてみる
+
+> 学校は Windows ネットワークを使用してるので、これから作る Gentoo マシンがログオン出来るようにしなくてはなりません。Windows を稼働してるサーバ上の個人フォルダを生徒がアクセス出来るようにする事も必要です。でももしかすると一番大変なのは生徒が Linux に感じる違和感をなくすことなのかも知れません。
+
+> 2) Kenneth 君が解決手段を考えてみる
+
+> ログインを可能にするために、GDM のソースをパッチし、UID が存在しない場合一つ作るスクリプトを実行するようにしました。また、smb.auth を通じて PAM が稼働し、テンプレートによってホームディレクトリが作成されるようにしました。アプリケーションの設定ファイル内にホームディレクトリを記録するソフトウェア OpenOffice などで問題がありましたが、シンボリックリンクを作って解決しました。 共有ファイルシステムとして Samba をログイン時にマウントし、ログアウト時にアンマウントするためには smb_authtoken を使い、更に smbmount と smbumount を実行してマウントを管理するプログラムを C で書きました。
+
+> ジェンツーシステムを簡単にするために、Portageツリーの /usr/portage には先程の共有ファイルシステムの Samba ではなく同様の共有ファイルシステムの NFS を利用し、コンパイル時には全マシン 6 台へ distcc で分散できるようにし、ローカル専用 rsync ミラーも設置しました。
+
+> マシンの管理時には、ssh の "send input to all" (「全てのマシンに出力」)を設定した konsole を使いました。標準のデスクトップ環境は KDE で、ネットワークプリンタには CUPS を使用し、全てのファイルサーバへのショートカットを KDE に入れました。
+
+> 3) Kenneth 君の結果報告
+
+> 初日には 57 人のユーザを登録しました。先生を含む数人のコンピュータ好きな人は新しいシステムを褒めてくれました。全アイコンに説明を添付したので、殆んどのユーザは好きでも嫌いでもなく難無くやりたいことを終えました。が、Internet Explorer を探し続けて何も出来なかった人もいました。他にも、フロッピーのマウントが分らない人や Windows 以外の物を拒否する人の問題がありました。しかし、やがて気が付きました。カーネルやシェルが何なのかわからなくても Gentoo マシンしか使わない人が増えている事に。(原文には理由らしきものが書かれてません。)
+
+> そして成功を一番実感した日は、NT マシンのプリントサーバが動作しないために印刷したかった人が Gentoo マシンのプリントサーバを使わなくてはならなかった日です。それまでいつもと違うアプリケーションを使う事に怒っていた化学の先生も、「Kenneth 君、私も Linux を使ってちゃんと印刷できましたよ」と言ってくれたからです。
+
+過去の [[GWN]] より編集。
+
+**企業の新製品 [#ice46d32]
+
+スポンサ企業でもそうでない企業でも新製品のアピールが [[GWN]] には掲載されます。ユーザが投稿してます。学生社長が書いた記事が採用された事もあります。親組織/親企業とか誰かに挨拶しないとまずいとかそういうのもないです。
+
+**Gentoo Foundation, Inc. [#h11c2a4a]
+
+2004 年 06 月からドメインを含む資産は「Gentoo Technologies, Inc.」から「Gentoo Foundation, Inc.」になりました。米国において公式に非営利団体になったことを意味します。
+
+*Gentoo や Portage を直接的または間接的に使った仕事はできますか？ [#b8369f32]
+
+一般的な無料ディストリビューションと同じく、ソースコードの[[ライセンス]]や[[コピーライト]]に注意すれば、自由に使えます。逆に言えば、とくに優遇されている処置はありません。本家そのものがテクニカルサポートをしない点も同じです。違うとすれば思想だと思います。
+
+[[GWN]] にユーザ体験談やデベロッパ紹介が載りますが、報告義務はなく秘密にもできます。既に利用している企業や団体を見ると、道具として採用するモデルから、コミュニティと仲良くするモデルまで、様々な選択肢があります。後者の場合で個人的に感じるのは、デベロッパがやりたい事柄と一致したら支援するのが仲良くやっていけるようです。支援してくれるなら転職を考えても構わないと答える人もいます。[[Staffing needs (人材募集しているプロジェクト):http://www.gentoo.org/proj/en/devrel/staffing-needs/index.xml]] や [[Adopt a Developer project (デベロッパがやりたいと思っているけど支援を必要としているもの):http://www.gentoo.org/proj/en/userrel/adopt-a-dev/]] や [[Planet Gentoo (デベロッパの広報的な日記):http://planet.gentoo.org/]] や [[IRC:http://www.gentoo.org/main/en/irc.xml]] や [[Mailing List:http://www.gentoo.org/main/en/lists.xml]] などに載ってます。
+
+ソフトウェア工学の視点から判断しても、経済学でいうところの『ゲーム理論』(複数の主体の合理的行動とは何かを考える学問)の視点から判断しても、会計的付加価値から判断しても、面白いかもしれません。新しいモデルを思いつくかもしれません。研究や教育用途だけになるかもしれません。[[Gentoo]] 愛好者を集めて適材適所も考えられます。起業する人もいます。熟考の結果に [[Gentoo]] や [[Portage]] を選ばないのもアリと思います。
+
+ちなみに、恐らく、コンピュータの知識だけでは無理です。会計や行政や法律や……色々あります。コンピュータの本棚にあるものよりも、それ専用の別の本棚にあるものが分り易いし偏ってないと思います。起業も含めて最終的には専門職に相談するのが無難ですが、いろいろ発見があると思います。
+
+________
+
+[[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]) の詳細は[[プロジェクトリスト:http://www.gentoo.org/proj/en/metastructure/projects.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]), [[Gentoo FAQ:http://www.gentoo.org/doc/ja/?catid=faq]], [[GentooJP FAQ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A3%C6%A3%C1%A3%D1%5D%5D]]
+- [[インストール]], [[Stage]], [[GRP]], [[Portageツリー]]
+- [[インストールした後にできること]], [[日本語入力設定事例集]], [[日本語デスクトップ環境/パッケージ]]
+- [[Gentooが採用している技術]]
+- [[コミュニティとの連絡手段]], [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]
+- [[本家に関連しそうな言葉]], [[GLEP]], [[コピーライト]], [[ライセンス]]
+
+[[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]]) の詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]])
+- [[メタ・ディストリビューション]], [[USEフラグ]], [[profile]], [[catalyst]], [[GNAP]]
+- [[コンパイル]], [[バイナリパッケージ]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+
+________
+
+-[2006-09-17] 記事の訂正をお願いします。(yoshino)
+-[2007-01-13] 計算機科学ではない書籍名は専用サイトで調べるのがより良いと考え削りました。削った部分は決算書の意味から始まる会計初学者向け参考書的小説(ダイヤモンド社の『餃子屋と高級フレンチでは、どちらが儲かるか？』)の前後です。 (yoshino)

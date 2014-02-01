@@ -1,0 +1,17 @@
+#contents
+#title
+
+*Gentoo と herds.xml [#xc6ec9d6]
+
+[[Portageツリー]]に含まれる多数の [[*.ebuild]] を分類した、そのメンテナ分担表です。[[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]] に報告される問題は彼等が解決してくれます。誰が何処と何処に属しているのか、何処には何名所属しているのか、人手不足なのは何処かなどがわかります。[[Herds.xml & Metadata.xmlガイド:http://www.gentoo.org/proj/en/metastructure/herds/index.xml]]を参考にして下さい。[[XML]] に関連記事があります。
+
+開発用ドキュメントやプロジェクト特有のドキュメントは、本家が英語を理解する人を求めているため翻訳されません。コミュニティには特殊なファイルが幾つかあります。
+
+**app-portage/herdstat [#of6fd343]
+
+[[app-portage/herdstat]] に関連記事があります。
+
+========
+
+-[2005-10-20] 
+-[2005-10-20] (yoshino)

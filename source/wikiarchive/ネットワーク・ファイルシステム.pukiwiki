@@ -1,0 +1,27 @@
+#contents
+#title
+
+*Gentoo とネットワーク・ファイルシステム [#i3fb1f0a]
+
+/etc/init.d/functions.sh は [[sys-apps/baselayout]] に含まれています。
+
+*sys-apps/baselayout-1.11.14 [#j660f10d]
+
+sys-apps/baselayout-1.11.14 でサポートしているものです。/etc/init.d/functions.sh に書式の説明がありますが、詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。
+
+***AFS [#qa2a2bf0]
+***CIFS [#weddec42]
+***CODA [#xed56c62]
+***DAVFS [#i8faae57]
+***GFS [#l74fb618]
+***NCPFS [#y5a51f54]
+***NFS [#je422278]
+***NFS4 [#p3c1c978]
+***OCFS2 [#v2c81b49]
+***SHFS [#w29a8b44]
+***SMBFS [#b6cc9125]
+
+========
+
+-[2005-12-30]
+-[2005-12-30] (yoshino)

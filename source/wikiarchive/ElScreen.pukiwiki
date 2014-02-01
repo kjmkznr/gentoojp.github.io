@@ -1,0 +1,24 @@
+*Emacs 上の GNU Screen に似たウィンドウマネージャ [#y170cf6f]
+
+-ページ: BugTrack
+-投稿者: [[yamakura]]
+-優先順位: 低
+-状態: 完了
+-カテゴリー: ebuild
+-投稿日: 2002-12-10 (火) 20:16:17
+-バージョン: 1.2.4
+
+問題無さそうならクリックしてください。(目安として使うだけです)
+CENTER:''このebuildは本家のツリーに取り込まれました。(app-emacs/elscreen)''
+
+**メッセージ [#ge42695d]
+Mew,Wanderlust,irchatなど、ウィンドウを分割しながらつかうElispアプリケーションの切り替えがとっても便利になります。
+GNU Screenが便利だと思う人は、是非お試しあれ。
+
+ちなみに、.emacsに
+(load "elscreen" "ElScreen" t)
+と書いておけば、emacs起動時から使えます。
+
+http://www.morishima.net/~naoto/j/software/elscreen/
+----
+// #comment

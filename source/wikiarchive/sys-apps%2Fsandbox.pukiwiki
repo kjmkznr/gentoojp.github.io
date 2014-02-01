@@ -1,0 +1,75 @@
+#contents
+#title
+
+*sys-apps/sandbox [#x82f354c]
+
+[[emerge]] 中に "アクセスエラー" などと警告されたら [[sandbox]] も疑ってみて下さい。読み込みを許可するディレクトリ、書込みを許可するディレクトリ、書込みが成功したと思い込ませるディレクトリ……環境変数で指示できます。許可されていないディレクトリにはアクセスできません。
+
+ /usr/bin/sandbox
+
+**環境変数 [#hed18d83]
+
+-$SANDBOX_ON
+-$SANDBOX_ACTIVE
+-$SANDBOX_BASHRC
+-$SANDBOX_LOG
+-$SANDBOX_DEBUG_LOG
+-$SANDBOX_DENY
+-$SANDBOX_LIB
+-$SANDBOX_PREDICT
+-$SANDBOX_READ
+-$SANDBOX_WRITE
+
+***$SANDBOX_WRITE [#s939ff8c]
+
+-/dev/zero
+-/dev/null
+-/dev/fd
+-/dev/pts
+-/dev/vc
+-/dev/pty
+-/dev/tty
+-/dev/console
+-/dev/shm/ngpt
+-/dev/shm
+-/dev/stdout
+-/dev/stderr
+-/proc/self/fd
+-/var/tmp/portage/homedir/.gconfd/lock
+-/var/tmp/portage/homedir/.bash_history
+-/var/log/scrollkeeeper.log
+-/var/tmp
+-/tmp
+-/usr/tmp/conftest
+-/usr/lib/conftest
+-/usr/lib32/conftest
+-/usr/ib64/conftest
+-/usr/tmp/cf
+-/usr/lib/cf
+-/usr/lib32/cf
+-/usr/lib64/cf
+
+
+***$SANDBOX_PREDICT [#vb82b27e]
+
+-/var/tmp/portage/homedir
+-/var/db/aliases.db
+-/var/db/netgroup.db
+-/var/db/netmasks.db
+-/var/db/ethers.db
+-/var/db/rpc.db
+-/var/db/protocols.db
+-/var/db/services.db
+-/var/db/networks.db
+-/var/db/hosts.db
+-/var/db/group.db
+-/var/db/passwd.db
+-/proc/self/maps
+-/dev/console
+-/dev/random
+-/usr/lib/portage/pym
+-/usr/lib/python
+
+________
+
+-[2006-09-17]

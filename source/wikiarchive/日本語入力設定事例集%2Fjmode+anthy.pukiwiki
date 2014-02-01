@@ -1,0 +1,23 @@
+#navi([[日本語入力設定事例集]])
+
+*jmode+anthy [#rf545e34]
+
+http://anthy.dyndns.info/index.php?%5B%5Bjmode%A4%AB%A4%E9%BB%C8%A4%A6%5D%5D
+
+を参考に。現在 jmode の開発は凍結されており uim への移行が推奨されています。特別な理由がないかぎり uim を使いましょう。
+
+*インストール [#j07b5c46]
+
+ # emerge jmode
+
+*設定 [#je7b627d]
+
+$HOME/.xinitrc (startx してる人など) とか $HOME/.gnomerc (GDM 使ってる人) とかに以下のラインを追加します。
+
+ export XMODIFIERS=@im=jmode
+ jmode &
+
+ただし、GDM+Gnomeを利用している場合、ログアウト時に毎回、警告が出るようです。
+
+
+#navi([[日本語入力設定事例集]])

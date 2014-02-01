@@ -1,0 +1,26 @@
+*暫定的にライセンス問題のある部分を差し替えた東風フォント [#ueb5e1da]
+
+-ページ: BugTrack
+-投稿者: [[usata]]
+-優先順位: 低
+-状態: 完了
+-カテゴリー: ebuild
+-投稿日: 2003-06-23 (月) 00:53:06
+-バージョン: 
+
+CENTER:''このebuildは本家のツリーに取り込まれました。(media-fonts/kochi-substitute)''
+
+
+**メッセージ [#s3974593]
+暫定的にライセンス上問題のある部分を和田研フォントに差し替えて
+作った東風フォントです。経緯は
+
+-http://khdd.net/kanou/fonts/stolenbitmap.html
+-http://wiki.fdiary.net/font/?kochi-alternative
+
+など参照してください。
+
+----
+
+-小さいビットマップの文字がずれている問題を解消した版が出たので差し替えました。 -- [[usata]] SIZE(10){2003-06-27 (金) 01:49:39}
+// #comment

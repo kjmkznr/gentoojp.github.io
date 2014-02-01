@@ -1,0 +1,11 @@
+#contents
+#title
+
+*Gentoo と GLI [#fd231a83]
+
+[[GLI]] は "[[Gentoo Linux Installer:http://wiki.gentoo.gr.jp/index.php?GentooLinuxInstaller]]" の事で、[[releng プロジェクト:http://www.gentoo.org/proj/en/releng/index.xml]]の [[installer サブプロジェクト:http://www.gentoo.org/proj/en/releng/installer/index.xml]]がそれです。
+
+========
+
+-[2005-10-20] 
+-[2006-03-12] 2006.0 (yoshino)

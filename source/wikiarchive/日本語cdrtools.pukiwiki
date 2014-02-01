@@ -1,0 +1,27 @@
+*cdrtools（日本語パッチ） [#sfb1b26f]
+
+-ページ: BugTrack
+-投稿者: [[425]]
+-優先順位: 低
+-状態: CVS待ち
+-カテゴリー: ebuild
+-投稿日: 2003-02-25 (火) 23:35:34
+-バージョン: 
+
+CENTER:''本家 bugs に登録されました。 http://bugs.gentoo.org/show_bug.cgi?id=28369 ''
+
+問題無さそうならクリックしてください。(目安として使うだけです)
+**メッセージ [#y8b559f3]
+本家のcdrtoolsに日本語パッチをあててみました。
+USE="cjk"でどうぞ。
+
+mkisofs -R -input-charset euc-jp -output-charset euc-jp -J -o foo.iso bar
+
+みたいな感じでUNIXからでもWindows系からでも読める日本語ファイル名を使ったisoイメージが作成できます。
+----
+
+-バージョンアップしました。ていうか、あくまで本家のebuildにNLSパッチを適用する、という形にしました。 -- [[425]] SIZE(10){2003-02-27 (木) 21:55:15}
+-Version bump. -- [[425]] SIZE(10){2003-05-17 (土) 11:22:07}
+-files/の下にはあまり大きいファイルを置かないことになっているので、できればdistfileとしてftp/httpで取得したいのですが、可能でしょうか？もし適度なサイトがなければここ（gentoojp.sf.jp)に置くことも可能です。 -- [[なかの]] SIZE(10){2003-09-11 (木) 01:57:18}
+-なんか momonga のものっぽいので momonga から取得したほうがいいように思います(SRC_URI は汚くなりますが)。http://www.momonga-linux.org/cvsweb/cvsweb.cgi/pkgs/cdrtools/cdrtools-NLS-2bytes.patch -- [[usata]] SIZE(10){2003-09-11 (木) 02:56:24}
+// #comment

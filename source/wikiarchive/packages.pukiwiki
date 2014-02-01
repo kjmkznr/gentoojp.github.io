@@ -1,0 +1,51 @@
+#contents
+#title
+
+*GRP と packages と バイナリパッケージ [#sdc68174]
+
+[[Portage]] はソースファイル形式だけでなく、バイナリファイル形式も扱えます。もっと言えば rpmパッケージは [[*.spec]] を知らなくとも [[Portage]] で作成できます。[[ebuildパッケージ]]がフェッチする本体がそのまま rpmパッケージや dpkgパッケージなのもあります。
+
+本家は [[*.ebuild]]、つまり [[Portageツリー]]を毎日更新していますが、[[GRP]] ([[packages]]) は[[インストールCD]] ([[installcd]]/[[livecd]]) の時だけ、つまり半年に一度しか更新しません。[[USEフラグ]]も初期のままです。[[installcd]] または [[livecd]] に関連記事があります。
+
+単語の区別は FreeBSD の「Ports/Packages」「Portsツリー」を意識するかどうかで、意味の差に悩むぐらいなら[[バイナリパッケージ]]で通じます。[[バイナリパッケージ]]に関連記事があります。
+
+*バイナリパッケージ (GRP/packages) をマージする [#hb953a55]
+
+[[バイナリパッケージ]]に関連記事があります。
+
+*Portageツリー と distfiles と packages [#y548ad30]
+
+[[packages]] は位置を指す場合もあります。[[Portageツリー]]が [[*.ebuild]]、[[distfiles]] がソースファイル、[[packages]] がバイナリファイルです。
+
+[[Portage]] で [[packages]] と出現したら「/usr/portage/packages 以下の [[*.tbz]] 等の[[バイナリパッケージ]]群」ぐらいで通じます。配置位置は [[Portageツリー]]内部に見えますが、[[Portageツリー]]に含まれません。
+
+デフォルト設定では[[バイナリパッケージ]]が作られることはありません。つまり、[[packages]] が利用されることもありません。[[FEATURES]] 等で指定下さい。[[バイナリパッケージ]]に関連記事があります。
+
+**配置場所 [#h1fe0f00]
+
+配置場所はルートファイルシステムでなくても構いません。例えば共有ファイルシステムや tmpfs の様なメモリ上です。[[Portageツリー]]と異なるファイルシステムでも構いません。高速化するのであれば /usr/portage だけでなく、/var/db/pkg や /var/cache/edb も忘れないで下さい。詳しくは[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]にあります。[[ミラーリング]]、[[ネットワーク・インターフェイス]]、[[ネットワーク・ファイルシステム]]、[[ボリューム・マネージャ]]に関連記事があります。
+
+________
+
+[[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]) の詳細は[[プロジェクトリスト:http://www.gentoo.org/proj/en/metastructure/projects.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]), [[Gentoo FAQ:http://www.gentoo.org/doc/ja/?catid=faq]], [[GentooJP FAQ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A3%C6%A3%C1%A3%D1%5D%5D]]
+- [[インストール]], [[Stage]], [[GRP]], [[Portageツリー]]
+- [[インストールした後にできること]], [[日本語入力設定事例集]], [[日本語デスクトップ環境/パッケージ]]
+- [[Gentooが採用している技術]]
+- [[コミュニティとの連絡手段]], [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]
+- [[本家に関連しそうな言葉]], [[GLEP]], [[コピーライト]], [[ライセンス]]
+
+[[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]]) の詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]])
+- [[メタ・ディストリビューション]], [[USEフラグ]], [[profile]], [[catalyst]], [[GNAP]]
+- [[コンパイル]], [[バイナリパッケージ]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+
+________
+
+-[2005-10-20] (yoshino)
+-[2006-09-17] 自分が調べた際のメモをほぼそのまま貼りつけているだけだったのを省察しました。 (yoshino)
+-[2006-11-05] ハンドブックに sys-apps/Portage-2.1 に関する説明が加えられるようです。今後はハンドブックが確実です。 (yoshino)

@@ -1,0 +1,15 @@
+たらおです。ライトユーザです。
+
+何か気が付いたらここに書くかも・・・。
+
+
+[NTPを使ってみた]~
+クライアント用です。複数マシンがある人は、一台をサーバにして、
+世間様に迷惑をかけないようにしよう。
+
+# emerge ntp~
+# vi /etc/conf.d/ctp-client~
+(NTPサーバへ向けるように編集)~
+# rc-update add ntp-client default~
+
+// #comment

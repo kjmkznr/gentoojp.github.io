@@ -1,0 +1,202 @@
+#contents
+#title
+
+*emerge [#ydcb6e15]
+
+[[Portage プロジェクト:http://www.gentoo.org/proj/en/portage/index.xml]]の [[Portage]]で最も有名なコマンドです。
+
+パッケージの追加・削除はこれで行います。[[Python]] スクリプトです。[[sys-apps/portage]] に含まれます。具体的にどのような処理を行っているのかについては [[ebuild]] にあります。[[Gentoo Linux 用語集:http://www.gentoo.gr.jp/jpmain/gentoo-glossary.xml]]を参考に [[Gentoo System ドキュメント:http://www.gentoo.org/doc/ja/index.xml?catid=gentoo]]を読むのが確実です。`man emerge` や `man portage` や `man make.conf` なども助かります。
+
+***一文でアピールすると... [#ad9cfb79]
+
+使用条件にあわせてコンパイルフラグを調整した自作パッケージを用意する必要がほとんどなくなります。
+
+***portage を原稿用紙1枚ぐらいで説明してみると... [#s93cead0]
+
+[[メタ・ディストリビューション]]に関連記事があります。
+
+***emerge と ebuild を説明してみると... [#wcaacb12]
+
+[[emerge]] と [[ebuild]] に関連記事があります。
+
+**パッケージを調査する [#jde27c8a]
+
+パッケージ詳細を調査するには [[emerge]] コマンドではなく [[app-portage/gentoolkit]] の equery コマンドを使います。高速化された [[app-portage/portage-utils]] もあります。
+
+***パッケージを検索する [#id4fa47e]
+
+`emerge --search` は遅いので、[[app-portage/eix]] や [[app-portage/esearch]] や [[app-portage/epm]] を代用させた方が幸せになれます。
+
+[[XML]] の [[metadata.xml]] を検索する [[herdstat]] パッケージもあります。こちらは開発者でパッケージを検索したり、アーキテクチャ毎の [[stable]], [[testing]], [[mask]] を調査したり、説明文が英語ではなく独語や伊語や日本語だったりします。
+
+: [P] |make.profile ファイルに原因あり。外して困った事になっても知らないよとの警告です。[[mask]] に関連記事があります。
+: [M] |package.mask ファイルに原因あり。外して困った事になっても知らないよとの警告です。[[mask]] に関連記事があります。
+: ~ |コミュニティ検査が十分でない。もう少し待てば利用できます。もしくは /etc/portage/package.keywords ($ACCEPT_KEYWORDS でも可能)で解除可能です。[[バグ報告]]して下さい。[[testing]] に関連記事があります。
+: - |コミュニティ検査の結果、動きそうもない。[[バグ報告]]して下さい。[[mask]] に関連記事があります。
+: ! |コミュニティ検査されていない。[[バグ報告]]して下さい。[[mask]] に関連記事があります。
+: [B] |[[*.ebuild]] 設定ファイルの $DEPEND や $RDEPEND に原因あり。[[バグ報告]]して下さい。[[*.ebuild]] に関連記事があります。
+
+*操作概念 ... sys-apps/portage-2.1 [#b399f35e]
+
+[[app-shells/bash-completion]] で補完機能を強化できます。
+
+**sync [#c062034b]
+
+/usr/portage 以下のデータ群を更新(本家と同期)します。これを元にしてコンパイル処理や依存関係などが計算されます。位置を [[Portageツリー]]と言います。これとは別にローカルの情報は /var/db/pkg 以下や /var/cache/edb 以下にあります。[[ビルド]]は /var/tmp/portage 以下で行われます。
+
+**system [#y96191fa]
+
+システムのコア部分、通常は変更する必要がないパッケージを更新します。長時間の[[コンパイル]]が発生します。[[profile]] で左右されます。
+
+古いシステム全体を更新するのに便利な `emerge system` ですが、もの凄い量が対象になります。注意して下さい。最低限必要な[[ビルド]]は [[GLSA]] だけで、`emerge system` ではありません。
+
+**world [#zbf83c6f]
+
+/var/lib/portage/world には今迄個別指名で[[マージ]]してきた [[Atom]] が登録されます。引数となる何十の [[Atom]] の代わりに world という言葉が利用できたりします。長時間の[[コンパイル]]が発生します。--oneshot で登録せずに[[マージ]]したり、--depclean で未登録のものをアンマージしたりもできます。
+
+古いシステム全体を更新するのに便利な `emerge world` ですが、もの凄い量が対象になります。注意して下さい。最低限必要な[[ビルド]]は [[GLSA]] だけで、`emerge world` ではありません。
+
+**security [#zbc293f4]
+
+[[GLEP]] の 014 である [[GLSA]] をサポートした時に使われるであろうと [[GWN]] で予想されたキーワードです。引数となる [[Atom]] の代わりに security という言葉が利用できるのではないかと期待されます。今は [[app-portage/gentoolkit]] の [[glsa-check]] コマンドがそれです。
+
+[[GLSA]] こと "[[Gentoo Linux Security Announcements:http://wiki.gentoo.gr.jp/index.php?GentooLinuxSecurityAnnouncements]]" (または "[[Gentoo Linux Security Advisories:http://wiki.gentoo.gr.jp/index.php?GentooLinuxSecurityAdvisories]]") は [[Securityプロジェクト:http://www.gentoo.org/proj/en/security/index.xml]]による脆弱性注意報告です。
+
+**moo [#y52ea806]
+
+カウボーイを黙らせます。あの挑発的なマスコットキャラクタ Larry the Cow を連想させますが、元ネタが [[Gentoo]] 発祥ではないようです。Eric S. Raymond 氏が編集した『ハッカーズ大辞典』に登場します。
+
+**USEフラグのオンオフ [#h939b9ca]
+
+[[USEフラグ]]のオンオフで[[コンパイル]]の連鎖を制御し、[[メタ・ディストリビューション]]を行います。[[profile]] や [[USEフラグ]]に関連記事があります。
+
+***KEYWORDS とは... [#g257192a]
+
+[[USEフラグ]]ではありません。[[KEYWORDS]] に関連記事があります。 
+
+**追加・削除の前には --pretend を実行する [#i61b777a]
+
+`emerge --verbose --pretend hoge` で追加したいものが結果予想です。`emerge --clean --verbose --pretend hoge` で削除の結果予想です。`emerge --unmerge --verbose --pretend hoge` で強制削除の結果予想です。
+
+:N|新規[[マージ]]です。[[Slot]] の場合もこれです。
+:U|アップグレードです。ダミーやダウングレードの場合はもう一文字足されます。
+:R|既に[[マージ]]済みなものを再[[ビルド]]します。
+:B|代用品が[[マージ]]済みなどでそのままでは続行不可能です。削除すれば続行できます。削除してまずいものは止めときましょう。
+:F|ダウンロード先にファイルがありません。一次配布サイトやミラーサイト等から直接用意して [[distfiles]] に置けば解決します。
+
+**実際にマージした後には etc-update|dispatch-conf を忘れずに実行する [#w408d10a]
+
+実際にマージした後は [[sys-apps/portage]] の [[etc-update]] コマンドもしくは [[dispatch-conf]] コマンドの実行が必要です。何も考えずに設定を上書きするのは危険です。
+
+これらは ${CONFIG_PROTECT} 内、つまり自動的に[[マージ]]しない様に保護されたディレクトリ内のファイルを更新するためのコマンドです。具体的には各パッケージの /etc 内に置かれる設定ファイルがそれです。何も考えずに設定を上書きするのは危険です。dev-utils/darcs や dev-utils/subversion などでヴァージョン管理をするか、代わりに自動的にバックアップを取る [[dispatch-conf]] コマンドを利用します。[[Config管理をカラー化:http://wiki.gentoo.gr.jp/index.php?%5B%5Btips%BD%B8%2FConfig%B4%C9%CD%FD%A4%F2%A5%AB%A5%E9%A1%BC%B2%BD%5D%5D]]もできます。
+
+[[eselectプロジェクト:http://www.gentoo.org/proj/en/eselect/index.xml]]が開発中の [[eselect]] 設定ファイル管理パッケージもあります。[[eselect]] や [[etc-update]] や [[dispatch-conf]] に関連記事があります。
+
+**中断とデタッチの手段 [#da2c38b7]
+
+[[emerge]] プロセスを kill するだけです。再開するには(作業の重複になりますが)中断した箇所の先頭から同じ命令を下すだけです。関連した引数としては --resume, --skipfirst があります。
+
+コンピュータの電源を落すのでもなければ、中断するよりもっと良い方法があります。$PORTAGE_NICENESS (優先度)でも下げた状態にして、[[misc-apps/screen]] の screen コマンド (detach) を使いログアウトします。これで席から離れられます。その場で待つ必要はありません。root 権限なしで [[emerge]] できるようにしたほうがいいかもしれません。
+
+別のホストから [[net-misc/openssh]] の ssh コマンドで接続し、ログイン後 [[misc-apps/screen]] の screen コマンド (reattach) すればさきほどまでのローカルの続きができます。大幅な変更を加え `emerge world` や `emerge system` が必要になった時などに使います。
+
+**引数が多過ぎるので補完に助けを求める [#j2c0df6e]
+
+引数が多くて嫌気がする場合は、シェルの補完機能が助けになります。標準シェルの [[Bash]] で言えば complete 機能ですが自分で設定しなければいけません。そこでコミュニティが用意している [[app-shells/bash-completion]] です。
+
+**カスタマイゼーションのあれこれ [#y66e24e1]
+
+メタ・ディストリビューションは 10 回も 20 回もするものではありません。ユーザが指示するカスタマイゼーション機能は強化されても自動学習するパーソナライゼーション機能はむしろ外されています。[[ハンドブック]]でも分りますが、システム側が原因の間違いを起こさないが優先されてます。候補の提案ぐらいは復活しても良いと思いますが。明らかな間違いでもなければ暫く使ってみてから再調整してみて下さい。
+
+***Portage変数 [#gddee975]
+
+[[Portage変数]]に関連記事があります。
+
+***Portage設定ファイル [#i8fd0a98]
+
+[[Portage設定ファイル]]に関連記事があります。
+
+***Portageのロギング機能 [#w22c2390]
+
+[[Portageのロギング機能]]に関連記事があります。
+
+***FEATURES [#l3501fb0]
+
+ユーザ側の選択指示です。[[FEATURES]] に関連記事があります。
+
+***RESTRICT [#e3be6d99]
+
+デベロッパ側の制限指示です。[[RESTRICT]] に関連記事があります。
+
+*既存コマンドを制御してビルドの連鎖を実現しているから、こんなことができます [#scefb9c7]
+
+UNIX の文化をそのまま応用できます。[[Gentoo System ドキュメント:http://www.gentoo.org/doc/ja/index.xml?catid=gentoo]]を参考にして下さい。
+
+**ファイアウォール下でのダウンロード [#f9fb6368]
+
+一般にファイアウォール下でのフェッチに関するできるできないは、[[net-misc/wget]] の wget コマンドでできる事はできるしできない事はできません。設定変更すれば wget コマンドを他コマンドに変更できます。
+
+**コンパイルとバイナリパッケージ [#tf2af98c]
+
+[[コンパイル]]に関連記事があります。
+
+**分散コンパイルで高速化 [#p8bbb877]
+
+[[sys-devel/distcc]] を使います。
+
+**同じビルドならばコンパイルキャッシュで高速化 [#s41d1150]
+
+[[dev-util/ccache]] を使います。
+
+**クロスコンパイルで低速マシンのビルドを肩代り [#j3a6024d]
+
+[[sys-devel/crossdev]] を使います。
+
+**ローカルネットワークにミラーリングを用意する [#ca5cf9ed]
+
+[[ミラーリング]]に関連記事があります。
+
+*エラーで困った場合には... [#de6ca66c]
+
+ユーザ同士の会話で解決できそうであれば[[国内メーリングリスト:http://www.gentoo.gr.jp/jpmain/about-gentoojp.xml#doc_chap4]]に相談します。
+
+解決できそうにないと思うのでしたら [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]] へ[[バグ報告]]します。
+
+**アクセスエラー [#mcb89766]
+
+root:root 権限でも出現するのは [[sandbox]] が機能しているからです。[[stable]] は比較的検査されてますが、[[testing]], [[mask]] は原因となっているファイルを確認して[[バグ報告]]して下さい。
+
+**ライブラリエラー [#q71dbc8a]
+
+ライブラリを変更したのにアプリケーションを再[[ビルド]]しないとエラーがでるかもしれません。 [[app-portage/gentoolkit]] の [[revdep-rebuild]] コマンドがあります。
+
+**単純なエラー [#e1474007]
+
+:B|代用品が[[マージ]]済みなどでそのままでは続行不可能です。削除すれば続行できます。削除してまずいものは止めときましょう。
+:F|ダウンロード先にファイルがありません。一次配布サイトやミラーサイト等から直接用意して [[distfiles]] に置けば解決します。
+
+他にもファイルシステムの軽い損傷は [[app-portage/portage]] の fixpackages コマンドや regenworld コマンドで修復できます。
+
+________
+
+[[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]) の詳細は[[プロジェクトリスト:http://www.gentoo.org/proj/en/metastructure/projects.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]), [[Gentoo FAQ:http://www.gentoo.org/doc/ja/?catid=faq]], [[GentooJP FAQ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A3%C6%A3%C1%A3%D1%5D%5D]]
+- [[インストール]], [[Stage]], [[GRP]], [[Portageツリー]]
+- [[インストールした後にできること]], [[日本語入力設定事例集]], [[日本語デスクトップ環境/パッケージ]]
+- [[Gentooが採用している技術]]
+- [[コミュニティとの連絡手段]], [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]
+- [[本家に関連しそうな言葉]], [[GLEP]], [[コピーライト]], [[ライセンス]]
+
+[[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]]) の詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]])
+- [[メタ・ディストリビューション]], [[USEフラグ]], [[profile]], [[catalyst]], [[GNAP]]
+- [[コンパイル]], [[バイナリパッケージ]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+
+________
+
+-[2005-09-19]
+-[2006-09-17] 自分が調べた際のメモをほぼそのまま貼りつけているだけだったのを省察しました。 (yoshino)

@@ -1,0 +1,95 @@
+#contents
+#title
+
+*sys-fs/udev [#hc400591]
+
+sysfs (/sys 以下のファイル群)と [[sys-apps/hotplug]] (/etc/hotplug 以下のファイル群)より動的にデバイスノード(/dev 以下のファイル群)を作成・削除する、デバイス管理システムです。Linux で動くかどうか分らない製品を動かそうとする時に、この知識があると助かるかもしれません。デバイス・ドライバは別の知識ですので注意して下さい。
+
+BSD や MacOS や Solaris で [[Portage]] が動く様に、[[sys-fs/udev]] は[[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]] に必須でも、[[Portage]] に必須ではありません。
+
+linux-2.6 が標準になった事で [[sys-fs/devfsd]] から [[sys-fs/udev]] へと置き替わります。[[sys-apps/baselayout]] の更新も必要です。コミュニティは、udev モードでもデバイスファイルを devfs 時代同様静的に作成するオプションを与え、慣れたら外すという機能を加えています。[[devfs ガイド:http://www.gentoo.org/doc/ja/devfs-guide.xml]]と [[udev ガイド:http://www.gentoo.org/doc/ja/udev-guide.xml]]にその記事があります。GentooJP ドキュメントには [[Udev 手引書:http://www.gentoo.gr.jp/transdocs/decibelshelp/LinuxHelp_UDEVPrimer.html]]や [[Udev 設定ファイル手引書:http://www.gentoo.gr.jp/transdocs/udevrules/udevrules.html]]があり、サンプルとして [[Misc デバイス:http://www.gentoo.gr.jp/transdocs/decibelshelp/LinuxHelp_UDEVPrimerMisc.html]]が紹介されています。
+
+**Devmap と udev [#lae20c74]
+
+[[sys-fs/device-mapper]] は [[sys-fs/lvm2]] などで知られる論理ボリューム管理パッケージです。
+
+論理ボリュームは仮想的で実際には存在しないため、[[sys-fs/udev]] では上手く扱えません。そのため [[sys-fs/device-mapper]] 定義ファイルより毎回必要なデバイスノードを作成する udev ルールを定義しなくてはいけません。[[sys-fs/multipath-tools]] に含まれる devmap_name が [[sys-fs/device-mapper]] 定義ファイルよりデバイスファイル名を抜き出します。
+
+**udev ルール [#k4da9d0e]
+
+デバイスを特定する手段と、特定されたデバイスからデバイスノードを作成する手段を同じ一行に記述します。デバイス単位で重複した時は先に定義されたものだけが適用されます。ユーザ定義は同じデバイスのデフォルト定義( [[sys-fs/devfsd]] 時代となるべく同じデバイスノードを作成しようとする)を上書きする事になりますので注意が必要です。
+
+***デバイスを特定する手段 [#g8b795d3]
+
+接続されたデバイスを sysfs でも Kernel でも自由な方法で特定できます。udevinfo や sysfsutils や multipath-tools 等外部プログラムも利用できます。
+
+***特定されたデバイスからデバイスノードを作成する手段 [#b16b6ff3]
+
+/dev 以下にデバイスノードを作成しますが、major 番号と minor 番号さえ正しければ作成する名前は自由です。
+
+**kudzu と murasaki [#t8364195]
+
+udev, hotplug と同様のシステムに kudzu, murasaki があります。ブート中のデバイス認識には coldplug がありますが、[[LiveCD]] には kudzu が使われています。Knoppix と同じパッケージを採用しているのですが……
+
+**coldplug と hotplug [#xcd430d5]
+
+ブートアップ中のデバイス認識(自動モジュール組み込み機能)は hotplug パッケージではなく、[[ジェンツー]]オリジナルの coldplug パッケージです。hotplug はブート後のデバイス認識(自動モジュール組み込み機能)です。しかし、coldplug よりも /etc/modules.autoload.d/kernel-2.6 にモジュール名を直接書き込むのが確実と推奨されています。
+
+*sys-fs/udev-070 [#i70590d5]
+
+udev が起動する前に /dev/null と /dev/console が必要とされるため、これらは [[sys-fs/udev]] 以外で用意しなければいけません。コミュニティは、udev モードでもデバイスファイルを devfs 時代同様静的に作成するオプションを与え、慣れたら外すという機能を加えています。
+
+以下、含まれるコマンドです。
+
+ /sbin/ata_id
+ /sbin/cdrom_id
+ /sbin/create_floppy_devices
+ /sbin/path_id
+ /sbin/scsi_id
+ /sbin/udev
+ /sbin/udev_run_devd
+ /sbin/udev_run_hotplugd
+ /sbin/udevcontrol
+ /sbin/udevd
+ /sbin/udeveventrecorder
+ /sbin/udevsend
+ /sbin/udevstart
+ /sbin/usb_id
+ /sbin/vol_id
+ /usr/bin/udevinfo
+ /usr/bin/udevmonitor
+ /usr/bin/udevtest
+
+*sys-fs/udev-090 [#dd9bfe04]
+
+周辺機器をブート時に自動認識する際の独自の回避手段であった [[sys-apps/coldplug]] が不要になります。[[sys-apps/baselayout]] を /etc/conf.d/rc に RC_COLDPLUG="yes" があるものにする必要があります。必ずしも同じになるとは限らないので、現状で満足している場合は無理に更新する必要はありません。
+
+ブートに関する認識洩れが発生すると困るものについては /etc/modules.autoload.d/kernel-2.6 を使います。Gentoo と Knoppix は扱う手順が違うのを承知した上で [[sys-apps/hwsetup]] でカーネルモジュールを kudzu 経由調査し、または自力でカーネルモジュールを調査し、lsmod コマンドで書き込む識別子を調べます。ブート中の処理は [[sys-apps/baselayout]] がそのものです。
+
+その他の認識洩れが発生すると困るものについては udev ルールを記述するのが確実です。
+
+________
+
+[[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]) の詳細は[[プロジェクトリスト:http://www.gentoo.org/proj/en/metastructure/projects.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]), [[Gentoo FAQ:http://www.gentoo.org/doc/ja/?catid=faq]], [[GentooJP FAQ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A3%C6%A3%C1%A3%D1%5D%5D]]
+- [[インストール]], [[Stage]], [[GRP]], [[Portageツリー]]
+- [[インストールした後にできること]], [[日本語入力設定事例集]], [[日本語デスクトップ環境/パッケージ]]
+- [[Gentooが採用している技術]]
+- [[コミュニティとの連絡手段]], [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]
+- [[本家に関連しそうな言葉]], [[GLEP]], [[コピーライト]], [[ライセンス]]
+
+[[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]]) の詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]])
+- [[メタ・ディストリビューション]], [[USEフラグ]], [[profile]], [[catalyst]], [[GNAP]]
+- [[コンパイル]], [[バイナリパッケージ]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+
+________
+
+
+-[2005-10-20] 
+-[2006-04-22] sys-fs/udev-090 (yoshino)
+-[2006-09-17] 「udev」から「sys-fs/udev」へ移動 (yoshino)

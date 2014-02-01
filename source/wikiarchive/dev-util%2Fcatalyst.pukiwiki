@@ -1,0 +1,145 @@
+#contents
+#title
+
+*Portage と catalyst [#r8d2bc98]
+
+「触媒」または「変化のきっかけを与える人・物・事」と命名されたこのパッケージは、[[releng プロジェクト:http://www.gentoo.org/proj/en/releng/index.xml]]の [[catalyst サブプロジェクト:http://www.gentoo.org/proj/en/releng/catalyst/index.xml]]で開発された [[Python]] スクリプトです。公式リリース時に配布される [[installcd]]/[[livecd]] や [[GRP]] は [[catalyst]] で作成されています。
+
+**dev-util/livecd-kconfigs [#pb5ab29c]
+
+[[livecd]] のカーネルフラグです。
+
+**dev-util/livecd-specs [#ycb997bc]
+
+[[livecd]] の [[catalyst]] の [[.spec]] です。
+
+*dev-util/catalyst-1.1.10 [#o9a934b0]
+
+もしあなたのやりたいことが以下のことなら、やってみませんか？
+
+-Portageツリー の Snapshot 作成
+-Stage1 の作成
+-Stage2 の作成
+-Stage3 の作成
+-LiveCD-Stage1 の作成 ([[GNAP]])
+-LiveCD-Stage2 の作成 ([[GNAP]])
+-GRP の作成
+-tinderbox 検査の実行
+-netboot-images の作成 ([[GNAP]])
+
+[[catalyst]] の設定は [[*.conf]] ファイルで行い、[[catalyst]] の処理内容 ([[Stage]] 作成なのか [[livecd]] 作成なのかの指定)は [[*.spec]] ファイルで行います。引数  --cli でもできます。[[*.conf]] や [[*.spec]] のサンプルファイルは [[USEフラグ]]を +examples にすればそれぞれ /etc/catalyst/ 以下と /usr/share/doc/catalyst-*/examples/ 以下に用意されます。[[catalyst FAQ:http://www.gentoo.org/proj/en/releng/catalyst/faq.xml]]、[[catalyst-1.x manual:http://www.gentoo.org/proj/en/releng/catalyst/1.x/reference.xml]]、[[catalyst-2.x manual:http://www.gentoo.org/proj/en/releng/catalyst/2.x/reference.xml]]が参考になります。開発用ドキュメントやプロジェクト特有のドキュメントは、本家が英語を理解する人を求めているため翻訳されません。
+
+**stage-seed [#f25038fd]
+
+stage-seed は相対的な前提 [[Stage]] で、固定された stage-N ではありません。例えばいきなり stage-3 を作る事はできません。stage-1、stage-2、そして stage-3 となります。この stage-3 に対しての stage-2、stage-2 に対しての stage-1、stage-1 に対しての chroot 環境が stage-seed です。
+
+**snapshot [#hbfdd8be]
+
+[[Portageツリー]]の複製です。[[catalyst]] では重要な意味を示すので、[[catalyst]] の一番最初に作成します。その後も [[Snapshot]] は保存したほうがいいと思われます。
+
+**バイナリパッケージ [#d3b3fbb7]
+
+[[バイナリパッケージ]]の集合体である [[GRP]] が作成できます。
+
+**tinderbox [#c1aa3ab2]
+
+Pristine-backup (RSync による stage-seed のバックアップ)をとり、パッケージを1つ導入する毎にそのパッケージ導入前の stage-seed 環境に戻す事を繰りかえします。依存問題の早期発見に役に立ちます。前提が多いパッケージになるとその前提同士の間で互いを何度も[[コンパイル]]する事になるため、キャッシュ機能を使います。
+
+* dev-util/catalyst-2.0 [#gf122c86]
+
+catalyst2 の概要としては [[profile]] と catalyst.conf の設定を基準に catalyst_support.py が [[*.spec]] 条件([[Stage]] を作るのか [[GRP]] を作るのか等の指示)より仮想環境を自動計算し、必要なモジュールを読み込み、仮想環境内でのコンパイルの連鎖による生成物を /var/tmp/catalyst 以下に置きます。仮想環境と実環境は互いに独立しています。仮想環境で失敗しても実環境には影響しないはずです。この仮想環境は target として分類されます。dev-util/catalyst-2.0 で可能な target は以下です。そしてこれらの正体は /usr/lib/catalyst/modules/□□.py です。試しに snapshot_target と stage1_target を作成してみると全体像がわかると思います。下記に [[*.spec]] サンプルを載せます。
+
+- stage1_target
+- stage2_target
+- stage3_target
+- stage4_target
+- grp_target
+- livecd_stage1_target
+- livecd_stage2_target
+- embedded_target
+- tinderbox_target
+- snapshot_target
+- netboot_target
+- netboot2_target
+
+まるまるもう一つの環境を作成することになりますので容量に余裕を持たせて下さい。何も指示しないと実環境と同じものでも再作成します。既に作成してあるものは使い回しても構いませんが、最初の一回は動作確認のためにゼロからやってみても勉強になります。長時間のコンパイルの連鎖が必要なため放置できる空間が必要です。なので [[sys-devel/distcc]] や [[dev-util/ccache]] は要かもしれません。[[Portage]] と同じく中断しても構いません。次回は中断箇所を自動計算し続きから続行してくれます。これらは実際の本家の配布 [[installcd]]/[[livecd]] や [[GRP]] に使われています。
+
+[[catalyst FAQ:http://www.gentoo.org/proj/en/releng/catalyst/faq.xml]]、[[catalyst-1.x manual:http://www.gentoo.org/proj/en/releng/catalyst/1.x/reference.xml]]、[[catalyst-2.x manual:http://www.gentoo.org/proj/en/releng/catalyst/2.x/reference.xml]]が参考になります。開発用ドキュメントやプロジェクト特有のドキュメントは、本家が英語を理解する人を求めているため翻訳されません。
+
+** catalyst.conf [#s750e6eb]
+
+設定ファイルですが、実際は [[Python]] スクリプトとして読み込まれます。デフォルトファイルが /etc/catalyst2 に存在します。
+
+*** sharedir [#ic49b984]
+
+catalyst_support.py が見つけられないと言ったエラーメッセージが出力されたら equery や find コマンド等で catalyst_support.py を探して下さい。恐らく /usr/lib/catalyst2/modules/catalyst_support.py にあります。デフォルトが /usr/share/catalyst2 になっていますので、/usr/lib/catalyst2 などにしてみて下さい。
+
+*** storedir [#yfecbaf6]
+
+保存先です。/var/tmp/catalyst2 になってます。共有ファイルシステムに変更しても構いません。[[ネットワーク・インターフェイス]]、[[ネットワーク・ファイルシステム]]、[[ボリューム・マネージャ]]に関連記事があります。
+
+*** snapshot_cache [#m1730af9]
+
+[[Portageツリー]] の [[Snapshot]] の読み込み先です。/var/tmp/catalyst2/snapshot_cache になってます。現在の [[Portageツリー]] は catalyst コマンドでも作成できます。が、過去の [[Portageツリー]] を利用することもできます。もし上記の sharedir を変更したら snapshot_cache も明示してみて下さい。
+
+*** envscript [#qc7e1ce2]
+
+[[dev-util/catalyst]] でのコンパイルの連鎖に使う [[Portage変数]]が記述してあるテキストファイルを指定します。慣れるまで指定する必要はありませんが、使うのでしたら export 宣言を忘れないで下さい。
+
+** .spec [#a913f876]
+
+内部処理で条件分岐の際に使われます。これは絶対に必要とされるファイルですが、デフォルトファイルは存在しません。/usr/share/doc/catalyst/examples/□□_template.spec を参考に作成して /etc/catalyst2 にでも保存して下さい。--file 引数で毎回指示できるので target 毎に用意します。
+
+*** snapshot_target [#xe4fbfb5]
+
+ catalyst2 --file 20060625.snapshot.spec
+
+ version_stamp: 20060625
+ target: snapshot
+
+*** stage1_target [#odc9c9e0]
+
+stage_seed は本家よりダウンロードした [[Stage]]、つまり stage3-i686-2006.0.tar.gz2 を使います。恐らく今の時点で疑問に思うことは /var/catalyst2/tmp/default 以下に残されるものを見れば解決します。
+
+ catalyst2 --file x86_stage1.spec
+
+ subarch: i686
+ version_stamp: 2006.0
+ target: stage1
+ rel_type: default
+ profile: default-linux/x86/2006.0
+ snapshot: 20060625
+ source_subpath: default/stage3-i686-2006.0
+ distcc_hosts:
+ portage_confdir: /etc/portage
+ portage_overlay:
+ pkgcache_path: /tmp/packages
+ chost: 
+ cflags: 
+ cxxflags: 
+ ldflags: 
+
+________
+
+[[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]) の詳細は[[プロジェクトリスト:http://www.gentoo.org/proj/en/metastructure/projects.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]), [[Gentoo FAQ:http://www.gentoo.org/doc/ja/?catid=faq]], [[GentooJP FAQ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A3%C6%A3%C1%A3%D1%5D%5D]]
+- [[インストール]], [[Stage]], [[GRP]], [[Portageツリー]]
+- [[インストールした後にできること]], [[日本語入力設定事例集]], [[日本語デスクトップ環境/パッケージ]]
+- [[Gentooが採用している技術]]
+- [[コミュニティとの連絡手段]], [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]
+- [[本家に関連しそうな言葉]], [[GLEP]], [[コピーライト]], [[ライセンス]]
+
+[[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]]) の詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]])
+- [[メタ・ディストリビューション]], [[USEフラグ]], [[profile]], [[catalyst]], [[GNAP]]
+- [[コンパイル]], [[バイナリパッケージ]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+
+________
+
+-[2005-10-20] (yoshino)
+-[2006-07-01] dev-util/catalyst-2.0 (yoshino)
+-[2006-09-17] catalyst から dev-util/catalyst へ移動。 (yoshino)

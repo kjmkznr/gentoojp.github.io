@@ -1,0 +1,97 @@
+#contents
+#title
+
+* バグ報告をする人もしくはデベロッパの範囲です [#vc629207]
+
+開発用ドキュメントやプロジェクト特有のドキュメントは、本家が英語を理解する人を求めているため翻訳されません。理由の1つとして upstream (ソフトウェアの一次配布元) や Bugtracking System (Bugzilla) とのコミュニケーションがあります。本家は QA (品質保証)を意識するよう呼びかける運動を始めています。GLEP の 041 よりテスト専用の開発者を迎えています。GLEP の 033 によれば eclass の変更があります。
+
+このページの目的は「やってみたい!! でも何処から始めたらいいのか分らず、1時間ぐらい調べても把握できないからいつもそのままです……」と思う人の助けになればと考えています。もし面白いと感じたら是非本家へバグ報告やパッケージ作成してみて下さい。最終的には、マニュアルを読むための簡単な英語と Bash の修得を求められます。
+
+** 変化が落ち着き始めました [#n38cb8e7]
+
+Portage 以外にも GPM/Ports System の有力候補が出現したのが大きいと思われます。ソースコード以外の劣化が激しい頃より紹介し易くなった、と思います。ジェンツー委員会は色々考えているようですので、デベロッパにならなくとも(なるつもりがなくとも)使い易くなっていると思います。
+
+理解し易いものにすれば、他の人が面倒を見てくれるかもしれません。インターポジショニングに注意してみて下さい。
+
+** 初めての分析ならば ... [#qdaf95c2]
+
+VDB (何をマージしたかを保存しているデータベース)に ebuild 変数の詳細はあります。例えば /var/db/pkg/app-editors/emacs-21.4-r12 以下のテキストファイル群がそれです。
+
+作業中の ebuild 変数は保存されてません。Paludis であれば、/etc/paludis/bashrc に以下を記述すると rm -rf $PALUDIS_TMPDIR/$CATEGORY/$PF が実行されません。つまり、ビルド作業の残りがそのまま削除されません。例えば /var/tmp/portage/app-editors/emacs-21.4-r12/temp/loadsaveenv テキストファイルに作業中の ebuild 変数があります。
+
+ export SKIP_FUNCTION="tidyup"
+
+* ebuild 変数 [#n9a1e59e]
+
+- 手動で定義する変数
+- 自動で定義される変数
+
+便宜上、上を ebuild_metadata(ebuild-defined_variables) とし、下を the_ebuild_environment(defined_variables) とします。
+
+** 自動で定義される変数 -- 本文を編集せずに、改名だけでヴァージョンアップが可能な理由 [#ee6df595]
+
+: CATEGORY | [A-Za-z0-9+_.-]+
+: PF | $PN-$PV-$PR
+: P | $PN-$PV
+: PVR | $PV-$PR
+: PN | [A-za-z0-9+_.-]+
+: PV | [0-9]+(\.[0-9]+)*[a-z]?(_alpha|_beta|_pre|_rc|_p)?[0-9]*
+: PR | (_r[0-9]+)?
+: A |
+: AA |
+: FILEDIR |
+: USE |
+
+*** 流れの紹介 -- phase と関係あるもの [#l577b866]
+
+: WORKDIR | $PALUDIS_TMPDIR/$CATEGORY/$P/work が開始位置です。ダウウウロードしたファイルはここを基準として展開されます。具体的には src_unpack() の基準です。
+: T | $PALUDIS_TMPDIR/$CATEGORY/$P/temp が $TMPDIR の代用となります。/tmp ではありません。$HOME もここに設定されます。
+: S | $WORKDIR/$P が圧縮ファイル展開後のディレクトリ内です。ここでビルドします。具体的には src_compile() の基準です。
+: D | $PALUDIS_TMPDIR/$CATEGORY/$P/image が仮インストール先の基準です。
+: IMAGE | $D と同じです。
+: ROOT | / が実インストール先の基準です。
+
+_____
+
+.. [GPMS] http://dev.gentoo.org/~spb/pms.pdf
+
+.. [GPM] http://wiki.gentoo.gr.jp/index.php?Gentoo_Package_Manager
+
+.. [repository] http://wiki.gentoo.gr.jp/index.php?repository に関連記事があります。
+
+.. [USE_flag] http://wiki.gentoo.gr.jp/index.php?USE_flag に関連記事があります。
+
+.. [profile] http://wiki.gentoo.gr.jp/index.php?profile に関連記事があります。
+
+.. [ebuild_metadata(ebuild-defined_variables)] http://wiki.gentoo.gr.jp/index.php?ebuild_metadata(ebuild-defined_variables) に関連記事があります。
+
+.. [the_ebuild_environment(defined_variables)] http://wiki.gentoo.gr.jp/index.php?the_ebuild_environment(defined_variables) に関連記事があります。
+
+.. [ebuild_phase(ebuild-defined_functions)] http://wiki.gentoo.gr.jp/index.php?ebuild_phase(ebuild-defined_functions) に関連記事があります。
+
+.. [the_ebuild_environment(defined_commands)] http://wiki.gentoo.gr.jp/index.php?the_ebuild_environment(defined_commands) に関連記事があります。
+
+.. [ebuild_files] http://wiki.gentoo.gr.jp/index.php?ebuild_files に関連記事があります。
+
+.. [Portage] http://www.gentoo.org/proj/en/portage/index.xml が公式サイトです。
+
+.. [Paludis] http://paludis.pioto.org/ が公式サイトです。
+
+
+
+________________
+
+
+- [[Gentoo_Package_Manager]], [[Portage]], [[Paludis]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+- [[memorandum_about_Paludis(1)]], [[memorandum_about_Paludis(2)]], [[memorandum_about_Paludis(3)]], [[memorandum_about_Paludis(4)]], [[memorandum_about_Paludis(5)]], [[memorandum_about_Paludis(6)]], [[memorandum_about_Paludis(7)]], [[memorandum_about_Paludis(8)]], [[memorandum_about_Paludis(9)]], [[memorandum_about_Paludis(10)]], [[memorandum_about_Paludis(11)]], [[memorandum_about_Paludis(12)]], [[memorandum_about_Paludis(13)]], [[memorandum_about_Paludis(14)]], [[memorandum_about_Paludis(15)]], [[memorandum_about_Paludis(16)]]
+- [[repository]], [[USE_flag]], [[profile]]
+- [[ebuild_files]], [[ebuild_metadata(ebuild-defined_variables)]], [[ebuild_phase(ebuild-defined_functions)]], [[the_ebuild_environment(defined_variables)]], [[the_ebuild_environment(defined_commands)]], [[bash_for_ebuild]]
+
+
+________________
+
+- [2005-09-19] 自分がソースコードを読んだ際のメモを基準にしています。独断と偏見が基準です。修正をお願いします。(yoshino)
+- [2006-07-09] 個人的に本家への案内を意識しています。「本家と関わる必要はないだろう」や「C や Python も必要じゃないか？」や「デベロッパ寄りのネタは書くべきでない」などは個々の意見があると思います。いろいろ考えたのですが、本家の一員にならなくともせっかくだから主催へ参加する雰囲気だけでも楽しみたいを選びました。 (yoshino)
+- [2007-05-04] GPMS をちょっと読んだので反映させましたが、間違っていると思います。気に入ったら書き足して下さい。 (yoshino)

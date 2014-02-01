@@ -1,0 +1,16 @@
+*ハンドブックとドキュメントの対応関係 [#q5702183]
+
+Gentoo Handbook 第2部 "Working with Gentoo"の各章について、既存のドキュメントとの対応関係をまとめました。
+
+ハンドブック翻訳の際に参考にするなりしてください。-- おぎうち (2004/03/09)
+
+|''ハンドブックの章''|''対応するドキュメント (原題)''|''対応するドキュメント (日本語タイトル)''|
+|1. USE Flags ([[hb-working-use:http://www.gentoo.org/doc/en/handbook/handbook.xml?part=2&chap=1]])|Gentoo Guide to USE flags ([[use-howto.xml:http://www.gentoo.org/doc/en/use-howto.xml]])|Gentoo Guide to USE flags ([[use-howto.xml:http://www.gentoo.org/doc/ja/use-howto.xml]])|
+|2. Portage and Software ([[hb-working-portage:http://www.gentoo.org/doc/en/handbook/handbook.xml?part=2&chap=2]])|Portage User Guide ([[portage-user.xml:http://www.gentoo.org/doc/en/portage-user.xml]])|Portage ユーザガイド ([[portage-user.xml:http://www.gentoo.org/doc/ja/portage-user.xml]])|
+|3. Portage Features ([[hb-working-features:http://www.gentoo.org/doc/en/handbook/handbook.xml?part=2&chap=3]])|Portage Manual ([[portage-manual.xml:http://www.gentoo.org/doc/en/portage-manual.xml]])|Portageマニュアル ([[portage-manual.xml:http://www.gentoo.org/doc/ja/portage-manual.xml]])|
+|4. Controlling Portage Behaviour ([[hb-working-behaviour:http://www.gentoo.org/doc/en/handbook/handbook.xml?part=2&chap=4]])|Portage Manual ([[portage-manual.xml:http://www.gentoo.org/doc/en/portage-manual.xml]])|Portageマニュアル ([[portage-manual.xml:http://www.gentoo.org/doc/ja/portage-manual.xml]])|
+|5. Initscripts ([[hb-working-behaviour:http://www.gentoo.org/doc/en/handbook/handbook.xml?part=2&chap=5]])|Gentoo Linux 1.0 Init System ([[rc-scripts.xml:http://www.gentoo.org/doc/en/rc-scripts.xml]])|Gentoo Linux 1.0 Init System ([[rc-scripts.xml:http://www.gentoo.org/doc/ja/rc-scripts.xml]])|
+|6. Environment Variables ([[hb-working-variables:http://www.gentoo.org/doc/en/handbook/handbook.xml?part=2&chap=6]])|Env.d HOWTO ([[env.d-howto.xml:http://www.gentoo.org/doc/en/env.d-howto.xml]])|env.d HOWTO ([[env.d-howto.xml:http://www.gentoo.org/doc/ja/env.d-howto.xml]])|
+
+
+#comment

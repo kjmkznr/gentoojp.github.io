@@ -1,0 +1,135 @@
+#title
+Gentoo Linux に関する tips 集のページです。このページにあるのは、既に [[XML:http://www.gentoo.gr.jp/jpdoc/gentoojp-tips.xml]] 化されたものです。
+
+基本的に、[[XML:http://www.gentoo.gr.jp/jpdoc/gentoojp-tips.xml]] の方を修正する場合のみ追加(修正)してください。--nabeken
+
+***emerge で何が行われたか。(真藤) [#b600a9bb]
+/var/log/emerge.log を見てください(本家MLに流れたネタです)。 
+
+***~x86(など)を試す。(篠原) [#x861b19a]
+rootの.bashrcに:
+ alias ak='env ACCEPT_KEYWORDS=~x86'
+と書いておけば、後はrootで
+ ak emerge -up world
+ ak emerge -p hogehoge
+などと簡単にできます。他の環境変数を設定したいとは:
+ ak ALSA_CARDS="usb-audio" emerge alsa-driver
+など、「ak」と「emerge」に間に入れればどんどん追加できます。
+
+***world のコメントアウト文字は?(真藤) [#a3164189]
+悩んだことがあるのですが、答えは「なんでもいい」でした。
+!でも#でも//でも、パッケージが特定されないようにすればいいだけのことでした。
+
+***複数のGentoo Boxを繋げて使うときのアイデア(Fuktommy) [#sa6cdbf2]
+
+-/usr/portage/distfilesをNFSで共有する。
+-ローカル用に[[rsync:http://www.gentoo.gr.jp/doc/ja/mirroring.xml]]サーバを立てる(公開しないので30分ごとの更新は不要)。
+-[[distcc:http://www.gentoo.org/news/ja/gwn/20030310-newsletter.xml]]を使う。
+-構成が一緒ならemergeで--buildpkgとか--usepkgとかする。
+
+***emerge中でも快適操作(真藤) [#d0dc7cc6]
+emergeつまりコンパイル中はCPUパワーをとられてしまうので、他のアプリケーションの動きが遅れてしまいます。回避するには、nice値を調整します。
+
+psのjオプションをつかって、emergeコマンドのPGIDを調べて、
+
+renice <変更値> -g PGID
+
+です。変更値は+5ぐらいが適当かな(根拠ないですけど)。
+もしかしたらもっとスマートな方法があるでしょうね。
+
+次の2行を/root/.bash_profile に追加しておくと便利です。
+
+  alias nemerge='nice time emerge --oneshot'
+  alias xemerge='ACCEPT_KEYWORDS=~x86 nice time emerge --oneshot'
+
+PORTAGE_NICENESS という環境変数に nice値を設定して emerge を実行することができるようです．
+
+  # PORTAGE_NICENESS=5 emerge hogehoge
+
+また，/etc/make.conf にこれを書いておくこともできるようです．
+
+***うちのGentooは何才?(真藤) [#t216c170]
+本家MLネタです。Gentoo Linux をインストールしたのはいつか、という疑問がありました。それに関しての回答ですが:
+
+-/etc/issue, /etc/motd の作成日
+-"ls -al /" の結果
+-/var/log/emerge.logの最初(stage3でのインストールの場合)
+-/etc/gentoo-release
+-/etc/make.conf.build
+-/etc/runlevels/
+-"ls -ltd /var/db/pkg/*/* | tail"
+-/lost+found
+
+などをみるといいんじゃないか、という話でした。ただし決定打はありませんでした。上のファイル・ディレクトリで一番古いタイムスタンプがインストール日となるようです。
+
+***ダウンロード時の帯域制限(stinger) [#lb5ecd74]
+[[なかの]]さん、kojimaさんに教えてもらいました。~
+会社や学校でファイルのダウンロード時に帯域制限する方法。~
+/etc/make.conf に~
+FETCHCOMMAND="/usr/bin/wget -t 5 --passive-ftp --limit-rate=200k \${URI} -P　\${DISTDIR}" ~
+実際はコメントをはずすだけです。~
+「200k」は各自の環境に合わせてください。
+
+***LiveCDとほぼ同じカーネル/モジュールを作る。(yamakura) [#g6c54b49]
+2004.3のLiveCDに入っているカーネルのconfigは、/proc/config.gzに圧縮されています。
+故に、
+ cd /usr/src/linux && cat /proc/config > .config && make oldconfig
+とすれば、たぶんブートできるであろうカーネルを簡単に作ることができます。~
+cf. http://www.gentoo.org/doc/ja/gentoo-x86-install.xml#doc_chap15
+
+*** /etc/portage/profile/package.mask は/etc/portage/package.mask へ移動になりました(中野） [#td1ae27e]
+
+*** emerge で何が行なわれたか に追加して、もらえれば嬉しいです（中野） [#z49b2807]
+
+もっと詳しいログが欲しい人は/etc/make.confに以下の設定を行ないましょう
+PORT_LOGDIR=/var/log/portage
+すると/var/log/portageディレクトリ以下にemerge毎のログが記録されます。
+なお、予め/var/log/portageをmkdirしておく必要があります。
+
+
+*** 複数台運用時のアイデアで/usr/portage/distfilesだけではなく/usr/portageをNFSしても大丈夫です。 [#ae7ae5b2]
+
+***emerge sync の rsync 先を日本のサーバ類を指定する。(桜本) [#n762f413]
+デフォルトのrsync先は世界中のサーバからそのつど選択されるので
+日本のサーバ（現在は４つ）に向けるとよいです。
+/etc/make.confのSYNC行を
+ SYNC="rsync://rsync.jp.gentoo.org/gentoo-portage"
+これで日本のサーバどれかに接続にいきます。
+
+
+***emerge --pretend の "F" はなに？（真藤） [#j47c89ba]
+（これはFAQっぽいかな。ある人に教えてもらいました）
+
+emerge --pretend したときに、
+ [ebuild  N F  ] dev-java/java-sdk-docs-1.4.2
+ [ebuild  N F  ] dev-java/sun-jdk-1.4.2.01
+とでることがあります。man emerge には N(=new), U(=upgrading), R(=replacing), B(=blocked)とありますが、なぜか F の説明だけありません。F の意味は（おそらく）Fetch、つまりソースを自動で持ってこれないから、手動で /usr/portage/distfiles にいれてね、ってことです。（なんでmanに書いてないんだろう・・・？）
+
+(10/22追記）portage 2.0.48 のヘルプには説明が載っていました。
+
+***コンパイルに要した時間を知りたい [#d0c49dd5]
+[[Gentoo日記:http://www.madoro.org/nikki/?date=20031016#p03]]より勝手に引用。まずかったら削除して下さい。
+ # emerge genlop
+ % genlop -t gcc
+ * sys-devel/gcc
+ 
+     Merged   at Thu Aug  7 03:49:42 2003    (gcc-3.2.3-r1)
+       merge time: 59 minutes and 2 seconds.
+ 
+     Merged   at Thu Aug  7 04:42:54 2003    (gcc-3.2.3-r1)
+       merge time: 37 minutes and 34 seconds.
+ 
+     Merged   at Sun Oct  5 11:49:02 2003    (gcc-3.2.3-r2)
+       merge time: 34 minutes and 48 seconds.
+ 
+ merged totally 3 times in 2 hours, 11 minutes and 24 seconds.
+ average merge time: 43 minutes and 48 seconds.
+
+emergeのlogfileから情報を取得しているみたいです。またapp-portage/splatというツールでも同じ事ができるみたいです。
+
+***kdeでたまにkinput2 -cannaが数秒フリーズする [#c0c51e9f]
+/usr/X11R6/lib/X11/app-defaults/Kinput2の一番最後にある
+ !*OverTheSpotConversion.UseOverrideShellForMode: True 
+を以下のように
+ *OverTheSpotConversion.UseOverrideShellForMode: True
+頭の!だけを消して、再起動させれば直るようです。

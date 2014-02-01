@@ -1,0 +1,90 @@
+#contents
+#title
+
+*Gentoo とネットワーク・インターフェイス [#bb3837ac]
+
+基本的に /etc/conf.d/net 等を編集します。/etc/init.d/net.eth0 は編集しません。
+
+/etc/conf.d/net は [[sys-apps/baselayout]] に含まれています。
+
+*sys-apps/baselayout-1.12.0 [#xe79160e]
+
+sys-apps/baselayout-1.12.0 でサポートしているものです。/etc/conf.d/net に書式の説明がありますが、詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。
+
+***INTERFACE HANDLERS [#sefcf046]
+
+-sys-apps/net-tools
+-sys-apps/iproute2
+
+***WIRELESS (802.11 support) [#ld6da667]
+
+-net-wireless/wireless-tools
+-net-wireless/wpa-supplicant
+
+***DHCP [#wb0511d5]
+
+-dhcpcd:   net-misc/dhcpcd
+-dhclient: net-misc/dhcp
+-udhcpc:   net-misc/udhcp
+-pump:     net-misc/pump
+
+***Automatic Private IP Addressing (APIPA) [#z69e8a51]
+
+-net-misc/iputils
+-net-analyzer/arping
+
+***VLAN (802.1q support) [#u08e092f]
+
+-net-misc/vconfig
+
+***Bonding/Trunking [#s78e22ec]
+
+-net-misc/ifenslave
+
+***ADSL [#kd9c1a14]
+
+-net-dialup/rp-pppoe 
+
+***ISDN [#z284a47a]
+
+-net-dialup/isdn4k-utils
+
+***MAC changer [#p8192d0e]
+
+-net-analyzer/macchanger
+
+***TUN/TAP [#zbba6651]
+
+-sys-apps/usermode-utilities
+
+***Bridging (802.1d) [#l171a126]
+
+-net-misc/bridge-utils
+
+***GRE tunnels [#v522f4b2]
+
+-sys-apps/net-tools
+-sys-apps/iproute2
+
+*その他 [#c52b7e47]
+
+個々のパッケージが専用のものを用意しています。
+
+**net-dialup/ppp と PHS [#ne357c6d]
+
+例えば WILLCOM の PHS を設定するなら [[net-dialup/ppp]] が必要です。これには /etc/init.d/net.ppp0 と /etc/conf.d/net.ppp0 が含まれます。以下、[[カーネル]] は hardened-sources-2.6.14、機種は KYOCERA 社の WX310K で [x2] リアルインターネット(←パケット定額のサービス名)での手順の例です。
+
+カーネルフラグで PPP と USB モデムをオンにし、再コンパイルします。USB モデムのモジュールは cdc-acm です。[[sys-apps/coldplug]] や [[sys-apps/hotplug]] があれば自動認識します。[[sys-apps/usbutils]] の `lsusb` 辺りで確認して下さい。~
+↓~
+/etc/conf.d/net.ppp0 を編集します。[[sys-fs/udev]] (version-079) では /dev/ttyACM0 と認識されます。ハードウェア制御をオンにし、DNS などは接続先に任せる様にオンにします。通信速度やプロバイダに関する設定は各自で調整して下さい。特別な追加記述はありません。~
+↓~
+`/etc/init.d/net.ppp0 start` で接続開始します。15秒程待つとルーティングテーブルも書き変えてくれます。うまくいかない時は、/etc/conf.d/net.ppp0 の DEBUG="yes" と PPPOPTIONS="record /tmp/ppp.record" を試して下さい。~
+↓~
+ちなみに、2006.0 を [[net-p2p/bittorrent]] でダウンロードするとかいろいろ実験してみましたが大きな問題なく機能しました。
+
+________
+
+-[2005-12-30]
+-[2005-12-30] (yoshino)
+-[2006-02-13] 参考としてPHSの手順も追加。 (yoshino)
+-[2006-03-12] 2006.0 (yoshino)

@@ -1,0 +1,98 @@
+COLOR(RED):SIZE(20):CENTER:''！！！このページにはまだまだ嘘が有るかもしれません！！！''
+
+#contents
+
+*必要なモジュールをインストール [#h58c3d62]
+**daemontoolsのインストール [#t0580dc0]
+ #emerge daemontools
+ #emerge daemontools-man
+ #emerge supervise-scripts
+で、daemontools関係のモジュールをインストールする。
+最後のはdaemontoolsのツールなので、
+必要ない人はインストールしなくてもOKです。
+
+**ucspi-tcpのインストール [#pd679153]
+ #emerge ucspi-tcp
+ #emerge ucspi-tcp-man
+で、tcpserver関係のモジュールをインストールする。
+
+**qmailのインストール [#h65f28a1]
+ #emerge qmail
+ #emerge qmail-man
+で、qmail関係のモジュールをインストールする。
+
+**checkpwのインストール [#fb91c654]
+ #emerge checkpw
+で、checkpw関係のモジュールをインストールする。
+
+**cmd5checkpwのインストール [#i9b8d3bf]
+ #emerge cmd5checkpw
+で、cmd5checkpw関係のモジュールをインストールする。
+
+*設定 [#wdfeba3c]
+**qmail自体の設定 [#l04f1462]
++/var/qmail/bin/config-fast FQDN
++superviseのもとで動かす
+
+ ln -s /var/qmail/supervise/qmail-send /service/qmail-send
+ ln -s /var/qmail/supervise/qmail-smtpd /service/qmail-smtpd
+**APOPの設定 [#p7b70151]
+
+**SMTP-AUTHの設定 [#s8726831]
+/var/qmail/control/conf-smtpd の
++QMAIL_SMTP_AUTHHOST
++QMAIL_SMTP_CHECKPASSWORD
++QMAIL_SMTP_POST
+
+をコメントアウトする。
+パスワード設定は、/etc/poppasswd で行う。(qmail-1.03-r13で確認)
+
+**テスト方法 [#zcee1adc]
+USERは適当に置き換えて。
++送信確認
+
+ # echo To: USER | /var/qmail/bin/qmail-inject
+ hello
+ .
+
++受信確認
+
+ # tail /var/log/qmail/qmail-send/current
+ # tail /var/log/qmail/qmail-smtpd/curent
+等を確認。
+
+**POP over SSL、SMTP over SSL [#rdf8f6c0]
+[[POPとSMTPをSSL化する:http://www.kawaz.jp/pukiwiki/?POP%A4%C8SMTP%A4%F2SSL%B2%BD%A4%B9%A4%EB]]を参考にしました。
+***tcpserver を SSL 化する [#d4a0fcea]
+ USE="ssl" emerge ucspi-tcp
+で多分大丈夫です。
+***起動スクリプトを修正する。 [#j3bcd3ef]
+/var/qmail/supervise以下のスクリプトを元に、ssmtp,pop3sそれぞれの起動スクリプトを作ります。SMTP,POP3との違いは、
++tcpserver のオプションに s を追加する。 
++tcpserver のオプションで SSL に使うサーバIDファイル（cert.pem）を指定する。(-n cert.pem)
++tcpserver の待ち受けポートを 465(ssmtp)、995(pop3s)にする。 
+
+です。
+***サーバIDを作成する。 [#jdd0d267]
+cert.pem というファイル名でファイルが作成される。 
+[[POPとSMTPをSSL化する:http://www.kawaz.jp/pukiwiki/?POP%A4%C8SMTP%A4%F2SSL%B2%BD%A4%B9%A4%EB]]の手順をコピーさせていただきました。この手順は、openssl に付いていた Makefile を参考にしたメモだそうです。
+ PEM1=/tmp/openssl.`date +%s`.$$.1
+ PEM2=/tmp/openssl.`date +%s`.$$.2
+ openssl req -newkey rsa:1024 -keyout $PEM1 -nodes -x509 -days 365 -out $PEM2
+ cat $PEM1 >  cert.pem
+ echo ""   >> cert.pem
+ cat $PEM2 >> cert.pem
+ rm -f $PEM1 $PEM2
+ chmod 600 cert.pem
+なお、opensslの設定ファイルは、gentooの場合、/etc/ssl/openssl.cnf にありました。
+
+***サーバIDを作成する。その２ [#yc66b3bc]
+/var/qmail/control/servercert.cnf を編集し、/var/qmail/bin/mkservercert する。
+/var/qmail/control 以下に servercert.pem が作成されるので、あとは -n でこのファイルを指定する。
+
+
+***サービスに登録 [#p54c134d]
+ ln -s /var/qmail/supervise/qmail-pop3d-ssl /service/
+ ln -s /var/qmail/supervise/qmail-smtpd-ssl /service/
+以上の手順で構築してみました。
+動作確認は、[[EdMax:http://edcom.jp]]+[[Stone:http://www.gcd.org/sengoku/stone/Welcome.ja.html]],[[Winbiff V2.43 beta:http://www.orangesoft.co.jp/Winbiff20Beta/]]、[[Mozilla Thunderbird 0.4:http://jt.mozilla.gr.jp/products/thunderbird/]]などのクライアントから、送受信を行い確認しました。

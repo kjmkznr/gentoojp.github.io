@@ -1,0 +1,176 @@
+
+- [2007-11-03]
+
+母国語を英語としない方々が増え、[[委員会の構成:http://dev.gentoo.org/~fox2mike/elections/council/2007/council2007-results]]にも現れてます。"構成員/立候補含む(更に上位26名含む)" で表せば、イタリア在住 2/2(2) 人、アメリカ在住 2/2(6) 人、イギリス在住 1/3(3) 人、フィンランド在住 1/1(2) 人、オーストリア在住 1/1(1) 人、ドイツ在住 0/2(8) 人、デンマーク在住 0/1(1) 人と続きます。全体を見れば南アフリカ、イスラエル、ロシア、印度、中国、日本、オーストラリア、ブラジルからも開発参加している方々が居ます。
+
+長い割に (1 つを [[A:http://wiki.gentoo.gr.jp/index.php?GentooLinuxNEWS.2007-11-03]], [[B:http://wiki.gentoo.gr.jp/index.php?GentooLinuxNEWS.2007-11-04]], [[C:http://wiki.gentoo.gr.jp/index.php?GentooLinuxNEWS.2007-11-05]] に分割) 凄いオチでも無く[[直球:http://dev.gentoo.org/~antarus/debuggin_nscd.jpg]]に三振です。
+
+以下のネタはどれも 09 月の残りからです:
+
+Summer of Code (オープンソースプロジェクトで活動する学生を Google 社が支援するプログラム) の Gentoo 部門は学生報告がされてますが、最も積極的だった 2 人は[[ペルー在住:http://rlazo.supersized.org/archives/57-A-sad-surprise-while-browsing-the-discussion-group.html]]と[[ポーランド在住:http://www.piotrj.org/index.php?/archives/2-My-brand-new-blog-and-Google-Summer-of-Code.html]]だそうです。失敗を悔んでいた後者は 19 歳でワルシャワから来年も参加したいと語っています。前者は 22 歳でペルー国籍初の Summer of Code 参加だそうです。
+
+本家が強いコミュニティを拒否した裏で隠れてましたが、強いロシアに住む方々から [[GWN]] 投稿がありました。少年が水遊びをしたり少女が食事係をしたり大人がストラヴィンスキーを聴きそうなモスクワ近隣キャンプ、流行りが [[Calculate Linux Desktop:http://www.calculate-linux.ru/]] (ワークステーション向け Stage4 のバイナリ配布; インストーラ無しの完成品)、Gentoo Planet と別のブログを設置、[[地元密着型運営:http://www.gentoo.ru/]]の様です。
+
+開発者紹介に登場するのは 20 代中心です。将来は森林警備隊に就きたいと語る[[ポーランド在住 20 歳の学生:http://www.gentoo.org/news/en/gwn/20070917-newsletter.xml]]は、[[Gentoo Artwork Project:http://www.gentoo.org/proj/en/desktop/artwork/index.xml]] を設立したり、[[OpenSolaris:http://pl.opensolaris.org/]] に参加したりしているそうです。いかにも Gentoo 出身っぽいです。
+
+
+以下は Wikipedia にて Gentoo の項目が存在する言語です:
+
+-- [[Afrikaans (af):http://af.wikipedia.org/wiki/Gentoo_Linux]] (South Africa, etc.)
+-- [[Alemannic German (als):http://als.wikipedia.org/wiki/Gentoo_Linux]] (Switzerland, etc.)
+-- [[Indonesian (id):http://id.wikipedia.org/wiki/Gentoo_Linux]] (Indonesia, etc.)
+-- [[Bosnian (bs):http://bs.wikipedia.org/wiki/Gentoo]] (Bosnia and Herzegovina, etc.)
+-- [[Bulgarian (bg):http://bg.wikipedia.org/wiki/Gentoo_Linux]] (Bulgaria, etc.)
+-- [[Catalan (ca):http://ca.wikipedia.org/wiki/Gentoo]] (Spain, etc.)
+-- [[Czech (cs):http://cs.wikipedia.org/wiki/Gentoo_Linux]] (Czech Republic, etc.)
+-- [[Danish (da):http://da.wikipedia.org/wiki/Gentoo]] (Denmark, etc.)
+-- [[German (de):http://de.wikipedia.org/wiki/Gentoo_Linux]] (Germany, etc.)
+-- [[English (en):http://en.wikipedia.org/wiki/Gentoo_Linux]] (United Kingdom, etc.)
+-- [[Spanish (es):http://es.wikipedia.org/wiki/Gentoo_Linux]] (Argentina, etc.)
+-- [[Estonian (et):http://et.wikipedia.org/wiki/Gentoo]] (Estonia, etc.)
+-- [[Basque (eu):http://eu.wikipedia.org/wiki/Gentoo_Linux]] (Spain, etc.)
+-- [[French (fr):http://fr.wikipedia.org/wiki/Gentoo]] (Switzerland, etc.)
+-- [[Galician (gl):http://gl.wikipedia.org/wiki/Gentoo_Linux]] (Galicia, etc.)
+-- [[Korean (ko):http://ko.wikipedia.org/wiki/%EC%A0%A0%ED%88%AC_%EB%A6%AC%EB%88%85%EC%8A%A4]] (South Korea, etc.)
+-- [[Croatian (hr):http://hr.wikipedia.org/wiki/Gentoo]] (Croatia, etc.)
+-- [[Italian (it):http://it.wikipedia.org/wiki/Gentoo_Linux]] (Italy, etc.)
+-- [[Hebrew (he):http://he.wikipedia.org/wiki/%D7%92%27%D7%A0%D7%98%D7%95_%D7%9C%D7%99%D7%A0%D7%95%D7%A7%D7%A1]] (Israel, etc.)
+-- [[Latin (la):http://la.wikipedia.org/wiki/Gentoo]] (Vatican City, etc.)
+-- [[Lithuanian (lt):http://lt.wikipedia.org/wiki/Gentoo_Linux]] (Lithuania, etc.)
+-- [[Hungarian (hu):http://hu.wikipedia.org/wiki/Gentoo]] (Hungary, etc.)
+-- [[Dutch (nl):http://nl.wikipedia.org/wiki/Gentoo_Linux]] (Netherlands, etc.)
+-- [[Japanese (ja):http://ja.wikipedia.org/wiki/Gentoo_Linux]] (Japan, etc.)
+-- [[Norwegian {Bokml} (no):http://no.wikipedia.org/wiki/Gentoo]] (Norway, etc.)
+-- [[Norwegian {Nynorsk} (nn):http://nn.wikipedia.org/wiki/Gentoo]] (Norway, etc.)
+-- [[Polish (pl):http://pl.wikipedia.org/wiki/Gentoo_Linux]] (Belarus, etc.)
+-- [[Portuguese (pt):http://pt.wikipedia.org/wiki/Gentoo_Linux]] (Andorra, etc.)
+-- [[Romanian (ro):http://ro.wikipedia.org/wiki/Gentoo_Linux]] (Republic of Moldova, etc.)
+-- [[Russian (ru):http://ru.wikipedia.org/wiki/Gentoo]] (Kyrgyzstan, etc.)
+-- [[Slovak (sk):http://sk.wikipedia.org/wiki/Gentoo]] (Slovakia, etc.)
+-- [[Slovenian (sl):http://sl.wikipedia.org/wiki/Gentoo_Linux]] (Slovenia, etc.)
+-- [[Finnish (fi):http://fi.wikipedia.org/wiki/Gentoo_Linux]] (Estonia, etc.)
+-- [[Swedish (sv):http://sv.wikipedia.org/wiki/Gentoo_Linux]] (Finland, etc.)
+-- [[Vietnamese (vi):http://vi.wikipedia.org/wiki/Gentoo_Linux]] (Laos, etc.)
+-- [[Turkish (tr):http://tr.wikipedia.org/wiki/Gentoo]] (Bulgaria, etc.)
+-- [[Ukrainian (uk):http://uk.wikipedia.org/wiki/Gentoo_Linux]] (Russia, etc.)
+-- [[Chinese (zh):http://zh.wikipedia.org/wiki/Gentoo_Linux]] (Hong Kong, etc.)
+
+
+以下は本家に登録されている言語です。結局のところ公用語が英語なのは変わりません:
+
+-- [[英語:http://www.gentoo.org/news/en/gwn/gwn.xml]] (オーストラリア, インド, シンガポール, etc.)
+-- [[ポルトガル語:http://www.gentoo.org/news/pt_br/gwn/gwn.xml]] (ブラジル, アンゴラ, モザンピーク, etc.)
+-- [[スペイン語:http://www.gentoo.org/news/es/gwn/gwn.xml]] (メキシコ, アルゼンチン, ペルー, etc.)
+-- [[オランダ語:http://www.gentoo.org/news/nl/gwn/gwn.xml]] (オランダ, ベルギー, ベネズエラ, etc.)
+-- [[フランス語:http://www.gentoo.org/news/fr/gwn/gwn.xml]] (スイス, ベルギー, ガボン, etc.)
+-- [[イタリア語:http://www.gentoo.org/news/it/gwn/gwn.xml]] (サンマリノ, バチカン, スイス, etc.)
+-- [[ドイツ語:http://www.gentoo.org/news/de/gwn/gwn.xml]] (ルクセンブルク, スイス, オーストリア, etc.)
+-- [[ポーランド語:http://www.gentoo.org/news/pl/gwn/gwn.xml]] (ベラルーシ, リトアニア, ウクライナ, etc.)
+-- [[スロバキア語:http://www.gentoo.org/news/sk/gwn/gwn.xml]]
+-- [[ギリシャ語:http://www.gentoo.org/news/el/gwn/gwn.xml]] (ブルガリア, トルコ, キプロス, etc.)
+-- [[トルコ語:http://www.gentoo.org/news/tr/gwn/gwn.xml]] (ブルガリア, ギリシャ, キプロス, etc.)
+-- [[ロシア語:http://www.gentoo.org/news/ru/gwn/gwn.xml]] (ベラルーシ, カザフスタン, キルギス, etc.)
+-- [[中国語 {Simplified}:http://www.gentoo.org/news/zh_cn/gwn/gwn.xml]]
+-- [[朝鮮語:http://www.gentoo.org/news/ko/gwn/gwn.xml]]
+-- [[日本語:http://www.gentoo.org/news/ja/gwn/gwn.xml]]
+-- 他に未登録で翻訳公開している初期段階の地区も有ります。
+
+
+積極的に本家へ転送する/しない地区が有り、以下は本家へ転送せず地域情報を用意している地区です:
+
+-- [[本家 (-):http://www.gentoo.org/]]
+-- [[オーストラリア (au):http://www.gentoo.org.au/index.php?title=Main_Page]]
+-- [[アルゼンチン (ar):https://www.ututo.org/www/?country=ENGLISH]]
+-- [[ブラジル (br):http://www.gentoobr.org/]]
+-- [[スウェーデン (se):http://www.gentoo.se/]]
+-- [[ノルウェー (no):http://www.gentoo.no/]]
+-- [[デンマーク (dk):http://www.nongnu.org/gentoo-dk/index.xml]]
+-- [[イギリス (uk):http://www.genbot.co.uk/]]
+-- [[フランス (fr):http://www.gentoo.fr/]]
+-- [[イタリア (it):http://www.gentoo.it/home/]]
+-- [[ドイツ (de):http://www.gentoo.de/]]
+-- [[スロバキア (sk):http://gentoo.ynet.sk/]]
+-- [[チェコ (cz):http://forums.gentoo.cz/]]
+-- [[ハンガリー (hu):http://doc.gentoo.hu/]]
+-- [[ブルガリア (bg):http://www.gentoo.bg/]]
+-- [[セルビア (rs):http://www.gentoo-srbija.org/]]
+-- [[ギリシャ (gr):http://www.ilug.gr/iloog/en/]]
+-- [[トルコ (tr):http://www.gentoo-tr.com/]]
+-- [[ラトビア (lv):http://gentoo.lv/]]
+-- [[リトアニア (lt):http://www.portas.lt/]]
+-- [[ロシア (ru):http://www.gentoo.ru/]]
+-- [[ウクライナ (ua):http://gentoo.org.ua/]]
+-- [[南アフリカ (za):http://gentoo.co.za/]]
+-- [[パキスタン (pk):http://www.linuxpakistan.org/gentoo/]]
+-- [[印度 (in:http://gentoo.org.in/trac/]]
+-- [[インドネシア (id):http://www.gentoo.or.id/]]
+-- [[越南 (vn):http://vnoss.net/dokuwiki/doku.php?id=linux:distro:vn#gentoo]]
+-- [[中国 (cn):http://gentoo.linuxsir.org/blog/index.php]]
+-- [[韓国 (kr):http://usr.gentoo.or.kr/]]
+-- [[日本 (jp):http://www.gentoo.gr.jp]]
+-- 他にも有ります。
+
+
+以下は都市です:
+
+-- [[Sydney (オーストラリア):http://search.live.com/results.aspx?q=gentoo+sydney&go=%E6%A4%9C%E7%B4%A2&form=QBRE]]
+-- [[So Paulo (ブラジル):http://search.live.com/results.aspx?q=gentoo+S%C3%A3o+Paulo&go=%E6%A4%9C%E7%B4%A2&form=QBRE]]
+-- [[San Francisco (米):http://search.live.com/results.aspx?q=gentoo+San+Francisco&go=%E6%A4%9C%E7%B4%A2&form=QBRE]]
+-- [[London (英):http://search.live.com/results.aspx?q=gentoo+london&go=%E6%A4%9C%E7%B4%A2&form=QBRE]]
+-- [[Paris (仏):http://search.live.com/results.aspx?q=gentoo+paris&go=%E6%A4%9C%E7%B4%A2&form=QBRE]]
+-- [[Milan (伊):http://search.live.com/results.aspx?q=gentoo+milan+&go=%E6%A4%9C%E7%B4%A2&form=QBRE]]
+-- [[Frankfurt (独):http://search.live.com/results.aspx?q=gentoo+frankfurt+&go=%E6%A4%9C%E7%B4%A2&form=QBRE]]
+-- [[Moscow (露):http://search.live.com/results.aspx?q=gentoo+moscow&go=%E6%A4%9C%E7%B4%A2&form=QBRE]]
+-- [[Luxembourg (ルクセンブルク):http://search.live.com/results.aspx?q=gentoo+luxembourg&go=%E6%A4%9C%E7%B4%A2&form=QBRE]]
+-- [[Johannesburg (南アフリカ):http://search.live.com/results.aspx?q=gentoo+johannesburg&go=%E6%A4%9C%E7%B4%A2&form=QBRE]]
+-- [[Jerusalem (イスラエル):http://search.live.com/results.aspx?q=gentoo+jerusalem&go=%E6%A4%9C%E7%B4%A2&form=QBRE]]
+-- [[Doha (カタール):http://search.live.com/results.aspx?q=gentoo+doha&go=%E6%A4%9C%E7%B4%A2&form=QBRE]]
+-- [[Kuwait (クウェート):http://search.live.com/results.aspx?q=gentoo+kuwait&go=%E6%A4%9C%E7%B4%A2&form=QBRE]]
+-- [[Dubai (アラブ首長国連邦):http://search.live.com/results.aspx?q=gentoo+dubai&go=%E6%A4%9C%E7%B4%A2&form=QBRE]]
+-- [[Bangalor (印度):http://search.live.com/results.aspx?q=gentoo+bangalore&go=%E6%A4%9C%E7%B4%A2&form=QBRE]]
+-- [[Singapore (新嘉坡):http://search.live.com/results.aspx?q=gentoo+singapore&go=%E6%A4%9C%E7%B4%A2&form=QBRE]]
+-- [[Bandar Seri Begawan (ブルネイ):http://search.live.com/results.aspx?q=gentoo+bandar+seri+begawan&go=%E6%A4%9C%E7%B4%A2&form=QBRE]]
+-- [[Hong Kong (中):http://search.live.com/results.aspx?q=gentoo+hong+kong&go=%E6%A4%9C%E7%B4%A2&form=QBRE]]
+-- [[Taiwan (中・台):http://search.live.com/results.aspx?q=gentoo+hong+taiwan&go=%E6%A4%9C%E7%B4%A2&form=QBRE]]
+-- [[Seoul (韓):http://search.live.com/results.aspx?q=gentoo+seoul&go=%E6%A4%9C%E7%B4%A2&form=QBRE]]
+-- [[Kyoto (日):http://search.live.com/results.aspx?q=gentoo+kyoto&go=%E6%A4%9C%E7%B4%A2&form=QBRE]]
+-- 他にも有ります。
+
+
+白地図を塗ってみます:
+
+Gentoo はアメリカの印象が有るかも知れませんが、北米自由貿易協定の方々以上に欧州連合の方々が増えています。西欧諸国や南欧諸国の方々は言語登録を充実させています。ベネルックス三国を含みます。北欧諸国は言語登録してませんが、開発参加している方々が居ます。バルト三国もそうです。加盟支持されているバルカン諸国でもコミュニティ・サイトが確認されています。東欧諸国は隣りの独立国家共同体を含めても、言語登録からコミュニティ・サイトまで差が有りますが、確認出来ます。また、ドイツの方々は今年になってコミュニティ・サイトを用意したぐらいですから国柄で言語登録しない地区が有るかも知れません。Linux はフィンランド生まれです。
+
+南米南部共同市場とアンデス共同体から本家に参加している方々が居ます。どちらもスペイン語で言語登録となる地区が多い (ブラジルはポルトガル語) です。開発参加者の居無い地区が多いですが、前者には分家を運営している方々が居ます。
+
+日本、韓国、中国、印度、イスラエルの他、東南亜細亜諸国連合から開発参加しているのは越南の方々です。
+
+春に VoIP, Web, Email, Microsoft RDP, Wireless LAN, etc. が可能なシン・クライアントの Inveneo Desktop Linux (Gentoo の完成品) をウガンダに設置する報告が有りましたが、ウガンダの方々はコミュニティと別の話になります。
+
+因みに「確か衛星を打ち上げている国はロシア、アメリカ、イギリス、カナダ、イタリア、フランス、オーストラリア、ドイツ、日本、中国、オランダ、スペイン、印度、イスラエルだから……」と違います。以下の Gentoo 愛好者はハードウェアの世界最先端国だから……と言う期待し過ぎの反動は有るかも知れませんが、[[マレーシアから日本へ勉強に来ている留学生の感想:http://mnajem.blogspot.com/search/label/Japan]]が読めます。何処もソフトウェアに興味津々ですね。
+
+> And somehow looking at the writings it seems that the concentration of study in Japan is the best on hardware computing but seems not for the "soft computing"
+
+> > It is interesting to see that none of these milestones is attributable to a Japanese computer scientist. I quizzed a number of academics about this, and found there is really no curriculum content particular to CS courses in Japan. Although the Japanese are world leaders in electronics, they have a tendency to follow rather than lead when it comes to software technology.
+
+> But instead of being called as "follower", how's Japan performed compared to UK? Or the other European countries?
+
+> ...SNIP...
+
+> > I plan to focus on Information Security domain. Can you advise me which university or better enough the suitable research group in which department can assist me to accomplish my research study?
+
+> To be honest, I don't think that Japan is, overall, very advanced in or concerned with information security.
+
+> I don't know of any specific groups there working on this topic, but in general looking at the CS/IT programs at schools like the University of Tokyo, the University of Kyoto, and Tokyo Institute of Technology may be a good place to start.
+
+
+
+______
+
+- 2007-11-03 yoshino
+
+興味が有れば図書館に……あのーそのー、自身で考えて勝手に伸びる学生さんでも本筋と違うネタになると[[そうでもないらしい:http://rlazo.supersized.org/archives/57-A-sad-surprise-while-browsing-the-discussion-group.html]]ので少し面白くなる様に主観を続けたいと思います。偏りを明言して置くと、何かのチーフになった場合は「良い管理者」より「良い上司」になって欲しい派です。
+
+三大宗教の仏教には上座部系と大乗系が有ります。どちらも空と慈悲による救いを本質とします。合計しても印度のヒンドゥー教にダブルスコアで負けてますが、数の内訳は前者が 40%、後者が 55% です。前者は戒律 (救われるために修行が必要) を尊重し、後者は地域 (救われるのに信仰で十分) を尊重します。側面がどの様に変容しているかについて、前者はミャンマー、タイ、カンボジア等、後者は日本、中国、越南等が参考になります。護国三部経、律、大乗、密教、末法思想、浄土、禅、一揆、寺請制度、復古神道、廃仏毀釈、マガダ語→サンスクリット語→漢語→日本語、とコンピュータのネタにもなります。巨大遺跡は有りませんが、極東独特の幽玄や侘びは西洋人にも知られています。
+
+此れを読んだからこそ「繁栄は頭数だよ、数で勝たなきゃ、永遠に続く椅子取りゲームだから」と考える様になった、と言う方も居るかも知れませんが。

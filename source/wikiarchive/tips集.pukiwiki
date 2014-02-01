@@ -1,0 +1,240 @@
+#title
+Gentoo Linux に関する tips 集のページです。
+実験的な企画ですが、ドンドン書き込んでいってください。(真藤)
+
+#contents
+
+***XML になりました --nabeken [#b2432a27]
+tips 集 を [[XML:http://www.gentoo.gr.jp/jpmain/tips.xml]] にしてみました。これからも、こちらにどんどん追加していってください。
+
+[[tips集(XML化済み)]]
+
+***KPDFの日本語化（みやかわ） [#k7ac8088]
+
+LINGUASにjaを含めている状態で、emerge xpdfする。
+
+それから、ホームディレクトリに.xpdfrcを作り、以下の内容で保存する。
+
+ include /etc/xpdfrc
+
+
+***True type fontの組み込みビットマップを表示させる。 (篠原) [#o9cd4747]
+
+~/.fonts.confに
+
+ <match target="font">
+        <test qual="any" name="family" compare="eq">
+                <string>Kochi Gothic</string>
+                <string>Kochi Mincho</string>
+        </test>
+        <test name="pixelsize" compare="less_eq">
+                <int>17</int>
+        </test>
+        <test name="pixelsize" compare="more_eq">
+                <int>10</int>
+        </test>
+        <test target="pattern" name="slant" compare="eq">
+                <const>roman</const>
+        </test>
+ 
+        <edit name="antialias" mode="assign">
+                <bool>false</bool>
+        </edit>
+ </match>
+
+のように書くと、ピクセルサイズ10〜17のものは、組み込みビットマップが使用されます。
+他のフォントでどのサイズを指定すればいいかわからないときは、pfaeditなどで開いて、
+ビットマップフォントがどこまでカバーしているか調べられます。
+
+(注意点)xft/fontconfig対応のアプリにしか効果ありません
+
+最後の<test>の部分にtarget="pattern"ですが、こうすると、斜め書体が要求されたときに、アンチエイリアスがかかるようになります。そうしないとかなり読み難いので。
+
+***USB Mouse & Keyboard(太田) [#l1c0e82c]
+http://forums.gentoo.org/viewtopic.php?t=79&start=0&postdays=0&postorder=asc&highlight=
+
+いつも忘れるのでここに貼っておきます。
+
+***多数パッケージの一括削除(篠原) [#ade0faaf]
+例えば、
+ qpkg -I -nc | grep hogehoge | xargs -e emerge unmerge
+でhogehogeの部分を変えれば、該当したパッケージを全部一度でunmergeできます。実際に実行するまえには、xargsの部分をはずして、まず、grepの出力を確認しましょう。(^^;
+
+***UTF-8を利用する。(hikaru) [#re4474ac]
+UTF-8のロケールを作成する。
+  # localedef -i ja_JP -c -f UTF-8 ja_JP.UTF-8
+
+環境変数LANGにUTF-8を指定する。
+  $ export LANG=ja_JP.UTF-8
+
+EmacsでUTF-8を利用する。PortageにあるMule-UCSをemergeした後に .emacsに
+以下の2行を追加(先頭がいい?) 
+  (require 'un-define)
+  (require 'jisx0213)
+
+***UTF-8環境でも日本語manが使いたい(Macky) [#o996f7c4]
+.bashrcに下記のalias等を設定しておく
+  alias man="LANG=ja_JP.eucJP man"
+  export PAGER="lv -Ou8 -c"
+
+***emacsを快適に起動させる(真藤) [#m548d994]
+特定のelispアプリケーションをemergeすると、emacsの起動が極端に遅くなる場合があります。例えば
+-mule-ucs(dev-lisp/mule-ucs)
+-jde(app-emacs/jde)
+
+などです。前者は高速化パッチが提供されていますが、後者が遅くなる原因は/usr/share/emacs/site-lisp/site-start.elの中身に原因があります。
+
+jde に関しては対処したので起動が明らかに遅くて困っていた人は emerge し直してください。(usata)
+
+***Open Officeで文字化けしますがどうしましょ。(太田) [#i9edc17a]
+さる方に教えてもらいました。
+http://www.cs.uh.edu/~sysadm/FAQ/openoffice.html
+Andale Sans UIフォントをFixedかKochiに変更すると素敵になります。
+Open Officeをemergeするときは、export LANGUAGE=81 && emerge openoffice
+とすると良いらしい。(効果の程は不明です。)
+
+***DynabookSS3410 付属のPCカード型CD-ROMドライブPA2673UJでブートする方法(黒木) [#l10d0206]
+LiveCD1.4ではブート後にCD not foundとなってそれ以上作業できませんでした。
+そこでide2=0x1a0をbootオプションに追加すると
+ boot:gentoo ide2=0x1a0
+ちゃんとブート出来るようになりました。
+
+***Vaio z505 シリーズ付属のPCカード型CD-ROMドライブCD PCGA-CD51でブートする方法（高橋） [#uc75cc56]
+上記のbootオプションを
+ boot:gentoo ide2=0x180
+に変更するとブートしました。（1.4のライブCDで確認済み）
+
+***皆様御存知でしょうが。 [#f169964b]
+1CD Linux に1つ追加しようと思います。
+[[gnoppix:http://www.gnoppix.org/]] というのがあります。knoppix - KDE + GNOME といった感じのようです。
+起動すると、アイコンが画面のぐるりに並んでいて、結構壮観です。
+
+***HDDが遅い [#i450618f]
+HDD自体はDMAモードで認識しているのに有効になってない
+ #rc-update add hdparm default
+すると起動時に有効にしてくれます。
+どおりで、動作がもっさりしてる思いました。
+
+(2004/01/02 追記) /etc/conf.d/hdparmに設定内容を記述できます。
+"-c1"を追記しておくと、もう少し早くなると思います。
+
+
+***genkernel3.0.1の使い方（真藤） [#me8167b0]
+beta10での話なので、今後は変わるかもしれませんのでご注意！
+（あと、genkernelそのものにも僕はあまり詳しくはありません）
+
+genkernel3.0.1ではインストールの仕方が変わりました。コマンドは
+
+genkernel all --menuconfig
+
+といった具合です。
+参考になる本家フォーラムのスレッドは
+
+http://forums.gentoo.org/viewtopic.php?t=124530&postdays=0&postorder=asc&start=0
+
+です。また、
+
+/usr/share/genkernel/README
+
+は必ず目を通しておくべきです。
+Kernel2.4系でgenkernel3.0.1-beta10を使用しましたが、基本的には2.6系でも変わらないと思います。READMEにもありますがgenkerne3.0.1でのカーネル設定のポイントは
+
+-devfsは有効に
+-/dev/pts はON
+-Loopback device support, RAM disk support はON
+-RAM disk のサイズは8192に（デフォルトよりも増やす）
+
+です。あとはgrub.confの書き方さえ間違えなければOKです。
+（念のためレスキューディスクかboot CDROMは用意したほうがいいですよ
+beta10ではFSCKの必要があるとbootできませんでした。）
+
+
+***Gaucheのマルチバイト文字列について [#tee0196f]
+Gaucheであつかえるマルチバイト文字列はUSEフラグの指定で変わります。
+
+USEフラグでnlsが指定されている場合は、UTF-8になります。
+nlsがない場合がEUC-JPです。
+
+おそらく、日本語の環境の人でnlsを指定している人は多いと思いますので注意！
+
+Gaucheのことはよくしらないけど、もしGaucheだけでnlsを-にしたかったら、/etc/portage/package.useにdev-lisp/gauche -nlsって書くと、いちいち指定しなくて済むので楽です。(通りすがり)
+
+
+***emergeの再開 / emergeするパッケージを一個飛ばす(中野) [#s022cdab]
+何らかの原因でemergeが落ちてしまった場合(ブレーカーが落ちたとか、terminal閉じちゃったとか)の場合は、
+ # emerge --resume
+で、再開できます。(そのパッケージのコンパイル自体は最初からになってしまうけど。) ebuildの不具合で落ちてしまった場合には直してから--resumeすることも可能です。
+
+また、emerge -u worldなどで大量のパッケージをインストールするときに、何らかの理由で一つ後回しにしたい場合があります。そういうときはctrl-cで止めてしまってから、
+ # emerge --resume --skipfirst
+で一個飛ばせます。単純に一個飛ばすだけなんで依存関係とかは自分で判断する必要があります。
+
+
+***sun-jdk-1.5.0_beta2 の日本語文字化け解消 (y-imado) [#fc80f7ca]
+$JAVA_HOME/jre/lib/fonts/fallback ディレクトリに日本語TrueTypeフォントを置く。
+ # mkdir /opt/sun-jdk-1.5.0_beta2/jre/lib/fonts/fallback
+ # cp /usr/X11R6/lib/X11/fonts/truetype/kochi*subst.ttf /opt/sun-jdk-1.5.0_beta2/jre/lib/fonts/fallback
+
+
+***CSSでLucida系フォントを指定された時、日本語が文字化けするのを防ぐ (y-imado) [#k3758fac]
+$HOME/.fonts.conf にてエイリアスを設定します。~
+以下の例では LucidaXXX に対して TLXXXXX を使うようになっています。
+ <fontconfig>
+  <dir>/usr/X11R6/lib/X11/fonts</dir>
+  <dir>~/.fonts</dir>
+  <dir>/usr/share/fonts</dir>
+  <alias>
+    <family>Lucida</family>
+    <prefer>
+      <family>TLPGothic</family>
+    </prefer>
+  </alias>
+  <alias>
+    <family>LucidaBright</family>
+    <prefer>
+      <family>TLPMincho</family>
+    </prefer>
+  </alias>
+  <alias>
+    <family>LucidaTypewrite</family>
+    <prefer>
+      <family>TLGothic</family>
+    </prefer>
+  </alias>
+ </fontconfig>
+
+***起動の高速化っ！（純ちゃん） [#n657e0ea]
+起動スクリプトをパラレルに実行することで、起動時間を多少短縮できる。
+/etc/conf.d/rc を少し変更するだけ。
+
+ /etc/conf.d/rc
+   ...
+   RC_PARALLEL_STARTUP="yes"
+   ...
+
+RC_PARALLEL_STARTUPは、デフォルトでは"no"の模様？~
+このファイルが無い人は、baselayoutを最新にしよう。
+
+***マウスカーソルをGentoo化（純ちゃん） [#cd73ae3d]
+Xを起動したときのマウスカーソルを変更できる。
+
+ /usr/share/cursors/xorg-x11/default/index.theme
+にある、 Inherits=coreを、/usr/share/cursors/xorg-x11以下のディレクトリのどれかにする(default以外)。~
+例えば、
+ Inherits=gentoo-blue
+とかいう感じで。~
+半透明化とかされたりしていて、何だか楽しい。
+
+***portageでパッケージ特有の変数を指定する(jester) [#cbb79d24]
+EXTRA_ECONF等を毎回指定するのが面倒な場合 /etc/portage/bashrc に書いておくことが出来ます。
+ # mod_phpでscript_encodingを有効にする
+ if [ ${PN} == 'mod_php' ]; then
+   EXTRA_ECONF='--enable-zend-multibyte';
+ fi
+パッケージ名やバージョンが評価された後なので${P}や${PN}等を使用することが出来ます。
+
+***portageの手動更新 [#jc837cda]
+portageが古すぎたり、壊れていたりして emerge sys-apps/portage できない場合、手動で更新できます。
+
+/usr/portage/sys-apps/portage/files/README.RESCUE~
+http://www.gentoo.org/proj/en/portage/doc/manually-fixing-portage.xml

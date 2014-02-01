@@ -1,0 +1,19 @@
+*Yet Another Part-of-Speech and Morphological Analyzer [#d6c25829]
+
+-ページ: BugTrack
+-投稿者: [[matsuu]]
+-優先順位: 低
+-状態: 完了
+-カテゴリー: ebuild
+-投稿日: 2003-08-03 (日) 16:12:49
+-バージョン: 0.76
+
+CENTER:''このebuildは本家のツリーに取り込まれました。(app-text/mecab)''
+
+**メッセージ [#d0716bfe]
+http://cl.aist-nara.ac.jp/~taku-ku/software/mecab/
+
+ipadic-2.5.1のソースを決め打ちで取得してます。
+
+----
+// #comment

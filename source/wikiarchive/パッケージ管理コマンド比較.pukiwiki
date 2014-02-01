@@ -1,0 +1,40 @@
+#title
+
+Gentooと、Gentoo以外のパッケージ管理コマンドとの比較を載せていく予定です。他ディストリビューションから移行する方の手助けになれば幸いです。
+
+足りない、間違っているなどあれば適宜修正お願いします。
+
+*インストール編 [#n6c854ce]
+
+|''目的''|''Gentoo''|''rpm''|''apt(yum)''|''Debian''|''FreeBSD?''|''Solaris?''|
+|'''hoge'''のインストール|emerge '''hoge'''|rpm -i '''hoge'''.rpm|apt-get install '''hoge'''|dpkg -i '''hoge'''.deb|(portのディレクトリで)make install/pkg_add '''hoge'''/portinstall '''hoge'''(*4)|pkgadd '''hoge'''|
+|'''hoge'''のアンインストール|emerge --unmerge '''hoge'''|rpm -e '''hoge'''|apt-get remove '''hoge'''|dpkg -r '''hoge'''|(portのディレクトリで)make deinstall/pkg_del '''hoge'''/pkg_deinstall '''hoge'''(*4)|pkgrm '''hoge'''|
+|'''hoge'''のアップグレード|emerge -u '''hoge'''|rpm -U '''hoge'''.rpm|apt-get upgrade|dpkg -i '''hoge'''.deb|portupgrade '''hoge'''(*4)||
+|全パッケージのアップグレード|emerge -u world||apt-get upgrade|apt-get upgrade(*5)|portupgrade -a(*4)||
+
+
+*情報取得編 [#lc1a5070]
+
+|''目的''|''Gentoo''|''rpm''|''apt(yum)''|''Debian''|''FreeBSD?''|''Solaris?''|
+|'''hoge'''の情報表示|epm -qi '''hoge'''(*2)|rpm -qi '''hoge'''|apt-get info '''hoge'''|dpkg --info '''hoge'''.deb/apt-cache show '''hoge'''(*5)|pkg_info '''hoge'''||
+|'''hoge'''の検索|esearch '''hoge'''(*3) もしくは esearch -S '''hoge'''(*3)/emerge -s '''hoge''' もしくは emerge -S '''hoge'''||apt-cache search '''hoge'''|dpkg -l '''hoge'''/apt-cache search '''hoge''' (*5)|(/usr/portsで)make search key='''hoge'''||
+|インストール済パッケージの表示|equery list(*1)/epm -qa(*2)|rpm -qa||dpkg -l|pkg_info||
+|'''hoge'''によって供給されたファイル一覧を表示|equery files '''hoge'''(*1)/epm -ql '''hoge'''(*2)|rpm -ql '''hoge'''||dpkg -L '''hoge'''|pkg_info -L '''hoge'''||
+|'''file'''がどのパッケージによって供給されたかを表示|equery belongs '''file'''(*1)/epm -qf '''file'''(*2)|rpm -qf '''file'''||dpkg -S '''file'''|pkg_which '''file'''||
+
+
+*その他編 [#e0495c33]
+
+|''目的''|''Gentoo''|''rpm''|''apt(yum)''|''Debian''|''FreeBSD?''|''Solaris?''|
+|パッケージ情報の更新|emerge --sync/esync(*3)||apt-get update|apt-get update(*5)|(/usr/portsで)make update||
+
+----
+-(*1) 要 app-portage/gentoolkit
+-(*2) 要 app-portage/epm
+-(*3) 要 app-portage/esearch
+-(*4) 要 portupgrade
+-(*5) 要 apt
+
+----
+-qpkg, etcat など現在非推奨になっているコマンドは、遠からず廃止されることが予告されているので、削除しました。 -- [[usata]] SIZE(10){2005-01-13 (木) 12:34:44}
+-あと宣伝ですがGentooに関してはこのような「目的から引くコマンド集」を、GWNでも取り上げられていたように、Software Design 2005年1月号に書きました。今月17日くらいまでは店頭にあると思いますので、参考にしてください。 -- [[usata]] SIZE(10){2005-01-13 (木) 12:38:10}

@@ -1,0 +1,154 @@
+
+#title
+#contents
+
+*はじめに [#j3dbc0b3]
+
+Gentooのインストールが成功したメーカー製マシン(デスクトップ型・ノート型)を書き込むページです。
+
+成功例だけでなく、失敗するポイント・苦労した点などの報告もあるといい情報になるとおもいます。
+
+報告の際には、メーカー名・型番を添えてください。
+
+実験的な企画です。
+
+**x86系(デスクトップ型) [#p0bde2dd]
+
+-SONY VAIO PCV-M300
+--1998-01 ?
+--CPU Pentium MMX 200MHz
+--Memory 32 + 32MB
+--消費 130KW, 重量 7.2kg, 温度 10-35, 湿度 40-80, 外形 280 x 92 x 355mm
+--CDROMあり、NICあり
+--インストールCDは "minimal" タイプで行いました。ブート時「gentoo-nofb」でフレームバッファを使用しないを選びます。インストールする上で大きな問題はありませんでした。性能を考慮した上で、他のAMD64マシンでバイナリパッケージを作成し、共有してます。
+
+**x86系(ノート型) [#r6dd39ab]
+
+-SONY VAIO C1XS
+--CDブート時に ide2=0x180,0x386 をカーネルオプションとして指定する
+--CDブートの場合、PCMCIAがCDドライブで塞がってしまう
+---GRPを用いてインストールする
+---USBのネットワークアダプタを用意
+
+-SONY VAIO SR9/K
+--同じく CDブート時に ide2=0x180,0x386 をカーネルオプション指定
+
+-IBM ThinkPad X20
+
+-IBM ThinkPad X21
+--ウルトラベースを持っていなかったので、Plamo のインストール FD からブートしてインストールを続行したが、Plamo のインストーラには bzip2 が入っておらず、stage[1-3] を展開できなかったため、別の PC でいったん bzip2 を展開→ gzip で再圧縮という手順を踏むことでインストールした
+
+-IBM ThinkPad X22
+
+-IBM ThinkPad X24
+
+-IBM ThinkPad X30
+
+-IBM ThinkPad X31(2672-CAJ)
+--ウルトラベース + CD-ROMドライブでインストール。BootableなCD-Rからブートして、そのままインストール可能。無線LANモジュールは認識されず。
+
+-FUJITSU LOOX T93C/W
+--内蔵CD-ROMドライブからのブートでインストールしました。カーネルオプションの指定もなしでいけました。カーネル2.6.12で無線LANも使えてます。stage1からすべてコンパイルすると、Xが上がる状態にするまでに３日かかりました。
+
+-TOSHIBA Satelite 2060 CDS
+--1999-05 ?
+--CPU AMD-K6-2 366MHz
+--Memory 32 + 128MB
+--消費 ??KW, 重量 3.0kg, 温度 5-35, 湿度 20-80, 外形 309 x 259 x 43mm
+--CDROMあり、NICなし、USBあり
+--インストールCDは "minimal" タイプで行いました。ブート時「gentoo-nofb」でフレームバッファを使用しないを選びます。NIC が付属しません。付属モデムはWinモデムで利用できません。USB があります。ネットワークへの接続には Willcom 社の PHS を利用しました。性能を考慮した上で、他のAMD64マシンでバイナリパッケージを作成し、共有してます。
+
+-NEC Lavie LJ/300A
+--2002-01 ?
+--CPU Celeron 650MHz
+--Memory 256 + 256MB
+--消費 16-50KW, 重量 1.35kg, 温度 5-35, 湿度 20-80, 外形 270 x 222 x 18.5mm
+--CDROMなし、FDDなし、NICあり、USBあり、IEEE1394あり
+--純正 USB-CDROM を購入しませんでしたので、USB-FDD を借りました。IEEE1394-CDROMを所有しています。GRP(バイナリパッケージ群)を使いたかったので、IEEE1394 のモジュールが用意されている SUSE のレスキューフロッピーを使いました。HDD のパーティションを区切ります。インストールCDの内容を全て HDD に複製します。grub を使い、HDD 内のインストールCDをブートさせます。NIC や USB は認識するので、その後は別パーティションにインストールするだけです。ネットワークから行いたい場合はフロッピータイプのディストリビューションである RIP で大丈夫と思います。
+
+-HP Compaq nx9010
+--2004-04 ?
+--CPU Celeron 2800MHz
+--Memory 256 + 512MB
+--消費 ??KW, 重量 ??kg, 温度 ?-?, 湿度 ?-?, 外形 ? x ? x ?mm
+--CDROMあり、NICあり
+--ハンドブックそのままでした。
+
+-Sharp PC-MM1-H1W
+--CPU Crusoe 867Mhz
+--Memory 256MB
+---PXE Bootでネットワーク経由インストール
+---内臓無線LAN ビデオチップともに認識してます。
+
+-SHARP PC-FJ30Z
+--CPU Celeron(Mendocino) 333MHz
+--Memory 190MB(最大増設)
+--HDD EIDE 20GB(換装済み)
+--CD-ROM ATAPI内蔵
+--NIC NetGear/FA511 CardBus 100BASE-TX (DEC Tulipドライバで動作)
+--VGA Trident Cyber 9338 
+---X11環境 : xorg-x11 の xf86-video-trident及びxf86-video-fbdevドライバで動作。(800x600 16bit)
+---FrameBufferコンソール : vesafb-tng (800x600@60)で動作。カーネルのtridentfbはうまく動作しません。
+--Sound ES1978 Maestro 2E (カーネル同梱のALSA該当ドライバで動作)
+--インストール情報・その他注意点など
+---インストールはminimalタイプのCD-Rで、gentoo-nofbを指定して起動して行いました。
+--- X11を使用する場合LCDパネルでうまく表示されていても、外部出力でプロジェクタ等に接続すると上手く同期しない場合があります。この場合はxf86-video-fbdevを使うとうまく表示されます。
+--- DPMSが上手く動作しません。その他の電源管理は動作するようです。
+--- 内蔵モデムはWinModemなのでgentoo-sourcesカーネルでは動作しません。
+--- その他インタフェース(USB/Serial/Parallel/TouchPad/FDD)は正常に動作します。
+
+**x86系(その他) [#oedd8932]
+
+**ppc系(デスクトップ型) [#re884838]
+
+-初代 iMac G3 266MHz
+--インストール時に modprobe bmac としないとネットにつながらない。カーネルの設定は、bmac をモジュールとする。/etc/modules.autoload.d/kernel-2.6 に bmac を追加（Linux 2.6.20 では必要なくなったようだ）
+--X Window System の設定は Xorgautoconfig で行う。xorgconfig だとうまくいかない
+--USBメモリについてはカーネルの設定で USB Mass Storage support をモジュールとし、/etc/modules.autoload.d/kernel-2.6 に usb-storage を追加
+
+-PowerMacintosh8500 225Mhz
+--Xorgサーバのemergeで、ATIやnVdiaなしでVIDEO_CARDS="dummy vga fbdev"でtwmが起動できた。
+--X Window System の設定は Xorgautoconfig で行う。xorgconfig だとうまくいかない。xorgcfgやxorgcfg -textmodeでもうまくいかないし、設定がややこしい。Xorgautoconfigは3行メッセージがでるだけであっけないが、うまくいく。
+--kdebase-startkdeをemergeするだけでまる２日。._cfg0000_xorg.confをxorg.confにコピーすると、kdeの起動に失敗する。Xorgautoconfigするとよい。/etc/rc.confのXSESSIONSの修正を忘れずに。
+
+
+**ppc系(ノート型) [#de11a48f]
+
+-PowerBook G4 1.33GHz
+--mac-fdisk でパーティション切り直して入れる
+--いったん Mac 側は消して入れることになるので注意(パーティションのサイズだけ変えるツールもあった気がするけど)
+--Mac OS X の DVD でブートするとディスクユーティリティから外付け HDD にバックアップできるので、iPod 等にバックアップしてから mac-fdisk → Linux インストール→Mac OS X リストア
+--ブートローダは yaboot。LILO みたいな操作感
+--バッテリーの消耗が激しい気がする
+
+**ppc系(その他) [#i0d2c0bc]
+
+-ぷらっとほーむ OpenBlockS266
+
+-玄人指向 Kurobox/HG
+--2004-10 ?
+--CPU MPC8241 266MHz
+--Memory 128MB
+--消費 25KW, 重量 1.0kg, 温度 ?-?, 湿度 ?-?, 外形 60 x 173.5 x 185mm
+--CDROMなし、FDDなし、NICあり、USBあり
+--普通の Stage3 では駄目です。AVR に信号を送るパッケージとカーネル修正が必要です。海外や国内で配布されている Stage4 か Stage3 がお勧めです。USB-FDD や USB-CDROM は必要ありません。ROM 内の busybox で大丈夫です。インストール後は普通の PPC として扱えます。sys-apps/baselayout の更新に制限がかかるものの、sys-devel/gcc 等は更新できます。性能を考慮した上で、他のAMD64マシンでバイナリパッケージを作成し、共有してます。
+
+**amd64系(デスクトップ型) [#d5f48bfb]
+
+-[[Shuttle SN85G4:http://www.shuttle.com/hq/product/barebone/default.asp?B_id=25]]
+--kernel-2.6.2からnForce3(SerialATA(Sil3512)、Ethernet、Audio)がまともに動作するようになりました。
+
+**sparc系(デスクトップ型) [#z8b06490]
+
+-Sun SPARCstation 5
+
+-Sun Ultra10
+
+-Sun Ultra80
+--Eliet-3D graphic、 NECチップ搭載のUSB-IEEE1394 combo card、FusionドライバでLSI10*0 baseのU320SCSIが動作中。SILOはsymに接続したdiskにインストールしInitrdで/をFusionに接続したdisk上に置いています。USB キーボード、マウス、DVDROM、USBメモリの動作を確認。Elite-3Dはsunのパッチからafb.ucodeを入手する必要有り。expert及びXVRのwildcat系グラフィックは使用不可能。Cassiniドライバーは不安定なのでHMEかintelのethernetカードの使用を推奨。
+
+
+**hppa系(デスクトップ型) [#p8b0a518]
+
+-hp workstation b2600
+--ビデオカードがX.orgで未対応です。

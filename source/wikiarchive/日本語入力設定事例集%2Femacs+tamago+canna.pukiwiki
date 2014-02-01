@@ -1,0 +1,36 @@
+#navi([[日本語入力設定事例集]])
+
+*emacs+tamago+cannaの設定 [#l68f5176]
+
+**インストール [#oda5e065]
+
+USE フラグに canna を追加し、
+
+ # emerge app-emacs/tamago
+
+を実行します。
+
+**設定方法 [#h945004f]
+
+~/.emacs.el の
+
+ (set-language-environment "Japanese")
+
+より下に
+
+ (setq default-input-method "japanese-egg-canna")
+
+を追加します。
+
+canna の設定については [[日本語入力設定事例集/kinput2+canna]]
+を参照してください。
+
+C-h でヘルプが出るのがいやだという場合は、
+以下のように書くと delete-backward-char と同じように動作します。
+
+ (add-hook 'egg-enter/leave-fence-hook
+           '(lambda ()
+              (define-key egg-conversion-map "\C-h" 'egg-abort-conversion)
+              (define-key its-mode-map "\C-h" 'its-delete-backward-SYL)))
+
+#navi([[日本語入力設定事例集]])

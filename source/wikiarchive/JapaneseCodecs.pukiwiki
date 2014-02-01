@@ -1,0 +1,19 @@
+*JapaneseCodecs(pythonモジュール) [#lf4c9c43]
+
+-ページ: BugTrack
+-投稿者: [[なかの]]
+-優先順位: 低
+-状態: 完了
+-カテゴリー: ebuild
+-投稿日: 2003-01-11 (土) 04:01:30
+-バージョン: 
+
+CENTER:''このebuildは本家のツリーに取り込まれました。(dev-python/japanesecodecs)''
+
+**メッセージ [#u2de575e]
+pythonで日本語(euc-jpとかsjisとか)を扱えるようにするものです。~
+http://www.python.jp/Zope/download/JapaneseCodecs
+----
+
+-ninix-aya(CVS版)を動かすのに使いました。ちゃんと動いてます。 --  SIZE(10){2003-05-15 (木) 11:46:30}
+// #comment

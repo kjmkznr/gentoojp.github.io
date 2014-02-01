@@ -1,0 +1,210 @@
+#title
+#contents
+
+* 用語 [#l0d4bb1f]
+
+公式サイトのマニュアル [paludis_manual]_ で確認して下さい。
+
+** GPMS [#m239ac81]
+
+メタ・ディストリビューション [meta-distribution]_ を実現するシステムに求める機能を定義したものです。システムには、ebuild repository と GPM/Ports System が必要とされています。関連記事 [GPM]_ があります。
+
+*** Portage [#hb551ff2]
+
+sys-apps/portage を示し、標準採用され続けている、最初の GPM/Ports System です。Python と Bash で作られています。
+
+*** Paludis [#mfd38f9d]
+
+sys-apps/paludis を示し、Portage を力不足と感じる人向けの GPM/Ports System です。C++ と Bash で作られています。
+
+*** ebuild repository [#s9e96a5a]
+
+ebuild file の集合体です。関連記事 [repository]_ があります。
+
+*** USE flag [#l8fcfad3]
+
+関連記事 [USE_flag]_ があります。
+
+*** Profiles and Profile directory [#m48f99be]
+
+関連記事 [profile]_ があります。
+
+*** <repository> is a name in repo_name file. [#i6399679]
+
+[A-Za-z0-9_-]+, 関連記事 [repository]_ があります。
+
+デフォルトの master repository の名前は gentoo です。rsync のモジュール名は gentoo-x86 です。どちらも  /usr/portage 以下の ebuild repository を指します。tree や overlays とも呼ばれます。
+
+*** <spec> includes <set> and <pds>. [#w2f4367c]
+
+<set> (要素集合)と <pds> (要素単体)のどちらでも構いません。
+
+*** <set> is a named collection of dependency specifications. [#v947778d]
+
+everything, system, world, security, insecurity が最初から定義されています。
+
+<pds> の集合に名前を付けたものです。ユーザ定義も可能です。
+
+*** <pds> is a Package Dependency Specification. [#s3ff4cef]
+
+<symbol><category>/<package>-<version>-<revision> です。例えば >=foo/bar-1.* 等です。特定出来るのであれば省略して構わない部分、* 文字が使える部分があります。
+
+*** <qpn> is a Qualified Package Name. [#e8a57973]
+
+<category>/<package>-<version>-<revision> です。例えば foo/bar-1.0 等です。特定出来るのであれば省略して構わない部分、* 文字が使える部分があります。
+
+*** <category> is a directory name, or a name in profiles/categories file. [#p8a3638e]
+
+[A-Za-z0-9+_.-]+, 関連記事 [repository]_ があります。
+
+*** <package> is a directory name. [#h4811913]
+
+[A-Za-z0-9+_.-]+, 関連記事 [repository]_ があります。
+
+** ebuild file [#l21fb101]
+
+Bash で記述するパッケージのメタデータです。1 枚で amd64 から ppc64 まで、kLinux から kFreeBSD まで、W3C-document から IBM-ILNWP まで対応出来ます。この集合を ebuild repository と呼びます。関連記事 [ebuild_files]_ があります。
+
+*** ebuild 変数 [#wee72da4]
+
+- 手動で定義する変数
+- 自動で定義される変数
+
+便宜上、上を ebuild_metadata(ebuild-defined_variables) とし、下を the_ebuild_environment(defined_variables) とします。
+
+*** ebuild 関数 [#ya197fcc]
+
+- 手動で定義する関数
+- 自動で定義される命令
+
+便宜上、上を phase, ebuild_phase(ebuild-defined_functions) とし、下を helper, the_ebuild_environment(defined_commands) とします。
+
+
+*** phase [ebuild_phase(ebuild-defined_functions)]_ [#u3f37fc7]
+
+ebuild files を書くのに知る必要があるのは以下です。
+
+- setup
+- nofetch
+- unpack
+- compile
+- test
+- install
+- preinst
+- postinst
+- prerm
+- postrm
+- config
+
+以下は Paludis 独自の追加です。$SKIP_FUNCTIONS で意味があります。test は make test 等、tidyup は rm -rf /var/tmp/portage/<category><package> 等、strip は strip -g file 等を省略します。digest、sandbox、document がオンオフ選択出来ない設計なのは意図的だそうです。
+
+- metadata
+- init
+- prepare
+- fetch
+- merge
+- unmerge
+- tidyup
+- strip
+- loadenv
+- saveenv
+- fetchbin
+- initbin
+- unpackbin
+
+Hook は更にビルド連鎖やメッセージ出力も phase の一種としています。
+
+- install
+- install_all
+- install_pretend
+- install_pretend_display_item
+- uninstall
+- uninstall_all
+- clean
+- clean_all
+- sync
+- sync_all
+- fetch
+- fetch_all
+- merger_check
+- ...snip...
+
+
+*** helper [the_ebuild_environment(defined_commands)]_ [#qc5c7a01]
+
+環境に依存する細かい差異を吸収してくれる仕組みです。
+
+: dobin <file>+ | /usr/libexec/paludis/utils/dobin
+: doexe <file>+ | /usr/libexec/paludis/utils/doexe
+: dolib <file>+ | /usr/libexec/paludis/utils/dolib
+: dolib.a <file>+ | /usr/libexec/paludis/utils/dolib.a
+: dolib.so <file>+ | /usr/libexec/paludis/utils/dolib.so
+: dosbin <file>+ | /usr/libexec/paludis/utils/dosbin
+: dodir <directory> | /usr/libexec/paludis/utils/dodir
+: dohard <destination> <creatingfile> | /usr/libexec/paludis/utils/dohard
+: doins <file>+ | /usr/libexec/paludis/utils/doins
+: dosym <destination> <creatingfile> | /usr/libexec/paludis/utils/dosym
+: doconfd <file>+ | /usr/libexec/paludis/utils/doconfd
+: doenvd <file>+ | /usr/libexec/paludis/utils/doenvd
+: doinitd <file>+ | /usr/libexec/paludis/utils/doinitd
+: dodoc <file>+ | /usr/libexec/paludis/utils/dodoc
+: doinfo <file>+ | /usr/libexec/paludis/utils/doinf
+: doman <file>+ | /usr/libexec/paludis/utils/doman
+: domo <file>+ | /usr/libexec/paludis/utils/domo
+: dohtml <file>+ | /usr/libexec/paludis/utils/dohtml
+: keepdir <directory> | /usr/libexec/paludis/install_functions.bash
+: ...snip... | ...snip...
+
+*** eclass [#d07950d6]
+
+あるグループの ebuild file に利用出来そうなユーザ定義の関数です。phase まるごとを上書きする関数は便利です。/usr/portage/eclass にあります。継承する指示をすれば使えます。
+
+覚えても覚えなくとも良いと思いますが、サポートさせたいアーキテクチャを増やしたり、ヴァージョン間の違いを吸収してくれたり、マージ先を Gentoo の慣習に合わせたり、et al. が楽になります。カーネルのヴァージョンで動作を変えるなどは、 GPM/Ports System に求めず、eclass で記述するのが正しそうな判断になります。
+
+
+
+_____
+
+
+.. [meta-distribution] http://wiki.gentoo.gr.jp/index.php?%5B%5B%A5%E1%A5%BF%A1%A6%A5%C7%A5%A3%A5%B9%A5%C8%A5%EA%A5%D3%A5%E5%A1%BC%A5%B7%A5%E7%A5%F3%5D%5D に関連記事があります。 
+
+.. [GPM] http://wiki.gentoo.gr.jp/index.php?Gentoo_Package_Manager に関連記事があります。
+
+.. [GPMS] http://dev.gentoo.org/~spb/pms.pdf が PDF です。
+
+.. [paludis_manual] http://paludis.pioto.org/
+
+.. [USE_flag] http://wiki.gentoo.gr.jp/index.php?USE_flag に関連記事があります。
+
+.. [profile] http://wiki.gentoo.gr.jp/index.php?profile に関連記事があります。
+
+.. [ebuild_files] http://wiki.gentoo.gr.jp/index.php?ebuild_files に関連記事があります。
+
+.. [USE_flag] http://wiki.gentoo.gr.jp/index.php?USE_flag に関連記事があります。
+
+.. [profile] http://wiki.gentoo.gr.jp/index.php?profile に関連記事があります。
+
+.. [ebuild_metadata(ebuild-defined_variables)] http://wiki.gentoo.gr.jp/index.php?ebuild_metadata(ebuild-defined_variables) に関連記事があります。
+
+.. [the_ebuild_environment(defined_variables)] http://wiki.gentoo.gr.jp/index.php?the_ebuild_environment(defined_variables) に関連記事があります。
+
+.. [ebuild_phase(ebuild-defined_functions)] http://wiki.gentoo.gr.jp/index.php?ebuild_phase(ebuild-defined_functions) に関連記事があります。
+
+.. [the_ebuild_environment(defined_commands)] http://wiki.gentoo.gr.jp/index.php?the_ebuild_environment(defined_commands) に関連記事があります。
+
+
+________________
+
+
+
+- [[Gentoo_Package_Manager]], [[Portage]], [[Paludis]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+- [[memorandum_about_Paludis(1)]], [[memorandum_about_Paludis(2)]], [[memorandum_about_Paludis(3)]], [[memorandum_about_Paludis(4)]], [[memorandum_about_Paludis(5)]], [[memorandum_about_Paludis(6)]], [[memorandum_about_Paludis(7)]], [[memorandum_about_Paludis(8)]], [[memorandum_about_Paludis(9)]], [[memorandum_about_Paludis(10)]], [[memorandum_about_Paludis(11)]], [[memorandum_about_Paludis(12)]], [[memorandum_about_Paludis(13)]], [[memorandum_about_Paludis(14)]], [[memorandum_about_Paludis(15)]], [[memorandum_about_Paludis(16)]]
+- [[repository]], [[USE_flag]], [[profile]]
+- [[ebuild_files]], [[ebuild_metadata(ebuild-defined_variables)]], [[ebuild_phase(ebuild-defined_functions)]], [[the_ebuild_environment(defined_variables)]], [[the_ebuild_environment(defined_commands)]], [[bash_for_ebuild]]
+
+
+________________
+
+- [2007-05-04] 気に入ったら書き足して下さい。 (yoshino)

@@ -1,0 +1,10 @@
+[[日本語teTeX]]
+>私の環境ではptexにmaskがかかっていたので
+
+>># emerge /usr/portage/apps-text/ptex/ptex-*.ebuild <-*は実際のバージョン
+
+>てな感じでフルパスで指定してしてマスクを回避しました。
+
+-えっと、ptex はまだ unstable なので、stable (たとえば x86) の環境で使っているのであれば、env ACCEPT_KEYWORDS="~x86" emerge ptex とすれば一式インストールされると思います。mask されるものは /usr/portage/profiles/package.mask に書かれる(ここに書かれたものは stable/unstable 関係なくインストールされない)のですが、こちらを外すときは /etc/portage/package.unmask に unmask したいパッケージとパージョンを package.mask と同じ書式で書きます。 -- [[usata]] SIZE(10){2003-07-29 (火) 23:46:39}
+
+// #comment

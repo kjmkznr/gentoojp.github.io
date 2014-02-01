@@ -1,0 +1,401 @@
+#title
+
+追加・修正はご自由にどうぞ。
+
+日本語デスクトップ環境構築に役立つパッケージのリストを作成します。最終的にGentooJPビルドのパッケージ集を作るときのベースにするのが目標です。日本語の処理に問題があるパッケージ情報も歓迎です。
+
+#contents
+
+* かな漢字変換エンジン [#n0675c49]
+**Canna [#m4f6a784]
+
+***Cannaサーバ [#ma85f8c0]
+
+-app-i18n/canna
+
+標準辞書やライブラリが含まれる。ライブラリだけ必要な場合(たとえば別の計算機でCannaサーバやWXGサーバ、もしくはesecannaサーバが動いている場合)でもサーバごとインストールしなければならない(が、デフォルトでは起動しない)。
+
+***Canna用辞書 [#rb5644fd]
+
+-app-dicts/canna-cannadic
+-app-dicts/canna-2ch
+-app-dicts/canna-canada-med
+-app-dicts/canna-zipcode
+
+Cannaをまともに使いたい人はcanna-cannadicをインストール(標準辞書ではかなり足りない)。辞書を強化したい人はcanna-2chが2ch用語辞書、canna-canada-medが医学辞書、canna-zipcodeが郵便番号辞書。郵便番号辞書は郵便番号を入れることでそれから地名を変換することができる。
+
+***Canna用クライアント [#t875e5a3]
+
+-app-i18n/kinput2
+
+これはXIMのみ。動作は安定している。
+
+-app-i18n/im-ja
+
+元々はGTK+専用だったがXIM機能も0.9以降実装された。
+
+-app-i18n/uim
+
+Cannaサポートはあまり保守されていない。app-i18n/uim-qtと組み合わせることで、XIM/GTK+/Qtの全てで使うことができる。また、uimに含まれるuim-fepを使うことによってコンソールでもCannaが使える。
+
+-app-i18n/canfep
+
+コンソールで日本語入力するためのクライアント。現在は保守されていない。
+
+-app-i18n/canuum
+
+canfep同様コンソールで日本語入力するためのクライアント。Cannaの開発メンバーが保守している。
+
+-app-emacs/yc
+
+Emacs用Cannaクライアント。4.xからソケット通信もサポート。ちょっと癖がある。
+
+-app-emacs/tamago
+
+Emacs用Canna/Wnnなどのクライアント。リリース版ではCannaがサポートされていないが、GentooではCVS版からパッチを取得することによってCannaサポートを追加している。
+
+**FreeWnn [#xcec5834]
+
+***FreeWnnサーバ [#d08b1865]
+
+app-i18n/freewnnをインストール。コンソールで入力するにはfreewnnに含まれるuumというコマンドが使用できる。
+
+***FreeWnn用辞書 [#x4330a80]
+
+-app-i18n/wnn-ldic
+
+標準辞書に追加で図書館用語辞書が使いたい人に。
+
+***FreeWnn用クライアント [#n221f53f]
+
+-app-i18n/kinput
+
+XIM。
+
+-app-i18n/im-ja
+
+uimはfreewnnをサポートしていないので、GTK+でFreeWnnを使いたければim-jaを使うか、GTK+モジュールではなくXIMを使うのが現実的。
+
+-app-i18n/im-freewnn
+
+im-canna同様、開発が活発というわけではない。
+
+-app-emacs/tamago
+
+Emacs用。
+
+**SKK [#w8b2246a]
+
+***SKKサーバ [#n0a92abc]
+
+-app-i18n/skkserv
+
+標準のサーバ。しかし遅い、辞書のフォーマットがテキスト形式のみ、複数辞書を扱えない、などで、他のサーバを使う人も多い。
+
+-app-i18n/dbskkd-cdb
+
+CDB形式の辞書を使うサーバ。検索が速い、chrootして動かせる、tcpwrapperを使ってアクセス制御ができる、などの特長がある。
+
+-app-i18n/multiskkserv
+
+同じくCDB形式の辞書を使うサーバ。検索が速い、複数形式の辞書が使える、複数の辞書を同時に検索することができる、などの特長がある。
+
+-app-i18n/rskkserv
+
+Rubyで書かれたSKKサーバ。複数の辞書を同時に検索できる他、EPWING形式の辞書も扱えたりする。
+
+***SKK用辞書 [#q4507c5c]
+
+-app-i18n/skk-jisyo
+-app-i18n/skk-jisyo-cdb
+-app-i18n/skk-jisyo-extra
+
+skk-jisyo-cdbはskk-jisyoをCDB化したもので、dbskkd-cdb用。skk-jisyo-extraはテキスト形式の辞書とCDB形式の辞書が提供されていて、人名辞書や2ch用語辞書などが含まれている。
+
+***SKK用クライアント [#jd6d2395]
+
+-app-i18n/skkinput
+
+XIMのみ。skkinput-2.x系列が安定している。skkinput-3.xは開発版なのであまりお薦めではない。(ただし様々 ddskk で追加された機能が使える)
+
+-app-i18n/uim
+
+候補選択にasdfjklが使えないが、XIM/GTK+/Qtのいずれでも使える。
+
+-app-i18n/skkfep
+
+コンソール用。uim-fepとの違いは、skkfepはサーバと通信する機能がついていること。uim-fep経由でSKKを使う場合はテキスト形式の辞書しか使えない。
+
+-app-emacs/ddskk
+
+Emacs用クライアント。SKKは元々Emacs用だったこともあり、いちばん便利。SKKを初めて使うユーザはとりあえずddskkをインストールしてM-x skk-tutorialでチュートリアルをすれば使えるようになる。
+
+**Anthy [#xf7db905]
+
+***Anthyライブラリ [#b2188f78]
+
+-app-i18n/anthy
+-app-i18n/anthy-ss
+
+Anthyを使うためにはapp-i18n/anthyをインストールすればよい。app-i18n/anthy-ssはanthyの開発版スナップショット。これらを同時にインストールすることはできない。
+
+***Anthy用辞書 [#j17f0973]
+
+app-dictsにあるCanna用辞書を事前に入れておくことによって、Anthyの辞書もそれらを含んだものが作成される。(現在canna-zipcodeとcanna-2chのみ対応)
+
+***Anthy用クライアント [#y2f8ea45]
+
+Emacs用クライアントはUSE="emacs"でanthyをインストールすればインストールされる。
+
+-app-i18n/jmode
+
+XIMとして使用できるが、現在開発が完全に終了しており、uimへの移行を強く推奨されている。
+
+-app-i18n/uim
+
+XIM/GTK+/Qt/コンソール用に。
+
+-app-i18n/scim
+
+XIM/GTK+/Qtで使用可能(Qtで使う場合はapp-i18n/scim-qtimmが必要)。uimよりツールバーがかっこいい。scim-m17nをインストールすればanthyが使えるようになる。
+
+**PRIME [#le235f50]
+
+-app-i18n/prime
+
+PRIME 0.8.x が安定版で 0.9.x が実験版。現在のところ app-i18n/uim 経由でしか使えないが、将来的にgtkimprime がリリースされれば GTK+ で使える選択肢が増える予定。
+
+* 端末エミュレータ [#fc3d0367]
+
+-x11-terms/mlterm
+
+多言語対応端末エミュレータ。GTK+2対応。動的に入力メソッドを切り替えることが可能。もちろんUTF-8も通る。タブあり、アンチエイリアスあり、壁紙あり、背景透過などなど。
+
+-x11-terms/rxvt
+
+軽い端末エミュレータ。UTF-8は通らない。
+
+-x11-terms/mrxvt
+
+rxvtの機能拡張版。タブ拡張、ttf拡張など。UTF-8は通らない。
+
+-x11-terms/rxvt-unicode
+
+rxvtにUnicode拡張を施したもの。ただしXIMが少し不安定。
+
+-x11-terms/kterm
+
+日本語が通る端末エミュレータの定番。UTF-8は通らない。
+
+-x11-terms/aterm
+
+背景に壁紙が透けて見える端末。lessなどでスクロールする時、余計な文字が表示される事がある。
+
+* 日本語コンソール [#u67b08d7]
+
+-app-i18n/jfbterm
+
+多言語対応端末エミュレータ。フレームバッファが有効なときに使う。(無効なときに使うと画面が真っ暗になる)
+
+-app-i18n/kon2
+
+日本語対応端末エミュレータ。フレームバッファが無効なときに使う。(有効なときに使うと画面が真っ暗になる)
+
+-app-i18n/fbiterm
+
+jfbtermと同じく多言語対応端末エミュレータのはずだが、あまりテストされておらず、使っている人もほとんどいないものと思われる。将来的にIIIMFと通信して文字入力ができる予定になっているが……。
+
+* メッセンジャー [#pd1347eb]
+
+-net-im/gaim
+
+MSN Messenger、ICQなどに対応したインスタントメッセンジャー。GTK+2で書かれている。USE="cjk"のときskkinputで使うと少々不具合があるので、skkinputで使う人はUSE="-cjk"にしたほうがよい。
+
+* IRCクライアント [#r5697dc6]
+
+-net-irc/xchat
+-net-irc/loqui
+-app-emacs/riece
+-app-emacs/liece
+
+* メーラ [#a93c58a1]
+
+-mail-client/sylpheed
+
+GTK+で書かれた軽量メールクライアント。1.0まではGTK+1対応だったが、次のリリースからはGTK+2に対応する。USE="gtk2"でGTK+2対応のものがインストールされる。
+
+-mail-client/mutt
+
+コンソールベースのメールクライアント。USE="cjk"でインストールすると日本語対応のものがインストールされる(すでに国際化されているのであえて指定しなくてもよいが、指定するとより日本語フレンドリーな設定になる)。
+
+-mail-client/mozilla-thunderbird
+-mail-client/mozilla-tuhnderbird-bin
+
+いずれもMozillaのメールクライアント。
+
+-app-emacs/wanderlust
+-app-emacs/wanderlust-cvs
+
+Emacs用メールクライアント。分かりやすいメールボックス管理やスレッド表示が便利。
+
+-app-emacs/mew
+
+Emacs用メールクライアント。シンプルなインタフェースで根強い人気を誇る。
+
+* ブラウザ [#id1388c9]
+** グラフィカル [#l88bc255]
+
+-net-www/kazehakase
+
+MozillaベースのGTK+2ブラウザ。動的に入力メソッドを切り替えられたり、履歴検索機能(←ものすごく便利)など強力。マウスジェスチャーもデフォルトで使える。
+
+-www-client/dillo
+
+GTK+1で書かれた軽量ブラウザ。USE="cjk"でemergeすることにより多言語対応パッチが当たる。
+
+-net-www/opera
+
+Operaが開発しているブラウザ。マウスジェスチャーやメーラーを標準装備している。
+USE="static"で入れるとツールバー上のフォントの表示がやや癖ありになるが最もコンパクトに導入できるブラウザと思われる。
+
+-net-www/mozilla
+-net-www/mozilla-bin
+
+Mozillaブラウザ。Mozilla Mailなどと合わせてインストールされる。マウスジェスチャーなどが使いたい場合、機能拡張が別途必要。現在は後継のSeamonkeyに開発が移る。
+
+-net-www/mozilla-firefox
+-net-www/mozilla-firefox-bin
+
+Firefoxブラウザ。最も豊富な拡張機能を備える。シンプルで行くも拡張の選択導入も良し。
+
+-net-www/netscape-communicator
+-net-www/netscape-navigator
+
+それぞれ往年のNetscape 4.x。webページの動作確認や非力なマシンなどで使われる可能性はあるが、セキュリティホールがあるのでpackage.maskされている。
+
+** テキストベース [#n18add0d]
+
+-www-client/w3m
+
+端末用webブラウザ/ページャの決定版。UTF-8も通り、画像を表示させることもできる。
+
+-www-client/w3m-m17n
+
+w3m-0.5移行w3mに統合されたので、現在あまり意味がないパッケージ。
+
+-www-client/w3mmee
+
+w3m/w3m-m17nとは別に進化してきたw3m。操作体系が独特だが、emacs-w3mと一緒に使う場合はw3mmeeのほうが便利。
+
+-www-client/lynx
+
+w3mより古いテキストベースのブラウザ。オプション設定することで日本語も表示可能。GentooのLiveCDに最初から入っている。テーブルは表示できないが、愛用者も多い。
+
+** 2chブラウザ [#rfde8ac9]
+-www-client/ochusha
+
+GTK+2で書かれた2chクライアント。動作が軽快。
+
+-www-client/kita
+
+KDE用2chクライアント。安定しているが、開発も活発。
+
+-www-client/ci
+
+Ruby/GTK+で書かれた2chクライアント。キーボードショートカットが便利。
+
+-www-client/gorua
+
+同じくRuby/GTK+で書かれた2chクライアント。
+
+-app-emacs/navi2ch
+
+Emacs用2chクライアント。Emacsに引き籠もることができる。
+
+* フォント [#n6b03c7d]
+
+**TrueType [#j31e61f1]
+
+-media-fonts/kochi-substitute
+
+以前広く使われていた東風フォントがライセンス問題で配布停止したのを受け、暫定的に公開された代替東風フォント。現在は次のさざなみフォントに開発が移行している。(Gentooのパッケージは未だkochi-substituteに依存しているが……)
+
+-media-fonts/sazanami
+
+/efont/で開発されている日本語TrueTypeフォント。
+
+-media-fonts/ja-ipafonts
+
+IPAが配布しているフォント。フォントを小さくするとあまり品質はよくないが、大きいフォントはかなりきれい。ただしapp-i18n/grassを抜いた状態でバイナリパッケージを作成して配布することはできない。
+
+-media-fonts/fs-fonts
+
+東京大学が開発したGTフォントをベースにしたフォント。
+
+-media-fonts/aquapfont
+
+手書き風プロポーショナルフォント。みかちゃんフォントとどちらがかわいいと思うかは個人の趣味による。
+
+-media-fonts/aquafont
+
+手書き風固定幅フォント。
+
+-media-fonts/mikachan-font
+
+こちらも手書き風フォント。
+
+-media-fonts/monafont
+
+navi2chなどの2chクライアントでAA(アスキーアート)をずれないで見るためのフォント。ビットマップフォントも同梱されている。
+
+**ビットマップ [#y8c29518]
+
+-media-fonts/mplus-fonts
+
+小さくても可読性が高いことを目標に作成されているM+フォント。
+
+-media-fonts/shinonome
+
+多くのTrueTypeフォントでビットマップ部分に使われている東雲フォント。
+
+-media-fonts/efont-unicode
+
+/efont/ で配布されている Unicode フォント。
+
+-media-fonts/unifont
+
+Emacs などで使うことを想定されている Unicode フォント。
+
+-media-fonts/jisx0213-fonts
+
+JISX0213 が含まれたフォント。たとえば森鴎外の「鴎」の字を正しく表示することができる。
+
+* その他 [#ia59a357]
+
+**app-i18n/jless-iso254 [#x3a65624]
+
+sys-apps/lessの多言語拡張版。
+
+**app-text/lv [#n887b697]
+
+lessと同じくページャで、多言語拡張が施されている。
+
+**app-i18n/man-pages-ja [#n8aa3cb5]
+
+日本語オンラインマニュアル。読むためには日本語が通るページャ(jless-iso254やlvもしくはw3m等)と、groff-1.18.xが必要。
+
+/etc/portage/package.mask に、
+ >=sys-apps/groff-1.19
+と書いておく
+
+**app-i18n/nkf [#i0107bad]
+
+文字コード変換用プログラム。UTF-8にも対応している。
+
+**app-i18n/qkc [#ze25132a]
+
+文字コード変換用プログラム。UTF-8には対応していないが、DOSと同じように
+
+ qkc *.txt
+
+などとして一気に置換することができるので便利。

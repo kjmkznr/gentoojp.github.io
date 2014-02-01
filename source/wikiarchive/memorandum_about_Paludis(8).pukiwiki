@@ -1,0 +1,110 @@
+#title
+#contents
+
+* Hook [#p66f7b05]
+
+公式サイトのマニュアル [paludis_manual]_ で確認して下さい。
+
+- [[非公式な hook 関数の配布場所:http://drzile.dyndns.org/pe-doc/]]([[リニューアル前:http://drzile.dyndns.org/index.php?page=paludis_scripts]])、
+
+** phase 実行の前、後、失敗、に独自コマンドを追加する仕組み [#o1237560]
+
+中身は Bash です。
+
+sys-apps/sandbox 内部で行うものもありますが、原則は Paludis を root:root で実行させないのが無難です。
+
+*** phase [#d94917b8]
+
+ebuild files を書くのに知る必要があるのは以下です。
+
+- setup
+- nofetch
+- unpack
+- compile
+- test
+- install
+- preinst
+- postinst
+- prerm
+- postrm
+- config
+
+以下は Paludis 独自の追加です。$SKIP_FUNCTIONS で意味があります。test は make test 等、tidyup は rm -rf /var/tmp/portage/<category><package> 等、strip は strip -g file 等を省略します。digest、sandbox、document がオンオフ選択出来ない設計なのは意図的だそうです。
+
+- metadata
+- init
+- prepare
+- fetch
+- merge
+- unmerge
+- tidyup
+- strip
+- loadenv
+- saveenv
+- fetchbin
+- initbin
+- unpackbin
+
+Hook は更にビルド連鎖やメッセージ出力も phase の一種としています。
+
+- install
+- install_all
+- install_pretend
+- install_pretend_display_item
+- uninstall
+- uninstall_all
+- clean
+- clean_all
+- sync
+- sync_all
+- fetch
+- fetch_all
+- merger_check
+- ...snip...
+
+
+** hooks/<hook-phase>/foo.hook [#l6c79e3d]
+
+システム定義、ユーザ定義が可能です。
+
+実行順を指示可能です。複数のファイルから成立する大きな操作はこちらです。
+
+hook_run_<hook-phase>() 関数から始まりますので、定義して下さい。`echo "$PF"` などで試すなら。無害です。
+
+** hooks/<hook-phase>/foo.bash [#t537fbbf]
+
+システム定義、ユーザ定義が可能です。
+
+シェルに依存します。ちょっとした捜査はこちらです。
+
+シェルスクリプトとして、そのまま実行します。`echo "$PF"` などで試すなら。無害です。
+
+
+_____
+
+.. [paludis_manual] http://paludis.pioto.org/
+
+.. [ebuild_metadata(ebuild-defined_variables)] http://wiki.gentoo.gr.jp/index.php?ebuild_metadata(ebuild-defined_variables) に関連記事があります。
+
+.. [the_ebuild_environment(defined_variables)] http://wiki.gentoo.gr.jp/index.php?the_ebuild_environment(defined_variables) に関連記事があります。
+
+.. [ebuild_phase(ebuild-defined_functions)] http://wiki.gentoo.gr.jp/index.php?ebuild_phase(ebuild-defined_functions) に関連記事があります。
+
+.. [the_ebuild_environment(defined_commands)] http://wiki.gentoo.gr.jp/index.php?the_ebuild_environment(defined_commands) に関連記事があります。
+
+
+________________
+
+
+
+- [[Gentoo_Package_Manager]], [[Portage]], [[Paludis]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+- [[memorandum_about_Paludis(1)]], [[memorandum_about_Paludis(2)]], [[memorandum_about_Paludis(3)]], [[memorandum_about_Paludis(4)]], [[memorandum_about_Paludis(5)]], [[memorandum_about_Paludis(6)]], [[memorandum_about_Paludis(7)]], [[memorandum_about_Paludis(8)]], [[memorandum_about_Paludis(9)]], [[memorandum_about_Paludis(10)]], [[memorandum_about_Paludis(11)]], [[memorandum_about_Paludis(12)]], [[memorandum_about_Paludis(13)]], [[memorandum_about_Paludis(14)]], [[memorandum_about_Paludis(15)]], [[memorandum_about_Paludis(16)]]
+- [[repository]], [[USE_flag]], [[profile]]
+- [[ebuild_files]], [[ebuild_metadata(ebuild-defined_variables)]], [[ebuild_phase(ebuild-defined_functions)]], [[the_ebuild_environment(defined_variables)]], [[the_ebuild_environment(defined_commands)]], [[bash_for_ebuild]]
+
+
+________________
+
+- [2007-05-04] 気に入ったら書き足して下さい。 (yoshino)

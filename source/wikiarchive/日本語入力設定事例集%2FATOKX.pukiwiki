@@ -1,0 +1,52 @@
+#navi([[日本語入力設定事例集]])
+
+*ATOK Xの設定 [#e5754fa1]
+
+**インストール [#t6ba22ba]
+
+ATOK XのCD-ROMに含まれているatokx-1.0-1.i386.tgzを/usr/portage/distfiles/にコピーした後、
+
+ # ACCEPT_KEYWORDS="~x86" emerge atokx
+
+を実行します。(portagejp が必要)
+
+**ATOK Xサーバーをデフォルトで起動させるための設定 [#k7393fc1]
+
+ $ su
+ # rc-update add atokx default
+
+もし、設定時に次のエラーが出た場合、
+
+ *  Can't find service 'IIim' needed by 'atokx';  continuing...           [ ok ]
+
+/etc/init.d/atokxに記述されているneed IIimをneed iiimに変更した後、/sbin/depscan.shを実行するか、/etc/init.d/iiimを/etc/init.d/IIimにリネームした後/sbin/depscan.shを実行してください。
+
+
+**設定方法 [#gea3bc99]
+
+~/.xinitrc 等に次の内容を追加します。
+
+ . /usr/lib/im/locale/ja/atokserver/atokx_client
+ export XMODIFIERS=@im=htt
+
+~/.bash_profile 等に
+ /usr/X11R6/bin/xmodmap -e "keycode 49 = Zenkaku_Hankaku"
+などと書いておくと、漢字キーのみでON/OFFできます。
+
+**うまく動作しない場合 [#vac488fa]
+
+時間が取れず、ポインタだけで申し訳ないです。
+
+-GentooJP Users MailingListの[[AtokXとKDEアプリで日本語を連続入力するとアプリが終了してしまう:http://www.gentoo.gr.jp/ml/users/msg00479.html]]という投稿で始まるスレッドに解決するためのヒントがあるかもしれません。
+-[[atokx]]にある以前のパッケージatokx-1.0-r2なら問題が起きない場合もあります。
+
+-atokxのebuildずっと放っておいてしまってるんですが、結局1.0-r2の方がちゃんと動くはずです。1.0-r3からはatokxのcdに入ってるiiimf よりも、im-sdkを使うようにしたんですが、atokxとim-sdkの相性があまりよくない可能性が高いのでr2を使った方が無難でしょう。ただr2をblocks im-sdkにしたほうがいいのかもしれません。 -- [[puntium]] SIZE(10){2004-04-11 (日) 12:51:04}
+-1.0-r2 を使っているのですが、 _XimTransOpen: transport open failed for tcp/127.0.0.1:9010 と言われてしまいます。 netstat -a するとちゃんとtcp:9010 は開いているんですが。。。 --  SIZE(10){2004-04-28 (水) 23:05:54}
+-gdm + fluxboxだと.gnomercを読み込まないようです。/etc/X11/gdm/Session/fluxboxに.gnomercを読み込むように書けば大丈夫です。ただこの場合だとterminalではうまくいかないようです。LANGや、XMODIFIERSの設定をbashrcなどに書いておくと大丈夫になりました。 -- [[amachin]] SIZE(10){2004-05-04 (火) 02:58:22}
+-atokx_client の起動は ~/.bash_profile に書きました。KDE3.3.1です。~/.xinitrcを実行してくれません。 -- [[y-imado]] SIZE(10){2004-11-10 (水) 01:10:03}
+-KDEで動いた  。 .xinitrcの例。  . /usr/lib/im/locale/ja/atokserver/atokx_client  XIM=htt   export LANG=ja_JP.eucJP export  XMODIFIERS='@im=htt'  exec startkde  -- [[kihei]] SIZE(10){2005-01-25 (火) 01:08:32}
+- KDE 3.3.2 でした。(これ直すのどうするのかなwikiなのに。) -- [[kihei]] SIZE(10){2005-01-25 (火) 01:09:49}
+-- Wikiなので普通に編集すれば直りますよ。 --  SIZE(10){2005-01-27 (木) 16:41:35}
+-ATOKXをexport LANG=ja_JP.eucJP 無しで起動したいのですが（いろいろなアプリケーションが日本語になり非常に使いにくくなるので（エラーメッセージなど）どうも無理みたいですが、何か方法御存じでしょうか？ -- [[katz]] SIZE(10){2005-04-02 (土) 23:28:51}
+-LC_CTYPE だけを指定すればいいはずですが、ATOK Xが手元にないので確認できません。LANGの代わりにLC_CTYPEを試してみてください。 -- [[usata]] SIZE(10){2005-04-05 (火) 02:07:32}
+- ありがとう。  日本語入力の時にでてくる ”ATOK"っていう文字を消したいのだけれど方法しりませんか？ -- [[mokk]] SIZE(10){2005-04-19 (火) 23:43:23}

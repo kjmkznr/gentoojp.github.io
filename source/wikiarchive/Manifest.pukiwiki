@@ -1,0 +1,39 @@
+#contents
+#title
+
+*Portage と Manifest [#gea4dea9]
+
+/usr/portage/Category_name/Package_name/Manifest のテキストファイルです。[[マージ]]に必要なファイルのハッシュ値が記述されています。sys-apps/portage-2.1 では MD5, RMD160, SHA256 とあります。これは [[*.ebuild]] が期待するファイルか否かだけを調べます。誰によって記述されたものであるかは調べません。誰でも `ebuild digest` でハッシュ値を上書き、つまり偽造できます。偽造を防ぐために [[GPG署名]]があります。
+
+ちなみに開発者以外が [[*.ebuild]] を記述し、[[バグ報告]]のためそれを試そうとするならば上書きしなければいけません。何故なら新しいファイルは未検査だからです。
+
+**サンプル：net-misc/dhcp [#ic0708a8]
+
+ AUX dhcp-3.0-fix-perms.patch 485
+ RMD160 3857270dffed5feee95609aeb37d0c9ef8844945  
+ SHA1 1217265a8a7f1416b781e9f79e8dfb8304268e6c 
+ SHA256 a805a60b36e148886887aebb797e80f642386b3e55ef4a0b5132f96a2877e018
+ MD5 d909d81a4d4ea39ddfc9898d33488c73 files/dhcp-3.0-fix-perms.patch 485
+ RMD160 3857270dffed5feee95609aeb37d0c9ef8844945 files/dhcp-3.0-fix-perms.patch 485
+ SHA256 a805a60b36e148886887aebb797e80f642386b3e55ef4a0b5132f96a2877e018 files/dhcp-3.0-fix-perms.patch 485
+ AUX dhcp-3.0-paranoia.patch 5366 
+ RMD160 7c64e3dac5b07ff3859fcaa7a8b0e52a0c50446c 
+ SHA1 a30103c138e480766f84644fffb1d0897709c27d
+ SHA256 a8db9eb98397a9c1b3a0de07fc107c39dc4f6a4a331d404fc6fcc4a8dbc7aeae
+ MD5 66becf9870e0293bbd35d1fba770751a files/dhcp-3.0-paranoia.patch 5366
+ RMD160 7c64e3dac5b07ff3859fcaa7a8b0e52a0c50446c files/dhcp-3.0-paranoia.patch 5366
+ ...snip...
+ MD5 414325430622f5011079cd7fd5517485 files/digest-dhcp-3.0.3-r9 232
+ RMD160 a8cec86f840528ab049182c2d0f0768d7eaa03dc files/digest-dhcp-3.0.3-r9 232
+ SHA256 cbcca1aed82577796a5287973fc78c3d4f5011a7279852b5fdf3e3e368067f14 files/digest-dhcp-3.0.3-r9 232
+ MD5 3ac42f4c7431bc78613c2e61b0a79075 files/digest-dhcp-3.0.4-r1 232
+ RMD160 d5e0c33365d8dc2d37caf86a277a0dbfe0b98565 files/digest-dhcp-3.0.4-r1 232
+ SHA256 fbea6a9170dda5da61af6c7c6f629d33b642ca3fbfa7f64537bd783e283be420 files/digest-dhcp-3.0.4-r1 232
+ MD5 3ac42f4c7431bc78613c2e61b0a79075 files/digest-dhcp-3.0.4-r2 232
+ RMD160 d5e0c33365d8dc2d37caf86a277a0dbfe0b98565 files/digest-dhcp-3.0.4-r2 232
+ SHA256 fbea6a9170dda5da61af6c7c6f629d33b642ca3fbfa7f64537bd783e283be420 files/digest-dhcp-3.0.4-r2 232
+
+========
+
+-[2005-12-30]
+-[2005-12-30] (yoshino)

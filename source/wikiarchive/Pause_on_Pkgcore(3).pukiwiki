@@ -1,0 +1,120 @@
+#title
+#contents
+
+* 基本操作 [#x6c9d1df]
+
+公式サイトのマニュアル [pkgcore]_ で確認して下さい。
+
+** portage tree (ebuild repository) を同期する [#sf73a8bf]
+
+ pmaint sync
+
+** merge [#ge249612]
+
+- merge
+- upgrade
+- empty
+- nodeps
+- noreplace
+- deep
+
+ pmerge FOO
+
+*** 拡張された atom 表現 [#s131f87c]
+
+ pmerge category/package[use_flag,use_flag,use_flag]:slot,slot,slot:repository
+
+*** ebuild files 製作者が phase 単位で行う [#nf6ec4f8]
+
+- setup
+- nofetch
+- unpack
+- compile
+- test
+- install
+- preinst
+- postinst
+- prerm
+- postrm
+- config
+
+ pebuild ./FOO.ebuild <phase>
+
+*** --set=(world|system|version-installed|installed|glsa|NEWNAME) [#g9e539eb]
+
+用意されているのは 5 種類です。各自追加出来ます。
+
+ pmerge --set=world
+
+** unmerge [#b11ce33b]
+
+ pmerge --unmerge FOO
+
+*** --set=(world|system|version-installed|installed|glsa|NEWNAME) [#q23d708b]
+
+用意されているのは 5 種類です。各自追加出来ます。
+
+ pmerge --clean --set=NEWNAME
+
+*** 表示の整形方式を Paludis 形式にする [#b612dbdc]
+
+ pmerge --pretend --verbose --formatter=paludis FOO
+
+
+________________
+
+
+
+.. [gpms] http://dev.gentoo.org/~spb/pms.pdf が PDF です。
+
+.. [gpm] http://wiki.gentoo.gr.jp/index.php?Gentoo_Package_Manager に関連記事があります。
+
+.. [meta-distribution] http://wiki.gentoo.gr.jp/index.php?%5B%5B%A5%E1%A5%BF%A1%A6%A5%C7%A5%A3%A5%B9%A5%C8%A5%EA%A5%D3%A5%E5%A1%BC%A5%B7%A5%E7%A5%F3%5D%5D に関連記事があります。 
+
+.. [sandbox] root:root でさえも登録ディレクトリ以外へのアクセスを禁止させる LD_PRELOAD のハック。
+
+.. [glsa] 脆弱性注意報告。
+
+.. [qa] 品質保証。
+
+.. [repository] http://wiki.gentoo.gr.jp/index.php?repository に repository, tree, overlays の関連記事があります。
+
+.. [portage] http://www.gentoo.org/proj/en/portage/index.xml は公式サイトです。
+
+.. [paludis] http://paludis.pioto.org/ は公式サイトです。
+
+.. [pkgcore] http://www.pkgcore.org/ は公式サイトです。
+
+.. [vdb] システムに何がどんな状態でマージ済みかを保存しているデータベース。
+
+.. [features] ユーザが機能をオンオフ調整する portage 変数。pkgcore は採用、paludis は不採用。
+
+.. [restrict] デベロッパが機能をオンオフ調整する ebuild 変数。
+
+.. [digest/manifest] 誰が作成したものかを保証する機能。
+
+.. [ebuild] http://wiki.gentoo.gr.jp/index.php?ebuild_files に関連記事があります。
+
+.. [prefix] http://wiki.gentoo.gr.jp/index.php?prefix に関連記事があります。
+
+.. [overlays] http://wiki.gentoo.gr.jp/index.php?overlays に関連記事があります。
+
+.. [use_flag] http://wiki.gentoo.gr.jp/index.php?USE_flag に関連記事があります。
+
+.. [profile] http://wiki.gentoo.gr.jp/index.php?profile に関連記事があります。
+
+
+________________
+
+
+
+- [[Gentoo_Package_Manager]], [[Portage]], [[Paludis]], [[Pkgcore]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+- [[Pause_on_Pkgcore(1)]], [[Pause_on_Pkgcore(2)]], [[Pause_on_Pkgcore(3)]], [[Pause_on_Pkgcore(4)]], [[Pause_on_Pkgcore(5)]], [[Pause_on_Pkgcore(6)]], [[Pause_on_Pkgcore(7)]], [[Pause_on_Pkgcore(8)]], [[Pause_on_Pkgcore(9)]], [[Pause_on_Pkgcore(10)]], [[Pause_on_Pkgcore(11)]], [[Pause_on_Pkgcore(12)]], [[Pause_on_Pkgcore(13)]], [[Pause_on_Pkgcore(14)]], [[Pause_on_Pkgcore(15)]], [[Pause_on_Pkgcore(16)]]
+- [[repository]], [[USE_flag]], [[profile]], [[prefix]], [[overlays]]
+- [[ebuild_files]], [[ebuild_metadata(ebuild-defined_variables)]], [[ebuild_phase(ebuild-defined_functions)]], [[the_ebuild_environment(defined_variables)]], [[the_ebuild_environment(defined_commands)]], [[bash_for_ebuild]]
+
+________________
+
+- [2007-08-05] 気に入ったら書き足して下さい。 (yoshino)

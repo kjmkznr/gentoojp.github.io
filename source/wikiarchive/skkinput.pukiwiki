@@ -1,0 +1,23 @@
+*skkライクな日本語入力メソッド [#uc21b90b]
+
+-ページ: BugTrack
+-投稿者: [[matsuu]]
+-優先順位: 低
+-状態: 完了
+-カテゴリー: ebuild
+-投稿日: 2002-08-13 (火) 08:35:17
+-バージョン: 2.06.03
+
+#attach
+
+CENTER:''このebuildは本家のツリーに取り込まれました。(app-i18n/skkinput)''
+
+**メッセージ [#qacfd3ef]
+skk-jisyo + skkserv + skkinputでSKKライクな日本語入力が可能です。
+----
+
+-skkinputのバージョンアップに伴いebuildもバージョンアップしました。 -- [[matsuu]] SIZE(10){2002-08-17 (土) 12:18:01}
+-skkinput3をupしましたが、本家ではテスト版扱いのようです。skkinput2より重いです。通常はskkinput2をお使いください。 -- [[matsuu]] SIZE(10){2002-11-06 (水) 10:23:09}
+-skkinput-3.0.6.ebuild upしました。SLOT=0のままですが。 -- [[matsuu]] SIZE(10){2003-07-11 (金) 13:19:40}
+-SLOT="3"  にした skkinput-3.0.6.20030524.ebuild をアップロードしました。files にskkinput-3.0.6-gentoo.diff を置いてください。 -- [[usata]] SIZE(10){2003-07-12 (土) 19:09:16}
+// #comment

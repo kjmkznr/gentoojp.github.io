@@ -1,0 +1,160 @@
+#contents
+#title
+
+*app-admin/eselect [#c532fe51]
+
+[[eselect プロジェクト:http://www.gentoo.org/proj/en/eselect/index.xml]]が開発中の設定ファイルの管理プログラムです。[[Bash]] スクリプトです。[[eselect ユーザガイド:http://www.gentoo.org/proj/en/eselect/user-guide.xml]]と [[eselect デベロッパガイド:http://www.gentoo.org/proj/en/eselect/dev-guide.xml]]があります。開発用ドキュメントやプロジェクト特有のドキュメントは、本家が英語を理解する人を求めているため翻訳されません。
+
+具体的には [[sys-apps/baselayout]] の rc-update コマンド、[[sys-apps/portage]] の env-update コマンドや etc-update または dispatch-conf コマンド、△△-conf または △△-config などが統合されるのが目標と思われます。将来的には SUSE の YaST (CUI モード)みたいになるのかもしれません。
+
+現在のところ限られたパッケージだけが対応しています。各メンテナへ「eselect に対応して欲しい」と eselect のメンテナが PR 活動されています。メンテナに「eselect に対応して欲しい」とパッチファイル付属の[[バグ報告]]をすると喜ばれると思います。
+
+**rc-update [#e9c54d99]
+
+[[sys-apps/baselayout]] に関連記事があります。
+
+**env-update [#y71d2c60]
+
+[[sys-apps/portage]] に関連記事があります。
+
+**etc-update [#t98cb590]
+
+[[etc-update]] に関連記事があります。
+
+**dispatch-conf [#s39ef6e0]
+
+[[dispatch-conf]] に関連記事があります。
+
+**△△-conf [#l50cb561]
+
+`eix 'conf$'` では以下が出現します。2005 年 11 月現在です。
+
+ app-admin/grubconf 
+ app-doc/ebook-autoconf 
+ app-doc/ebook-gconf 
+ dev-libs/dotconf 
+ dev-perl/IniConf 
+ dev-perl/gnome2-gconf 
+ dev-ruby/ruby-gconf 
+ dev-util/libconf 
+ gnome-base/gconf 
+ gnome-extra/bonobo-conf 
+ media-libs/varconf 
+ media-video/xvid4conf 
+ net-misc/clockspeed-conf 
+ net-nntp/slrnconf 
+ sys-devel/autoconf 
+ x11-misc/bbappconf 
+ x11-misc/bbconf 
+ x11-misc/driconf 
+ x11-misc/fluxconf 
+ x11-misc/obconf 
+ x11-misc/wmakerconf 
+
+**△△-config [#h90e8f9d]
+
+`eix 'config$'` では以下が出現します。2005 年 11 月現在です。
+
+ app-admin/grubconfig 
+ app-admin/zope-config 
+ app-misc/tpconfig 
+ app-shells/bash-completion-config 
+ dev-java/java-config 
+ dev-libs/libdshconfig 
+ dev-perl/AppConfig 
+ dev-perl/extutils-pkgconfig 
+ dev-ruby/ruby-config 
+ dev-util/jconfig 
+ dev-util/pkgconfig 
+ kde-base/kreadconfig 
+ kde-base/lilo-config 
+ media-libs/fontconfig 
+ net-dialup/pppconfig 
+ net-dialup/pptpconfig 
+ net-mail/mailer-config 
+ net-misc/vconfig 
+ net-www/webapp-config 
+ sci-libs/blas-config 
+ sci-libs/lapack-config 
+ sys-devel/binutils-config 
+ sys-devel/distcc-config 
+ sys-devel/gcc-config 
+ sys-devel/gnuconfig 
+ www-apps/browser-config 
+ x11-libs/motif-config 
+ x11-misc/Xautoconfig 
+ x11-misc/Xorgautoconfig 
+ x11-misc/lineakconfig 
+ x11-misc/mkxf86config 
+
+*app-admin/eselect-1.0_rc1 [#gc1e4cd8]
+
+今のところ付属モジュールだけでは範囲が狭いです。
+
+ Usage: eselect <global options> <module name> <module options>
+ 
+ Global options:
+  --no-color,--no-colour    Disable coloured output 
+ 
+ Built-in modules:
+  help                      Display a help message 
+  list-modules              Find and display available modules 
+  usage                     Display a usage message 
+  version                   Display version information 
+ 
+ Extra modules:
+  bashcomp                  Manage contributed bash-completion 
+                            scripts 
+  binutils                  Manage installed versions of 
+                            sys-devel/binutils 
+  blas                      Manage installed BLAS 
+                            implementations 
+  env                       Manage environment variables 
+                            set in /etc/env.d/ 
+  kernel                    Manage the /usr/src/linux 
+                            symlink 
+  lapack                    Manage installed LAPACK 
+                            implementations 
+  mailer                    Manage the mailwrapper 
+                            profiles in /etc/mail 
+  profile                   Manage the /etc/make.profile 
+                            symlink 
+  rc                        Manage /etc/init.d scripts 
+                            in runlevels 
+
+いまのところモジュールに以下があります。
+
+- app-admin/eselect-blas 
+- app-admin/eselect-cblas 
+- app-admin/eselect-compiler 
+- app-admin/eselect-esd 
+- app-admin/eselect-gnat 
+- app-admin/eselect-lapack 
+- app-admin/eselect-mysql 
+- app-admin/eselect-oodict 
+- app-admin/eselect-opengl 
+- app-admin/eselect-oracle 
+
+________
+
+[[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]) の詳細は[[プロジェクトリスト:http://www.gentoo.org/proj/en/metastructure/projects.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]), [[Gentoo FAQ:http://www.gentoo.org/doc/ja/?catid=faq]], [[GentooJP FAQ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A3%C6%A3%C1%A3%D1%5D%5D]]
+- [[インストール]], [[Stage]], [[GRP]], [[Portageツリー]]
+- [[インストールした後にできること]], [[日本語入力設定事例集]], [[日本語デスクトップ環境/パッケージ]]
+- [[Gentooが採用している技術]]
+- [[コミュニティとの連絡手段]], [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]
+- [[本家に関連しそうな言葉]], [[GLEP]], [[コピーライト]], [[ライセンス]]
+
+[[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]]) の詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]])
+- [[メタ・ディストリビューション]], [[USEフラグ]], [[profile]], [[catalyst]], [[GNAP]]
+- [[コンパイル]], [[バイナリパッケージ]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+
+________
+
+-[2005-11-14] これとは直接関係ありませんが、[[PacSec:http://pacsec.jp/index.html?LANG=JAPANESE]] に来賓参加されるような専門家を迎えてのジェンツー飲み会(夜部)からだと、セキュリティに詳しい方々は皆、標準として "何も考えずにできる自動選択機能" を加えるのに抵抗を感じるそうです。結論は各プロジェクトの判断に任せられます。 (yoshino)
+-[2006-09-17] (yoshino)

@@ -1,0 +1,37 @@
+*Messaging in the Emacs World [#a7f00df1]
+
+-ページ: BugTrack
+-投稿者: [[yamakura]]
+-優先順位: 低
+-状態: 完了
+-カテゴリー: ebuild
+-投稿日: 2002-08-10 (土) 11:40:17
+-バージョン: 3.0.72 or cvs
+
+
+CENTER:''このebuildは本家のツリーに取り込まれました。(app-emacs/mew)''
+
+**メッセージ [#eafa21f2]
+mewのebuildです。betaですが、3.0系列の追っかけです。/etc/servicesに"imap"もないんですね。"imap2"を使うようにパッチを当ててます。
+
+mew-cvsはmewのCVSリポジトリからソースをチェックアウトし、それを使ってインストールするものです。まさに追っかけ、度胸のある人向け。適当なタイミングで emerge mew するだけで最新の状態に保つことができます。
+
+MEW_BRANCHに "s2-2" としておくと、2.2ブランチの先端をインストールできます。
+
+※ソースは %%/usr/src%% ${DISTDIR}/cvs-src 以下に入ります。~
+※ちゃんとアナウンスされてるブランチは stable-2-1 しかみつけられませんでした。~
+※ブランチを切り替えるときは注意してください。mainに戻すときは ${DISTDIR}/cvs-src/mew に行き、手動で update -A したほうがいいでしょう。
+
+*** elisp.eclass 対応版を作成しました (2002/10/31) [#yda9ac3f]
+mew(3.0.72)とmew-cvs両方とも、elisp.eclassを使って書き直しました。
+これによって、
+- (もしmew用に設定しているなら)load-pathを設定しなくてよい
+- autoloadを .emacs に書かなくてもよい
+- mew-icon-directory を設定しなくてもよい
+- icon関係のインストール先が /usr/share/mew になった
+
+という変化があります。興味があるひとは /usr/share/emacs/site-lisp/site-start.el
+やその周辺を見てみてください。
+----
+
+#comment

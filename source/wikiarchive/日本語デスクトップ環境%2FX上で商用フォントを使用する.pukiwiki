@@ -1,0 +1,24 @@
+#navi([[日本語デスクトップ環境]])
+
+手順が見にくくて申し訳ないです。--HMM
+
+*導入 [#o70b3efe]
+標準価格 3,980円 の商用フォント DynaFontこれくしょん2004 に含まれる平成明朝と平成ゴシックを X 上で使えるようにします。平成明朝と平成ゴシックは他の商用フォントにもよく含まれていますので、ファイル名を置き換えるだけで対応できるかと思います。
+
+また、上記以外のフォントを使う場合は、使用したいフォントをコピーした後、参考文献等を参考にしてfonts.dirを作成してください。 
+
+*手順 [#t776e661]
++CD-ROMをマウントします(ここではマウント先を/mnt/cdromとします) 
++mkdir /usr/X11R6/lib/X11/fonts/dynafont でディレクトリを作ります
++cp /mnt/cdrom/FONTS/DFHSG* /usr/X11R6/lib/X11/fonts/dynafont (平成ゴシックをコピーします)
++cp /mnt/cdrom/FONTS/DFHSM* /usr/X11R6/lib/X11/fonts/dynafont (平成明朝をコピーします)
++添付した fonts.dir を /usr/X11R6/lib/X11/fonts/dynafont に置きます 
++/etc/X11/XF86Config を開き、FontPathを追加(FontPath "/usr/X11R6/lib/X11/fonts/dynafont")します
++/etc/fonts/fonts.conf を開き、<dir>/usr/X11R6/lib/X11/fonts/dynafont</dir> を追加します
++Xを再起動する等の方法で、フォントを認識させます
+
+*参考文献等 [#od918b4d]
+[[TTF-HOWTO:http://www.momonga-linux.org/docs/TTF-HOWTO/ja/index.html]]
+
+
+#navi([[日本語デスクトップ環境]])

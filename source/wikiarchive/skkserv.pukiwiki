@@ -1,0 +1,19 @@
+*skkかな漢字サーバ [#h74acc46]
+
+-ページ: BugTrack
+-投稿者: [[matsuu]]
+-優先順位: 低
+-状態: 完了
+-カテゴリー: ebuild
+-投稿日: 2002-08-13 (火) 07:27:10
+-バージョン: 9.6
+
+
+CENTER:''このebuildは本家のツリーに取り込まれました。(app-i18n/skkserv)''
+
+**メッセージ [#d989fe56]
+CVSにもupしているskkservで、skkのかな漢字サーバです。skk-jisyo + skkserv + skkinputでXIMとして扱えます。
+----
+
+-本家にとりこまれました。 -- [[matsuu]] SIZE(10){2002-12-05 (木) 02:07:59}
+// #comment

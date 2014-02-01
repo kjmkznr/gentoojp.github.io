@@ -1,0 +1,38 @@
+*形態素解析システム    茶筅 [#v3c60ef7]
+
+-ページ: BugTrack
+-投稿者: [[naoto]]
+-優先順位: 低
+-状態: 完了
+-カテゴリー: ebuild
+-投稿日: 2002-09-07 (土) 00:10:12
+-バージョン: 2.2.9
+
+問題無さそうならクリックしてください。(目安として使うだけです)
+CENTER:''このebuildは本家のツリーに取り込まれました。(app-text/chasen,その他)''
+
+**メッセージ [#w368d39b]
+chasen の ebuild をつくってみました.~
+詳しくは, http://chasen.aist-nara.ac.jp/index.html.ja を見て下さい.
+
+現在, 本体と辞書が分離して配布されているので, まとめてインストール~
+できるように, ダミーのパッケージを用意しました.~
+emerge chasen でまとめてインストールされるはずです.
+
+あと, namazu で必要な perl モジュールも同梱しています.
+
+
+
+----
+
+-まとめたのは良いのですが, unmerge 時をどうしようってのが問題です. -- [[naoto]] SIZE(10){2002-09-07 (土) 00:25:27}
+-USE="chasen kakasi" で入れてみました。kakasi(-k)はOKだったのですが、chasen(-c)の方は Text-ChaSenでエラーになってしまいました。とりあえずご報告まで。[/usr/bin/perl: relocation error: /usr/lib/perl5/site_perl/5.6.1/i586-linux/auto/Text/ChaSen/ChaSen.so: undefined symbol: chasen_getopt_argv] -- [[yamakura]] SIZE(10){2002-09-07 (土) 09:59:10}
+-上のエラーは chasen-base がmergeされてないことに起因するのですが、これは私が依存関係の編集をミスったからのようです。お騒がせしました。 -- [[yamakura]] SIZE(10){2002-09-07 (土) 10:33:43}
+-このエラーに躓き、Googleでエラーメッセージを検索した結果から、この頁に辿り着きました。将来ここにくるかもしれない他人のためにコメントを書き残すことにします。「README読め。」 -- [[anonymouse]] SIZE(10){2003-06-16 (月) 09:40:27}
+-PDEPENDを用いてスマートに実装してみました。 -- [[matsuu]] SIZE(10){2003-06-19 (木) 08:21:24}
+-Can't load '/usr/lib/perl5/vendor_perl/5.8.0/i686-linux/auto/Text/ChaSen/ChaSen.so' for module Text::ChaSen: /usr/lib/libchasen.so.0: undefined symbol: __gxx_personality_v0 at /usr/lib/perl5/5.8.0/i686-linux/DynaLoader.pm line 229. これも上のエラーと同様でしょうか? --  SIZE(10){2003-09-07 (日) 22:52:45}
+-上の投稿をした者です.解決したので報告を.__gxx_personality_v0は,GCCのバージョンによっては,-lstdc++を付ける必要があるようです.ebuildでは付けられないのでソースから.Makefile.PLを編集するとき,"-L/usr/lib -lchasen -lstdc++"こんな風にするとよさげです. -- [[tokoroten]] SIZE(10){2003-09-19 (金) 03:31:58}
+-あー、それはそれで ebuild 側で対処すべき問題のように見えますね。問題がある gcc のバージョンが分かればそれだけ判定してつけてもいいですし、まあデフォルトでつけちゃっても問題ないかも。 -- [[usata]] SIZE(10){2003-09-19 (金) 12:59:58}
+-「-lstdc++を付ける必要があるようです」　コメント助かりました！！ -- [[shun]] SIZE(10){2003-10-01 (水) 15:13:06}
+-「-lstdc++を付ける必要があるようです」　コメント助かりました！！ -- [[shun]] SIZE(10){2003-10-01 (水) 17:30:14}
+// #comment

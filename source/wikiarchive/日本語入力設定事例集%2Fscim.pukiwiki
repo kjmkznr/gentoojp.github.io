@@ -1,0 +1,45 @@
+#navi([[日本語入力設定事例集]])
+
+*日本語入力設定事例集/scim [#mc4b60c0]
+
+多言語入力フレームワーク SCIM を用いて日本語を入力する方法を説明します。現在のところ SCIM は m17n-lib と組み合わせることで Anthy と T-Code、uim と組み合わせることで uim のサポートするエンジン(Anthy, SKK, PRIME, TUT-Code, Canna)が使えるようになります。
+
+Portage から SCIM をインストールするには、単に emerge するだけでよいです。
+
+ # emerge scim
+
+これに加えて使いたい入力エンジンごとに必要なパッケージを書いておきます。
+
+|エンジン|必要なパッケージ|
+|Anthy|scim-anthy|
+|Canna|scim-canna|
+|PRIME|scim-prime|
+|Wnn|scim-wnn|
+|SKK|scim-skk|
+
+この他にも T-code など m17lib がサポートしているエンジンを使いたい場合は scim-m17n を、uim がサポートしているエンジンを使いたい場合は scim-uim を emerge しましょう。たとえば Anthy を使いたい場合は以下のようにします。
+
+ # emerge scim-anthy
+
+さらに Qt を使ったアプリケーションで immodule を使いたい場合、scim-qtimm も emerge します。(XIM 経由でも日本語入力できるので、特別な理由がなければ必要ありません)
+
+ # emerge scim-qtimm
+
+また、KDE 環境で SCIM を使う場合は SCIM より SKIM のほうが高機能です。
+
+ # emerge skim
+
+以上で必要なものは揃ったので、あとは .xinitrc などに下記の設定を追加します。
+ export LANG=ja_JP.UTF-8
+ export XMODIFIERS=@im=SCIM
+ export GTK_IM_MODULE=scim
+ export QT_IM_MODULE=scim
+ scim -d
+
+以上で XIM および GTK+/Qt の immodule として SCIM が使えるようになります。
+
+SCIM の起動は Ctrl + Space で、起動したあと各入力メソッドの入力開始キーを押します。パレットを使って操作することもできます。変換エンジンの切り替えは Ctrl + Shift (この順番で押します)です。パレットから普段使わないエンジンを外しておくと切り替えが手軽です。 
+
+SCIM のバージョンがあがったときには依存する全パッケージの再コンパイルが必要になることがあります。このところ Portage は面倒を見てくれないので、うまく動かなくなったらまず再コンパイルを試してみてください。(scim をコンパイルしたときに使った gcc のバージョンと各モジュールをコンパイルするときの gcc のバージョンも揃えないといけないことがありますので、複数バージョンの gcc を切り替えて使っている人は注意してください)
+
+#navi([[日本語入力設定事例集]])

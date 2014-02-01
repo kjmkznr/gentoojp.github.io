@@ -1,0 +1,45 @@
+#contents
+#title
+
+*GRP とは... [#nc09b657]
+
+> Note: Gentoo Linuxの2枚組CDセットは、GNOME、KDE、Mozilla、OpenOfficeを含むコンパイル済みGentoo LinuxシステムGentoo Reference Platformを含んでいます。 Gentoo Reference Platform("GRP")は、パッケージを短時間でインストールする機能を実現するために用意されました。 Gentoo Linuxの基本である、「ソースからのコンパイル」は常に選択肢として用意されます。 GRPの目的は、Gentooの強力な「ソースからのコンパイル」によるインストールに影響をあたえることなく、 Gentoo Linuxをより手軽なものにすることです。 
+
+以上、過去の[[ハンドブック]]より転載。
+
+*GRP と packages と バイナリパッケージ [#n250b828]
+
+[[Portage]] はソースファイル形式だけでなく、バイナリファイル形式も扱えます。もっと言えば rpmパッケージは [[*.spec]] を知らなくとも [[Portage]] で作成できます。[[ebuildパッケージ]]がフェッチする本体がそのまま rpmパッケージや dpkgパッケージなのもあります。
+
+本家は [[*.ebuild]]、つまり [[Portageツリー]]を毎日更新していますが、[[GRP]] ([[packages]]) は[[インストールCD]] ([[installcd]]/[[livecd]]) の時だけ、つまり半年に一度しか更新しません。[[USEフラグ]]も初期のままです。[[installcd]] または [[livecd]] に関連記事があります。
+
+単語の区別は FreeBSD の「Ports/Packages」「Portsツリー」を意識するかどうかで、意味の差に悩むぐらいなら[[バイナリパッケージ]]で通じます。[[バイナリパッケージ]]に関連記事があります。
+
+*バイナリパッケージ (GRP/packages) をマージする [#g1270c0c]
+
+[[バイナリパッケージ]]に関連記事があります。
+
+________
+
+[[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]) の詳細は[[プロジェクトリスト:http://www.gentoo.org/proj/en/metastructure/projects.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]), [[Gentoo FAQ:http://www.gentoo.org/doc/ja/?catid=faq]], [[GentooJP FAQ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A3%C6%A3%C1%A3%D1%5D%5D]]
+- [[インストール]], [[Stage]], [[GRP]], [[Portageツリー]]
+- [[インストールした後にできること]], [[日本語入力設定事例集]], [[日本語デスクトップ環境/パッケージ]]
+- [[Gentooが採用している技術]]
+- [[コミュニティとの連絡手段]], [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]
+- [[本家に関連しそうな言葉]], [[GLEP]], [[コピーライト]], [[ライセンス]]
+
+[[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]]) の詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]])
+- [[メタ・ディストリビューション]], [[USEフラグ]], [[profile]], [[catalyst]], [[GNAP]]
+- [[コンパイル]], [[バイナリパッケージ]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+
+________
+
+-[2005-10-20] (yoshino)
+-[2006-09-17] 自分が調べた際のメモをほぼそのまま貼りつけているだけだったのを省察しました。 (yoshino)
+-[2006-11-05] ハンドブックに sys-apps/Portage-2.1 に関する説明が加えられるようです。今後はハンドブックが確実です。 (yoshino)

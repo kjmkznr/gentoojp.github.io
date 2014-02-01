@@ -1,0 +1,145 @@
+#title
+#contents
+
+* Phase [#m3edb68b]
+
+進行段階を意味します。デベロッパには必要な概念です。単にデバッグ向けとする [[GPM/Ports System:http://wiki.gentoo.gr.jp/index.php?%5B%5BGentoo_Package_Manager%5D%5D]] もありますが、フックの単位にしている [[GPM/Ports System:http://wiki.gentoo.gr.jp/index.php?%5B%5BGentoo_Package_Manager%5D%5D]] もあります。各 [[GPM/Ports System:http://wiki.gentoo.gr.jp/index.php?%5B%5BGentoo_Package_Manager%5D%5D]] によって独自の [[Phase]] が加えられていますが、[[ebuild_files]] を記述する際は [[GPMS]] で定義されている部分だけを記述すれば動きます。
+
+** Linux From Scratch [#i4a7379a]
+
+[[ebuild_files]] で [[Phase]] に混乱していると言う方は Linux From Scratch (ゼロから手作業で一つ一つソースコードをコンパイルしてネットワークに参加可能なコンピュータにしたりグラフィカルなコンピュータにする教材)があります。
+
+- [[Linux From Scratch:http://www.linuxfromscratch.org/]]
+- [[Cross-compiled Linux From Scratch:http://cross-lfs.org/view/1.0.0/]]
+- [[Hardened Linux From Scratch:http://www.linuxfromscratch.org/hlfs/]]
+
+** ebuild files を書くのに知る必要があるのは以下です。 [#hf8f1d77]
+
+公式サイトのマニュアル [[Portage:http://www.gentoo.org/proj/en/portage/index.xml]] で確認して下さい。
+
+*** Phase :: setup [#ub38e159]
+- Phase :: setup
+-- ebuild実行前の初期化
+-- フェイズ単位で実行すると、実行する度に呼び出される
+
+*** Phase :: unpack [#ta9d6d9e]
+- Phase :: unpack
+-- 必要なファイルの展開
+-- [[Portage]] の場合、目印として [[.unpacked]] を残す
+
+*** Phase :: compile [#u920c2ac]
+- Phase :: compile
+-- コンパイル
+-- [[Portage]] の場合、目印として [[.compiled]] を残す
+
+*** Phase :: test [#td8208c9]
+- Phase :: test
+-- コンパイルのテスト
+-- [[Portage]] の場合、目印として [[.tested]] を残す
+
+*** Phase :: install [#ge7678a7]
+- Phase :: install
+-- 仮マージ
+-- [[Portage]] の場合、目印として [[.installed]] を残す
+
+*** Phase :: preinst [#g59b893a]
+- Phase :: preinst
+-- 実マージ直前の処理
+
+*** Phase :: postinst [#y6fc463e]
+- Phase :: postinst
+-- 実マージ直後の処理
+
+*** Phase :: prerm [#wd7561ac]
+- Phase :: prerm
+-- 実アンマージ直前の処理
+
+*** Phase :: postrm [#o1b903b2]
+- Phase :: postrm
+-- 実アンマージ直後の処理
+
+*** Phase :: nofetch [#jb2bc7a9]
+- Phase :: nofetch
+-- 直接フェッチが出来無い場合の解決策の示唆、つまり [[RESTRICT]] のパッケージのみ
+
+*** Phase :: config [#b54b7c23]
+- Phase :: config
+-- 実マージ後に便利かもしれない作業ですが、ユーザが明示しない限り実行されない
+
+** 以下は Portage 独自の追加です。 [#sb45b4d9]
+
+公式サイトのマニュアル [[Portage:http://www.gentoo.org/proj/en/portage/index.xml]] で確認して下さい。
+
+- info
+- fetch
+- digest
+- manifest
+- qmerge
+- merge
+- unmerge
+- package
+- rpm
+- depend
+
+** 以下は Paludis 独自の追加です。 [#w4b81e89]
+
+公式サイトのマニュアル [[Paludis:http://paludis.pioto.org/]] で確認して下さい。
+
+- metadata
+- init
+- prepare
+- fetch
+- merge
+- unmerge
+- tidyup
+- strip
+- loadenv
+- saveenv
+- fetchbin
+- initbin
+- unpackbin
+
+Hook は更にビルド連鎖やメッセージ出力も phase の一種としています。
+
+- install
+- install_all
+- install_pretend
+- install_pretend_display_item
+- uninstall
+- uninstall_all
+- clean
+- clean_all
+- sync
+- sync_all
+- fetch
+- fetch_all
+- merger_check
+- ...snip...
+
+** 以下は Pkgcore 独自の追加です。 [#h37c043d]
+
+公式サイトのマニュアル [[Pkgcore:http://www.pkgcore.org/]] で確認して下さい。
+
+- setup-binpkg
+- depend
+
+
+________________
+
+
+
+- [[Gentoo_Package_Manager]], [[Portage]], [[Paludis]], [[Pkgcore]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+- [[Pause_on_Pkgcore(1)]], [[Pause_on_Pkgcore(2)]], [[Pause_on_Pkgcore(3)]], [[Pause_on_Pkgcore(4)]], [[Pause_on_Pkgcore(5)]], [[Pause_on_Pkgcore(6)]], [[Pause_on_Pkgcore(7)]], [[Pause_on_Pkgcore(8)]], [[Pause_on_Pkgcore(9)]], [[Pause_on_Pkgcore(10)]], [[Pause_on_Pkgcore(11)]], [[Pause_on_Pkgcore(12)]], [[Pause_on_Pkgcore(13)]], [[Pause_on_Pkgcore(14)]], [[Pause_on_Pkgcore(15)]], [[Pause_on_Pkgcore(16)]]
+- [[repository]], [[USE_flag]], [[profile]], [[prefix]], [[overlays]]
+- [[ebuild_files]], [[ebuild_metadata(ebuild-defined_variables)]], [[ebuild_phase(ebuild-defined_functions)]], [[the_ebuild_environment(defined_variables)]], [[the_ebuild_environment(defined_commands)]], [[bash_for_ebuild]]
+
+________________
+
+
+- [2005-09-19]
+- [2005-12-30] 修正を御願いします。(yoshino)
+- [2006-04-14] 少し明確にしました。 (yoshino)
+- [2006-09-17] 自分が調べた際のメモをほぼそのまま貼りつけているだけだったのを省察しました。 (yoshino) 
+- [2007-08-05] 気に入ったら書き足して下さい。 (yoshino)

@@ -1,0 +1,104 @@
+#title
+
+#contents
+
+emerge -upの結果からpackage.keywordsを生成するbashスクリプトを書いてみました。
+
+使い方
+ epkgkwd world x86
+ epkgkwd =gnome-base/gnome-2.14.0 x86
+ epkgkwd --deep =gnome-base/gnome-2.14.0 x86
+など。
+epkgkwdをemerge -upと置き換えて続けられるフレーズならなんでもOKです。
+最後はキーワード。
+
+添付できないので直に載せます。
+コピペして使ってください。
+
+ #!/bin/bash
+ #
+ #	2006/05/10　epkgkwd-0.1.0 初版
+ #
+ PASS=/etc/portage/
+ FILE=package.keywords
+ CMD="emerge -up "
+ KEYLIST="key=alpha amd64 arm hppa ia64 m68k mips ppc ppc-macos ppc64 s390 sh sparc x86 x86-fbsd ERROR"
+ 
+ if [ $# -lt 2 ]
+ 	then
+ 		INPUT_KEY="ERROR"
+ 	else
+ 		PARAM=$@
+ 		echo $PARAM > /dev/null		#最後に実行するコマンド
+ 		INPUT_KEY=$_	　　　　　　	#最後に実行したコマンドの最後のパラメータ、飽くなき手抜きの苦肉也
+ 		PARAM=`echo $PARAM | sed -e "s/$INPUT_KEY//"`
+ 		INPUT_KEY=`echo $INPUT_KEY | sed -e "s/~//"`
+ fi
+ 
+ for KEYWD in $KEYLIST
+ do
+ 	if [ $INPUT_KEY = $KEYWD ]
+ 		then
+ 			break 1
+ 	fi
+ done
+ if [ $KEYWD = "ERROR" ]
+ 	then
+ 		echo "使い方"
+ 		echo "epkgkwd パッケージ名 キーワード"
+ 		echo "epkgkwd world キーワード"
+ 		echo "epkgkwd system キーワード"
+ 		echo "epkgkwdを$CMDと置き換えて続けられるフレーズならなんでもOK"
+ 		exit
+ fi
+ 
+ 
+ STAMP=`date +%y%m%d-%H%M%S`
+ TEMP=$FILE.$STAMP
+ cp $PASS$FILE $PASS$TEMP
+ 
+ echo "emerge -up $PARAMをしつこく実行中"
+ echo "#-- $STAMP start -------------------------------------------" 
+ echo "#-- $STAMP start -------------------------------------------" >> $PASS$FILE
+ ADD=0
+ while :;
+ do
+ 	MASK=`$CMD$PARAM | grep "(masked by: ~x86 keyword)" | sed -e "s/- //" | sed -e "s/-[0-9].*/ ~$KEYWD/"`
+ 	MASK=`echo $MASK | sed -e "s/$KEYWD.*/$KEYWD/"`
+ 	if [ -z "$MASK" ] 
+ 		then
+ 			echo "#-- end --"
+ 			echo "#-- end --" >> $PASS$FILE
+ 			break 1
+ 	fi
+ 	ADD=1
+ 	echo $MASK
+ 	echo $MASK >> $PASS$FILE
+ done
+ 
+ if [ $ADD -eq 0 ]
+ 	then
+ 		echo "$KEYWDでは何もマスクされていません"
+ 		cp $PASS$TEMP $PASS$FILE
+ 		rm $PASS$TEMP
+ 		exit
+ fi
+ 
+ while :;
+ do
+ 	echo "1)なにもせず終了"
+ 	echo "2)package.keywordsを更新"
+ 	read -p "番号を入力して下さい --> " INPUT
+ 
+ 	case $INPUT in
+ 		1)
+ 			cp $PASS$TEMP $PASS$FILE
+ 			rm $PASS$TEMP
+ 			break 1
+ 			;;
+ 		2)
+ 			echo "$PASS$TEMPにバックアップを取りました"
+ 			break 1
+ 			;;
+ 	esac
+ done

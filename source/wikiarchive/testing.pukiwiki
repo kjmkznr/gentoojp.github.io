@@ -1,0 +1,33 @@
+#contents
+#title
+
+*Portage と testing [#e734e888]
+
+[[GLEP]] の 022 より広い意味での [[KEYWORDS]] とはカーネル、Cライブラリ、ユーザランド、アーキテクチャを示します。通常はアーキテクチャだけです。[[KEYWORDS]] のマーク無し、例えば「amd64」が amd64 アーキテクチャの [[stable]] です。[[KEYWORDS]] の「~」マーク、例えば「~amd64」が amd64 アーキテクチャの [[testing]] です。
+
+コミュニティとしては「公開実験中です。協力者求む!!」と言っているわけですので、[[バグ報告]]に参加しないのであれば、避けるのが無難です。[[stable]] より不安定になります。一次配布元のソースファイルをそのまま[[ビルド]]するのと同程度の安定度です。
+
+[[mask]] → [[testing]] → [[stable]] です。どれぐらい待てば [[stable]] になるかは開発者に任されています。/etc/portage/package.keywords を編集すればパッケージ単位で調整できます。また、[[GLEP]] の 041 より [[QA]] (品質保証)と関係してパッケージテスト専用のスタッフも迎えようとしています。[[app-portage/herdstat]] で状況が分ります。また、[[GLSA]] の対象になりません。[[GLSA]] こと "[[Gentoo Linux Security Announcements:http://wiki.gentoo.gr.jp/index.php?GentooLinuxSecurityAnnouncements]]" (または "[[Gentoo Linux Security Advisories:http://wiki.gentoo.gr.jp/index.php?GentooLinuxSecurityAdvisories]]") は [[Securityプロジェクト:http://www.gentoo.org/proj/en/security/index.xml]]による脆弱性注意報告です。
+
+**testing のガードを外すには... [#s5639766]
+
+[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]に説明があります。
+
+[[*.ebuild]] を理解する予定でもなければ、避けるのが無難です。
+
+**tree [#f5cab8c4]
+
+[[tree]] に関連記事があります。
+
+**overlays [#kcdad4b5]
+
+[[overlays]] に関連記事があります。
+
+**KEYWORDS とは... [#m168b7e8]
+
+[[USEフラグ]]ではありません。[[KEYWORDS]] に関連記事があります。
+
+________
+
+-[2005-09-19] 
+-[2006-09-17] 自分が調べた際のメモをほぼそのまま貼りつけているだけだったのを省察しました。 (yoshino)

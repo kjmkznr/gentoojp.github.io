@@ -1,0 +1,94 @@
+#navi([[日本語入力設定事例集]])
+
+*uim+anthy [#zde65670]
+
+http://anthy.sourceforge.jp/cgi-bin/hikija/hiki.cgi?UimAnthy を参考に。
+
+**インストール [#nb520852]
+
+ # emerge uim
+
+**注意点 [#qcc4bffd]
+
+%%uim の前に anthy をインストールしないと anthy 用モジュールがインストールされないようです。%%USEフラグでanthyを設定してからuimをインストールしてください。
+
+
+COLOR(red):uim-0.4.6から設定の仕方が変わりました。[[航海日誌:http://diary.gentoo.gr.jp/?date=20050530]]を参考にしてください。
+
+COLOR(red):uim-1.2.1からanthy USEフラグが追加されました。Anthyがインストールされていても、USEフラグが設定されていなければanthy用モジュールはインストールされません。
+
+**KDEで使用する場合 [#c39a2020]
+COLOR(red):GentooではQt3 (x11-libs/qt) が非推奨になりました。immqtとimmqt-bcはQt3 (x11-libs/qt) 用のUSEフラグです。Qt4 (x11-libs/qt-coreやx11-libs/qt-guiなど) には関係ありません。
+
+COLOR(red):1.5.7以降でuimのツールバーを使う際には、Qt3版のuim-toolbar-qtではなく、Qt4版のuim-toolbar-qt4を使ってください。
+
+%%XIMじゃまともに動かないので、[[IM Module for Qt:http://www.freedesktop.org/wiki/Software_2fimmodule_2dqt]]を使用します。%%~
+%%USEフラグにimmqtもしくはimmqt-bcを追加して%%~
+%%#emerge --update --deep --newuse world%%~
+%%その後%%~/.xinitrcに以下を追加
+ export XMODIFIERS="@im=uim"
+ export GTK_IM_MODULE="uim"
+ export QT_IM_MODULE="uim"
+ exec uim-toolbar-qt4 &
+
+%%なお、immqtとimmqt-bcの違いですが、%%
+|%%immqt%%|%%ライブラリに過去との互換性なし%%|
+|%%immqt-bc%%|%%ライブラリに過去との互換性あり%%|
+%%要するにimmqtでコンパイルしたQTではOpera(-static)は動かないし、QTを必要とするものは再コンパイルの必要があるということです。~%%
+%%なので、immqt-bcの使用をお勧めします。%%
+
+**gdm から Gnomeを起動する場合(Mozilla等、Input Methodを選択できないアプリのための設定) [#j3a1cf75]
+
+~/.gnomerc を作成し、実行権限を与える。
+
+ #!/bin/sh
+ GTK_IM_MODULE=uim
+ QT_IM_MODULE=uim
+ export GTK_IM_MODULE QT_IM_MODULE
+ gnome-session
+
+**kdm から KDEを起動する場合 [#w4accbd4]
+
+~/.xprofileに以下のように付け加える
+ export XIM="uim-xim"
+ export XMODIFIERS="@im=uim"
+ export GTK_IM_MODULE="uim"
+ export QT_IM_MODULE="uim"
+ exec uim-xim &
+ exec uim-helper-toolbar-qt-systray &
+
+QT_IM_MODULE="uim"ではうまく動かなかったので、QT_IM_MODULE="xim"とするとうまく動いた。参考までに
+
+*kinput2+cannaとの混用 [#jf5bda7a]
+
+[[日本語入力設定事例集/kinput2+canna]]の設定を行うことで Gtk+-1.2なアプリでも漢字入力可。（その場合は、kinput2が利用される）というか uim-xim で使えるので kinput2 は必要ありません。
+
+*jmode+anthyとの混用 [#b1d51e24]
+
+[[日本語入力設定事例集/jmode+anthy]]の設定を行うことで Gtk+-1.2なアプリでも漢字入力可。（その場合は、anthyが利用される）これも uim-xim が使えるので jmode は必要ありません。
+
+*uim-ximを混用してGtk+1.2アプリに対応させる [#add7f0b9]
+
+~/.gnomercなどにさらに以下を追加
+
+ export XMODIFIERS=@im=uim
+ uim-xim &
+
+*関連リンク [#r77186df]
+
+-http://code.google.com/p/uim/
+-http://anthy.sourceforge.jp/
+-http://uimwikija.mw.cmssquare.com/
+
+*Comments [#y3cd9a6a]
+
+-個人的には、uim-ximとの併用がお薦めです。 -- [[Yasumichi]] SIZE(10){2004-02-28 (土) 02:24:50}
+-kinput2+canna(XIM)と、uim+anthy(immodule)なんて使いかた書く必要ないとおもうが。 -- [[t-wata]] SIZE(10){2004-02-28 (土) 12:33:10}
+-それは、どういう意味で書いてます？Gentoo使う人ならそれぐらい分かる(もしくは探せる)と言う意味ですか？ -- [[Yasumichi]] SIZE(10){2004-02-28 (土) 13:26:28}
+-KDE上でだと、uim-xim を起動したとたんに画面がカーソルを除いて固まってしまうんですけどなぜでしょう？ -- [[kit]] SIZE(10){2004-03-16 (火) 15:31:53}
+- ~/.xinitrc に書いて普通に使えていますが、どういう起動方法で X を立ち上げていて、どのように記述したのでしょうか？ ここで書くよりメーリングリストのほうがいいと思いますが…… -- [[usata]] SIZE(10){2004-03-16 (火) 18:30:13}
+-あーたしかに、手で起動すると固まる。.xinitrcのstartkdeより先にuim-ximを起動すればいいけど。 -- [[no]] SIZE(10){2004-06-17 (木) 14:48:51}
+-kdmを使っているなら、~/.xprofileにuim-ximをexecする行を入れておけば、startkdeよりも先にuim-ximが起動されるようです。 -- [[KENN]] SIZE(10){2004-07-04 (日) 23:26:40}
+-KDEについて追記。 --  SIZE(10){2005-09-26 (月) 07:13:09}
+
+#navi([[日本語入力設定事例集]])

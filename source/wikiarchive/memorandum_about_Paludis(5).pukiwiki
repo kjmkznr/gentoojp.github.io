@@ -1,0 +1,186 @@
+#title
+#contents
+
+* 仕組み [#k20ad366]
+
+公式サイトのマニュアル [paludis_manual]_ で確認して下さい。
+
+** Portage 同様に Paludis でも Bash が読めれば仕組みが理解出来ます [#uc0b2d62]
+
+Portage で ebuild file を理解しているものは ebuild.sh ですが、Paludis で ebuild file を処理しているものは /usr/libexec/paludis/ebuild.bash です。Paludis は Portage の FEATURES (ユーザ側の拡張のオンオフ状態)に相当するものがありません。余計な分岐が少なく実際は読み易いと思います。RESTRICT (デベロッパ側の制限のオンオフ状態)はどちらもサポートしています。
+
+*** /usr/libexec/paludis/ebuild.bash、これが Bash 部分の中心です。 [#u03dc836]
+
+sys-apps/paludis-0.24 で確認しています。
+
+ ebuild.bash foo.ebuild [action]+
+
+Paludis を実行すると Paludis phase に対応した関数が順々に呼ばれます。その中で GPMS に定義されている ebuild phase (Paludis phase の一部)にて対応した ebuild file 内部で定義されている関数が呼ばれます。この各関数がアンパックやメークや仮インストール等の各段階を示します。関数の中でシステムコマンドを直接記述するのではなく、helper 経由で記述すると GPM/Ports System が勝手に色々やってくれます。これだけです。helper は 70 種なく、覚える必要があるのは半分ないと思います。更に便利な eclass があります。
+
+
+以下の基本的なモジュールを読み込みます。
+
+ # /usr/libexec/paludis/die_function.bash
+ ebuild_load_module die_functions
+ # /usr/libexec/paludis/echo_function.bash
+ ebuild_load_module echo_functions
+ # /usr/libexec/paludis/kernel_functions.bash
+ ebuild_load_module kernel_functions
+ # /usr/libexec/paludis/sandbox.bash
+ ebuild_load_module sandbox
+ # /usr/libexec/paludis/portage_stubs.bash
+ ebuild_load_module portage_stubs
+ # /usr/libexec/paludis/list_functions.bash
+ ebuild_load_module list_functions
+ # /usr/libexec/paludis/multilib_functions.bash
+ ebuild_load_module multilib_functions
+ # /usr/libexec/paludis/install_functions.bah
+ ebuild_load_module install_functions
+ # /usr/libexec/paludis/build_functions.bash
+ ebuild_load_module build_functions
+ # /usr/libexec/paludis/eclass_functions.bash
+ ebuild_load_module eclass_functions
+ # /usr/libexec/paludis/work_around_broken_utilities.bash
+ ebuild_load_module work_around_boken_utilities
+
+action に従い phase に沿ったモジュールを読み込みます。
+
+ # /usr/libexec/paludis/buildin_metadata
+ # /usr/libexec/paludis/buildin_variable
+ # /usr/libexec/paludis/buildin_init
+ # /usr/libexec/paludis/buildin_prepare
+ # /usr/libexec/paludis/buildin_fetch
+ # /usr/libexec/paludis/buildin_merge
+ # /usr/libexec/paludis/buildin_unmerge
+ # /usr/libexec/paludis/buildin_tidyup
+ # /usr/libexec/paludis/buildin_strip
+ # /usr/libexec/paludis/buildin_loadenv
+ # /usr/libexec/paludis/buildin_saveenv
+ # /usr/libexec/paludis/buildin_fetchbin
+ # /usr/libexec/paludis/buildin_initbin
+ # /usr/libexec/paludis/buildin_unpackbin
+ ebuild_load_module buildin_$action
+ 
+ # /usr/libexec/paludis/src_unpack
+ # /usr/libexec/paludis/src_compile
+ # /usr/libexec/paludis/src_install
+ # /usr/libexec/paludis/src_test
+ ebuild_load_module src_$acton
+ 
+ # /usr/libexec/paludis/pkg_setup
+ # /usr/libexec/paludis/pkg_config
+ # /usr/libexec/paludis/pkg_nofetch
+ # /usr/libexec/paludis/pkg_preinst
+ # /usr/libexec/paludis/pkg_postinst
+ # /usr/libexec/paludis/pkg_prerm
+ # /usr/libexec/paludis/pkg_postrm
+ ebuild_load_mdule pkg_$action
+
+action に順い phase に沿った hook (*.bash) を読み込みます。
+
+ # /usr/share/paludis/hooks/ebuild_$action_pre/*.bash
+ # /etc/paludis/hooks/ebuild_$action_pre/*.bash
+ # ~/.paludis/hooks/ebuild_$action_pre/*.bash
+ prform_hook ebuild_$action_pre
+  
+ # /usr/share/paludis/hooks/ebuild_$action_fail/*.bash
+ # /etc/paludis/hooks/ebuild_$action_fail/*.bash
+ # ~/.paludis/hooks/ebuild_$action_fail/*.bash
+ prform_hook ebuild_$action_fail
+ 
+ # /usr/share/paludis/hooks/ebuild_$action_post/*.bash
+ # /etc/paludis/hooks/ebuild_$action_post/*.bash
+ # ~/.paludis/hooks/ebuild_$action_post
+ prform_hook ebuild_$action_post
+
+足りない helper [the_ebuild_environment(defined_commands)]_ も読み込まれます。
+
+ # helper とは ebuild file 向けの基本的な命令です。
+ # 上記のモジュールも一種で、シェルスクリプトだったり関数だったりします。
+ /usr/libexec/paludis/utils/canonicalise
+ /usr/libexec/paludis/utils/dobin
+ /usr/libexec/paludis/utils/doconfd
+ /usr/libexec/paludis/utils/dodir
+ /usr/libexec/paludis/utils/dodoc
+ /usr/libexec/paludis/utils/doenvd
+ /usr/libexec/paludis/utils/doexe
+ /usr/libexec/paludis/utils/dohard
+ /usr/libexec/paludis/utils/dohtml
+ /usr/libexec/paludis/utils/doinfo
+ /usr/libexec/paludis/utils/doinitd
+ /usr/libexec/paludis/utils/doins
+ /usr/libexec/paludis/utils/dolib
+ /usr/libexec/paludis/utils/dolib.a
+ /usr/libexec/paludis/utils/dolib.so
+ /usr/libexec/paludis/utils/doman
+ /usr/libexec/paludis/utils/domo
+ /usr/libexec/paludis/utils/donewins
+ /usr/libexec/paludis/utils/dosbin
+ /usr/libexec/paludis/utils/dosed
+ /usr/libexec/paludis/utils/dosym
+ /usr/libexec/paludis/utils/dounpack
+ /usr/libexec/paludis/utils/emake
+ /usr/libexec/paludis/utils/fowners
+ /usr/libexec/paludis/utils/fperms
+ /usr/libexec/paludis/utils/getfsize
+ /usr/libexec/paludis/utils/getmtime
+ /usr/libexec/paludis/utils/newbin
+ /usr/libexec/paludis/utils/newconfd
+ /usr/libexec/paludis/utils/newdoc
+ /usr/libexec/paludis/utils/newenvd
+ /usr/libexec/paludis/utils/newexe
+ /usr/libexec/paludis/utils/newinitd
+ /usr/libexec/paludis/utils/newins
+ /usr/libexec/paludis/utils/newlib.a
+ /usr/libexec/paludis/utils/newlib.so
+ /usr/libexec/paludis/utils/newman
+ /usr/libexec/paludis/utils/newsbin
+ /usr/libexec/paludis/utils/outputwrapper
+ /usr/libexec/paludis/utils/prepall
+ /usr/libexec/paludis/utils/prepalldocs
+ /usr/libexec/paludis/utils/prepallinfo
+ /usr/libexec/paludis/utils/prepallman
+ /usr/libexec/paludis/utils/prepallstrip
+ /usr/libexec/paludis/utils/prepdocs
+ /usr/libexec/paludis/utils/prepinfo
+ /usr/libexec/paludis/utils/prepman
+ /usr/libexec/paludis/utils/prepstrip
+
+
+
+** helper と eclass [#hd96cbe8]
+
+互換性のために古い helper [the_ebuild_environment(defined_commands)]_ もサポートしてます。足りないものは eclass で用意し repository と一緒、つまり ebuild file と eclass file は一緒に配布します。gentoo repository の場合は /usr/portage/eclass 以下にあります。
+
+ebuild file に helper にない関数が出現したら、eclass です。
+
+
+
+_____
+
+.. [paludis_manual] http://paludis.pioto.org/
+
+.. [ebuild_metadata(ebuild-defined_variables)] http://wiki.gentoo.gr.jp/index.php?ebuild_metadata(ebuild-defined_variables) に関連記事があります。
+
+.. [the_ebuild_environment(defined_variables)] http://wiki.gentoo.gr.jp/index.php?the_ebuild_environment(defined_variables) に関連記事があります。
+
+.. [ebuild_phase(ebuild-defined_functions)] http://wiki.gentoo.gr.jp/index.php?ebuild_phase(ebuild-defined_functions) に関連記事があります。
+
+.. [the_ebuild_environment(defined_commands)] http://wiki.gentoo.gr.jp/index.php?the_ebuild_environment(defined_commands) に関連記事があります。
+
+
+________________
+
+
+
+- [[Gentoo_Package_Manager]], [[Portage]], [[Paludis]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+- [[memorandum_about_Paludis(1)]], [[memorandum_about_Paludis(2)]], [[memorandum_about_Paludis(3)]], [[memorandum_about_Paludis(4)]], [[memorandum_about_Paludis(5)]], [[memorandum_about_Paludis(6)]], [[memorandum_about_Paludis(7)]], [[memorandum_about_Paludis(8)]], [[memorandum_about_Paludis(9)]], [[memorandum_about_Paludis(10)]], [[memorandum_about_Paludis(11)]], [[memorandum_about_Paludis(12)]], [[memorandum_about_Paludis(13)]], [[memorandum_about_Paludis(14)]], [[memorandum_about_Paludis(15)]], [[memorandum_about_Paludis(16)]]
+- [[repository]], [[USE_flag]], [[profile]]
+- [[ebuild_files]], [[ebuild_metadata(ebuild-defined_variables)]], [[ebuild_phase(ebuild-defined_functions)]], [[the_ebuild_environment(defined_variables)]], [[the_ebuild_environment(defined_commands)]], [[bash_for_ebuild]]
+
+
+________________
+
+- [2007-05-04] 気に入ったら書き足して下さい。 (yoshino)

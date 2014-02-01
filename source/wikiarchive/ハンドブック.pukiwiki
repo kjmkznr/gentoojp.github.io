@@ -1,0 +1,65 @@
+#contents
+#title
+
+*Gentoo とハンドブック [#be79fdc1]
+
+[[GLEP]] の 013 に提案され、既に利用できます。ドキュメント形式については [[XML ガイド:http://www.gentoo.org/doc/en/xml-guide.xml]]を参考にして下さい。コミュニティには特殊なファイルが幾つかあります。[[XML]] に関連記事があります。
+
+-[[ハンドブック:http://www.gentoo.org/doc/ja/handbook/index.xml]]
+-[[SELinuxハンドブック:http://www.gentoo.org/proj/ja/hardened/selinux/selinux-x86-handbook.xml]]
+-[[セキュリティ管理ハンドブック:http://www.gentoo.org/doc/ja/security/index.xml]]
+-[[開発者ハンドブック:http://www.gentoo.org/proj/en/devrel/handbook/handbook.xml]]
+
+**知らないコンピュータ用語ばかりが登場した際の解決手段 [#y462ebaf]
+
+「Portage でメタ・ディストリビューションをする」のが面白い所ですが、それ以上に有名なのが「インストールが難しいあれで苦労する」「コンパイル・ジャンキーなあれで暇潰しをする」「説明のない言葉が突然出現するあれで挫折感を味わう」です。
+
+最初の一週間で体験するため [[Gentoo]] の総合評価にそのまま繋がり易いというのはあると思います。その三点は [[Portage]] と関係無い所なので、それ等を流行りものにすることも可能だと思いますが、思想上 180 度方向転換はないようです。「ユーザの声を聞くより、ユーザの行動を観察する」にしても、失敗する人が多いのは事実で、少しづつですが改善されてます。アンケートもしてます。[[メタ・ディストリビューション]]、[[インストール]]、[[コンパイル]]、[[ハンドブック]]に関連記事があります。
+
+***「アーキテクチャ」(辞書検索例) [#o427d955]
+
+[[wikipedia:http://ja.wikipedia.org/]] の「[[コンピュータ・アーキテクチャ:http://ja.wikipedia.org/wiki/%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E3%83%BB%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3]]」参考。
+
+***「プラットフォーム」(辞書検索例) [#h86868dd]
+
+[[e-words:http://e-words.jp/]] の「[[プラットフォーム:http://e-words.jp/w/E38397E383A9E38383E38388E38395E382A9E383BCE383A0.html]]」参考。
+
+**マニュアルに難しい概念が出現した際の解決手段 [#e7854240]
+
+あまり理解していなくとも [[USEフラグ]]だけで[[メタ・ディストリビューション]]自体は完了してしまうのですが、運用するための設定ファイルは自分で記述しなければなりません。
+
+難かしい概念が出現した場合には、[[検索エンジン:http://www.google.co.jp]]や [[Linux Japanese FAQ プロジェクト:http://www.linux.or.jp/JF/]]や [[Linux Japanese Manual プロジェクト:http://www.linux.or.jp/JM/INDEX/index.html]]が助けになると思います。
+
+ウェブ上の文章だけでは分り難かったり、もの足りなければ、参考書でも調べられます。「パターソン & ヘネシー」「アンドリュー・S・タネンバウム」「W・リチャード・スティーヴンス」「……」有名人の解説書は沢山あります。有名人でなくとも自分で理解できるものが良いと思います。中規模以上の本屋さんに置いてありそうで読者層にジェンツー愛好者を含む参考書を探すとするならば O'REILLY、CQ 出版社、ピアソン・エデュケーション、……辺りから始めるといろいろ発見があると思います。
+
+***「SysVinit (init スクリプト)」(ドキュメント検索例) [#g89e4ca9]
+
+[[Linux Japanese Manual プロジェクト:http://www.linux.or.jp/JM/INDEX/index.html]] の「[[SysVinit (init スクリプト):http://www.linux.or.jp/JM/INDEX/linux.html]]」参考。
+
+***「iproute2 (ifconfig の後継)」(ドキュメント検索例) [#pafbb177]
+
+[[Linux Japanese FAQ プロジェクト:http://www.linux.or.jp/JF/]] の「[[iproute2 (ifconfig の後継):http://www.linux.or.jp/JF/JFdocs/Adv-Routing-HOWTO/]]」参考。
+
+________
+
+[[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]) の詳細は[[プロジェクトリスト:http://www.gentoo.org/proj/en/metastructure/projects.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]), [[Gentoo FAQ:http://www.gentoo.org/doc/ja/?catid=faq]], [[GentooJP FAQ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A3%C6%A3%C1%A3%D1%5D%5D]]
+- [[インストール]], [[Stage]], [[GRP]], [[Portageツリー]]
+- [[インストールした後にできること]], [[日本語入力設定事例集]], [[日本語デスクトップ環境/パッケージ]]
+- [[Gentooが採用している技術]]
+- [[コミュニティとの連絡手段]], [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]
+- [[本家に関連しそうな言葉]], [[GLEP]], [[コピーライト]], [[ライセンス]]
+
+[[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]]) の詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]])
+- [[メタ・ディストリビューション]], [[USEフラグ]], [[profile]], [[catalyst]], [[GNAP]]
+- [[コンパイル]], [[バイナリパッケージ]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+
+________
+
+-[2005-10-20] (yoshino)
+-[2006-10-01] (yoshino)

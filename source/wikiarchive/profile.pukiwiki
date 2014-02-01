@@ -1,0 +1,241 @@
+#contents
+#title
+
+*Portage と profile [#pc567472]
+
+[[Portage]] の設定の 1 つです。シンボリックリンク (/etc/make.profile) のリンク先で示します。自分で記述する必要はありません。リンク先を変更することで設定を変更します。[[USEフラグ]]に関連記事があります。
+
+**repository と profile [#f7b8ae15]
+
+[[profile]] は ebuild repository の一部です。関連記事が [[repository]] にあります。
+
+ + make.profile        
+   - parent
+   - deprecated
+   - virtuals
+   - use.defaults
+   - use.force
+   - use.mask
+   - package.use.force
+   - package.use.mask
+   - packages
+   - packages.build
+   - package.mask
+   - package.provided
+   - make.defaults
+
+
+* 2007.0 で指定可能な profile [#wf3d2a62]
+
+ #arch		profile_directory				status
+
+** alpha [#gf9de4fa]
+
+ # Alpha Profiles
+ #alpha		default-linux/alpha/2005.0			stable
+ #alpha		default-linux/alpha/2006.0			stable
+ alpha		default-linux/alpha/2006.1			stable
+ alpha		default-linux/alpha/2006.1/desktop		stable
+ #alpha		default-linux/alpha/2006.1/server		stable
+ alpha		default-linux/alpha/no-nptl			stable
+ alpha		default-linux/alpha/no-nptl/2.4			stable
+ alpha		default-linux/alpha/2007.0			dev
+ alpha		default-linux/alpha/2007.0/desktop		dev
+
+** amd64 [#seff5311]
+
+ # AMD64 Profiles
+ amd64		default-linux/amd64/2006.1			stable
+ amd64		default-linux/amd64/2006.1/desktop		stable
+ #amd64		default-linux/amd64/2006.1/server		stable
+ amd64		default-linux/amd64/2006.0/no-symlinks		dev
+ amd64		default-linux/amd64/2006.1/no-multilib		stable
+ amd64		default-linux/amd64/2007.0			dev
+ amd64		default-linux/amd64/2007.0/desktop		dev
+ amd64		default-linux/amd64/2007.0/no-multilib		dev
+
+** arm [#kc57188d]
+
+ # ARM Profiles
+ arm		default-linux/arm/2004.3			stable
+
+** hppa [#pbad005b]
+
+ # HPPA Profiles
+ #hppa		default-linux/hppa/2005.0			stable
+ hppa		default-linux/hppa/2006.1			stable
+ hppa		default-linux/hppa/2007.0			dev
+ hppa		default-linux/hppa/2007.0/desktop		dev
+
+** ia64 [#me57d6ca]
+
+ # IA64 Profiles
+ #ia64		default-linux/ia64/2005.0			stable
+ ia64		default-linux/ia64/2006.0			stable
+ ia64		default-linux/ia64/2007.0			stable
+ ia64		default-linux/ia64/2007.0/desktop		dev
+
+** m68k [#r1fde9c6]
+
+ # M68K Profiles
+ m68k		default-linux/m68k				dev
+
+** mips [#i096be74]
+
+ # MIPS Profiles
+ mips		default-linux/mips/2006.1/cobalt/o32		stable
+ mips		default-linux/mips/2006.1/generic-be/o32	stable
+ mips		default-linux/mips/2006.1/ip27/o32		stable
+ mips		default-linux/mips/2006.1/ip28/o32		stable
+ mips		default-linux/mips/2006.1/ip30/o32		stable
+ mips		default-linux/mips/2006.1/cobalt/o32/nptl	dev
+ mips		default-linux/mips/2006.1/generic-be/o32/nptl	dev
+ mips		default-linux/mips/2006.1/ip27/o32/nptl		dev
+ mips		default-linux/mips/2006.1/ip28/o32/nptl		dev
+ mips		default-linux/mips/2006.1/ip30/o32/nptl		dev
+ mips		default-linux/mips/2006.1/generic-be/n32	dev
+ mips		default-linux/mips/2006.1/ip27/n32		dev
+ mips		default-linux/mips/2006.1/ip28/n32		dev
+ mips		default-linux/mips/2006.1/ip30/n32		dev
+ mips		default-linux/mips/2006.1/generic-be/n32/nptl	dev
+ mips		default-linux/mips/2006.1/ip27/n32/nptl		dev
+ mips		default-linux/mips/2006.1/ip28/n32/nptl		dev
+ mips		default-linux/mips/2006.1/ip30/n32/nptl		dev
+ mips		default-linux/mips/2006.1/generic-be/n64	dev
+ mips		default-linux/mips/2006.1/generic-be/n64/nptl	dev
+
+** ppc32 [#m6b2eae8]
+
+ # PPC32 Profiles
+ ppc		default-linux/ppc/ppc32/2006.1			stable
+ #ppc		default-linux/ppc/ppc32/2006.1/G3		stable
+ #ppc		default-linux/ppc/ppc32/2006.1/G4		stable
+ #ppc		default-linux/ppc/ppc32/2006.1/G3/Pegasos	stable
+ #ppc		default-linux/ppc/ppc32/2006.1/G4/Pegasos	stable
+ ppc		default-linux/ppc/ppc32/2007.0			dev
+ ppc		default-linux/ppc/ppc32/2007.0/desktop		dev
+
+** ppc64 [#qe8bf2e1]
+
+ # PPC64 Profiles
+ #ppc64		default-linux/ppc/ppc64/2006.0/32bit-userland	stable
+ #ppc64		default-linux/ppc/ppc64/2006.0/64bit-userland	stable
+ ppc64		default-linux/ppc/ppc64/2006.1/64bit-userland	stable
+ #ppc64		default-linux/ppc/ppc64/2006.0/multilib		dev
+ ppc		default-linux/ppc/ppc64/2007.0/32bit-userland	dev
+ ppc64		default-linux/ppc/ppc64/2007.0/64bit-userland	dev
+
+** ppc MacOSX [#t4d46f7a]
+
+ # PPC Mac OS X Profiles
+ ppc-macos	default-darwin/macos/10.4			dev
+
+** s/390 [#k247bd8a]
+
+ # S/390 Profiles
+ s390		default-linux/s390/2006.0			stable
+
+** superh [#m07a33b1]
+
+ # SuperH Profiles
+ sh		default-linux/sh/2006.1				stable
+
+** sparc [#re87c042]
+
+ # SPARC Profiles
+ #sparc		default-linux/sparc/sparc32/2006.1/2.4		dev
+ sparc		default-linux/sparc/sparc64/2006.1/2.4		stable
+ sparc		default-linux/sparc/sparc64/2006.1	stable
+
+** x86 [#j5946fa4]
+
+ # x86 Profiles
+ #x86		default-linux/x86/2005.0			stable
+ #x86		default-linux/x86/2005.1			stable
+ #x86		default-linux/x86/2006.0			stable
+ x86		default-linux/x86/2006.1			stable
+ x86		default-linux/x86/no-nptl			stable
+ x86		default-linux/x86/no-nptl/2.4			stable
+ x86		default-linux/x86/2006.1/desktop		stable
+ #x86		default-linux/x86/2006.1/server			stable
+ x86		default-linux/x86/2007.0			dev
+ x86		default-linux/x86/2007.0/desktop		dev 
+
+** kFreeBSD [#qebfb217]
+
+ # Gentoo/FreeBSD Profiles
+ sparc-fbsd	default-bsd/fbsd/6.2/sparc			dev
+ x86-fbsd	default-bsd/fbsd/6.2/x86			dev
+
+** hardened (SELinux+RSBAC+Grsecurity+PaX) [#e63be3f5]
+
+ # hardened multiarch profiles
+ amd64		hardened/amd64					stable
+ amd64		hardened/amd64/multilib				stable
+ ppc		hardened/ppc					dev
+ ppc64		hardened/ppc64					dev
+ #x86		hardened/x86					stable
+ x86		hardened/x86/2.6				stable
+
+** selinux [#g8fba0de]
+
+ # selinux profiles
+ #alpha		selinux/alpha/2006.1				dev
+ amd64		selinux/amd64/2006.1				dev
+ #mips		selinux/mips/mips64/2006.1			dev
+ ppc		selinux/ppc/ppc32/2006.1/G3			dev
+ ppc		selinux/ppc/ppc32/2006.1/G4			dev
+ #sparc		selinux/sparc/sparc64/2006.1			dev
+ x86		selinux/x86/2006.1				dev
+
+** uclibc/embedded [#oc0b0dd7]
+
+ # uclibc/embedded multiarch profiles
+ #amd64		uclibc/amd64					dev
+ #arm		uclibc/arm					dev
+ #arm		uclibc/arm/2.4					dev
+ #mips		uclibc/mips					dev
+ #mips		uclibc/mips/hardened				dev
+ #ppc		uclibc/ppc					dev
+ #ppc		uclibc/ppc/2.4					dev
+ #ppc		uclibc/ppc/hardened				dev
+ #ppc		uclibc/ppc/hardened/2.4				dev
+ #sh		uclibc/sh					dev
+ #sh		uclibc/sh/2.4					dev
+ #x86		uclibc/x86					dev
+ #x86		uclibc/x86/2.4					dev
+ #x86		uclibc/x86/2005.1				dev
+ #x86		uclibc/x86/2005.1/2.4				dev
+ #x86		uclibc/x86/hardened				dev
+ #x86		uclibc/x86/hardened/2.4				dev
+
+** vserver (LVS/OpenVZ) [#j0658ef7]
+
+ #amd64	/usr/portage/profiles/default-linux/amd64/vserver	dev
+ #x86	/usr/portage/profiles/default-linux/x86/vserver	dev
+
+________
+
+[[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]) の詳細は[[プロジェクトリスト:http://www.gentoo.org/proj/en/metastructure/projects.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]), [[Gentoo FAQ:http://www.gentoo.org/doc/ja/?catid=faq]], [[GentooJP FAQ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A3%C6%A3%C1%A3%D1%5D%5D]]
+- [[インストール]], [[Stage]], [[GRP]], [[Portageツリー]]
+- [[インストールした後にできること]], [[日本語入力設定事例集]], [[日本語デスクトップ環境/パッケージ]]
+- [[Gentooが採用している技術]]
+- [[コミュニティとの連絡手段]], [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]
+- [[本家に関連しそうな言葉]], [[GLEP]], [[コピーライト]], [[ライセンス]]
+
+[[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]]) の詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]])
+- [[メタ・ディストリビューション]], [[USEフラグ]], [[profile]], [[catalyst]], [[GNAP]]
+- [[コンパイル]], [[バイナリパッケージ]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+
+________
+
+-[2005-10-20] 
+-[2006-09-17] 自分が調べた際のメモをほぼそのまま貼りつけているだけだったのを省察しました。 (yoshino)
+-[2006-11-05] ハンドブックに sys-apps/Portage-2.1 に関する説明が加えられるようです。今後はハンドブックが確実です。 (yoshino)
+-[2007-05-04] 2007.0 (yoshino)

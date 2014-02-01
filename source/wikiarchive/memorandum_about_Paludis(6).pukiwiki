@@ -1,0 +1,251 @@
+#title
+#contents
+
+* ebuild 管理だけでなく Backup (CVS, SVN, DARCS, GIT, RSYNC, TAR, SSH, et al.) 管理にも使う [#b3345bfa]
+
+公式サイトのマニュアル [paludis_manual]_ で確認して下さい。
+
+paludis-0.24 で確認しています。
+
+gentoo repository の同期には Rsync を使っています。CVS を一般公開しているプロジェクトの repository を登録すれば、CVS で同期します。TAR で書庫化したものを公開しているプロジェクトの repository であれば FTP 等で同期します。repository の属性だけで対応します。key の sync が読込先、key の location が保存先です。key の sync_options が各コマンドへの引数になります。複数の開発体制を集中管理出来ます。詳しくは paludis --list-sync-protocols にあります。
+
+*** repository ではなく、ebuild file の SCM (CVS, SVN, DARCS, GIT, et al.) への対応 [#fcb2e800]
+
+eclass で表現します。これは Portage でもサポートしています。
+
+本家ではサポートしたがらない開発版でも、ebuild file を自作してしまえば管理出来ます。一つ二つでは感じないかもしれませんが、数が増えると便利なのを実感出来ます。因みにサポートしたがらない理由は Gentoo コミュニティへバグ報告されても困るからです。
+
+
+* cvs+ext [#h665c67d]
+
+- cvs+ext://[USERNAME[:PASSWORD]@]SERVER:/PATH:MODULE
+- --cvs-option=foo
+- --cvs-checkout-option=bar
+
+ $CVS_WRAPPER cvs ${CVS_OPTIONS[@]} -d $CVSROOT login
+ $CVS_WRAPPER cvs ${CVS_OPTIONS[@]} -d $CVSROOT checkout
+              -P -d $LOCAL ${CVS_CHECKOUT_OPTIONS[@]} $MODULE
+
+* cvs+pserver [#pd9a8d0b]
+
+- cvs+pserver://[USERNAME[:PASSWORD]@]SERVER:/PATH:MODULE
+- --cvs-option=foo
+- --cvs-checkout-option=bar
+
+ $CVS_WRAPPER cvs ${CVS_OPTIONS[@]} -d $CVSROOT login
+ $CVS_WRAPPER cvs ${CVS_OPTIONS[@]} -d $CVSROOT checkout
+              -P -d $LOCAL ${CVS_CHECKOUT_OPTIONS[@]} $MODULE
+
+* cvs+ssh [#e791eab7]
+
+- cvs+ssh://[USERNAME[:PASSWORD]@]SERVER:/PATH:MODULE
+- --cvs-option=foo
+- --cvs-checkout-option=bar
+
+ $CVS_WRAPPER cvs ${CVS_OPTIONS[@]} -d $CVSROOT login
+ $CVS_WRAPPER cvs ${CVS_OPTIONS[@]} -d $CVSROOT checkout
+              -P -d $LOCAL ${CVS_CHECKOUT_OPTIONS[@]} $MODULE
+
+* svn [#a329c7b1]
+
+- svn://[USERNAME@]SERVER/PATH
+- --svn-checkout-option=foo
+
+ $SVN_WRAPPER svn checkout ${SVN_CHECKOUT_OPTIONS[@]} $REMOTE $LOCAL
+
+* svn+http [#a9bbfa8a]
+
+- svn+http://[USERNAME[:PASSWORD]@]SERVER[:PORT]/PATH
+- --svn-checkout-option=foo
+
+ $SVN_WRAPPER svn checkout ${SVN_CHECKOUT_OPTIONS[@]} $REMOTE $LOCAL
+
+* svn+https [#xe947cac]
+
+- svn+https://[USERNAME[:PASSWORD]@]SERVER[:PORT]/PATH
+- --svn-checkout-option=foo
+
+ $SVN_WRAPPER svn checkout ${SVN_CHECKOUT_OPTIONS[@]} $REMOTE $LOCAL
+
+* svn+ssh [#xf3d163f]
+
+- svn+ssh://[USERNAME[:PASSWORD]@]SERVER:/PATH
+- --svn-checkout-option=foo
+
+* darcs+http [#aed09027]
+
+- darcs+http://[USERNAME[:PASSWORD]@]SERVER[:PORT]/PATH
+- --darcs-get-option=foo
+- --darcs-pull-option=bar
+
+ $DARCS_WRAPPER darcs pull --all --set-scripts-exclutable
+                ${DARCS_PULL_OPTIONS[@]} $REMOTE
+
+ $DARCS_WRAPPER darcs get --partial --set-scripts-exclutable
+                ${DARCS_PULL_OPTIONS[@]} --repo-name=$LOCAL $REMOTE
+
+* darcs+ssh [#g7a4b954]
+
+- darcs+ssh://[USERNAME[:PASSWORD]@]SERVER:/PATH
+- --darcs-get-option=foo
+- --darcs-pull-option=bar
+
+ $DARCS_WRAPPER darcs pull --all --set-scripts-exclutable
+                ${DARCS_PULL_OPTIONS[@]} $REMOTE
+
+ $DARCS_WRAPPER darcs get --partial --set-scripts-exclutable
+                ${DARCS_PULL_OPTIONS[@]} --repo-name=$LOCAL $REMOTE
+
+* git [#cd5fd6b0]
+
+- git://SERVER/PATH
+- --git-clone-option=foo
+- --git-pull-option=bar
+
+ $GIT_WRAPPER git pull ${GIT_PULL_OPTIONS[@]} $REMOTE
+
+ $GIT_WRAPPER git clone ${GIT_CLONE_OPTIONS[@]} $REMOTEb $LOCAL
+
+* git+http [#g47fc5d3]
+
+- git+http://[USERNAME[:PASSWORD]@]SERVER[:PORT]/PATH
+- --git-clone-option=foo
+- --git-pull-option=bar
+
+ $GIT_WRAPPER git pull ${GIT_PULL_OPTIONS[@]} $REMOTE
+
+ $GIT_WRAPPER git clone ${GIT_CLONE_OPTIONS[@]} $REMOTEb $LOCAL
+
+* git+ssh [#t7c62c4a]
+
+- git+ssh://[USERNAME[:PASSWORD]@]SERVER/PATH
+- --git-clone-option=foo
+- --git-pull-option=bar
+
+ $GIT_WRAPPER git pull ${GIT_PULL_OPTIONS[@]} $REMOTE
+
+ $GIT_WRAPPER git clone ${GIT_CLONE_OPTIONS[@]} $REMOTEb $LOCAL
+
+* file [#bf4ee8d5]
+
+- file:///PATH
+- --exclude=foo
+- --rsync-option=bar
+
+$RSYNC_WRAPPER rsync --recursive --links --safe-links
+               --perms --times --compress --force --whole-file
+               --delete --delete-after --stats --timeout=180
+               --exclude=/distfiles
+               --exclude=/packages
+               --exclude=/local
+               --exclude=/.cache
+               --progress ${RSYNC_OPTIONS[@]}
+               $REMOTE $LOCAL
+
+* rsync [#q714d86e]
+
+- rsync://[USERNAME@]SERVER[:PORT]/PATH
+- --exclude=foo
+- --rsync-option=bar
+
+$RSYNC_WRAPPER rsync --recursive --links --safe-links
+               --perms --times --compress --force --whole-file
+               --delete --delete-after --stats --timeout=180
+               --exclude=/distfiles
+               --exclude=/packages
+               --exclude=/local
+               --exclude=/.cache
+               --progress ${RSYNC_OPTIONS[@]}
+               $REMOTE $LOCAL
+
+* tar+file [#g2c21180]
+
+- tar+file:///PATH
+- --exclude-from=foo
+- --strip-components=bar
+- --fetcher-option=baz
+- --rsync-option=qux
+- --tar-option=quux
+
+ $FETCHER ${FETCHER_OPTIONS[@]} $URL $TEMP/$TARFILE
+ $RSYNC_WRAPPER rsync --recursive --links --safe-links
+                --perms --times --compress --force --whole-file
+                --delete --delete-after --stats --timeout=180
+                --exclude=/distfiles
+                --exclude=/packages
+                --exclude=/local
+                --exclude=/.cache
+                --progress ${RSYNC_OPTIONS[@]}
+                $UNPACKDIR $LOCAL
+
+* tar+ftp [#tc5bd8ca]
+
+- tar+ftp://[USERNAME[:PASSWORD]@]SERVER[:PORT]/PATH
+- --exclude-from=foo
+- --strip-components=bar
+- --fetcher-option=baz
+- --rsync-option=qux
+- --tar-option=quux
+
+ $FETCHER ${FETCHER_OPTIONS[@]} $URL $TEMP/$TARFILE
+ $RSYNC_WRAPPER rsync --recursive --links --safe-links
+                --perms --times --compress --force --whole-file
+                --delete --delete-after --stats --timeout=180
+                --exclude=/distfiles
+                --exclude=/packages
+                --exclude=/local
+                --exclude=/.cache
+                --progress ${RSYNC_OPTIONS[@]}
+                $UNPACKDIR $LOCAL
+
+* tar+http [#i6b08764]
+
+- tar+http://[USERNAME[:PASSWORD]@]SERVER[:PORT]/PATH
+- --exclude-from=foo
+- --strip-components=bar
+- --fetcher-option=baz
+- --rsync-option=qux
+- --tar-option=quux
+
+ $FETCHER ${FETCHER_OPTIONS[@]} $URL $TEMP/$TARFILE
+ $RSYNC_WRAPPER rsync --recursive --links --safe-links
+                --perms --times --compress --force --whole-file
+                --delete --delete-after --stats --timeout=180
+                --exclude=/distfiles
+                --exclude=/packages
+                --exclude=/local
+                --exclude=/.cache
+                --progress ${RSYNC_OPTIONS[@]}
+                $UNPACKDIR $LOCAL
+
+
+
+
+_____
+
+.. [paludis_manual] http://paludis.pioto.org/
+
+.. [ebuild_metadata(ebuild-defined_variables)] http://wiki.gentoo.gr.jp/index.php?ebuild_metadata(ebuild-defined_variables) に関連記事があります。
+
+.. [the_ebuild_environment(defined_variables)] http://wiki.gentoo.gr.jp/index.php?the_ebuild_environment(defined_variables) に関連記事があります。
+
+.. [ebuild_phase(ebuild-defined_functions)] http://wiki.gentoo.gr.jp/index.php?ebuild_phase(ebuild-defined_functions) に関連記事があります。
+
+.. [the_ebuild_environment(defined_commands)] http://wiki.gentoo.gr.jp/index.php?the_ebuild_environment(defined_commands) に関連記事があります。
+
+
+________________
+
+
+
+- [[Gentoo_Package_Manager]], [[Portage]], [[Paludis]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+- [[memorandum_about_Paludis(1)]], [[memorandum_about_Paludis(2)]], [[memorandum_about_Paludis(3)]], [[memorandum_about_Paludis(4)]], [[memorandum_about_Paludis(5)]], [[memorandum_about_Paludis(6)]], [[memorandum_about_Paludis(7)]], [[memorandum_about_Paludis(8)]], [[memorandum_about_Paludis(9)]], [[memorandum_about_Paludis(10)]], [[memorandum_about_Paludis(11)]], [[memorandum_about_Paludis(12)]], [[memorandum_about_Paludis(13)]], [[memorandum_about_Paludis(14)]], [[memorandum_about_Paludis(15)]], [[memorandum_about_Paludis(16)]]
+- [[repository]], [[USE_flag]], [[profile]]
+- [[ebuild_files]], [[ebuild_metadata(ebuild-defined_variables)]], [[ebuild_phase(ebuild-defined_functions)]], [[the_ebuild_environment(defined_variables)]], [[the_ebuild_environment(defined_commands)]], [[bash_for_ebuild]]
+
+
+________________
+
+- [2007-05-04] 気に入ったら書き足して下さい。 (yoshino)

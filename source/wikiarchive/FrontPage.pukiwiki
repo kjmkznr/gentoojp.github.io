@@ -1,0 +1,37 @@
+* Gentoo Linux Wiki Front Page [#c28a0e48]
+
+[[Gentoo]] は、計算機、交換器、携帯器等に利用されるオペレーティングシステムやミドルウェアやアプリケーションといったソフトウェアの集合体です。オープンソースです。
+
+[[Gentoo]] は[[ジェンツー]]と読みます。[[Portage]] は[[ポーテージ]]と読みます。最大の魅力は [[Gentoo_Package_Manager]] ([[Portage]], [[Paludis]], [[Pkgcore]], et al.) です。もっと知りたいと思ってくれたのでしたら[[ハンドブック]]から始めてみて下さい。ドキュメントは集中管理されているため[[インストール]]後も迷うことは少ないと思います。
+
+- ハンドブック([[原文:http://www.gentoo.org/doc/en/handbook/index.xml]]、[[訳文:http://www.gentoo.org/doc/ja/handbook/index.xml]])
+- インストールガイド([[原文:http://www.gentoo.org/doc/en/?catid=install]]、[[訳文:http://www.gentoo.org/doc/ja/?catid=install]])
+- ドキュメントリスト([[原文:http://www.gentoo.org/doc/en/list.xml]]、[[訳文:http://www.gentoo.org/doc/ja/list.xml]]、[[更新履歴:http://www.gentoo.org/proj/en/gdp/index.xml#doc_chap5]]、[[執筆状況:http://www.gentoo.org/doc/ja/overview.xml]])
+- プロジェクトリスト([[原文:http://www.gentoo.org/proj/en/index.xml?showlevel=3]])
+- [[公式Wiki:http://wiki.gentoo.org]]
+- Gentoo の紹介 ([[原文:http://www.gentoo.org/main/en/about.xml]]、[[訳文:http://www.gentoo.org/main/ja/about.xml]])、Gentoo の人生観 ([[原文:http://www.gentoo.org/main/en/philosophy.xml]]、[[訳文:http://wiki.gentoo.gr.jp/index.php?%5B%5B%BC%C1%CC%E4%5D%5D]])、Gentoo の事業への責任 ([[原文:http://www.gentoo.org/main/en/contract.xml]]、[[訳文:http://www.gentoo.org/main/ja/contract.xml]])
+[[Gentoo Linux ディストリビューションの誕生:http://www.ibm.com/developerworks/jp/linux/library/l-dist1/]]、[[Enoch 発 Gentoo 行(「若干の "つまづき" と "いさかい"」経由):http://www.ibm.com/developerworks/jp/linux/library/l-dist2/]]、[[Linux からの離脱と復帰:http://www.ibm.com/developerworks/jp/linux/library/l-dist3/]]、[[ebuild システムの探訪:http://www.ibm.com/developerworks/jp/linux/library/l-bash3.html]]、[[IBM や Intel に掲載された原文リスト:http://www.gentoo.org/doc/en/articles/]]
+- [[日本語入力設定事例集]]、[[日本語デスクトップ環境/パッケージ]]
+
+公式ドキュメントの他、定期的にチェックすべきなのは [[BTS (ジェンツー独特のコミュニティ窓口):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]、[[GLSA (脆弱性注意報告):http://wiki.gentoo.gr.jp/index.php?GentooLinuxSecurityAnnouncements]]、Forumsの[[News & Announcements:http://forums.gentoo.org/viewforum-f-16.html]]、%%[[GWN (コミュニティの動きを教えてくれる週刊ニュース):http://wiki.gentoo.gr.jp/index.php?GWN]] →%% [[GMN (月刊ニュース):http://blogs.gentoo.org/news/]] 辺りです。[[Forums:http://forums.gentoo.org/]] が公認された後、非公式サイトで最も有名なのは [[Gentoo-Wiki.com:http://en.gentoo-wiki.com/wiki/Main_Page]] 辺りです。
+
+-BTS ([[原文:http://bugs.gentoo.org/]])
+-GLSA ([[原文:http://www.gentoo.org/security/en/glsa/index.xml]]、emerge --sync 後の /usr/portage/metadata/glsa/○○、paludis --sync 後の paludis --report、pmaint sync 後の pmerge --set=glsa、[[Scan Net Security の検索:https://www.netsecurity.ne.jp/modules/pagemanager/indexsearch.php?form_id=154&params%5Bkey%5D2=gentoo]]、[[Yahoo! ニュースの検索:http://nsearch.yahoo.co.jp/bin/search?p=gentoo&st=n&c=secu]])
+-GWN → GMN ([[原文:http://www.gentoo.org/news/en/gwn/gwn.xml]]、[[訳文:http://www.gentoo.org/news/ja/gwn/gwn.xml]])
+-[[Forums:http://forums.gentoo.org/]]、[[Gentoo-Wiki.com:http://en.gentoo-wiki.com/wiki/Main_Page]]
+
+* Gentoo Linux Wiki News [#m71f4996]
+
+-[[／dev／shm／GentooLinuxWikiNEWS]]
+-過去のニュース::[[GentooLinuxWikiNEWS_2007-01-01_2007-11-23]]
+-過去のニュース::[[GentooLinuxWikiNEWS_2006-01-01_2006-12-31]]
+
+-[2005-12-03] Front Page に紹介文を追加しました。
+
+-2004/3/21 Wiki新デザインへ ~
+
+いい機会なので過去のニュースを[[ニュース過去ログ]]へ移動しました。
+
+今後ここにはこのWikiならではのニュースを自由に追加していってください。
+
+-2002/08/02 正式公開

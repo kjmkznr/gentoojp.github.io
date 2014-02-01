@@ -1,0 +1,33 @@
+#contents
+#title
+
+*Gentoo と metadata.xml [#q7755094]
+
+2 種類あります。[[Portageツリー]]に含まれるカテゴリーを説明する [[metadata.xml]] とパッケージを説明する [[metadata.xml]] です。
+
+パッケージが何処に分類されるのかが分ります。[[GLEP]] の 034 により国際化も視野になっています。[[app-portage/herdstat]] で活用できます。[[Herds.xml & Metadata.xmlガイド:http://www.gentoo.org/proj/en/metastructure/herds/index.xml]]を参考にして下さい。[[XML]] に関連記事があります。
+
+開発用ドキュメントやプロジェクト特有のドキュメントは、本家が英語を理解する人を求めているため翻訳されません。コミュニティには特殊なファイルが幾つかあります。
+
+** app-portage/herdstat [#cb5b95d6]
+
+[[app-portage/herdstat]] に関連記事があります。
+
+**サンプル：net-misc/dhcp [#u7acbe70]
+
+ <?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+ <pkgmetadata>
+ 	<herd>base-system</herd>
+ 	<maintainer>
+ 		<email>uberlord@gentoo.org</email>
+ 		<name>Roy Marples</name>
+ 	</maintainer>
+ 	<longdescription>The ISC DHCP client/server package.</longdescription>
+ 	<longdescription lang="ja">ISC DHCP クライアント/サーバ・パッケージです。</longdescription>
+ </pkgmetadata>
+
+========
+
+-[2005-10-20] 
+-[2006-10-20] (yoshino)

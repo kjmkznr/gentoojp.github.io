@@ -1,0 +1,134 @@
+#contents
+
+*SSHの設定方法 [#o6ccaa54]
+
+sshを使用するためには公開鍵を作成しSourceforgeに登録しなければなりません。
+
+まず、鍵を生成します。（すべてのコマンドを一般ユーザーで行います）
+ $ ssh-keygen -t rsa
+ いくつか質問されますが難しいことはないです。
+
+すると、~/.ssh/　以下にいくつかファイルができていると思います。
+この中のid_rsa.pubの中身をSourceforge.JP上のアカウント管理内の一番下の”鍵の編集”をクリックしてから、コピーペーストします。このとき改行が入らないように注意してください。
+
+反映まで少し時間がかかるそうなので少々待ちます。
+
+そして以下のコマンドでログインできるか確認します。useridはSourceforge上のIDです。
+ $ ssh userid@shell.sourceforge.jp
+ Enter passphrase for key '/home/user/.ssh/id_rsa': ←　パスワード入れる
+ 　
+ userid@sf-usr-shell:~$  ←　ログイン成功
+
+keychain,key-agentの設定（任意）~
+sshを使用するたびにパスワードを入力するのは面倒なものです。~
+また、cronやshellスクリプトで実行する場合にはパスワード入力がないほうが便利な場合も多くあります。~
+その欲求を解決してくれるのが、key-agent,keychainの仕組みです。~
+パスワードを記述したファイルをどこかに保存するわけではないので、セキュアに運用が可能です。~
+
+まずkeychainをインストールします。
+ # emerge keychain
+
+.bash_profile に以下の行を加えます。
+ /usr/bin/keychain ~/.ssh/id_rsa
+ source ~/.ssh-agent*
+
+この設定をした次のときにはパスワードを１回聞かれますがその後は聞かれることはありません。~
+（マシンを再起動したり、ssh-agentプロセスを終了させると再び聞かれます。）
+
+*CVSの利用方法 [#q87719f2]
+まず上記SSHの登録を行ってください。
+
+CVSをインストールしていなければインストールします。
+ # emerge cvs
+
+そして以下の環境変数をセットします。
+ export CVS_RSH=ssh
+ export CVSROOT=userid@cvs.sourceforge.jp:/cvsroot/gentoojp
+ (useridはsourceforge.jpでのあなたのIDです。)
+
+後は通常のCVSの操作を行います。~
+詳しくは、色々なサイトや書籍を参照ください。
+(google等でcvsと検索すれば山のように出てきます)
+
+*ebuildをテスト用に公開したい [#s5fba45d]
+
+- ebuildを作成したが本家に登録するには自信がない
+- とりあえず何人かにテストしてもらいたい
+- 疑問点があるので意見を聞きたい
+
+などの理由で、公開したい場合BugTrackを使用することができます。
+
+BugTrackから必要な項目を入力して自分のebuild用のページを作成してください。
+作成後に、ファイルの添付を行ってください。
+
+Wikiという性質上添付したファイルは必ず自分の手元にも残しておいてください。
+
+このシステムとSourceforge.jpのCVSはそれぞれ独立しています。両方に登録してもいいですし、片方だけでも問題ありません。
+
+*テスト用に公開されたebuildをテストしたい [#i1d7a69d]
+ここではGentoo Linuxのユーザーとして基本的なこと(emerge syncとか)をわかっている人を前提で書きます。
+
+基本的にPortageのファイル郡は/usr/portage以下に配置されます。
+ここでemerge syncせずに手に入れたebuildファイルはどこにおけばいいでしょうか？
+
+この場合PortageのOverlay機能を使用します。Overlayというのは直訳すると、重ねるとかかぶせるということになります。これは/usr/portageディレクトリに他のディレクトリをかぶせて、それ全体をPortageのファイルとして扱う機能です。
+
+かぶせるディレクトリを/etc/make.confで指定します。
+ PORTDIR_OVERLAY="/usr/portage.local"
+
+これで、/usr/portage ディレクトリに/usr/portage.localディレクトリがOverlayされるわけです。
+
+一つ例を挙げて説明します。~
+[[日本語groff]]から日本語に対応したgroffのebuildをダウンロードし、展開します。
+
+ # tar xzvf groff.tgz
+ groff/
+ groff/files/
+ groff/files/groff-1.17.2-infoext.patch
+ groff/files/digest-groff-1.17.2-r50
+ groff/groff-1.17.2-r50.ebuild
+
+これを/usr/portage.local 以下にコピーします。このとき注意点として/usr/portageと同じ階層構造でコピーします。
+
+ # mkdir /usr/portage.local/sys-apps
+ # cp -r groff /usr/portage.local/sys-apps/
+
+これで準備は完了です。
+
+後は、いつものようにインストールを行います。
+ # emerge --update groff
+ (又は)
+ # emerge --update world
+
+これで、日本語に対応したgroffがインストールされます。
+
+インストール後は通常のebuildからインストールしたパッケージと同様の扱いになりますので、unmergeなどは問題なく行えます。
+
+また[[日本語man]]のように、元のebuildが存在しない場合もあります。
+その場合は好きなカテゴリのディレクトリに入れてしまって構いません。
+
+たとえば、/usr/portage.local/app-i18n/ 以下にコピーすればよいでしょう。
+ # tar xzvf man-pages-ja.tgz 
+ man-pages-ja/
+ man-pages-ja/man-pages-ja-20020715.ebuild
+ man-pages-ja/files/
+ man-pages-ja/files/digest-man-pages-ja-20020715
+ man-pages-ja/files/man-pages-ja-20020715-gentoo.diff
+ # mkdir /usr/portage.local/app-i18n
+ # cp -r man-pages-ja /usr/portage.local/app-i18n/
+
+インストールを行う。
+ # emerge man-pages-ja
+
+非常に簡単なので、どんどんテストして感想をフィードバックしてください。
+
+*ドキュメントの翻訳をしたい [#x874c759]
+現在[[翻訳プロジェクト]]上で翻訳を行っています。最終的には本家へmergeする予定です。
+その後の扱いについては未定です。
+
+*オリジナルのドキュメントを登録したい [#tccb2312]
+現在登録する場所はないのでとりあえず、BugTrackに登録しておいてください。
+又は、wiki上に新規で作成してもらっても問題ありません。
+
+*FAQを投稿したい [#j3443a41]
+[[ＦＡＱ]]からご自由に追加・修正してください。

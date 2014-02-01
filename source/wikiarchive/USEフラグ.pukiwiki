@@ -1,0 +1,319 @@
+#contents
+#title
+
+*メタ・ディストリビューションと USEフラグ [#w1d030f9]
+
+[[USEフラグ]]のオンオフで[[コンパイル]]の連鎖を制御し、[[メタ・ディストリビューション]]を行います。
+
+* USE_flag と make.profile [#mf5a7f61]
+
+** 一般的と思われるデスクトップ用途 [#edf32c93]
+
+*** make.profile -> /usr/portage/profiles/default-linux/amd64/2007.0/desktop [#df705cd6]
+
+具体的には以下です。覚える必要はありません。
+
+ USE="acpi 
+      alsa 
+      arts 
+      cairo 
+      cdr 
+      dbus 
+      dvd 
+      dvdr 
+      dvdread 
+      eds 
+      emboss 
+      encode 
+      esd 
+      evo 
+      fam 
+      firefox 
+      gif 
+      gnome 
+      gpm 
+      gstreamer 
+      gtk 
+      hal 
+      jpeg 
+      kde 
+      kerberos 
+      ldap 
+      mad 
+      mikmod 
+      mp3 
+      mpeg 
+      ogg 
+      opengl 
+      oss 
+      pdf 
+      png 
+      qt3 
+      qt3support 
+      qt4 
+      quicktime 
+      sdl 
+      spell 
+      svg 
+      tiff 
+      truetype 
+      vorbis 
+      win32codecs 
+      unicode 
+      X 
+      xml 
+      xv"
+ 以下の共通の USE_flag も加わります。
+
+
+** 一般的と思われるサーバ用途 [#u1b927fa]
+
+*** make.profile -> /usr/portage/profiles/default-linux/amd64/2007.0/server [#k576785a]
+
+具体的には以下です。覚える必要はありません。
+
+ USE="apache2
+      ldap 
+      mailwrapper 
+      mysql 
+      snmp 
+      truetype 
+      xml"
+ 以下の共通の USE_flag も加わります。
+
+** その他 [#u2bbef14]
+
+*** 共通の USE_flag -- make.profile -> /usr/portage/profiles/default-linux/amd64/2007.0 [#ged6c90d]
+
+以下は全て継承しています。覚える必要はありません。
+
+ # /usr/portage/profiles/base
+ USE="${USE} midi"
+
+ # /usr/portage/profiles/default-linux/
+ USE="bitmap-fonts 
+      truetype-fonts 
+      type1-fonts"
+ USE="${USE} 
+      fortran"
+ USE="${USE} 
+      dri"
+ USE="${USE} 
+      pppd 
+      isdnlog"
+ USE="${USE} 
+      cli 
+      pcre 
+      reflection 
+      session 
+      spl"
+ USE="${USE} 
+      xorg"
+ USE="${USE} 
+      cracklib"
+ USE="${USE} 
+      iconv"
+ INPUT_DEVICES="keyboard 
+                mouse 
+                evdev"
+ VIDEO_CARDS="dummy 
+              fbdev 
+              v4l"
+
+ # /usr/portage/profiles/default-linux/amd64/
+ USE="berkdb 
+      crypt 
+      ipv6 
+      ncurses 
+      nls 
+      pam 
+      perl 
+      python 
+      readline 
+      ssl 
+      tcpd 
+      zlib"
+ USE="${USE} 
+      mmx 
+      sse 
+      sse2"
+ VIDEO_CARDS="apm 
+              ark 
+              ati 
+              chips 
+              cirrus 
+              cyrix 
+              dummy 
+              fbdev 
+              glint 
+              i128 
+              i810 
+              mga 
+              neomagic 
+              nv 
+              rendition 
+              s3 
+              s3virge 
+              savage 
+              siliconmotion 
+              sis 
+              sisusb 
+              tdfx 
+              tga 
+              trident 
+              tseng 
+              v4l 
+              vesa 
+              vga 
+              via 
+              vmware 
+              voodoo"
+ ALSA_CARDS="ali5451 
+             als4000 
+             atiixp 
+             atiixp-modem 
+             bt87x 
+             ca0106 
+             cmipci 
+             emu10k1x 
+             ens1370 
+             ens1371 
+             es1938 
+             es1968 
+             fm801 
+             hda-intel 
+             intel8x0 
+             intel8x0m 
+             maestro3 
+             trident 
+             usb-audio 
+             via82xx 
+             via82xx-modem 
+             ymfpci"
+
+ # /usr/portage/profiles/default-linux/amd64/2007.0/
+ USE="acl 
+      cups 
+      gdbm 
+      gpm 
+      libg++ 
+      nptl 
+      nptlonly 
+      unicode"
+
+
+*** 全てを手動で行う -- make.profile -> /usr/portage/profiles/default-linux/amd64/2007.0 [#w749db98]
+
+全てを取消します。
+
+ USE="-*"
+
+[[Portage]] であれば /etc/portage/package.use で $PF 毎に指定が可能です。
+
+[[Paludis]] であれ /etc/paludis/use.conf で $PF 毎に指定が可能です。
+
+ # Linux に慣れていない方はマージする度に一つ一つメモを残しながら use.conf
+ # を成長させていくのも面白いと思います。一番最初のテンプテートには app-po
+ # rtage/eix の `eix --installed --nocolor` 等といった出力をスクリプトで整形
+ # したものが使えます。
+
+ #
+ # Divices::Detection
+ # 2006-05-04
+ #
+ # Knoppix ?
+ # sys-apps/hwsetup
+ # sys-libs/libkudzu
+ # sys-apps/hwdata-gentoo
+ #
+ # Redhat ?
+ # sys-apps/kudzu
+ # sys-apps/hwdata-redhat
+ #
+ # Debian ?
+ # sys-apps/discover
+ # sys-apps/discover-data
+ #
+ # Freedesktop ?
+ # sys-apps/hwinfo
+ # sys-apps/hal
+ # sys-apps/dbus
+ #
+ sys-fs/udev
+ sys-fs/sysfsutils
+ sys-apps/hotplug
+ sys-apps/lshw -gtk -static
+ sys-libs/detect
+ sys-apps/list
+ 
+ #
+ # Input Method
+ # 2005-12-31
+ #
+ # skk.el -> K -> A
+ # kinput2 -> K -> kinput2 -> XIM -> A
+ # UIM -> K -> UIM -> A
+ # UIM -> K -> UIM -> XIM -> A
+ # UIM -> K -> UIM -> SCIM -> A
+ # SCIM -> K -> SCIM -> A
+ # ...snip...
+
+**何が便利なのか [#c9a0f88b]
+
+バイナリ形式のパッケージ管理システムではコンパイルフラグがディストリビューションの推奨値です。ディストリビューションの方針によって左右されます。サーバ向け、デスクトップ向け、組み込み向け、……などです。方針から外れる場合、自作パッケージを用意しなくてはいけません。[[Gentoo]] では自身でコンパイルフラグを決められます。
+
+$USE には +pam、+ldap、+sasl、+kerberos、+radius、+static、……などが可能です。-pam、-ldap、-sasl、-kerberos、-radius、-static、……も可能です。累積指定であり、-* でデフォルトを含めた全てをクリアできます。
+
+***サンプル:: postgres/-postgres の意味 [#dc7d9f0b]
+
+USE="postgres" と指定すれば反応するアプリケーション、例えば [[mail-mta/postfix]] のバックエンドに [[dev-db/postgresql]] が使える様にコンパイルフラグを選んでくれます。逆に -postgres と行えば [[dev-db/postgresql]] が[[マージ]]済みでもバックエンドに使えず、安心です。
+
+***サンプル:: python/-python の意味 [#pa1183f1]
+
+USE="python" と指定すればプログラミング言語の [[Python]] 環境が整う様にコンパイルフラグを選んでくれます。コンパイルフラグだけでなく、ファンサイトで配布している便利なスクリプトもライセンスが同じならば[[マージ]]してくれるものもあります。逆に -python と行えば [[dev-lang/python]] が[[マージ]]済みでもコンパイルフラグが選ばれず、安心です。
+
+***サンプル:: threads/-threads の意味 [#h9be2e1c]
+
+USE="threads" と指定すればスレッド(主に pthreads )がオンになる様にコンパイルフラグが選ばれます。同様に分類されるものとして static/-static 等があります。これ等はプログラミング知識が必要とされるため、良く分らないものは [[profile]] のデフォルト設定に任せてしまっても構いません。
+
+**どんなフラグがあるのか [#wb9576b9]
+
+フラグの種類は何十とあります。
+
+全部を知る必要はないため、[[マージ]]の度に調査した方が良いかもしれません。`emerge --pretend --verbose foo` で確認できます。ちょっと分かり難いところで +static などがあります。説明(方針？)はあるものの、曖昧なものもあります。そんな時こそ[[バグ報告]]です。
+
+フラグの一覧は /usr/portage/profiles/use.desc や /usr/portage/profiles/use.local.desc にあります。将来的には [[GLEP]] の 029 が採用されグループ化 (@KDE, -@GNOME, etc) になるかもしれまぜん。
+
+***Gentoo-Portage.com でフラグを調査する [#dfa8d203]
+
+[[USEフラグ]]については [[Gentoo-Portage.com:http://gentoo-portage.com/USE]] で調査できます。フラグの意味だけでなく、フラグを参照するパッケージも調べられます。ここは非公式サイトで最も有名な [[Gentoo-Wiki.com:http://gentoo-wiki.com/]] の関連サイトです。
+
+***専用ツールでフラグを調査する [#ied44e61]
+
+[[USEフラグ]]については [[app-portage/portage-utils]] や [[app-portage/gentoolkit]] 等で調査できます。フラグの意味だけでなく、フラグを参照するパッケージも調べられます。こちらはフラグだけでなく、パッケージの依存関係も調べる事ができます。
+
+________
+
+[[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]) の詳細は[[プロジェクトリスト:http://www.gentoo.org/proj/en/metastructure/projects.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]), [[Gentoo FAQ:http://www.gentoo.org/doc/ja/?catid=faq]], [[GentooJP FAQ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A3%C6%A3%C1%A3%D1%5D%5D]]
+- [[インストール]], [[Stage]], [[GRP]], [[Portageツリー]]
+- [[インストールした後にできること]], [[日本語入力設定事例集]], [[日本語デスクトップ環境/パッケージ]]
+- [[Gentooが採用している技術]]
+- [[コミュニティとの連絡手段]], [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]
+- [[本家に関連しそうな言葉]], [[GLEP]], [[コピーライト]], [[ライセンス]]
+
+[[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]]) の詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]])
+- [[メタ・ディストリビューション]], [[USEフラグ]], [[profile]], [[catalyst]], [[GNAP]]
+- [[コンパイル]], [[バイナリパッケージ]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+
+________
+
+-[2005-10-20] 
+-[2006-02-19] "autouse" 機能の廃止。 (yoshino)
+-[2006-09-17] 自分が調べた際のメモをほぼそのまま貼りつけているだけだったのを省察しました。 (yoshino)
+-[2007-05-04] 2007.0 (yoshino)

@@ -1,0 +1,51 @@
+*teTeX + pTeX + α [#mb47326a]
+
+-ページ: BugTrack
+-投稿者: [[shinya]]
+-優先順位: 低
+-状態: 完了
+-カテゴリー: ebuild
+-投稿日: 2002-12-14 (土) 16:19:54
+-バージョン: 20021210
+
+CENTER:''この ebuild は本家に取り込まれました。(app-text/ptex app-text/xdvik)''
+
+#attach
+**メッセージ [#t233c69c]
+USE=cjkでteTeXといっしょにptexをインストールします。~
+ついでにteTeXに含まれるdvipskとxdvikに日本語化パッチを当てます。
+
+
+xdvikが[[VFlib:http://gentoojp.sourceforge.jp/pukiwiki/index.php?%5B%5BVFlib%5D%5D]]を使うので、これもダウンロードしてください。(使わないように出来るようですがこのebuildでは未対応です)~
+
+----
+
+-freetype1を別途入れることでインストールできました。これで他ディストリを消せます！ありがとうございます。 -- [[河内]] SIZE(10){2002-12-15 (日) 18:51:06}
+-ミラー先からファイルがなくなっているようです。 -- [[shota]] SIZE(10){2002-12-24 (火) 02:45:18}
+-何回か挑戦して、失敗に終わったのですが、ebuild の update をしてくださるとうれしいです。 -- [[Cong]] SIZE(10){2003-02-17 (月) 23:28:36}
+-僭越ですが、新しめのバージョンに置き換えた tetex-ptex.tgz をアップしました。USE=cjk で判断させてます。マスクに関するコメントアウトの必要はないです。 -- [[Fuktommy]] SIZE(10){2003-03-14 (金) 12:34:00}
+-コンパイルが通りました。ありがとうございます。 -- [[Cong]] SIZE(10){2003-04-07 (月) 14:16:55}
+-/usr/share/texmf/doc/ptex/ptexdoc.tex で試してみたところ、platexは通りました。しかしxdviによるプレビューができませんでした。dvipdfmも駄目でした。生成したDVIファイルはWinのdvioutでは見ることができました。 -- [[Niss]] SIZE(10){2003-04-08 (火) 18:16:24}
+-こちらも Niss さんのところと同じように、xdviでみれません。dvips したら生成されるpsファイルはgvでみれます。 -- [[Cong]] SIZE(10){2003-04-09 (水) 12:01:47}
+-kochi-fontsをインストールし、vfontcapを設定してください。dvipdfmは多分だめです。 -- [[Fuktommy]] SIZE(10){2003-04-09 (水) 14:18:07}
+-使える(最小の) vfontcap をアップしました。 -- [[Cong]] SIZE(10){2003-04-11 (金) 12:27:53}
+-tetex-ptex-2.0.2-r100.tgz をアップロードしました。 -- [[Fuktommy]] SIZE(10){2003-05-19 (月) 12:01:03}
+-ptex と xdvik はコミットしましたが、dvipdfmx については少々お待ちください。tetex に入っている dvipdfm も、portage の dvipdfm も日本語は通りません。 -- [[usata]] SIZE(10){2003-07-27 (日) 02:23:07}
+-何回このページみても、日本語対応TETEXのインストール方法分かりませんね -- [[お困り]] SIZE(10){2003-07-28 (月) 23:24:58}
+-何回このページみても、日本語対応TETEXのインストール方法分かりませんね -- [[お困り]] SIZE(10){2003-07-28 (月) 23:53:11}
+-emerge ptex とするだけで入ると思いますが、どうですか？ -- [[usata]] SIZE(10){2003-07-29 (火) 01:10:21}
+-hagi さんから報告がありましたが、tetex がすでにインストールされていると unmerge してもうまくいかないようなので、/usr/share/texmf の下をいったん消してから emerge ptex してください。dvi を見るには app-text/xdvik を使ってください。dvipdfmx も本家に入ったので、dvipdfmx を使って PDF に変換し、acroread-asianfonts も入れて acroread で見るという手もあります。 -- [[usata]] SIZE(10){2003-08-05 (火) 18:32:14}
+-shinonomeが変わったせいか、出来上がったpsファイルをgvなどで表示できません。Error: /undefinedresource in --findresource--  (中略) GothicBBB-Medium (←このフォントが定義されていないのでは) Error: PostScript interpreter failed in main window. -- [[tomo]] SIZE(10){2003-08-11 (月) 16:35:03}
+-tetexを消してptexを新たに入れ（これだけではダメでした）、さらにghostscript, xdvik を入れ直したらtexからpsまで動きました。 -- [[tomo]] SIZE(10){2003-08-11 (月) 18:52:54}
+-そうですね、見るフォントは shinonome でなく kochi-substitute なのですが、tetex だとうまくいかないので ptex から入れ直してください。xdvik は ptex を入れ直したら xdvik も入れ直さないといけないと思いますが、ghostscript も入れ直さないといけませんでしたか。ghostscript は入れ直さなくてもだいじょうぶだと思うんですが…… -- [[usata]] SIZE(10){2003-08-12 (火) 01:50:27}
+-ghostscriptを入れ直してみた理由は、PSファイルの扱いに影響が出ているのかなと考えたからです。原因だと分かったわけでも入れ直しが必要だったというわけでもないです。要するに単なる知識不足ですね。(苦笑 -- [[tomo]] SIZE(10){2003-08-13 (水) 05:44:27}
+-本家に取り込まれたらからうれしい！ -- [[tommy]] SIZE(10){2003-08-19 (火) 13:52:30}
+-http://www.matsusaka-u.ac.jp/~okumura/jsclasses/を参考に新ドキュメントクラスをインストールしたのですが、dvipsとdvipdfmxがうまく動きません、どなたかうまく 動いている方いますか? -- [[yushiya]] SIZE(10){2003-09-06 (土) 19:04:49}
+-エラーはどうなっているのでしょう？ dvips と dvipdfmx は jsclasses をインストールする前から使えていましたか？ たぶん ML にエラーログを貼ったほうがすぐ解決できるような気がします。 -- [[usata]] SIZE(10){2003-09-07 (日) 03:19:47}
+-TeXが非常に遅くなっていませんか。tetexもptexも遅いので、調べてみたらこれでした：http://lists.debian.org/debian-tetex-maint/2002/debian-tetex-maint-200206/msg00021.html　。いつの間にか$HOMEの最後にスラッシュがついてきたのが原因のようです。解決は、~/.bashrcなどに$HOMEを再定義するなどでできました。 -- [[Cong]] SIZE(10){2003-09-08 (月) 22:28:08}
+-新ドキュメントクラスについての自己レスです。jisのフォントメトリックが入ってないことが原因だったようで、http://www.matsusaka-u.ac.jp/%7Eokumura/texfaq/install-linux.htmlを参考にjis.tar.gzをインストールしたら解決しました。usataさん、レスありがとうございました。 -- [[yushiya]] SIZE(10){2003-09-10 (水) 15:48:10}
+-app-text/tetexをいれようとするんだけど、virtual/tetexってptexを入れてから設定されるようで、t1libを消した環境だと、emerge -pv ptexでもtetexを入れようとする。一時的に/var/cache/edb/virtualsにvirtual/tetex app-text/ptex書けばうまくいくね -- [[noname]] SIZE(10){2003-09-24 (水) 20:13:07}
+-うーん、どうもそのようですね。ちょっと t1lib のほうを変えて対応します。 -- [[usata]] SIZE(10){2003-09-25 (木) 01:09:00}
+-誤解されたか。たぶん、t1libは罪じゃなくて、きっとportageのvirtual関連の依存関係の解決方法がまずいんじゃないかな。具体的には、emerge -pv ptexの段階で、ptexがvirtual/tetexを提供することはわかるはずなのに、/var/cache/edb/virtualsにvirtual/tetexが書かれるまではapp-text/tetexを入れなきゃと誤解してる。 -- [[noname]] SIZE(10){2003-09-25 (木) 15:56:49}
+-あー、なるほど。Portage のバグっぽいですが、いまの virtual の仕組みでは解決できなさそうですね(emerge -pv ptex の段階では ptex が virtual/tetex を PROVIDE することは分からないようです)。virtual/tetex が app-text/tetex を入れようとするのは誤解ではなく、/usr/portage/profiles/default-x86-1.4/virtuals などに virtual/tetex app-text/tetex と書かれているからです。現段階では virtual は ebuild からは読んでないので仕方ないのですが、bugs に登録しておいたほうがいいかも分かりません(そうしたらそのうちなんとかしてくれるかも)。他にも virtual はけっこうあやしいところ満載なので完全に rewriteしたほうがいいかもと思わなくもないんですが……。 -- [[usata]] SIZE(10){2003-09-25 (木) 19:49:17}
+// #comment

@@ -1,0 +1,96 @@
+portageにdevelopment-sources-2.6.0が入ったので、ちょっとした移行ガイドを作ってみようと思います。足りないところはどんどん付け加えてください。--puntium
+
+#contents
+[[Gentoo Linux 2.6完全移行ガイド:http://www.gentoo.org/doc/ja/migration-to-2.6.xml]]を合わせて確認
+**インストール + コンパイル [#sd2c92e7]
+***準備 [#j901f12d]
+ emerge gentoo-dev-sources
+とすると、/usr/src 以下にlinux-2.6.9-gentoo-r4ができます。
+ rm linux
+ ln -s linux-2.6.9-gentoo-r4 linux
+ cd linux
+これで準備は完了です。次は「手動でコンパイル」もしくは「genkernelでコンパイル」に進みましょう。~
+bootsplash 画面を簡単に出したいのであれば、genkernelの使用をお薦めします。
+
+***手動でコンパイル [#ufc52e66]
+ make menuconfig または make gconfig または make xconfig
+でカーネルの設定を行います。
+
+devfsの他に2.6からはudevというシステムを使うこともできます。
+
+ビルドするには
+ make
+ make modules_install
+2.4シリーズとはちがって、make depやmake bzImageは必要ありません。~
+なお、カーネル本体に手を加えた時はmake cleanが必要です。((必要ないという情報もありますが念のため))
+
+***genkernelを使ったコンパイル [#eb1d4045]
+
+genkernel を使ってコンパイルするにはまず genkernel 自体をインストールします。~
+genkernel は sys-kernel/genkernel にあるので、
+ emerge -u sys-kernel/genkernel
+でインストールしましょう。
+
+genkernelをインストールしたあとは
+
+ # genkernel --menuconfig all
+
+で設定とコンパイルを行います。sudo で起動した場合、/sbin と /usr/sbin がパスに入っていないと失敗するので、これらをパスに含めておくか、もしくは su - でルートになって /sbin と /usr/sbin がパスに含まれるようにしてから genkernel を実行してください。
+
+***必要なファイルをコピー [#ce36a88c]
+genkernelを使用した場合は必要ありません。
+
+BOOTパーティションを/bootにマウントした後、以下のようにして必要な物をコピーします。
+ cp arch/i386/boot/bzImage /boot/kernel-2.6.9-gentoo-r4
+
+***GRUBの設定 [#h1b77757]
+手動でコンパイルした場合は適宜 grub.conf をコンパイルオプションに合わせて編集します。（たとえばinitrdを使わない人は書かなくてもよい）
+genkernelでコンパイルした人は、genkernelの最後でgrub.confの設定例が表示されるので、それに従って設定してください。たとえば、
+ title=Gentoo Linux (kernel 2.6)
+ root (hd0,0)
+ kernel (hd0,0)/boot/kernel-2.6.9-gentoo-r4 root=/dev/ram0 init=/linuxrc 
+   real_root=/dev/hda3 vga=0x317 splash=verbose psmouse_noext=1（一行で書く）
+ initrd (hd0,0)/boot/initrd-2.6.9-gentoo-r4
+などと設定します。
+
+なお、ハンドブックに
+ vesafb-tngを使うことに決めたのなら video文を代わりに使用します。
+ 構文は、 <幅>x<高さ>-<色深度>@<リフレッシュレート>となります。
+ 例えば1024x768-16@60。
+と有るように、VESA driver typeを有効にした場合には注意しましょう。
+
+あとは普通にgrubでインストールして再起動！good luck!
+
+**ヘッダーを2.6にする [#d0b62f80]
+
+デフォルトは2.4のヘッダーですが、試してみたい人はsys-kernel/linux26-headersを使ってください。
+
+**カーネル2.6になっていいところ [#n53e40fa]
+-CPU使用が100%のときでもGUIが使える。"interactive"なプロセスを優先的に実行するようになってます。kernel preemptionと、default timesliceが変わったことも関係しています。デスクトップユーザとしてはとてもうれしいことです。emergeやってても普通に使えてます。
+-alsaが組み込まれてる
+-他いろいろ(^^
+
+**注意点 [#ad84ac1d]
+-jfsをお使いの方はjfsutilsを1.1.3以上に上げて下さい。1.1.2以下では起動時にfsのlogのreplayが失敗して、マウントできなくなるというバグがあります。(2.6.0の時だけです)
+-nvidiaのドライバとの互換性はまだちょっと不明な状態です。portageで当たってるパッチを使えば、コンパイルはできるものの、dmesgに異常なメッセージが出力されます。(異常なメッセージは出力されますが、今のところ深刻な問題は起きていません。）
+-こんな事があるようです。http://slashdot.jp/article.pl?sid=04/05/21/005235 (osprey)
+
+
+** 動作確認 [#o640731c]
+*** その１ (genkernel-3.0.1_beta11+development-sources-2.6.3_rc1) [#nfe2378b]
+ほぼこのドキュメントの通りの手順でできました。参考までに何点か。
+
+それとXの設定でホイールマウスが使えなくなりました。以下のようにする必要があるみたいです。
+
+/etc/X11/XF86Config
+
+/etc/X11/xorg.conf(X.Orgの場合)
+
+ Option      "Protocol" "Auto"
+            ↓
+ Option      "Protocol" "IMPS/2"
+
+IMPS/2はもちろん2.4でも使用できるのですが、Autoでは自動認識できなくなったみたいです。
+
+%%後、突然マウスが暴れだすことがあるのですが、それはpsmouse_noext=1をカーネルにつけると直るみたいです。%%
+psmouse_noext=1はobsoleteになりました。development-sources-2.6.10ではオプションを外しても問題無く使えています。

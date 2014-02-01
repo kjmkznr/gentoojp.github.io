@@ -1,0 +1,38 @@
+#contents
+#title
+
+*Portage と Atom [#ce3f4ffa]
+
+[[Portage]] で [[Atom]] と出たら「Portage から見た ebuild パッケージ識別子」ぐらいで通じます。幾何学の Atomus (その本性上不可分的な物質である)とか難しく考えなくて平気です。
+
+「=sys-apps/portage-2.1.*」等は Deppend Atom を示す記号です。先頭から、範囲を示す演算子、カテゴリ、パッケージ、ヴァージョン (glob 文字を含む)です。[[apps-portage/eix]] などだけでなく、/etc/portage/package.use 設定ファイルなどパッケージを明記する多くの場面で利用できます。
+
+通常同じ [[Atom]] は複数存在できませんが、[[Slot]] を使うと混在できます。同一アプリケーションの複数のヴァージョンを混在させたい場合に [[Slot]] を使います。[[Virtual]] は同じ機能を異なるアプリケーションで代替する際に重複を防ぐために使います。
+
+***「アトム」(辞書検索例) [#j497a796]
+
+[[wikipedia:http://ja.wikipedia.org/wiki/%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%9A%E3%83%BC%E3%82%B8]] の「[[アトム(原子):http://ja.wikipedia.org/wiki/%E5%8E%9F%E5%AD%90]]」参考。
+
+________
+
+[[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]) の詳細は[[プロジェクトリスト:http://www.gentoo.org/proj/en/metastructure/projects.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]), [[Gentoo FAQ:http://www.gentoo.org/doc/ja/?catid=faq]], [[GentooJP FAQ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A3%C6%A3%C1%A3%D1%5D%5D]]
+- [[インストール]], [[Stage]], [[GRP]], [[Portageツリー]]
+- [[インストールした後にできること]], [[日本語入力設定事例集]], [[日本語デスクトップ環境/パッケージ]]
+- [[Gentooが採用している技術]]
+- [[コミュニティとの連絡手段]], [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]
+- [[本家に関連しそうな言葉]], [[GLEP]], [[コピーライト]], [[ライセンス]]
+
+[[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]]) の詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]])
+- [[メタ・ディストリビューション]], [[USEフラグ]], [[profile]], [[catalyst]], [[GNAP]]
+- [[コンパイル]], [[バイナリパッケージ]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+
+________
+
+-[2006-09-17] (yoshino)
+-[2006-11-05] ハンドブックに sys-apps/Portage-2.1 に関する説明が加えられるようです。今後はハンドブックが確実です。 (yoshino)

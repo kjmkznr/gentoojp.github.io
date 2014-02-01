@@ -1,0 +1,20 @@
+*オープンソースなCOBOLコンパイラ [#j45dbef0]
+
+-ページ: BugTrack
+-投稿者: [[matsuu]]
+-優先順位: 低
+-状態: 完了
+-カテゴリー: ebuild
+-投稿日: 2003-01-18 (土) 11:04:06
+-バージョン: 0.10.1
+
+
+CENTER:''このebuildは本家のツリーに取り込まれました。(dev-lang/open-cobol)''
+
+**メッセージ [#idb370cf]
+http://www.open-cobol.org/
+
+さくっと作ってみました。
+
+----
+// #comment

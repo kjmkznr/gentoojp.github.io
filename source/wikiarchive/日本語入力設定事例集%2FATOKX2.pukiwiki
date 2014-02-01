@@ -1,0 +1,25 @@
+#navi([[日本語入力設定事例集]])
+
+*ATOK for Linuxの設定 [#y2c6c06a]
+
+**インストール [#uce5a540]
+ATOK for Linux のCD-ROM をセットし、以下のコマンドを実行します。
+ # mount /mnt/cdrom
+ # ACCEPT_KEYWORDS="~x86" emerge app-i18n/atokx2
+
+**ATOK for Linux サーバーをデフォルトで起動させるための設定 [#wecf7c90]
+
+ # rc-update add iiim default
+ # rc-update add atokx2 default
+
+**設定方法 [#l6721547]
+
+~/.xinitrc 等に次の内容を追加します。
+ /opt/atokx2/bin/atokx2_client.sh 
+
+-. /opt/atokx2/bin/atokx2_client.sh ではありませんか？ -- [[がんばれジャストシステム]] SIZE(10){2005-04-08 (金) 15:28:34}
+--"&" を外してみました。 --  SIZE(10){2005-05-14 (土) 11:27:21}
+-Shift+Spaceへの変換は/etc/conf.d/iiimのコメントを外して、exportを頭につけないと有効になりませんでした。 -- [[amachin]] SIZE(10){2005-04-12 (火) 10:48:49}
+// #comment
+
+#navi([[日本語入力設定事例集]])

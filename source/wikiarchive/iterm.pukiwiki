@@ -1,0 +1,24 @@
+*Internationalized Terminal Emulator [#x24c91ab]
+
+-ページ: BugTrack
+-投稿者: [[matsuu]]
+-優先順位: 低
+-状態: 完了
+-カテゴリー: ebuild
+-投稿日: 2002-10-10 (木) 11:55:45
+-バージョン: 0.2
+
+CENTER:''fbiterm, libiterm の ebuild が本家 bugs に投稿されました。 http://bugs.gentoo.org/show_bug.cgi?id=27700 ''
+
+問題無さそうならクリックしてください。(目安として使うだけです)
+#vote(問題なく動作しました。)
+#attach
+**メッセージ [#na2a60a8]
+[[IIIMF:http://www.openi18n.org/subgroups/im/IIIMF/index.html]]の調査も兼ねて作成したebuildです。肝心の[[IIIMF:http://www.openi18n.org/subgroups/im/IIIMF/index.html]]のebuildはまだ出来てません。
+----
+
+-jfbterm がまだ 0.3.12 しか出ていなかったとき他にもっといいフレームバッファで動く端末エミュレータないかなあ、と探して fbiterm を見つけたのですが、どうもこれ xiterm は日本語出るのに fbiterm は日本語が全く表示されないのです。matsuu さんのところでは表示されているのでしょうか？ -- [[usata]] SIZE(10){2003-09-03 (水) 05:30:22}
+-書き忘れましたがその日本語が出ない fbiterm の入った iterm-0.5.ebuild です。Unicode 用のフォントは unifont のパスがハードコードされているのでこれもなんとかしたいのですが、-m でフォントを指定しても効いてくれないし、unifont を置いてロードしているように見えるのにひらがなすら出ないのです。jfbterm でも UTF-8 出るようになったし、iterm 遅いし(jfbterm が高速になったので追い抜いた)、jfbterm でいいや、って感じもするのですが……。 -- [[usata]] SIZE(10){2003-09-03 (水) 05:32:25}
+-iterm.ebuildは作ったはいいがあまり魅力がなかったためほったらかしでした（ダメ。fbitermは全く試してません。 -- [[matsuu]] SIZE(10){2003-09-03 (水) 08:24:04}
+-一応動きました。LANG, LC_ALL, LANGUAGE の3つを ja_JP.UTF-8 にし、localedef -c -v -i ja_JP -f UTF-8 ja_JP.UTF-8 で ja_JP.UTF-8 の定義をします。それからコンソールで unicode_start を実行し、fbiterm を実行すれば fbiterm で日本語が出るようになります。しかし fbiterm は X のライブラリに依存するのでなんだかなあ、な感じですが……。 -- [[usata]] SIZE(10){2003-09-13 (土) 13:54:07}
+// #comment

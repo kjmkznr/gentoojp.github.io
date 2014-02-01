@@ -1,0 +1,152 @@
+#title
+#contents
+
+* 紹介 [#v732238f]
+
+2007 年 05 月に Gentoo Package Manager に求める機能を定義した Gentoo Package Manager Specification [GPMS]_  が提出されてます。
+
+Tree layout [repository]_ や ebuild 変数 [ebuild_metadata(ebuild-defined_variables)]_ [the_ebuild_environment(defined_variables)]_ や ebuild 関数 [ebuild_phase(ebuild-defined_functions)]_ [the_ebuild_environment(defined_commands)]_ といった ebuild file [ebuild_files]_ に関するものが含まれます。
+
+** もう少し簡単な紹介 [#y2a71a8a]
+
+目指していると思われるものは、作業の連鎖を抽象化し同様に成功する自動化された工程による、ソフトウェアを選択できる環境です。具体的に提供しようとしていると思われるものは、USEフラグ [USE_flag]_ のオンオフを指定する事でソフトウェアをマージするビルド連鎖制御システムです。バイナリ配布されているものをそのまま使うのではなく独自の変更を加える場合、それも十個や二十個といった数の変更を保守する場合に力を発揮します。変更はユーザランド、ライブラリ、ディスクレス化 …… 多岐に渡り可能です。作ったものはイメージとして運用管理が出来ます。
+
+GPM と言う言葉は RPM を意識しているもので、Ports を意識した場合は Ports System と呼ばれます。実際に何が出来るのかは具体的な GPM/Ports System に依存します。分っているのは ebuild repository (1 枚で amd64 から ppc64 まで、kLinux から kFreeBSD まで、W3C-document から IBM-ILNWP まで対応出来るパッケージメタデータの集合体)を使うと言う点です。有名と思われる GPM/Ports System は Portage [Portage]_ と Paludis [Paludis]_ と Pkgcore [pkgcore]_ です。2007.0 で標準に採用されているものは Portage です。Portage は黎明期の背景と前提条件が設計に反映されています。Paludis は Portage を力不足と考える人達の背景と前提条件が設計に反映されています。Pkgcore は最もメタ・ディストリビューション [metadistribution]_ を強く意識しています。GPM/Ports System は他にもあります。
+
+*** もっともっと簡単な紹介 [#dd3e2cbf]
+
+コンピュータの中で動いているものが一つのソフトウェアでなく何十何百のソフトウェアの組合せであるがために、前提条件に適した組合せと独自変更を加える事によって付加価値を生み出すのを簡単にするもの。
+
+*** 独自の変更とは何か？ [#mfaf85ef]
+
+バイナリ配布されているものは配布者がコンパイルフラグを判断しています。配布者ではなく自身で判断出来ます。$USE には +pam、+ldap、+sasl、+kerberos、+radius、+static、……などが可能です。-pam、-ldap、-sasl、- kerberos、-radius、-static、……も可能です。累積指定であり、-* でデフォルトを含めた全てをクリアできます。
+
+パッケージの依存関係計算に本家とは別のローカル専用の ebuild files (集合体になると repository と呼ぶ)を追加検索する機能があります。
+
+自社ソフトウェアを ebuild files で管理する際はソースファイル形式でもバイナリファイル形式でも可能です。前者の場合はライブラリの依存地獄を防げるかもしれません。1 枚で amd64 から ppc64 まで、kLinux から kFreeBSD まで、W3C-document から IBM-ILNWP まで対応出来ます。
+
+*** 考究による副産物 [#uda2dcc9]
+
+考究が進むに連れパッケージ・マネージャは以下を主要機能として実装すべきと判断されたようです。ただ、ebuilds を誰が書いたのかを保証する仕組みやマージ後の改竄検出の仕組みなどは好みで各自実装すれば良いと判断されているのが興味深い所です。ebuilds で必要とするファイルとダウンロードしたファイルのチェックサムを比較する機能は初期からあります。
+
+- GLSA (脆弱性注意報告)をサポートする仕組み。
+
+- QA (品質保証)をサポートする仕組み。
+
+- Sandbox (root 権限でも許可範囲以外は書込み不可能にする)により、いきなり実インストールせず、仮インストールと検査を経由して実インストールする仕組み。
+
+*** インタフェイス [#l3cb81c2]
+
+[[Package Manager Specification:http://www.gentoo.org/proj/en/qa/pms.xml]] に続き、新しい [[Gentoo Graphical User Interfaces Project:http://www.gentoo.org/proj/en/guis/]] が発足されました。グラフィカルなフロント・エンド計画は今回が始めてでは無く、2002 年辺り (Gentoo-1.0 配布の年)から始まり何度も行われています。
+
+Gentoo と Desktop については最近の記事で例えるなら[[「Cherrier says. "Personally, I prefer Gentoo -- I think it's the best server operating system ever created."  Does he use Gentoo on the desktop as well? "Not a chance," he shakes his head. ［SNIP］」:http://www.linux.com/feature/118878]] (Linux.com) 辺りが定番なのかもしれませんが、此れは少し違う可能性を考えている様です。
+
+ウェブ・インタフェイスの [[SCIRE:http://www.gentoo.org/proj/en/scire/index.xml]] ([[概念図:http://www.gentoo.org/proj/en/scire/scire.png]])と意味は異なります。GUI の Gentoo System を標準採用した分家 [[Vidalinux:http://vidalinux.com/]] もあります。フレームワーク指向になって以来、C, C++, Python 以外にも Haskell, Ruby, PHP, et al. が登場して少し競争が盛り上がって来ましたね。
+
+-- [[sys-apps/portage:http://www.gentoo.org/proj/en/portage/index.xml]]; CUI (Python, Bash)
+-- [[sys-apps/paludis:http://paludis.pioto.org/]]; CUI (C++, Bash)
+-- [[sys-apps/pkgcore:http://www.pkgcore.org]]; CUI (C, Python, Bash)
+-- 他にもあります。
+
+-- [[app-portage/gportage:http://www.stacken.kth.se/%7Efoo/gentoo/]]; GTK+
+-- [[app-portage/gnoportage:http://gnoportage.sourceforge.net/]]; GTK+
+-- [[app-portage/portageGUI:http://www.clarkson.edu/projects/cosi/fa2004/hernejj/PortageGUI.pdf]]; GTK+ (C)
+-- [[app-portage/portato:http://sourceforge.net/projects/portato]]; GTK+, Qt (Python)
+-- [[app-portage/porthole:http://porthole.sourceforge.net/]]; GTK+ (Python)
+-- [[app-portage/himerge:http://www.haskell.org/himerge/]]; GTK+ (Haskell !! )
+-- [[app-portage/kmerge:http://kemerge.sourceforge.net/]]; Qt
+-- [[app-portage/kportage:http://www.nongnu.org/kportage/]]; Qt
+-- [[app-portage/kentoo:http://www.ralfhoelzer.com/kentoo.html]]; Qt
+-- [[app-portage/guitoo:http://guitoo.sourceforge.net/]]; Qt
+-- [[app-portage/kuroo:http://kuroo.org/]]; Qt (C++)
+-- [[app-portage/maintainer-helper:http://dev.gentoo.org/~jokey/maintainer-helper]]; Qt (Python)
+-- [[app-portage/portagemaster:http://portagemaster.sourceforge.net/]]; Java
+-- 他にもあります。
+
+** ジェンツー教室 [#ad74ce98]
+
+M.I.T. (マサチューセッツ工科大学)で毎年開かれているジェンツー教室 [Gentoo_class]_ にも説明があります。
+
+** こういった仕組み自体に興味がある方は ... [#k599260f]
+
+こういった仕組み自体に興味がある方は FreeBSD [FreeBSD]_ の Ports [Ports]_ 、Source Mage [Source_Mage]_ の Sorcery [Sorcery]_ 、Slackware [Slackware]_  で利用可能な Portpkg [Portpkg]_  …… と比較するのも面白いかもしれません。
+
+**解説書籍 [#k59cad7e]
+
+[[GPMS]] (ジェンツー・パッケージ・マネージャの定義)の提出が春にありましたが、今度は[[メタ・ディストリビューション]]を解説した書籍が発売されるそうです。独語です。8 年目(書籍内容より)にして概念がそれっぽい形になったと判断されたみたいですね。[[Larry the Cow:http://www.gentoo.org/images/backgrounds/gentoo-abducted-800x600.png]] や [[Gentoo/Playstation3:http://dev.gentoo.org/~cla/artwork/ps3.jpg]] や [[Gentoo/kOpenBSD:http://dev.gentoo.org/~cla/artwork/gobsd.png]] みたいなコミュニティ色を前面に出すデザインではなく、[[表紙:http://www.scherbaum.info/~tobias/gentoo-buch.jpg]]は普通に渋いです。http://www.mitp.de/vmi/mitp/detail/pWert/1769 にあります。
+
+1 年と開けずに 2 冊目が出ているそうです。これも独語です。ドイツ、ポーランド、チェコ、オーストリア辺りには非英語圏の支持基盤が有る様です。https://www.opensourcepress.de/index.php?26&tt_products=144 にあります。
+
+**「コンピュータにはアーキテクチャ、カーネル、ライブラリ、ユーザランド、ライセンス、etc. があるけど、パッケージ・マネージャも肯綮なんじゃない？」ぐらいに考えると其処に興趣があるかもしれません [#x20eec2d]
+
+関連記事 [prefix]_ [overlays]_ [use_flag]_ があります。
+
+
+_____
+
+.. [GPMS] http://dev.gentoo.org/~spb/pms.pdf が PDF です。
+
+.. [metadistribution] http://wiki.gentoo.gr.jp/index.php?%5B%5B%A5%E1%A5%BF%A1%A6%A5%C7%A5%A3%A5%B9%A5%C8%A5%EA%A5%D3%A5%E5%A1%BC%A5%B7%A5%E7%A5%F3%5D%5D に関連記事があります。 
+
+.. [repository] http://wiki.gentoo.gr.jp/index.php?repository に関連記事があります。
+
+.. [prefix] http://wiki.gentoo.gr.jp/index.php?prefix に関連記事があります。
+
+.. [overlays] http://wiki.gentoo.gr.jp/index.php?overlays に関連記事があります。
+
+.. [use_flag] http://wiki.gentoo.gr.jp/index.php?USE_flag に関連記事があります。
+
+.. [profile] http://wiki.gentoo.gr.jp/index.php?profile に関連記事があります。
+
+.. [ebuild_metadata(ebuild-defined_variables)] http://wiki.gentoo.gr.jp/index.php?ebuild_metadata(ebuild-defined_variables) に関連記事があります。
+
+.. [the_ebuild_environment(defined_variables)] http://wiki.gentoo.gr.jp/index.php?the_ebuild_environment(defined_variables) に関連記事があります。
+
+.. [ebuild_phase(ebuild-defined_functions)] http://wiki.gentoo.gr.jp/index.php?ebuild_phase(ebuild-defined_functions) に関連記事があります。
+
+.. [the_ebuild_environment(defined_commands)] http://wiki.gentoo.gr.jp/index.php?the_ebuild_environment(defined_commands) に関連記事があります。
+
+.. [ebuild_files] http://wiki.gentoo.gr.jp/index.php?ebuild_files に関連記事があります。
+
+.. [Portage] http://www.gentoo.org/proj/en/portage/index.xml が公式サイトです。
+
+.. [Paludis] http://paludis.pioto.org/ が公式サイトです。
+
+.. [Pkgcore] http://www.pkgcore.org/ は公式サイトです。
+
+.. [Gentoo_class] http://stuff.mit.edu/iap/gentoo/ が公式サイトです。
+
+.. [FreeBSD] http://www.freebsd.org/ja/ が公式サイトです。
+
+.. [Ports] http://www.jp.freebsd.org/www.FreeBSD.org/ja/ports/index.html は公式サイトです。
+
+.. [Source_Mage] http://www.sourcemage.org/node/ が公式サイトです。
+
+.. [Sorcery] http://www.sourcemage.org/codex は公式サイトです。
+
+.. [Slackware] http://www.slackware.com/index.php が公式サイトです。
+
+.. [Portpkg] http://portpkg.berlios.de/ は公式サイトです。
+
+_____
+
+[[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]) の詳細は[[プロジェクトリスト:http://www.gentoo.org/proj/en/metastructure/projects.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Gentoo]] ([[Gentoo Linux:http://wiki.gentoo.gr.jp/index.php?GentooLinux]]), [[Gentoo FAQ:http://www.gentoo.org/doc/ja/?catid=faq]], [[GentooJP FAQ:http://wiki.gentoo.gr.jp/index.php?%5B%5B%A3%C6%A3%C1%A3%D1%5D%5D]]
+- [[インストール]], [[Stage]], [[GRP]], [[Portageツリー]]
+- [[インストールした後にできること]], [[日本語入力設定事例集]], [[日本語デスクトップ環境/パッケージ]]
+- [[Gentooが採用している技術]]
+- [[コミュニティとの連絡手段]], [[Bugtracking System (Bugzilla):http://wiki.gentoo.gr.jp/index.php?BugtrackingSystem]]
+- [[本家に関連しそうな言葉]], [[GLEP]], [[コピーライト]], [[ライセンス]]
+
+[[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]]) の詳細は[[ドキュメントリスト:http://www.gentoo.org/doc/ja/list.xml]]が確実です。短時間で概要を説明しようとしたものが以下にあります。気にいったら足して下さい。
+
+- [[Portage]] ([[Gentoo System:http://wiki.gentoo.gr.jp/index.php?GentooSystem]])
+- [[メタ・ディストリビューション]], [[USEフラグ]], [[profile]], [[catalyst]], [[GNAP]]
+- [[コンパイル]], [[バイナリパッケージ]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+
+________
+
+- [2007-05-04] 間違っている所があると思います。編集をお願いします。 (yoshino)

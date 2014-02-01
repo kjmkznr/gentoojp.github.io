@@ -1,0 +1,330 @@
+#contents
+#title
+
+* バグ報告をする人もしくはデベロッパの範囲です [#o5e6f85b]
+
+開発用ドキュメントやプロジェクト特有のドキュメントは、本家が英語を理解する人を求めているため翻訳されません。理由の1つとして upstream (ソフトウェアの一次配布元) や Bugtracking System (Bugzilla) とのコミュニケーションがあります。本家は QA (品質保証)を意識するよう呼びかける運動を始めています。GLEP の 041 よりテスト専用の開発者を迎えています。GLEP の 033 によれば eclass の変更があります。
+
+このページの目的は「やってみたい!! でも何処から始めたらいいのか分らず、1時間ぐらい調べても把握できないからいつもそのままです……」と思う人の助けになればと考えています。もし面白いと感じたら是非本家へバグ報告やパッケージ作成してみて下さい。最終的には、マニュアルを読むための簡単な英語と Bash の修得を求められます。
+
+** 変化が落ち着き始めました [#ybaf0ce3]
+
+Portage 以外にも GPM/Ports System の有力候補が出現したのが大きいと思われます。ソースコード以外の劣化が激しい頃より紹介し易くなった、と思います。ジェンツー委員会は色々考えているようですので、デベロッパにならなくとも(なるつもりがなくとも)使い易くなっていると思います。
+
+理解し易いものにすれば、他の人が面倒を見てくれるかもしれません。インターポジショニングに注意してみて下さい。
+
+** 初めての分析ならば ... [#x39bc5ca]
+
+VDB (何をマージしたかを保存しているデータベース)に ebuild 変数の詳細はあります。例えば /var/db/pkg/app-editors/emacs-21.4-r12 以下のテキストファイル群がそれです。
+
+作業中の ebuild 変数は保存されてません。Paludis であれば、/etc/paludis/bashrc に以下を記述すると rm -rf $PALUDIS_TMPDIR/$CATEGORY/$PF が実行されません。つまり、ビルド作業の残りがそのまま削除されません。例えば /var/tmp/portage/app-editors/emacs-21.4-r12/temp/loadsaveenv テキストファイルに作業中の ebuild 変数があります。
+
+ export SKIP_FUNCTION="tidyup"
+
+* ebuild 関数 [#d64f8480]
+
+- 手動で定義する関数
+- 自動で定義される命令
+
+便宜上、上を phase, ebuild_phase(ebuild-defined_functions) とし、下を helper, the_ebuild_environment(defined_commands) とします。
+
+** 自動で定義される命令 -- 2007 年 05 月の GPMS に定義されている helper [#accb546a]
+
+*** sys-apps/sandbox 関係 [#k20e81b0]
+
+: addread <directory> | /usr/libexec/paludis/sandbox.bash
+: addwrite <directory> | /usr/libexec/paludis/sandbox.bash
+: adddeny <directory> | /usr/libexec/paludis/sandbox.bash
+: addpredict <directory> | /usr/libexec/paludis/sandbox.bash
+
+*** 中断関係 [#c1e5cb4d]
+
+: die <message>* | /usr/libexec/paludis/die_functions.bash
+: assert <message>* | /usr/libexec/paludis/die_functions.bash
+
+*** Package の Version 関係 [#cdf455d3]
+
+: has_version <category/package> | /usr/libexec/paludis/portage_stubs.bash
+: best_version <category/package> | /usr/lbexec/paludis/portage_stubs.bash
+
+*** USE_flag 関係 [#ib8f15b3]
+
+: use <use_flag> | /usr/libexec/paludis/list_functions.bash
+: usev <use_flag> | /usr/libexec/paludis/list_functions.bash
+: ueeq <use_flag> | /usr/libexec/paludis/list_functions.bash
+: has <element> <array>+ | /usr/libexec/paludis/list_functions.bash
+: hasv <element> <array>+ | /usr/libexec/paludis/list_functions.bash
+: hasq <element> <array>+ | /usr/libexec/paludis/list_functions.bash
+: use_with <use_flag> <key> <value> | /usr/libexec/paludis/echo_functions.bash
+: use_enable <use_flag> <key> <value> | /usr/libexec/paludis/echo_functions.bash
+
+*** file 関係 [#b1d04123]
+
+: fowners <owner|group> <file>+ : /usr/libexec/paludis/utils/fowners
+: fperms <permission> <file>+ | /usr/libexec/paludis/utils/fperms
+
+*** build 関係 [#t8a37427]
+
+: dosed <file>+ | /usr/libexec/paludis/utils/dosed
+: unpack <file>+ | /usr/libexec/paludis/build_functions.bash
+: econf <parameter>* | /usr/libexec/paludis/build_functions.bash
+: einstall <parameter>* | /usr/libexec/paludis/build_functions.bash
+: emake <parameter>* | /usr/lbexec/paludis/utils/emake
+
+*** 警告関係 [#ec7ad6eb]
+
+: einfo <message>* | /usr/libexec/paludis/echo_functions.bash
+: einfon <message>* | /usr/libexec/paludis/echo_functions.bash
+: elog <message>* | /usr/libexec/paludis/echo_functions.bash
+: ewarn <message>* | /usr/libexec/paludis/echo_functions.bash
+: eerror <message>* | /usr/libexec/paludis/echo_functions.bash
+: ebegin <message>* | /usr/libexec/paludis/echo_functions.bash
+: eend <exit_code> <message>* | /usr/libexec/paludis/ech_functions.bash
+
+*** 変数設定関係 [#j02b8b15]
+
+: into <directory> | /usr/libexec/paludis/install_functions.bash
+: insinto <directory> | /usr/libexec/paludis/install_functions.bash
+: exeinto <directory> | /usr/libexec/paludis/install_functions.bash
+: docinto <directory> | /usr/lbexec/paludis/install_functions.bash
+: insopts <parameter>+ | /usr/libexec/paludis/install_functions.bash
+: diropts <parameter>+ | /usr/libexec/paludis/install_functions.bash
+: exeopts <parameter>+ | /usr/libexec/paludis/install_functions.bash
+
+*** merge 関係(1) [#u03ec6c7]
+
+: dobin <file>+ | /usr/libexec/paludis/utils/dobin
+: doexe <file>+ | /usr/libexec/paludis/utils/doexe
+: dolib <file>+ | /usr/libexec/paludis/utils/dolib
+: dolib.a <file>+ | /usr/libexec/paludis/utils/dolib.a
+: dolib.so <file>+ | /usr/libexec/paludis/utils/dolib.so
+: dosbin <file>+ | /usr/libexec/paludis/utils/dosbin
+: dodir <directory> | /usr/libexec/paludis/utils/dodir
+: dohard <destination> <creatingfile> | /usr/libexec/paludis/utils/dohard
+: doins <file>+ | /usr/libexec/paludis/utils/doins
+: dosym <destination> <creatingfile> | /usr/libexec/paludis/utils/dosym
+: doconfd <file>+ | /usr/libexec/paludis/utils/doconfd
+: doenvd <file>+ | /usr/libexec/paludis/utils/doenvd
+: doinitd <file>+ | /usr/libexec/paludis/utils/doinitd
+: dodoc <file>+ | /usr/libexec/paludis/utils/dodoc
+: doinfo <file>+ | /usr/libexec/paludis/utils/doinf
+: doman <file>+ | /usr/libexec/paludis/utils/doman
+: domo <file>+ | /usr/libexec/paludis/utils/domo
+: dohtml <file>+ | /usr/libexec/paludis/utils/dohtml
+: keepdir <directory> | /usr/libexec/paludis/install_functions.bash
+
+*** merge 関係(2) [#y9a70b5b]
+
+: newbin <file> <destination> | /usr/libexec/paludis/utils/newbin
+: newexe <file> <destination> | /usr/libexec/paludis/utils/newexe
+: newsbin <file> <destination> | /usr/libexec/paludis/utils/newsbin
+: newins <file> <destination> | /usr/libexec/paludis/utils/newins
+: newconfd <file> <destination> | /usr/libexec/paludis/utils/newconfd
+: newenvd <file> <destination> | /usr/libexec/paludis/utils/newenvd
+: newinitd <file> <destination> | /usr/libexec/paludis/utils/newinitd
+: newdoc <file> <destination> | /usr/libexec/paludis/utils/newdoc
+: newman <file> <destination> | /usr/libexec/paludis/utils/newman
+
+
+
+** 自動で定義される命令 -- 2005 年の 12 月のマニュアルにあった helper [#cee9dd5a]
+
+それより以前はソースコードが頼りでした。
+
+- unpack <source> [list of more sources]
+- econf [configure options]
+- emake [make options]
+- einstall [make options]
+- prepall
+- prepalldocs
+- prepallinfo
+- prepallman
+- prepallstrip
+- prepinfo [dir]
+- prepman [dir]
+- prepstrip [dir]
+- dopython <commands>
+- dosed "s:orig:change:g" <filename>
+- dodir <path>
+- diropts [options for install(1)]
+- into <path>
+- keepdir <path>
+- dobin <binary> [list of more binaries]
+- dosbin <binary> [list of more binaries]
+- doinitd <init.d script> [list of more init.d scripts]
+- doconfd <conf.d file> [list of more conf.d file]
+- doenvd <env.d entry> [list of more env.d entries]
+- dolib <library> [list of more libraries]
+- dolib.a <library> [list of more libraries]
+- dolib.so <library> [list of more libraries]
+- libopts [options for install(1)]
+- doman [-i18n=<locale>] <man-page> [list of more man-pages]
+- dohard <filename> <linkname>
+- dosym <filename> <linkname>
+- dohtml  [-a filetypes] [-r] [-x list-of-dirs-to-ignore] [list-of-files-and-dirs]
+- doinfo <info-file> [list of more info-files]
+- dojar <jar file> [list of more jar files]
+- domo <locale-file> [list of more locale-files]
+- fowners <permissions> <file> [files]
+- fperms <permissions> <file> [files]
+- insinto [path]
+- insopts [options for install(1)]
+- doins <file> [list of more files]
+- exeinto [path]
+- exeopts [options for install(1)]
+- doexe <executable> [list of more executables]
+- docinto [path]
+- dodoc <document> [list of more documents]
+- newbin <old file> <new filename>
+- newsbin <old file> <new filename>
+- newinitd <old file> <new filename>
+- newconfd <old file> <new filename>
+- newenvd <old file> <new filename>
+- newlib <old file> <new filename>
+- newlib.so <old file> <new filename>
+- newlib.a <old file> <new filename>
+- newman <old file> <new filename>
+- newinfo <old file> <new filename>
+- newins <old file> <new filename>
+- newexe <old file> <new filename>
+- newdoc <old file> <new filename>
+
+*** マニュアルにはなかったけど、使われていた helper [#fd0340bd]
+
+- lchmon userneme path
+- lchgrp groupname path
+- check_KV
+- keepdir directory...
+- strip_duplicate_slashes string
+- gen_wrapper path command
+- EXPORT_FUNCTIONS function argument...
+- remove_path_entry string...
+- diefunc function lineno exitstatus message
+- die message
+- assert message
+- debug-print message...
+- debug-print-function function parameter...
+- debug-print-section section message...
+- addread string
+- addwrite string
+- adddeny string
+- addpredict string
+- use useflag
+- usev useflag
+- useq useflag
+- has string list...
+- hasv string list...
+- hasq string list...
+- use_with useflag sting string
+- use_enable useflag string string
+- newdepend flag...
+- newrdepend string
+- newpdepend string
+- do_newdepend string string
+- preplib [directory]
+- preplib.so directory...
+
+
+** 自動で定義される命令 -- 2005 年の 12 月の addon [#a0d48a08]
+
+ebuild file 以外のファイルに使える共通関数です。sys-apps/baselayout が提供します。
+
+- esyslog flag tag message
+- einfo message
+- einfon message
+- ewarn message
+- eerror message
+- ebegin message
+- _eend number function message
+- eend number message
+- ewend number message
+- veinfo message
+- veinfon message
+- vewarn message
+- veerror message
+- vebegin message
+- veend message
+- vewend message
+- eindent number
+- eoutdent number
+- esetdent number
+- dolisting directory...
+- get_mount_fstab mountpoint
+- reverse_list list...
+- bash_variable string
+- requote string
+- is_net_fs directory
+- is_uml_sys
+- is_vserver_sys
+- is_xenU_sys
+- is_older_than filename path...
+- KV_major string
+- KV_minor string
+- KV_micro string
+- KV_to_int string
+- get_KV
+- get_bootconfig
+- setup_defaultlevels
+- get_libdir
+- get_bootparam string
+- get_base_ver()
+- add_suffix filename
+- import_addon
+- save_options filename string
+- get_options filename
+- start_addon servicename
+- start_volumes
+- stop_addon servicename
+- stop_volumes
+
+** 自動で定義される命令 -- eclass [#qf6b00a1]
+
+あるグループの ebuild file に利用出来そうなユーザ定義の関数です。phase まるごとを上書きする関数は便利です。/usr/portage/eclass にあります。継承する指示をすれば使えます。
+
+覚えても覚えなくとも良いと思いますが、サポートさせたいアーキテクチャを増やしたり、ヴァージョン間の違いを吸収してくれたり、マージ先を Gentoo の慣習に合わせたり、et al. が楽になります。カーネルのヴァージョンで動作を変えるなどは、 GPM/Ports System に求めず、eclass で記述するのが正しそうな判断になります。
+
+
+_____
+
+.. [GPMS] http://dev.gentoo.org/~spb/pms.pdf
+
+.. [GPM] http://wiki.gentoo.gr.jp/index.php?Gentoo_Package_Manager
+
+.. [repository] http://wiki.gentoo.gr.jp/index.php?repository に関連記事があります。
+
+.. [USE_flag] http://wiki.gentoo.gr.jp/index.php?USE_flag に関連記事があります。
+
+.. [profile] http://wiki.gentoo.gr.jp/index.php?profile に関連記事があります。
+
+.. [ebuild_metadata(ebuild-defined_variables)] http://wiki.gentoo.gr.jp/index.php?ebuild_metadata(ebuild-defined_variables) に関連記事があります。
+
+.. [the_ebuild_environment(defined_variables)] http://wiki.gentoo.gr.jp/index.php?the_ebuild_environment(defined_variables) に関連記事があります。
+
+.. [ebuild_phase(ebuild-defined_functions)] http://wiki.gentoo.gr.jp/index.php?ebuild_phase(ebuild-defined_functions) に関連記事があります。
+
+.. [the_ebuild_environment(defined_commands)] http://wiki.gentoo.gr.jp/index.php?the_ebuild_environment(defined_commands) に関連記事があります。
+
+.. [ebuild_files] http://wiki.gentoo.gr.jp/index.php?ebuild_files に関連記事があります。
+
+.. [Portage] http://www.gentoo.org/proj/en/portage/index.xml が公式サイトです。
+
+.. [Paludis] http://paludis.pioto.org/ が公式サイトです。
+
+
+
+________________
+
+
+- [[Gentoo_Package_Manager]], [[Portage]], [[Paludis]]
+- [[portageとその周辺ツール]], [[portageに関連しそうな言葉]]
+- [[ebuildパッケージ]], [[ebuildに関連しそうな言葉]]
+- [[memorandum_about_Paludis(1)]], [[memorandum_about_Paludis(2)]], [[memorandum_about_Paludis(3)]], [[memorandum_about_Paludis(4)]], [[memorandum_about_Paludis(5)]], [[memorandum_about_Paludis(6)]], [[memorandum_about_Paludis(7)]], [[memorandum_about_Paludis(8)]], [[memorandum_about_Paludis(9)]], [[memorandum_about_Paludis(10)]], [[memorandum_about_Paludis(11)]], [[memorandum_about_Paludis(12)]], [[memorandum_about_Paludis(13)]], [[memorandum_about_Paludis(14)]], [[memorandum_about_Paludis(15)]], [[memorandum_about_Paludis(16)]]
+- [[repository]], [[USE_flag]], [[profile]]
+- [[ebuild_files]], [[ebuild_metadata(ebuild-defined_variables)]], [[ebuild_phase(ebuild-defined_functions)]], [[the_ebuild_environment(defined_variables)]], [[the_ebuild_environment(defined_commands)]], [[bash_for_ebuild]]
+
+
+________________
+
+- [2005-09-19] 自分がソースコードを読んだ際のメモを基準にしています。独断と偏見が基準です。修正をお願いします。(yoshino)
+- [2006-07-09] 個人的に本家への案内を意識しています。「本家と関わる必要はないだろう」や「C や Python も必要じゃないか？」や「デベロッパ寄りのネタは書くべきでない」などは個々の意見があると思います。いろいろ考えたのですが、本家の一員にならなくともせっかくだから主催へ参加する雰囲気だけでも楽しみたいを選びました。 (yoshino)
+- [2007-05-04] GPMS をちょっと読んだので反映させましたが、間違っていると思います。気に入ったら書き足して下さい。 (yoshino)
